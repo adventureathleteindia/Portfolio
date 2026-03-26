@@ -48,9 +48,13 @@
         /* Page Layout */
         .page {
             max-width: 1100px;
-            margin: 0 auto;
-            padding: 40px;
-            min-height: 100vh;
+            margin: 0 auto 0 auto;
+            padding: 48px 52px 40px;
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        .page:last-child {
+            border-bottom: none;
         }
 
         /* Cover Page */
@@ -60,6 +64,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            min-height: 100vh;
             background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-bg) 100%);
         }
 
@@ -124,7 +129,7 @@
         .section-header {
             border-bottom: 3px solid var(--color-primary);
             padding-bottom: 12px;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
         }
 
         .section-header h2 {
@@ -664,7 +669,7 @@
     <!-- Page 1: Cover -->
     <div class="page cover-page">
         <h1>ATUL CHAUHAN</h1>
-        <div class="subtitle">Business Analyst — Process &amp; Delivery Specialist</div>
+        <div class="subtitle">Business Analyst</div>
         <div class="tagline">
             Specialising in process modelling, operational analysis, and requirements documentation. I map how things work today, identify gaps, and translate findings into clear specifications that teams can act on.
         </div>
@@ -874,18 +879,6 @@
             <div class="method-card">
                 <h4>Lean</h4>
                 <p>Minimum viable documentation, rapid validation, eliminating waste. Perfect for startups and MVPs.</p>
-            </div>
-            <div class="method-card">
-                <h4>Six Sigma</h4>
-                <p>Data-driven process improvement and defect reduction. Applied to optimize workflows and quality.</p>
-            </div>
-            <div class="method-card">
-                <h4>Design Thinking</h4>
-                <p>User-centered approach starting with empathy, ideation, and prototyping before development.</p>
-            </div>
-            <div class="method-card">
-                <h4>Hybrid</h4>
-                <p>Combining methodologies based on project needs - Agile development with Waterfall documentation.</p>
             </div>
         </div>
 
