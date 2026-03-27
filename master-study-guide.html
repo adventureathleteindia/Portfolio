@@ -680,6 +680,7 @@
                     <a href="#projects" class="nav-item">Project Deep-Dives</a>
                     <a href="#compliance" class="nav-item">Compliance</a>
                     <a href="#cms-fhir" class="nav-item">CMS-0057-F &amp; FHIR</a>
+                    <a href="#bpmn" class="nav-item">BPMN</a>
                     <a href="#babok-guide" class="nav-item">BABOK Guide</a>
                     <a href="#ba-docs" class="nav-item">BA Doc Types</a>
                     <a href="#ba-checklists" class="nav-item">BA Checklists</a>
@@ -6894,6 +6895,176 @@ END
 
                 <h4>Q: What is Atrezzo and have you used it?</h4>
                 <p style="background: #f0f9ff; border-left: 4px solid #3B82F6; padding: 12px; margin: 8px 0;">"I haven't used Atrezzo directly, but I understand it's a UM platform for managing prior authorization workflows on the payer side. My job wouldn't be to operate it — it would be to document what it currently does, identify where it falls short of CMS-0057-F requirements, and define what needs to be configured or built. That gap analysis is core BA work I've done before, just in different systems."</p>
+            </div>
+        </details>
+
+    </div>
+
+    <!-- ============================================== -->
+    <!-- ============================================== -->
+    <!-- SECTION: BPMN -->
+    <!-- ============================================== -->
+    <div class="section" id="bpmn">
+        <h2 class="section-title">BPMN — Business Process Model &amp; Notation</h2>
+        <p style="margin-bottom: 20px;">BPMN is the standard visual language for drawing business processes. If someone asks "can you model a process?" — BPMN is what they mean. You already do this work. This section gives you the vocabulary to talk about it correctly.</p>
+
+        <details class="collapsible" open>
+            <summary style="font-size: 13pt; font-weight: 600; color: var(--color-primary-dark); cursor: pointer; padding: 12px 0;">What is BPMN? (30-second answer)</summary>
+            <div class="detail-content">
+                <p>BPMN (Business Process Model and Notation) is a standardised way to draw flowcharts that show how a business process works — who does what, in what order, and what decisions are made along the way. It's used by BAs and process analysts to document current-state and future-state workflows before development begins.</p>
+                <p style="margin-top: 12px;"><strong>Tools that use BPMN:</strong> Miro, Draw.io, Lucidchart, Bizagi, Camunda — all support BPMN notation. You've been drawing these already; this is just the formal name and vocabulary.</p>
+            </div>
+        </details>
+
+        <details class="collapsible">
+            <summary style="font-size: 13pt; font-weight: 600; color: var(--color-primary-dark); cursor: pointer; padding: 12px 0;">Core Elements — The Building Blocks</summary>
+            <div class="detail-content">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px;">
+
+                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
+                        <h4 style="color: #334155; margin-bottom: 10px;">Events (Circles)</h4>
+                        <ul>
+                            <li><strong>Start Event</strong> — thin circle. Where the process begins.</li>
+                            <li><strong>End Event</strong> — thick circle. Where it ends.</li>
+                            <li><strong>Intermediate Event</strong> — double circle. Something that happens mid-process (e.g. timer, message received).</li>
+                        </ul>
+                        <p style="margin-top: 10px; font-size: 10pt; color: #6B7280;">Think of events as triggers and outcomes — things that happen TO the process.</p>
+                    </div>
+
+                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
+                        <h4 style="color: #334155; margin-bottom: 10px;">Activities (Rectangles)</h4>
+                        <ul>
+                            <li><strong>Task</strong> — rounded rectangle. A single unit of work done by a person or system.</li>
+                            <li><strong>Sub-Process</strong> — rounded rectangle with a + sign. A task that has its own process inside it (collapsed for clarity).</li>
+                        </ul>
+                        <p style="margin-top: 10px; font-size: 10pt; color: #6B7280;">Activities are the actual work being done — "Submit Form", "Review Request", "Send Notification".</p>
+                    </div>
+
+                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
+                        <h4 style="color: #334155; margin-bottom: 10px;">Gateways (Diamonds)</h4>
+                        <ul>
+                            <li><strong>Exclusive (X)</strong> — only ONE path is taken. "If approved → go to A. If denied → go to B."</li>
+                            <li><strong>Parallel (+)</strong> — ALL paths happen simultaneously. "Send email AND create record."</li>
+                            <li><strong>Inclusive (O)</strong> — ONE OR MORE paths. "If condition met, take that path."</li>
+                        </ul>
+                        <p style="margin-top: 10px; font-size: 10pt; color: #6B7280;">Gateways are decision points. Most processes use Exclusive gateways most of the time.</p>
+                    </div>
+
+                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
+                        <h4 style="color: #334155; margin-bottom: 10px;">Swimlanes (Pools &amp; Lanes)</h4>
+                        <ul>
+                            <li><strong>Pool</strong> — the entire process container. Usually represents one organisation.</li>
+                            <li><strong>Lane</strong> — a horizontal or vertical band inside the pool. Represents a role or department.</li>
+                        </ul>
+                        <p style="margin-top: 10px; font-size: 10pt; color: #6B7280;">Swimlanes show WHO is responsible for each activity. This is what makes BPMN useful for showing handoffs between teams.</p>
+                    </div>
+
+                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
+                        <h4 style="color: #334155; margin-bottom: 10px;">Flows (Arrows)</h4>
+                        <ul>
+                            <li><strong>Sequence Flow</strong> — solid arrow. Shows the order of activities.</li>
+                            <li><strong>Message Flow</strong> — dashed arrow. Shows communication between two separate pools/organisations.</li>
+                            <li><strong>Association</strong> — dotted line. Links an annotation or artefact to an element.</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
+                        <h4 style="color: #334155; margin-bottom: 10px;">Artefacts</h4>
+                        <ul>
+                            <li><strong>Data Object</strong> — document icon. A piece of data used or produced by a task.</li>
+                            <li><strong>Annotation</strong> — bracket with text. A note explaining something in the diagram.</li>
+                            <li><strong>Group</strong> — dashed box. Visually groups related activities without affecting flow.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </details>
+
+        <details class="collapsible">
+            <summary style="font-size: 13pt; font-weight: 600; color: var(--color-primary-dark); cursor: pointer; padding: 12px 0;">BPMN vs Flowchart vs Swimlane — What's the difference?</summary>
+            <div class="detail-content">
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 10.5pt; margin-top: 8px;">
+                        <thead>
+                            <tr style="background: #334155; color: white;">
+                                <th style="padding: 10px; text-align: left; border: 1px solid #475569;">Type</th>
+                                <th style="padding: 10px; text-align: left; border: 1px solid #475569;">What it is</th>
+                                <th style="padding: 10px; text-align: left; border: 1px solid #475569;">When to use</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: #f8fafc;">
+                                <td style="padding: 10px; border: 1px solid #e2e8f0;"><strong>Flowchart</strong></td>
+                                <td style="padding: 10px; border: 1px solid #e2e8f0;">Simple boxes and arrows. No standard notation. Anyone can read it.</td>
+                                <td style="padding: 10px; border: 1px solid #e2e8f0;">Quick stakeholder communication, early discovery, non-technical audiences</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #e2e8f0;"><strong>Swimlane Diagram</strong></td>
+                                <td style="padding: 10px; border: 1px solid #e2e8f0;">A flowchart with lanes showing who does what. Shows handoffs clearly.</td>
+                                <td style="padding: 10px; border: 1px solid #e2e8f0;">Cross-functional processes, showing role responsibilities, identifying handoff gaps</td>
+                            </tr>
+                            <tr style="background: #f8fafc;">
+                                <td style="padding: 10px; border: 1px solid #e2e8f0;"><strong>BPMN</strong></td>
+                                <td style="padding: 10px; border: 1px solid #e2e8f0;">Standardised notation with specific symbols. Precise and tool-agnostic.</td>
+                                <td style="padding: 10px; border: 1px solid #e2e8f0;">Formal process documentation, process automation specs, enterprise BA work</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #e2e8f0;"><strong>UML Activity Diagram</strong></td>
+                                <td style="padding: 10px; border: 1px solid #e2e8f0;">Similar to BPMN but from software engineering. More technical.</td>
+                                <td style="padding: 10px; border: 1px solid #e2e8f0;">When working closely with developers on system behaviour</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="margin-top: 14px; font-size: 10.5pt; color: #475569;"><strong>In practice:</strong> Most BAs draw swimlane diagrams in Miro or Draw.io and call them BPMN-style diagrams. You don't need to be strictly BPMN 2.0 compliant to be credible — just know the vocabulary and use the right shapes.</p>
+            </div>
+        </details>
+
+        <details class="collapsible">
+            <summary style="font-size: 13pt; font-weight: 600; color: var(--color-primary-dark); cursor: pointer; padding: 12px 0;">Current State vs Future State — How to Approach It</summary>
+            <div class="detail-content">
+                <p>One of the most common BA deliverables is a Current State / Future State process model. This is what Wardell asked for specifically.</p>
+
+                <h4>Current State (As-Is):</h4>
+                <ul>
+                    <li>Document what actually happens today — not what should happen</li>
+                    <li>Interview people who do the work, not just managers</li>
+                    <li>Show all the manual steps, workarounds, exceptions, and pain points</li>
+                    <li>Use annotations to flag problems: "this step takes 3 days", "done via email", "no system of record"</li>
+                </ul>
+
+                <h4>Future State (To-Be):</h4>
+                <ul>
+                    <li>Show the improved process after the change/system is in place</li>
+                    <li>Highlight what's been automated, removed, or moved to a different role</li>
+                    <li>Use a different colour or style to make changes obvious</li>
+                    <li>Keep it aligned to what's actually being built — don't invent features</li>
+                </ul>
+
+                <h4>Gap Analysis:</h4>
+                <p>The gap between Current and Future State is your requirements list. Every difference = a requirement. This is the core BA deliverable.</p>
+
+                <p style="margin-top: 14px; background: #f0f9ff; border-left: 4px solid #3B82F6; padding: 12px;"><strong>Your example to use:</strong> "On the Vehicle Auction project I mapped the full bidding workflow — starting with a high-level business owner journey, then drilling into the detailed step-by-step flow after stakeholder discussions. The two diagrams together showed what changed through the requirements process." That's current vs future state thinking in practice.</p>
+            </div>
+        </details>
+
+        <details class="collapsible">
+            <summary style="font-size: 13pt; font-weight: 600; color: var(--color-primary-dark); cursor: pointer; padding: 12px 0;">Interview Talking Points — What to Say</summary>
+            <div class="detail-content">
+
+                <h4>Q: Are you familiar with BPMN?</h4>
+                <p style="background: #f0f9ff; border-left: 4px solid #3B82F6; padding: 12px; margin: 8px 0;">"Yes — I use BPMN notation as my standard for process modelling. I typically start with a high-level flow to align stakeholders on the end-to-end picture, then go deeper into swimlane diagrams that show roles, handoffs, and decision points. I work primarily in Miro. For the Vehicle Auction project I mapped the complete bidding workflow from dealer onboarding to winner selection — that's a good example of how I approach it."</p>
+
+                <h4>Q: Walk me through how you create a process model</h4>
+                <p style="background: #f0f9ff; border-left: 4px solid #3B82F6; padding: 12px; margin: 8px 0;">"I start with a mind map or rough sketch to get the big picture — what are the main stages, who's involved, what triggers the process. Then I draw a high-level flow diagram to validate with stakeholders that I've understood the scope correctly. Once that's agreed, I go into a detailed swimlane diagram that maps each role's responsibilities, the sequence of tasks, decision points, and edge cases. The detailed diagram is what I hand off to the dev team alongside the user stories."</p>
+
+                <h4>Q: What's the difference between a swimlane diagram and a process map?</h4>
+                <p style="background: #f0f9ff; border-left: 4px solid #3B82F6; padding: 12px; margin: 8px 0;">"A process map shows what happens and in what order. A swimlane diagram adds the who — each lane represents a role or team, so it's clear who is responsible for each step and where handoffs happen. For cross-functional work, swimlanes are almost always more useful because they surface the coordination gaps that cause delays."</p>
+
+                <h4>Q: How do you handle exceptions and edge cases in a process model?</h4>
+                <p style="background: #f0f9ff; border-left: 4px solid #3B82F6; padding: 12px; margin: 8px 0;">"I use exclusive gateways at decision points and branch out the alternate paths. For major exceptions I'll add a separate flow or sub-process. For minor ones I use annotations so the diagram stays readable. The key is to capture them somewhere — even if it's just a note — so they don't get missed when writing acceptance criteria."</p>
+
             </div>
         </details>
 
