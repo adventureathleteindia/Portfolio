@@ -6919,65 +6919,102 @@ END
         <details class="collapsible">
             <summary style="font-size: 13pt; font-weight: 600; color: var(--color-primary-dark); cursor: pointer; padding: 12px 0;">Core Elements — The Building Blocks</summary>
             <div class="detail-content">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px;">
 
-                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
-                        <h4 style="color: #334155; margin-bottom: 10px;">Events (Circles)</h4>
-                        <ul>
-                            <li><strong>Start Event</strong> — thin circle. Where the process begins.</li>
-                            <li><strong>End Event</strong> — thick circle. Where it ends.</li>
-                            <li><strong>Intermediate Event</strong> — double circle. Something that happens mid-process (e.g. timer, message received).</li>
-                        </ul>
-                        <p style="margin-top: 10px; font-size: 10pt; color: #6B7280;">Think of events as triggers and outcomes — things that happen TO the process.</p>
+                <!-- EVENTS -->
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 14px;">
+                    <h4 style="color: #334155; margin-bottom: 14px;">Events (Circles) — things that happen TO the process</h4>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="flex-shrink:0; width:36px; height:36px; border-radius:50%; border:2px solid #334155; background:white;"></div>
+                            <div><strong>Start Event</strong> — thin circle. Where the process begins.</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="flex-shrink:0; width:36px; height:36px; border-radius:50%; border:5px solid #334155; background:white;"></div>
+                            <div><strong>End Event</strong> — thick border circle. Where the process ends.</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="flex-shrink:0; width:36px; height:36px; border-radius:50%; border:2px solid #334155; background:white; box-shadow: inset 0 0 0 4px white, inset 0 0 0 6px #334155;"></div>
+                            <div><strong>Intermediate Event</strong> — double circle. Something that happens mid-process (timer, message received).</div>
+                        </div>
                     </div>
-
-                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
-                        <h4 style="color: #334155; margin-bottom: 10px;">Activities (Rectangles)</h4>
-                        <ul>
-                            <li><strong>Task</strong> — rounded rectangle. A single unit of work done by a person or system.</li>
-                            <li><strong>Sub-Process</strong> — rounded rectangle with a + sign. A task that has its own process inside it (collapsed for clarity).</li>
-                        </ul>
-                        <p style="margin-top: 10px; font-size: 10pt; color: #6B7280;">Activities are the actual work being done — "Submit Form", "Review Request", "Send Notification".</p>
-                    </div>
-
-                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
-                        <h4 style="color: #334155; margin-bottom: 10px;">Gateways (Diamonds)</h4>
-                        <ul>
-                            <li><strong>Exclusive (X)</strong> — only ONE path is taken. "If approved → go to A. If denied → go to B."</li>
-                            <li><strong>Parallel (+)</strong> — ALL paths happen simultaneously. "Send email AND create record."</li>
-                            <li><strong>Inclusive (O)</strong> — ONE OR MORE paths. "If condition met, take that path."</li>
-                        </ul>
-                        <p style="margin-top: 10px; font-size: 10pt; color: #6B7280;">Gateways are decision points. Most processes use Exclusive gateways most of the time.</p>
-                    </div>
-
-                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
-                        <h4 style="color: #334155; margin-bottom: 10px;">Swimlanes (Pools &amp; Lanes)</h4>
-                        <ul>
-                            <li><strong>Pool</strong> — the entire process container. Usually represents one organisation.</li>
-                            <li><strong>Lane</strong> — a horizontal or vertical band inside the pool. Represents a role or department.</li>
-                        </ul>
-                        <p style="margin-top: 10px; font-size: 10pt; color: #6B7280;">Swimlanes show WHO is responsible for each activity. This is what makes BPMN useful for showing handoffs between teams.</p>
-                    </div>
-
-                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
-                        <h4 style="color: #334155; margin-bottom: 10px;">Flows (Arrows)</h4>
-                        <ul>
-                            <li><strong>Sequence Flow</strong> — solid arrow. Shows the order of activities.</li>
-                            <li><strong>Message Flow</strong> — dashed arrow. Shows communication between two separate pools/organisations.</li>
-                            <li><strong>Association</strong> — dotted line. Links an annotation or artefact to an element.</li>
-                        </ul>
-                    </div>
-
-                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
-                        <h4 style="color: #334155; margin-bottom: 10px;">Artefacts</h4>
-                        <ul>
-                            <li><strong>Data Object</strong> — document icon. A piece of data used or produced by a task.</li>
-                            <li><strong>Annotation</strong> — bracket with text. A note explaining something in the diagram.</li>
-                            <li><strong>Group</strong> — dashed box. Visually groups related activities without affecting flow.</li>
-                        </ul>
-                    </div>
-
                 </div>
+
+                <!-- ACTIVITIES -->
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 14px;">
+                    <h4 style="color: #334155; margin-bottom: 14px;">Activities (Rectangles) — the actual work being done</h4>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="flex-shrink:0; width:80px; height:36px; border-radius:8px; border:2px solid #334155; background:white; display:flex; align-items:center; justify-content:center; font-size:9pt; color:#334155; font-weight:600;">Task</div>
+                            <div><strong>Task</strong> — rounded rectangle. A single unit of work. e.g. "Submit Form", "Review Request".</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="flex-shrink:0; width:80px; height:36px; border-radius:8px; border:2px solid #334155; background:white; display:flex; align-items:center; justify-content:center; font-size:14pt; color:#334155; font-weight:600;">+</div>
+                            <div><strong>Sub-Process</strong> — rounded rectangle with a + sign. A task that has its own detailed process inside it.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GATEWAYS -->
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 14px;">
+                    <h4 style="color: #334155; margin-bottom: 14px;">Gateways (Diamonds) — decision points</h4>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="flex-shrink:0; width:40px; height:40px; background:white; border:2px solid #334155; transform:rotate(45deg); display:flex; align-items:center; justify-content:center;">
+                                <span style="transform:rotate(-45deg); font-size:14pt; font-weight:700; color:#334155;">✕</span>
+                            </div>
+                            <div><strong>Exclusive Gateway (X)</strong> — only ONE path taken. "If approved → A. If denied → B."</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="flex-shrink:0; width:40px; height:40px; background:white; border:2px solid #334155; transform:rotate(45deg); display:flex; align-items:center; justify-content:center;">
+                                <span style="transform:rotate(-45deg); font-size:16pt; font-weight:700; color:#334155;">+</span>
+                            </div>
+                            <div><strong>Parallel Gateway (+)</strong> — ALL paths happen at the same time. "Send email AND create record."</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="flex-shrink:0; width:40px; height:40px; background:white; border:2px solid #334155; transform:rotate(45deg); display:flex; align-items:center; justify-content:center;">
+                                <span style="transform:rotate(-45deg); font-size:14pt; font-weight:700; color:#334155;">○</span>
+                            </div>
+                            <div><strong>Inclusive Gateway (O)</strong> — one OR more paths. Flexible branching.</div>
+                        </div>
+                    </div>
+                    <p style="margin-top: 12px; font-size: 10pt; color: #6B7280;">Most processes use Exclusive gateways. When in doubt, use X.</p>
+                </div>
+
+                <!-- SWIMLANES -->
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 14px;">
+                    <h4 style="color: #334155; margin-bottom: 14px;">Swimlanes — show WHO does what</h4>
+                    <div style="border: 2px solid #334155; border-radius: 6px; overflow: hidden; margin-bottom: 12px;">
+                        <div style="background: #334155; color: white; padding: 6px 12px; font-size: 9pt; font-weight: 600;">Pool — Organisation / System</div>
+                        <div style="border-top: 2px solid #334155; padding: 8px 12px; font-size: 9pt; background: #e8f0fe;">Lane 1 — Role A (e.g. Provider)</div>
+                        <div style="border-top: 1px solid #94a3b8; padding: 8px 12px; font-size: 9pt; background: #f0fdf4;">Lane 2 — Role B (e.g. Payer)</div>
+                        <div style="border-top: 1px solid #94a3b8; padding: 8px 12px; font-size: 9pt; background: #fff7ed;">Lane 3 — Role C (e.g. Patient)</div>
+                    </div>
+                    <p style="font-size: 10pt; color: #6B7280;">Each lane holds the tasks that role is responsible for. Arrows crossing lanes = handoffs.</p>
+                </div>
+
+                <!-- FLOWS -->
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 14px;">
+                    <h4 style="color: #334155; margin-bottom: 14px;">Flows (Arrows)</h4>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="flex-shrink:0; width:80px; height:2px; background:#334155; position:relative;">
+                                <span style="position:absolute; right:-6px; top:-6px; font-size:14pt; color:#334155;">›</span>
+                            </div>
+                            <div><strong>Sequence Flow</strong> — solid arrow. Order of activities within a pool.</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="flex-shrink:0; width:80px; height:2px; background: repeating-linear-gradient(to right, #334155 0, #334155 6px, transparent 6px, transparent 12px); position:relative;">
+                                <span style="position:absolute; right:-6px; top:-6px; font-size:14pt; color:#334155;">›</span>
+                            </div>
+                            <div><strong>Message Flow</strong> — dashed arrow. Communication between two separate organisations.</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="flex-shrink:0; width:80px; height:2px; background: repeating-linear-gradient(to right, #94a3b8 0, #94a3b8 3px, transparent 3px, transparent 7px); position:relative;"></div>
+                            <div><strong>Association</strong> — dotted line. Links a note/annotation to an element.</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </details>
 
