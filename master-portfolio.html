@@ -650,12 +650,319 @@
             height: auto;
             display: block;
         }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 190px;
+            height: 100vh;
+            background: var(--color-primary-dark);
+            color: white;
+            padding: 20px 14px;
+            overflow-y: auto;
+            z-index: 100;
+            font-family: 'Inter', sans-serif;
+        }
+        .sidebar-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11pt;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 4px;
+        }
+        .sidebar-sub {
+            font-size: 8.5pt;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 20px;
+        }
+        .sidebar-label {
+            font-size: 7.5pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.35);
+            margin: 14px 0 4px;
+            padding-left: 8px;
+        }
+        .sidebar a {
+            display: block;
+            color: rgba(255,255,255,0.65);
+            text-decoration: none;
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 9pt;
+            margin-bottom: 1px;
+            transition: all 0.15s;
+            line-height: 1.4;
+        }
+        .sidebar a:hover { background: rgba(255,255,255,0.1); color: white; }
+
+        body { margin-left: 190px; }
+
+        @media print {
+            .sidebar { display: none; }
+            body { margin-left: 0; }
+        }
+
+        /* Domain color coding on project cards */
+        .project-card.healthcare { border-left-color: #059669; }
+        .project-card.fintech { border-left-color: #7C3AED; }
+        .project-card.other { border-left-color: #2563EB; }
+
+        .project-card.healthcare .project-badge.compliance { background: #D1FAE5; color: #065F46; }
+        .project-card.healthcare .project-badge:not(.compliance) { background: #ECFDF5; color: #065F46; }
+        .project-card.fintech .project-badge { background: #EDE9FE; color: #5B21B6; }
+        .project-card.other .project-badge { background: #DBEAFE; color: #1E40AF; }
+
+        /* My Role tags */
+        .role-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 10px 0 4px;
+        }
+        .role-tag {
+            background: white;
+            border: 1px solid var(--color-border);
+            color: var(--color-text-secondary);
+            font-size: 8.5pt;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+        .role-tags-label {
+            font-size: 8.5pt;
+            color: var(--color-text-secondary);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        /* Result highlight box */
+        .result-box {
+            background: #ECFDF5;
+            border-left: 3px solid #059669;
+            padding: 8px 14px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 12px;
+            font-size: 9.5pt;
+            color: #065F46;
+        }
+        .result-box strong { color: #047857; }
+
+        /* Drive link buttons (wardell style) */
+        .flow-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .flow-link-btn {
+            background: #334155;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 8.5pt;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: background 0.15s;
+        }
+        .flow-link-btn:hover { background: #1e293b; }
+
+        /* Work sample link buttons per project */
+        .work-sample-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .work-sample-btn {
+            background: var(--color-primary-light);
+            color: var(--color-primary-dark);
+            padding: 6px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 8.5pt;
+            font-weight: 600;
+            border: 1px solid var(--color-border);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.15s;
+        }
+        .work-sample-btn:hover { background: var(--color-primary); color: white; border-color: var(--color-primary); }
+
+        /* AI Capabilities section */
+        .ai-section {
+            background: linear-gradient(135deg, var(--color-primary-dark) 0%, #0f172a 100%);
+            border-radius: 12px;
+            padding: 32px;
+            color: white;
+            margin-bottom: 0;
+        }
+        .ai-section h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16pt;
+            margin-bottom: 6px;
+            color: white;
+        }
+        .ai-section .ai-subtitle {
+            font-size: 10.5pt;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 24px;
+        }
+        .ai-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .ai-card {
+            background: rgba(255,255,255,0.07);
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .ai-card h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10.5pt;
+            color: #7dd3fc;
+            margin-bottom: 6px;
+        }
+        .ai-card p {
+            font-size: 9.5pt;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.5;
+        }
+        .ai-tools-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .ai-tool-chip {
+            background: rgba(255,255,255,0.12);
+            color: rgba(255,255,255,0.9);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 9pt;
+            font-weight: 500;
+        }
+
+        /* Stats bar on cover */
+        .cover-stats {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            margin: 28px 0;
+            flex-wrap: wrap;
+        }
+        .cover-stat {
+            text-align: center;
+        }
+        .cover-stat-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 26pt;
+            font-weight: 700;
+            color: var(--color-primary);
+            line-height: 1;
+        }
+        .cover-stat-label {
+            font-size: 9pt;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+
+        /* Sample work cards (replacing tags) */
+        .sample-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .sample-card {
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 16px;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: all 0.2s;
+        }
+        .sample-card:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+        .sample-card-type {
+            font-size: 8pt;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .sample-card-type.healthcare { color: #059669; }
+        .sample-card-type.fintech { color: #7C3AED; }
+        .sample-card-type.general { color: #2563EB; }
+        .sample-card h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10.5pt;
+            color: var(--color-text);
+            margin-bottom: 6px;
+        }
+        .sample-card p {
+            font-size: 9pt;
+            color: var(--color-text-secondary);
+            line-height: 1.4;
+        }
+        .sample-card-footer {
+            margin-top: 10px;
+            font-size: 8.5pt;
+            color: var(--color-primary);
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
 
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="sidebar-logo">Atul Chauhan</div>
+        <div class="sidebar-sub">Business Analyst</div>
+
+        <div class="sidebar-label">Profile</div>
+        <a href="#cover">&#127968; Cover</a>
+        <a href="#about">&#128100; About Me</a>
+        <a href="#methodology">&#9881; Methodology</a>
+        <a href="#tools">&#128295; Tools</a>
+        <a href="#ai">&#129302; AI Capabilities</a>
+
+        <div class="sidebar-label">Healthcare</div>
+        <a href="#rpm">RPM + Billing</a>
+        <a href="#telehealth">Telehealth UK</a>
+        <a href="#behavioral">Behavioral Health</a>
+        <a href="#cozie">Cozie watchOS</a>
+        <a href="#supplement">Supplement Mgmt</a>
+
+        <div class="sidebar-label">Fintech & Other</div>
+        <a href="#payroll">Payroll System</a>
+        <a href="#legaldocs">Legal Docs</a>
+        <a href="#vehicleauction">Vehicle Auction</a>
+        <a href="#school">School Mgmt</a>
+
+        <div class="sidebar-label">More</div>
+        <a href="#domains">&#127758; Domains</a>
+        <a href="#samples">&#128203; Sample Work</a>
+        <a href="#contact">&#9993; Contact</a>
+    </nav>
+
     <!-- Page 1: Cover -->
-    <div class="page cover-page">
+    <div class="page cover-page" id="cover">
         <h1>ATUL CHAUHAN</h1>
         <div class="subtitle">Software Business Analyst</div>
         <div class="tagline">
@@ -667,13 +974,31 @@
             <span class="cover-badge">HIPAA/GDPR Compliant</span>
             <span class="cover-badge">Agile & Waterfall</span>
         </div>
+        <div class="cover-stats">
+            <div class="cover-stat">
+                <div class="cover-stat-number">15+</div>
+                <div class="cover-stat-label">Projects</div>
+            </div>
+            <div class="cover-stat">
+                <div class="cover-stat-number">5+</div>
+                <div class="cover-stat-label">Years</div>
+            </div>
+            <div class="cover-stat">
+                <div class="cover-stat-number">8</div>
+                <div class="cover-stat-label">Healthcare</div>
+            </div>
+            <div class="cover-stat">
+                <div class="cover-stat-number">6</div>
+                <div class="cover-stat-label">Countries</div>
+            </div>
+        </div>
         <div class="cover-contact">
             Shimla, India | atulpapta@gmail.com | <a href="https://www.linkedin.com/in/atul-chauhan-715b46199/">linkedin.com/in/atul-chauhan-715b46199</a>
         </div>
     </div>
 
     <!-- Page 2: About Me -->
-    <div class="page">
+    <div class="page" id="about">
         <div class="section-header">
             <h2>About Me</h2>
             <p>Background, education, and professional journey</p>
@@ -752,7 +1077,7 @@
     </div>
 
     <!-- Page 3: Methodology -->
-    <div class="page">
+    <div class="page" id="methodology">
         <div class="section-header">
             <h2>Methodology</h2>
             <p>How I approach requirements gathering and documentation</p>
@@ -820,7 +1145,7 @@
     </div>
 
     <!-- Page 4: Tools & Technologies -->
-    <div class="page">
+    <div class="page" id="tools">
         <div class="section-header">
             <h2>Tools & Technologies</h2>
             <p>Software and platforms I use daily</p>
@@ -888,6 +1213,16 @@
                     <span class="tool-tag">MS Office</span>
                 </div>
             </div>
+
+            <div class="tool-category" style="border-left: 3px solid #7C3AED; background: #faf5ff;">
+                <h4 style="color: #5B21B6;">AI Tools</h4>
+                <div class="tool-list">
+                    <span class="tool-tag primary" style="background: #EDE9FE; border-color: #7C3AED; color: #5B21B6;">Claude (Anthropic)</span>
+                    <span class="tool-tag">ChatGPT</span>
+                    <span class="tool-tag">Lovable</span>
+                    <span class="tool-tag">Gemini</span>
+                </div>
+            </div>
         </div>
 
         <div class="samples-note" style="margin-top: 40px;">
@@ -898,14 +1233,59 @@
         <div class="page-number">4</div>
     </div>
 
+    <!-- AI Capabilities -->
+    <div class="page" id="ai">
+        <div class="section-header">
+            <h2>AI Capabilities</h2>
+            <p>How I use AI to deliver faster, more accurate BA work</p>
+        </div>
+
+        <div class="ai-section">
+            <h3>AI-Augmented Business Analysis</h3>
+            <p class="ai-subtitle">Using AI tools daily — not as a shortcut, but to go deeper and move faster on every project.</p>
+
+            <div class="ai-grid">
+                <div class="ai-card">
+                    <h5>&#128295; Personal BA Toolkit (Claude)</h5>
+                    <p>Built and maintain an AI agent pipeline using Claude that automates requirement gathering, BRD drafting, and documentation across projects — cutting documentation time by 40-50%.</p>
+                </div>
+                <div class="ai-card">
+                    <h5>&#129302; Daily AI Workflow</h5>
+                    <p>Using Claude and ChatGPT daily for user story generation, gap analysis, process documentation, stakeholder communication, and competitive research.</p>
+                </div>
+                <div class="ai-card">
+                    <h5>&#128736; Rapid Prototyping (Lovable)</h5>
+                    <p>Used Lovable (AI app builder) to prototype functional product concepts without needing engineering support — validating ideas before any dev effort.</p>
+                </div>
+                <div class="ai-card">
+                    <h5>&#128279; MCP Integrations</h5>
+                    <p>Set up Claude MCP integrations with browser and PM tools to automate daily workflows — task tracking, document updates, research — creating a connected productivity system.</p>
+                </div>
+            </div>
+
+            <p style="font-size: 9.5pt; color: rgba(255,255,255,0.5); margin-bottom: 8px;">Tools in active use:</p>
+            <div class="ai-tools-row">
+                <span class="ai-tool-chip">Claude (Anthropic)</span>
+                <span class="ai-tool-chip">ChatGPT</span>
+                <span class="ai-tool-chip">Lovable</span>
+                <span class="ai-tool-chip">Gemini</span>
+                <span class="ai-tool-chip">Claude MCP</span>
+                <span class="ai-tool-chip">AI-Assisted BRD Drafting</span>
+                <span class="ai-tool-chip">User Story Generation</span>
+            </div>
+        </div>
+
+        <div class="page-number">5</div>
+    </div>
+
     <!-- Page 5: Healthcare Projects -->
-    <div class="page">
+    <div class="page" id="healthcare-section">
         <div class="section-header">
             <h2>Healthcare Projects</h2>
             <p>HIPAA/GDPR compliant platforms in telehealth, RPM, and mental health</p>
         </div>
 
-        <div class="project-card">
+        <div class="project-card healthcare" id="rpm">
             <div class="project-header">
                 <div class="project-title">Remote Patient Monitoring + Billing Platform</div>
                 <div class="project-meta">USA | Raftlabs</div>
@@ -923,6 +1303,28 @@
             <div class="project-features">
                 <strong>Key Features:</strong> Real-time vitals monitoring, clinical review workflows, automated CPT code billing,
                 provider dashboard, patient mobile app, audit trails for compliance.
+            </div>
+            <div style="margin-top: 10px;">
+                <div class="role-tags-label">My Role & Deliverables</div>
+                <div class="role-tags">
+                    <span class="role-tag">BRD</span>
+                    <span class="role-tag">FRD</span>
+                    <span class="role-tag">PRD</span>
+                    <span class="role-tag">User Stories</span>
+                    <span class="role-tag">Process Flows</span>
+                    <span class="role-tag">Wireframes</span>
+                </div>
+            </div>
+            <div class="result-box">
+                <strong>Outcome:</strong> HIPAA-compliant multi-tenant SaaS · CPT billing automated across 4 codes (99453, 99454, 99457, 99458) · 8 user roles across 3 tiers
+            </div>
+            <div style="margin-top: 10px;">
+                <div class="role-tags-label">&#128203; Work Samples from this Project</div>
+                <div class="work-sample-links">
+                    <a href="../02-work-samples/healthcare-brd-sample.html" target="_blank" class="work-sample-btn">&#8599; Healthcare BRD</a>
+                    <a href="../02-work-samples/healthcare-prd-sample.html" target="_blank" class="work-sample-btn">&#8599; Healthcare PRD</a>
+                    <a href="../02-work-samples/frd-sample.html" target="_blank" class="work-sample-btn">&#8599; FRD Document</a>
+                </div>
             </div>
             <div class="collapsible-section">
                 <div class="collapsible-toggle" onclick="toggleCollapsible(this)">
@@ -984,9 +1386,22 @@
                     </div>
                 </div>
             </div>
+            <div class="collapsible-section" style="border-top: none; padding-top: 0;">
+                <div class="collapsible-toggle" onclick="toggleCollapsible(this)">
+                    <h5>&#128300; Process Flows & Diagrams</h5>
+                    <span class="toggle-icon">&#9660;</span>
+                </div>
+                <div class="collapsible-content">
+                    <p style="font-size: 9.5pt; color: var(--color-text-secondary); margin-bottom: 10px;">Full-resolution flow diagrams created during requirements phase.</p>
+                    <p style="font-size: 8pt; font-weight: 600; color: #475569; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.04em;">&#128065; View diagrams</p>
+                    <div class="flow-links">
+                        <a href="https://www.figma.com/file/UPsTBAKbO89ZJggwtC1ulv/RPM-sample?type=design&node-id=0%3A1&mode=design" target="_blank" class="flow-link-btn">&#8599; RPM Flows in Figma</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card healthcare" id="telehealth">
             <div class="project-header">
                 <div class="project-title">Telehealth Platform</div>
                 <div class="project-meta">UK | Raftlabs</div>
@@ -1003,6 +1418,20 @@
             <div class="project-features">
                 <strong>Key Features:</strong> Video consultations, SOAP notes, prescription management, lab orders integration,
                 appointment scheduling, patient records, multi-provider support.
+            </div>
+            <div style="margin-top: 10px;">
+                <div class="role-tags-label">My Role & Deliverables</div>
+                <div class="role-tags">
+                    <span class="role-tag">BRD</span>
+                    <span class="role-tag">FRD</span>
+                    <span class="role-tag">User Stories</span>
+                    <span class="role-tag">Process Flows</span>
+                    <span class="role-tag">Wireframes</span>
+                    <span class="role-tag">UAT Sign-off</span>
+                </div>
+            </div>
+            <div class="result-box">
+                <strong>Outcome:</strong> HIPAA + GDPR compliant · 5 interconnected portals (Patient, GP, Admin, Pharmacy, Diagnostic) · End-to-end consultation-to-prescription workflow
             </div>
             <div class="collapsible-section">
                 <div class="collapsible-toggle" onclick="toggleCollapsible(this)">
@@ -1043,17 +1472,23 @@
                     <span class="toggle-icon">&#9660;</span>
                 </div>
                 <div class="collapsible-content">
-                    <div class="flow-image">
+                    <p style="font-size: 9.5pt; color: var(--color-text-secondary); margin-bottom: 10px;">System flow + full-resolution diagrams from requirements phase.</p>
+                    <p style="font-size: 8pt; font-weight: 600; color: #475569; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.04em;">&#128065; View full-resolution diagrams</p>
+                    <div class="flow-links">
+                        <a href="https://drive.google.com/file/d/14He3on7cNfzZQD6jTBjc4-v3pE3pMG/view?usp=sharing" target="_blank" class="flow-link-btn">&#8599; High-level flow</a>
+                        <a href="https://drive.google.com/file/d/17ceAMGAceJzChpWrr82W2xTVojV5pfCR/view?usp=sharing" target="_blank" class="flow-link-btn">&#8599; User flows</a>
+                    </div>
+                    <div class="flow-image" style="margin-top: 12px;">
                         <img src="assets/telehealth-flow.jpg" alt="Telehealth Platform Workflow">
                     </div>
                     <p style="font-size: 9pt; color: var(--color-text-secondary); margin-top: 8px; text-align: center;">
-                        Complete system flow showing Pharmacy, Admin, GP, Patient, and Diagnostic Center interactions
+                        Complete system flow — Pharmacy, Admin, GP, Patient, Diagnostic Center
                     </p>
                 </div>
             </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card healthcare" id="behavioral">
             <div class="project-header">
                 <div class="project-title">Behavioral Health Platform (Oasis / Adaptive Telehealth)</div>
                 <div class="project-meta">USA | Freelance</div>
@@ -1075,6 +1510,18 @@
                 <strong>Key Features:</strong> 100+ configurable features, 8 user roles, HIPAA-compliant video with screen-share,
                 clinical notes &amp; treatment plans, referral management with auto-routing, insurance billing,
                 e-prescriptions, biometric monitoring, peer support matching, automated workflows, client portal.
+            </div>
+            <div style="margin-top: 10px;">
+                <div class="role-tags-label">My Role & Deliverables</div>
+                <div class="role-tags">
+                    <span class="role-tag">Requirements Analysis</span>
+                    <span class="role-tag">Competitive Analysis</span>
+                    <span class="role-tag">Feature Breakdown</span>
+                    <span class="role-tag">User Stories</span>
+                </div>
+            </div>
+            <div class="result-box">
+                <strong>Outcome:</strong> Triple compliance (HIPAA + FERPA + 42 CFR Part 2) · 50+ configurable modules · 8 user roles · EHR integration via HL7/FHIR
             </div>
             <div class="collapsible-section">
                 <div class="collapsible-toggle" onclick="toggleCollapsible(this)">
@@ -1116,7 +1563,7 @@
             </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card healthcare" id="cozie">
             <div class="project-header">
                 <div class="project-title">Health Data Collection Platform (Cozie)</div>
                 <div class="project-meta">Singapore | smartData</div>
@@ -1133,6 +1580,18 @@
             <div class="project-features">
                 <strong>Key Features:</strong> HealthKit integration, environmental surveys, real-time data sync,
                 researcher dashboard, anonymized data export, multi-study support.
+            </div>
+            <div style="margin-top: 10px;">
+                <div class="role-tags-label">My Role & Deliverables</div>
+                <div class="role-tags">
+                    <span class="role-tag">Requirements Analysis</span>
+                    <span class="role-tag">Feature Breakdown</span>
+                    <span class="role-tag">User Stories</span>
+                    <span class="role-tag">Acceptance Criteria</span>
+                </div>
+            </div>
+            <div class="result-box">
+                <strong>Outcome:</strong> 20+ health parameters collected continuously · HealthKit + ResearchKit integration · NUS Singapore research deployment
             </div>
             <div class="collapsible-section">
                 <div class="collapsible-toggle" onclick="toggleCollapsible(this)">
@@ -1189,7 +1648,7 @@
             </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card healthcare" id="supplement">
             <div class="project-header">
                 <div class="project-title">Supplement Management Platform</div>
                 <div class="project-meta">Canada | smartData</div>
@@ -1206,6 +1665,19 @@
             <div class="project-features">
                 <strong>Key Features:</strong> Supplement scheduling, daily checklists, health condition mapping,
                 push notifications, adherence analytics, admin content management.
+            </div>
+            <div style="margin-top: 10px;">
+                <div class="role-tags-label">My Role & Deliverables</div>
+                <div class="role-tags">
+                    <span class="role-tag">Proposal</span>
+                    <span class="role-tag">Requirements</span>
+                    <span class="role-tag">User Stories</span>
+                    <span class="role-tag">Process Flows</span>
+                    <span class="role-tag">Feature Breakdown</span>
+                </div>
+            </div>
+            <div class="result-box">
+                <strong>Outcome:</strong> Freemium model · Many-to-many supplement–condition database with relevancy scoring · Won and delivered from proposal stage
             </div>
             <div class="collapsible-section">
                 <div class="collapsible-toggle" onclick="toggleCollapsible(this)">
@@ -1281,13 +1753,13 @@
     </div>
 
     <!-- Page 6: Fintech & Other Projects -->
-    <div class="page">
+    <div class="page" id="fintech-section">
         <div class="section-header">
             <h2>Fintech & Other Projects</h2>
             <p>Payroll, legal documents, automotive, and education platforms</p>
         </div>
 
-        <div class="project-card">
+        <div class="project-card fintech" id="payroll">
             <div class="project-header">
                 <div class="project-title">Payroll Management System</div>
                 <div class="project-meta">Current | Financial Docs</div>
@@ -1304,6 +1776,30 @@
             <div class="project-features">
                 <strong>Key Features:</strong> Automated payroll runs, tax calculations, direct deposits, compliance reports,
                 employee portal, leave management, multi-location support.
+            </div>
+            <div style="margin-top: 10px;">
+                <div class="role-tags-label">My Role & Deliverables</div>
+                <div class="role-tags">
+                    <span class="role-tag">BRD</span>
+                    <span class="role-tag">PRD</span>
+                    <span class="role-tag">FRD</span>
+                    <span class="role-tag">SOP</span>
+                    <span class="role-tag">User Manual</span>
+                    <span class="role-tag">UAT Sign-off</span>
+                    <span class="role-tag">Process Flows</span>
+                </div>
+            </div>
+            <div class="result-box">
+                <strong>Outcome:</strong> Late payroll feature covered 70-75% of support cases, shipped in 1 sprint · UAT: 92.8% pass rate across 42 test cases
+            </div>
+            <div style="margin-top: 10px;">
+                <div class="role-tags-label">&#128203; Work Samples from this Project</div>
+                <div class="work-sample-links">
+                    <a href="../02-work-samples/fintech-brd-payroll-sample.html" target="_blank" class="work-sample-btn">&#8599; Fintech BRD</a>
+                    <a href="../02-work-samples/fintech-prd-payroll-sample.html" target="_blank" class="work-sample-btn">&#8599; Fintech PRD</a>
+                    <a href="../02-work-samples/sop-sample.html" target="_blank" class="work-sample-btn">&#8599; SOP Document</a>
+                    <a href="../02-work-samples/uat-signoff-sample.html" target="_blank" class="work-sample-btn">&#8599; UAT Sign-off</a>
+                </div>
             </div>
             <div class="collapsible-section">
                 <div class="collapsible-toggle" onclick="toggleCollapsible(this)">
@@ -1375,7 +1871,7 @@
             </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card fintech" id="legaldocs">
             <div class="project-header">
                 <div class="project-title">Legal Document Automation Platform</div>
                 <div class="project-meta">Current | Financial Docs</div>
@@ -1391,6 +1887,19 @@
             <div class="project-features">
                 <strong>Key Features:</strong> Guided questionnaires, document templates, conditional logic, PDF generation,
                 e-signature integration, document storage.
+            </div>
+            <div style="margin-top: 10px;">
+                <div class="role-tags-label">My Role & Deliverables</div>
+                <div class="role-tags">
+                    <span class="role-tag">Requirements Analysis</span>
+                    <span class="role-tag">Competitive Analysis</span>
+                    <span class="role-tag">Process Flows</span>
+                    <span class="role-tag">Confluence Docs</span>
+                    <span class="role-tag">User Stories</span>
+                </div>
+            </div>
+            <div class="result-box">
+                <strong>Outcome:</strong> LawDepot competitive analysis documented on Confluence · Conditional clause logic defined · AI-assisted onboarding agent requirements scoped
             </div>
             <div class="collapsible-section">
                 <div class="collapsible-toggle" onclick="toggleCollapsible(this)">
@@ -1448,7 +1957,7 @@
             </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card other" id="vehicleauction">
             <div class="project-header">
                 <div class="project-title">Vehicle Auction Management Platform</div>
                 <div class="project-meta">Netherlands | Raftlabs</div>
@@ -1465,6 +1974,19 @@
             <div class="project-features">
                 <strong>Key Features:</strong> Dealer onboarding, vehicle listing, bidding engine, winner selection,
                 payment processing, logistics coordination.
+            </div>
+            <div style="margin-top: 10px;">
+                <div class="role-tags-label">My Role & Deliverables</div>
+                <div class="role-tags">
+                    <span class="role-tag">Feature Breakdown</span>
+                    <span class="role-tag">BRD</span>
+                    <span class="role-tag">Process Flows</span>
+                    <span class="role-tag">User Stories</span>
+                    <span class="role-tag">Wireframes</span>
+                </div>
+            </div>
+            <div class="result-box">
+                <strong>Outcome:</strong> C2B/B2B auction marketplace · Netherlands market · Structured bidding with dealer verification and transparent pricing
             </div>
             <div class="collapsible-section">
                 <div class="collapsible-toggle" onclick="toggleCollapsible(this)">
@@ -1504,11 +2026,18 @@
                     <span class="toggle-icon">&#9660;</span>
                 </div>
                 <div class="collapsible-content">
-                    <div class="flow-image">
+                    <p style="font-size: 9.5pt; color: var(--color-text-secondary); margin-bottom: 10px;">System flow + full-resolution workflow diagrams from requirements phase.</p>
+                    <p style="font-size: 8pt; font-weight: 600; color: #475569; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.04em;">&#128065; View full-resolution diagrams</p>
+                    <div class="flow-links">
+                        <a href="https://drive.google.com/file/d/1RtIadRW3XNrgHksxTk_s7jqr4Wev7KMM/view?usp=sharing" target="_blank" class="flow-link-btn">&#8599; High-level flow</a>
+                        <a href="https://drive.google.com/file/d/1Tf1vpdyGnSobOd-Fv0vOF2AWdD8_TVKd/view?usp=sharing" target="_blank" class="flow-link-btn">&#8599; Workflow before discussions</a>
+                        <a href="https://drive.google.com/file/d/1gQtJmlDtpJRCNJKe2GljKtJk7kKuiD59/view?usp=sharing" target="_blank" class="flow-link-btn">&#8599; Detailed workflow after discussions</a>
+                    </div>
+                    <div class="flow-image" style="margin-top: 12px;">
                         <img src="assets/vehicle-auction-flow.jpg" alt="Vehicle Auction Platform Flow">
                     </div>
                     <p style="font-size: 9pt; color: var(--color-text-secondary); margin-top: 8px; text-align: center;">
-                        High-level flow showing Customer Website, Super Admin, and Dealer Dashboard interactions
+                        High-level flow — Customer Website, Super Admin, Dealer Dashboard
                     </p>
                 </div>
             </div>
@@ -1536,7 +2065,7 @@
             </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card other" id="school">
             <div class="project-header">
                 <div class="project-title">School Management Platform</div>
                 <div class="project-meta">France | Raftlabs</div>
@@ -1553,6 +2082,18 @@
             <div class="project-features">
                 <strong>Key Features:</strong> Student enrollment, attendance tracking, grade management, parent portal,
                 teacher dashboard, timetable management, fee collection.
+            </div>
+            <div style="margin-top: 10px;">
+                <div class="role-tags-label">My Role & Deliverables</div>
+                <div class="role-tags">
+                    <span class="role-tag">Feature Breakdown</span>
+                    <span class="role-tag">Requirements Analysis</span>
+                    <span class="role-tag">User Stories</span>
+                    <span class="role-tag">Wireframes</span>
+                </div>
+            </div>
+            <div class="result-box">
+                <strong>Outcome:</strong> Multi-language (EN/FR) SaaS · 6 user roles across 5 portals · West and Central Africa school market
             </div>
             <div class="collapsible-section">
                 <div class="collapsible-toggle" onclick="toggleCollapsible(this)">
@@ -1628,7 +2169,7 @@
     </div>
 
     <!-- Page 7: Domains & Compliance -->
-    <div class="page">
+    <div class="page" id="domains">
         <div class="section-header">
             <h2>Domains & Compliance</h2>
             <p>Industry expertise and regulatory knowledge</p>
@@ -1700,62 +2241,86 @@
     </div>
 
     <!-- Page 8: Sample Work -->
-    <div class="page">
+    <div class="page" id="samples">
         <div class="section-header">
             <h2>Sample Work</h2>
-            <p>Examples of deliverables I create</p>
+            <p>Real deliverables — click to open full documents</p>
         </div>
 
-        <div class="tools-grid">
-            <div class="tool-category">
-                <h4>Business Requirements</h4>
-                <div class="tool-list">
-                    <span class="tool-tag">BRD Documents</span>
-                    <span class="tool-tag">FRD Documents</span>
-                    <span class="tool-tag">Gap Analysis</span>
-                </div>
-            </div>
-
-            <div class="tool-category">
-                <h4>Product Documentation</h4>
-                <div class="tool-list">
-                    <span class="tool-tag">PRD Documents</span>
-                    <span class="tool-tag">Feature Specs</span>
-                    <span class="tool-tag">User Guides</span>
-                    <span class="tool-tag">SOPs</span>
-                    <span class="tool-tag">SOW / Proposals</span>
-                    <span class="tool-tag">Effort Estimates</span>
-                    <span class="tool-tag">Risk Analysis</span>
-                    <span class="tool-tag">UAT Sign-offs</span>
-                </div>
-            </div>
-
-            <div class="tool-category">
-                <h4>Visual Artifacts</h4>
-                <div class="tool-list">
-                    <span class="tool-tag">Process Flowcharts</span>
-                    <span class="tool-tag">User Journey Maps</span>
-                    <span class="tool-tag">Wireframes</span>
-                    <span class="tool-tag">Data Flow Diagrams</span>
-                </div>
-            </div>
-
-            <div class="tool-category">
-                <h4>Agile Artifacts</h4>
-                <div class="tool-list">
-                    <span class="tool-tag">User Stories</span>
-                    <span class="tool-tag">Acceptance Criteria</span>
-                    <span class="tool-tag">Sprint Backlogs</span>
-                    <span class="tool-tag">Definition of Done</span>
-                </div>
-            </div>
+        <div class="sample-cards-grid">
+            <a href="../02-work-samples/healthcare-brd-sample.html" target="_blank" class="sample-card">
+                <div class="sample-card-type healthcare">Healthcare · BRD</div>
+                <h5>Healthcare BRD</h5>
+                <p>Remote Patient Monitoring platform — HIPAA compliance, BLE device integration, CPT billing codes</p>
+                <div class="sample-card-footer">Open document &#8599;</div>
+            </a>
+            <a href="../02-work-samples/healthcare-prd-sample.html" target="_blank" class="sample-card">
+                <div class="sample-card-type healthcare">Healthcare · PRD</div>
+                <h5>Healthcare PRD</h5>
+                <p>Product Requirements with personas, feature cards, success metrics, and release plan</p>
+                <div class="sample-card-footer">Open document &#8599;</div>
+            </a>
+            <a href="../02-work-samples/frd-sample.html" target="_blank" class="sample-card">
+                <div class="sample-card-type healthcare">Healthcare · FRD</div>
+                <h5>Functional Requirements (FRD)</h5>
+                <p>RPM platform — use cases, business rules, data entity schemas</p>
+                <div class="sample-card-footer">Open document &#8599;</div>
+            </a>
+            <a href="../02-work-samples/fintech-brd-payroll-sample.html" target="_blank" class="sample-card">
+                <div class="sample-card-type fintech">Fintech · BRD</div>
+                <h5>Fintech BRD</h5>
+                <p>Payroll Management System — tax compliance, multi-company support, statutory reporting</p>
+                <div class="sample-card-footer">Open document &#8599;</div>
+            </a>
+            <a href="../02-work-samples/fintech-prd-payroll-sample.html" target="_blank" class="sample-card">
+                <div class="sample-card-type fintech">Fintech · PRD</div>
+                <h5>Fintech PRD</h5>
+                <p>Payroll system product requirements with employee personas and compliance requirements</p>
+                <div class="sample-card-footer">Open document &#8599;</div>
+            </a>
+            <a href="../02-work-samples/sop-sample.html" target="_blank" class="sample-card">
+                <div class="sample-card-type fintech">Fintech · SOP</div>
+                <h5>Standard Operating Procedure</h5>
+                <p>Monthly Payroll Processing — 13 steps, timeline, exception handling, approval workflow</p>
+                <div class="sample-card-footer">Open document &#8599;</div>
+            </a>
+            <a href="../02-work-samples/uat-signoff-sample.html" target="_blank" class="sample-card">
+                <div class="sample-card-type fintech">Fintech · UAT</div>
+                <h5>UAT Sign-off Document</h5>
+                <p>Employee Onboarding Module — 42 test cases, 92.8% pass rate, defect summary</p>
+                <div class="sample-card-footer">Open document &#8599;</div>
+            </a>
+            <a href="../02-work-samples/proposal-sample.html" target="_blank" class="sample-card">
+                <div class="sample-card-type general">General · Proposal</div>
+                <h5>Project Proposal (SOW)</h5>
+                <p>Pet Day-Care Platform — MVP feature breakdown, timeline, tech stack, investment structure</p>
+                <div class="sample-card-footer">Open document &#8599;</div>
+            </a>
+            <a href="../02-work-samples/user-stories-sample.html" target="_blank" class="sample-card">
+                <div class="sample-card-type general">General · Agile</div>
+                <h5>User Stories Compilation</h5>
+                <p>16 user stories across 4 domains with Gherkin-style acceptance criteria</p>
+                <div class="sample-card-footer">Open document &#8599;</div>
+            </a>
+            <a href="../02-work-samples/process-flows-sample.html" target="_blank" class="sample-card">
+                <div class="sample-card-type general">General · Visual</div>
+                <h5>Process Flows Collection</h5>
+                <p>7 BPMN-style flows — EMR+PMS clinical workflow, telehealth, payroll processing</p>
+                <div class="sample-card-footer">Open document &#8599;</div>
+            </a>
+            <a href="../02-work-samples/user-manual-sample.html" target="_blank" class="sample-card">
+                <div class="sample-card-type fintech">Fintech · Manual</div>
+                <h5>User Manual</h5>
+                <p>Employee Portal — step-by-step guide across 8 sections including time off and pay stubs</p>
+                <div class="sample-card-footer">Open document &#8599;</div>
+            </a>
         </div>
 
         <div class="page-number">8</div>
     </div>
 
     <!-- Page 9: Contact -->
-    <div class="page contact-page">
+    <div class="page contact-page" id="contact">
         <div class="section-header">
             <h2>Let's Connect</h2>
             <p>Ready to discuss your project requirements</p>
