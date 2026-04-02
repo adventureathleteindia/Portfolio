@@ -686,6 +686,7 @@
                     <a href="#ba-checklists" class="nav-item">BA Checklists</a>
                     <a href="#proposal-template" class="nav-item">Proposal Template</a>
                     <a href="#interview" class="nav-item">Interview Prep</a>
+                    <a href="#interview" class="nav-item" style="padding-left: 20px; font-size: 9pt;">↳ 20 Core BA Questions</a>
                 </div>
             </nav>
         </aside>
@@ -8928,6 +8929,277 @@ And each data point should show date, time, and value
                 <div class="star-item"><strong>A:</strong> Shadowed actual prescription workflow, created visual process flow, documented edge cases (controlled substances, allergies), wrote detailed user stories with acceptance criteria.</div>
                 <div class="star-item"><strong>R:</strong> Development team understood context, fewer clarification questions, feature delivered with only 2 minor revision requests from clinical stakeholders.</div>
             </div>
+            </div>
+        </details>
+
+        <details class="collapsible">
+            <summary style="font-size: 13pt; font-weight: 600; color: var(--color-primary-dark); cursor: pointer; padding: 12px 0;">20 Core BA Interview Questions — Project-Based Answers</summary>
+            <div class="detail-content">
+
+                <p style="margin-bottom: 20px; font-size: 10.5pt; color: #475569; background: #fef9c3; border-left: 4px solid #eab308; padding: 12px; border-radius: 6px;">All answers below are tied to real projects. Speak in stories, not theory. The format is: situation → what you did → outcome.</p>
+
+                <!-- Q1 -->
+                <div class="qa-item">
+                    <div class="question">Q1. How do you handle conflicting requirements from multiple stakeholders?</div>
+                    <div class="answer">
+                        <p style="margin-bottom: 10px;">I don't try to resolve the conflict myself — my job is to surface it clearly so the right people can decide.</p>
+                        <p style="margin-bottom: 10px;"><strong>On the Vehicle Auction platform</strong>, three stakeholders had different views on how the bidding workflow should work. The business owner wanted instant buy-now, operations wanted a 24-hour minimum bidding window, and the dev lead had a different technical model in mind. I documented each view separately with their business justification, then mapped out where they contradicted each other. I ran a focused session where we looked at the conflict side by side — not "who's right" but "what does the business outcome require?" We agreed on one model, I documented the decision and the reasoning, and that became the reference. Nobody revisited it.</p>
+                        <p><strong>Rule I follow:</strong> document both sides, show the trade-off, escalate to the right decision-maker, then lock the decision in writing.</p>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="qa-item">
+                    <div class="question">Q2. Walk me through your approach to requirement gathering in an ambiguous project.</div>
+                    <div class="answer">
+                        <p style="margin-bottom: 10px;">When a project is ambiguous, I resist the urge to write requirements immediately. First I need to understand who the stakeholders are, what they each care about, and where their mental models differ.</p>
+                        <p style="margin-bottom: 10px;"><strong>On the RPM platform</strong>, I had two very different stakeholder groups: the clinical team (physicians, nurses) who thought in terms of patient care workflows, and the technical team who thought in terms of data flows and integrations. Neither spoke the other's language. The brief was "build a remote monitoring platform" — which meant completely different things to each group.</p>
+                        <p style="margin-bottom: 10px;">My approach:
+                            <ol style="margin: 8px 0; padding-left: 20px;">
+                                <li><strong>Separate interviews first</strong> — I spoke to the clinical team and the tech team independently. Asking them together early creates noise, not clarity. The clinical team told me what a patient care day actually looks like. The tech team told me what was feasible with BLE device integrations.</li>
+                                <li><strong>Map the gaps</strong> — after both interviews I had two versions of the product in my notes. I mapped where they aligned and where they contradicted.</li>
+                                <li><strong>Document assumptions explicitly</strong> — before writing a single requirement, I listed everything I was assuming: "Assuming one assigned physician per patient," "Assuming BLE readings are pushed to the app, not pulled," "Assuming CPT billing is automated, not manual." I shared this with both sides for sign-off.</li>
+                                <li><strong>Use process flows to align</strong> — I created a high-level patient journey flow — device pairing → vitals submission → threshold alert → clinical review → billing — and walked both groups through it together. That one diagram resolved more confusion than two weeks of email would have.</li>
+                                <li><strong>Write requirements only after alignment</strong> — the BRD came after both groups agreed on the flow, not before.</li>
+                            </ol>
+                        </p>
+                        <p>The result was a requirements document that both clinical and technical stakeholders could read and verify from their own perspective. No surprises in sprint reviews because everyone had agreed on the same picture before dev started.</p>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="qa-item">
+                    <div class="question">Q3. How do you ensure requirements are complete and testable?</div>
+                    <div class="answer">
+                        <p style="margin-bottom: 10px;">A requirement is complete when there's no room to misinterpret it. It's testable when a QA person can write a test case from it without asking me anything.</p>
+                        <p style="margin-bottom: 10px;">I use two checks: first, SMART — is the requirement Specific, Measurable, and free of vague words like "fast" or "user-friendly"? Second, Gherkin format for acceptance criteria — Given [context], When [action], Then [outcome]. If I can't write it in Given-When-Then without ambiguity, the requirement isn't done yet.</p>
+                        <p style="margin-bottom: 10px;"><strong>On the RPM platform</strong>, a requirement came in as "alert the doctor when vitals are abnormal." I broke that into: Given a patient's heart rate reading is received, When the value exceeds 100 bpm or falls below 50 bpm, Then a push notification is sent to the assigned physician within 60 seconds. That's testable. The original was not.</p>
+                        <p>I also run a review pass with QA before sprint starts — they catch gaps faster than anyone else.</p>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="qa-item">
+                    <div class="question">Q4. Explain a situation where a requirement changed mid-project. What did you do?</div>
+                    <div class="answer">
+                        <p style="margin-bottom: 10px;"><strong>On the Blink Payroll project</strong>, we were mid-sprint on the late payroll submission feature when the client came back and said the rules for contractor payments were different from employee payroll — they had been treating them the same initially. This was a significant change because it affected the calculation logic already in dev.</p>
+                        <p style="margin-bottom: 10px;">I did three things immediately: I documented the change clearly with the original requirement and the new one side by side, I did a quick impact analysis — what was already built, what needed to change, and how many hours it would add — and I presented that to the product lead and client in the same meeting so no one was surprised by the timeline shift. We agreed to pause the contractor logic, ship employee payroll as planned, and take contractor payments in the next sprint as a separate, properly scoped item.</p>
+                        <p><strong>Key principle:</strong> change is fine — undocumented change is dangerous. Log it, size it, decide together.</p>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="qa-item">
+                    <div class="question">Q5. How do you prioritize requirements when everything is "high priority"?</div>
+                    <div class="answer">
+                        <p style="margin-bottom: 10px;">When everything is high priority, nothing is. My job is to help stakeholders see that trade-off clearly, not just accept whatever they say.</p>
+                        <p style="margin-bottom: 10px;">I use MoSCoW — Must Have (product doesn't work without this), Should Have (important but workaround exists), Could Have (nice to have), Won't Have this release. The key is getting stakeholders to define what "must have" actually means in terms of the launch goal. If the launch goal is "patients can submit vitals and doctors get alerts," then anything outside that is a Should or Could.</p>
+                        <p style="margin-bottom: 10px;"><strong>On the RPM platform</strong>, the Phase 1 backlog had 40+ items marked "high priority" by the client. I ran a prioritization session where we mapped each item against two questions: does the product work without this at launch, and what's the user impact if it's delayed by one sprint? By the end, we had 12 Must Have items. The others went into a properly ordered Phase 2 backlog. The team had clarity and delivery became predictable.</p>
+                    </div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="qa-item">
+                    <div class="question">Q6. What's the difference between BRD, FRD, and User Stories in real scenarios?</div>
+                    <div class="answer">
+                        <p style="margin-bottom: 10px;">These three documents operate at different levels and serve different audiences.</p>
+                        <table style="font-size: 10pt; margin: 12px 0;">
+                            <tr><th>Document</th><th>Audience</th><th>Answers</th><th>Example from RPM</th></tr>
+                            <tr><td><strong>BRD</strong></td><td>Business stakeholders, product owner</td><td>WHY — business objectives, scope, constraints</td><td>"We need to monitor patient vitals remotely and submit CPT billing claims automatically"</td></tr>
+                            <tr><td><strong>FRD</strong></td><td>Development team, QA</td><td>WHAT + HOW — detailed functional specs, inputs/outputs, validations, edge cases</td><td>"When heart rate exceeds threshold X, system triggers alert Y within Z seconds; alert includes patient name, reading, timestamp, assigned physician"</td></tr>
+                            <tr><td><strong>User Story</strong></td><td>Scrum team, sprint planning</td><td>WHO does WHAT and WHY — sprint-level, with acceptance criteria</td><td>"As a physician, I want to receive a push notification when a patient's vitals exceed threshold so I can respond immediately"</td></tr>
+                        </table>
+                        <p>In practice: BRD is written at project start for sign-off. FRD comes after BRD, before dev starts. User Stories break the FRD into sprint-sized chunks. I've written all three — BRD and FRD for RPM, user stories across all projects.</p>
+                    </div>
+                </div>
+
+                <!-- Q7 -->
+                <div class="qa-item">
+                    <div class="question">Q7. How do you deal with stakeholders who don't know what they want?</div>
+                    <div class="answer">
+                        <p style="margin-bottom: 10px;">This is one of the most common situations in BA work. Stakeholders usually know what problem they have — they just don't know what solution looks like. My job is to help them see it.</p>
+                        <p style="margin-bottom: 10px;"><strong>On the Legal Document Platform</strong>, the client brief was "I want a document platform" — no more detail. I started by doing competitive analysis of existing products (LawDepot, Rocket Lawyer), then brought back a breakdown: here's what these products do, here's what user segments they serve, here's what's complex and expensive to build, here's what MVP would look like. Seeing concrete examples unlocked the conversation completely. Within one session the client had clear opinions: "I want this feature, not that one, this is the differentiator."</p>
+                        <p>Wireframes and competitor screenshots work better than blank whiteboards. Show them something concrete and they'll tell you what they want to change.</p>
+                    </div>
+                </div>
+
+                <!-- Q8 -->
+                <div class="qa-item">
+                    <div class="question">Q8. How do you validate that your solution actually solves the business problem?</div>
+                    <div class="answer">
+                        <p style="margin-bottom: 10px;">I define success criteria before any requirement is written — not after. If we can't agree on what "solved" looks like upfront, we'll never agree that we've delivered it.</p>
+                        <p style="margin-bottom: 10px;"><strong>On Blink Payroll</strong>, the business problem was "payroll submissions are delayed and HR spends too much time on corrections." So before writing requirements I anchored two success metrics: reduction in manual correction rate and time-to-submit for a standard payroll run. During UAT we specifically tested for those outcomes — not just "does the button work" but "can an HR manager complete a standard payroll run in under 15 minutes without errors?" The UAT sign-off included 42 test cases with a 92.8% pass rate, and the remaining defects were non-blocking.</p>
+                        <p>The BRD always starts with the business objective. Every requirement should trace back to it. If a requirement doesn't map to a business objective, it's probably scope creep.</p>
+                    </div>
+                </div>
+
+                <!-- Q9 -->
+                <div class="qa-item">
+                    <div class="question">Q9. Explain traceability and why it matters in projects.</div>
+                    <div class="answer">
+                        <p style="margin-bottom: 10px;">Traceability means every requirement can be traced forward to a design, a user story, a test case — and backward to the business objective that justified it. It's the thread that connects why we're building something to how we know it's done correctly.</p>
+                        <p style="margin-bottom: 10px;"><strong>Why it matters practically:</strong> when a requirement changes, you can immediately see everything downstream that's affected. When a defect is found, you can trace it back to the requirement and see if it was a gap in requirements or a gap in implementation.</p>
+                        <p style="margin-bottom: 10px;"><strong>On the RPM platform</strong>, HIPAA compliance made traceability non-negotiable. Every access control requirement had to trace to a specific HIPAA safeguard, which traced to a specific user story, which traced to a test case in the UAT plan. If an auditor asked "how do you know PHI is protected in the alert workflow," I could show the chain: business rule → FRD spec → user story → test case → UAT sign-off. That's traceability in practice, not theory.</p>
+                    </div>
+                </div>
+
+                <!-- Q10 -->
+                <div class="qa-item">
+                    <div class="question">Q10. How do you handle scope creep?</div>
+                    <div class="answer">
+                        <p style="margin-bottom: 10px;">Scope creep isn't always bad — sometimes the business genuinely learns something mid-project. The problem is undocumented scope creep that surprises the dev team and blows the timeline.</p>
+                        <p style="margin-bottom: 10px;"><strong>On the RPM platform</strong>, the client kept adding requests mid-sprint — "also add medication tracking," "add family member access." Each felt small. Cumulatively they were killing the sprint. I introduced a simple change log: every new request was documented with a size estimate (hours) and a decision — absorb into current sprint, add to backlog, or defer to Phase 2. I presented the trade-off clearly: "we can add this but it pushes the release by one sprint, or we park it for Phase 2 and ship on time." The client stopped making casual requests because they could see the cost each time.</p>
+                        <p>The change log became our defence and our alignment tool. Delivery got predictable after that.</p>
+                    </div>
+                </div>
+
+                <!-- Q11 -->
+                <div class="qa-item">
+                    <div class="question">Q11. What would you do if developers misunderstood your requirements?</div>
+                    <div class="answer">
+                        <p style="margin-bottom: 10px;">First thing: don't blame. A misunderstood requirement is usually a poorly written one. My job is to make requirements impossible to misinterpret, not to assume devs will figure it out.</p>
+                        <p style="margin-bottom: 10px;"><strong>On the Telehealth UK platform</strong>, the dev team built the e-prescription flow to allow any medication to be prescribed without a drug interaction check — they interpreted "prescribe medication" literally. The actual requirement included an interaction alert for known drug combinations. The misunderstanding came from an FRD that described the happy path but didn't spell out the edge case validation rules clearly enough.</p>
+                        <p style="margin-bottom: 10px;">My response: I updated the FRD immediately with explicit validation logic, ran a 30-minute walkthrough session with the dev lead — not to point fingers but to align on what the complete flow looked like including edge cases. Going forward I added a "dev walkthrough" step before each sprint: 15 minutes where I walk the team through the user stories for the sprint and they can flag anything unclear before a single line is coded.</p>
+                        <p>The fix is both immediate (clarify now) and structural (improve the process so it doesn't happen again).</p>
+                    </div>
+                </div>
+
+                <!-- Q12 -->
+                <div class="qa-item">
+                    <div class="question">Q12. How do you bridge the gap between business and technical teams?</div>
+                    <div class="answer">
+                        <p style="margin-bottom: 10px;">My B.Tech CS background helps here — I understand enough of the technical side to know when a requirement will cause a dev headache, and I can translate business language into something specific enough to build from.</p>
+                        <p style="margin-bottom: 10px;"><strong>On the Telehealth UK platform</strong>, doctors described the prescription workflow in clinical terms — "we need the system to handle controlled substances differently." Developers heard that and had no idea what "differently" meant technically. I sat with the clinical stakeholder first, mapped the full workflow in a process flow diagram — normal prescription, controlled substance flag, pharmacist notification, DEA Schedule check — then translated that into functional specs the dev team could act on. I ran a joint session where I walked through the flow diagram with both sides in the room. The clinical team confirmed the logic was right, the dev team could see exactly what to build.</p>
+                        <p>Process flows and wireframes are the universal language. They remove interpretation.</p>
+                    </div>
+                </div>
+
+                <!-- Q13 -->
+                <div class="qa-item">
+                    <div class="question">Q13. How do you perform impact analysis for a change request?</div>
+                    <div class="answer">
+                        <p style="margin-bottom: 10px;">Impact analysis answers: what is changing, what does it affect, what does it cost, and what's the risk if we do or don't do it.</p>
+                        <p style="margin-bottom: 10px;">My process:
+                            <ol style="margin: 8px 0; padding-left: 20px;">
+                                <li>Understand the change request fully before sizing anything</li>
+                                <li>Map affected areas — which features, user flows, data entities, integrations are touched</li>
+                                <li>Estimate effort — work with dev lead to size it in hours/story points</li>
+                                <li>Identify risk — what breaks if we make this change, what breaks if we don't</li>
+                                <li>Present options — absorb now (cost X), defer to next sprint, reject with reason</li>
+                                <li>Document the decision</li>
+                            </ol>
+                        </p>
+                        <p><strong>On the RPM platform</strong>, a mid-sprint request came in to add medication tracking. Impact analysis showed it touched the patient profile schema, the daily check-in flow, the notification engine, and the billing module — not a "small" feature. Sized at 3 dev days plus QA. That made the decision easy: defer to Phase 2 with a clear spec ready, deliver current sprint on time.</p>
+                    </div>
+                </div>
+
+                <!-- Q14 -->
+                <div class="qa-item">
+                    <div class="question">Q14. Explain a real project where you added measurable business value.</div>
+                    <div class="answer">
+                        <p style="margin-bottom: 10px;"><strong>Blink Payroll — Late Submission Feature:</strong></p>
+                        <p style="margin-bottom: 10px;">The ask was "handle late payroll submissions." When I dug into it with the support team, they said late submissions were their most common support ticket — but they had four different scenarios all being called "late": company started the run but forgot to submit, company never started, pay date already passed, pay date still upcoming. Each needed completely different handling.</p>
+                        <p style="margin-bottom: 10px;">I scoped it to the single highest-volume case — companies that started the run but forgot to submit, where pay date hadn't passed yet. Support data showed this was 70-75% of all late payroll tickets. The other three cases were parked with documented reasoning: "never started" needs a different UI entry point, "pay date passed" has compliance implications we weren't ready to tackle.</p>
+                        <p>We shipped in one sprint. That single scenario covered 70-75% of the support volume. The other three became a properly prioritised Phase 2 backlog. Without that scoping, we'd have tried to build all four in two sprints and shipped nothing clean.</p>
+                    </div>
+                </div>
+
+                <!-- Q15 -->
+                <div class="qa-item">
+                    <div class="question">Q15. How do you ensure UAT success?</div>
+                    <div class="answer">
+                        <p style="margin-bottom: 10px;">UAT success starts in requirements, not in the testing phase. If requirements were clear and testable, UAT is mostly verification. If requirements were vague, UAT becomes a negotiation — which is the worst time for that.</p>
+                        <p style="margin-bottom: 10px;">My approach:
+                            <ol style="margin: 8px 0; padding-left: 20px;">
+                                <li>Write acceptance criteria in Given-When-Then during sprint planning — so test cases are almost pre-written</li>
+                                <li>Involve QA in requirement reviews, not just at the end</li>
+                                <li>Define entry criteria upfront — what has to be true before UAT starts (no P0 bugs, demo environment stable)</li>
+                                <li>Define exit criteria — pass rate threshold, how defects are categorised, what's a blocker</li>
+                                <li>Manage stakeholder expectations — UAT is for validation, not discovery of new requirements</li>
+                            </ol>
+                        </p>
+                        <p><strong>On Blink Payroll</strong>, the UAT sign-off covered 42 test cases across the employee onboarding module. Pass rate was 92.8%. The 3 failed cases were documented, categorised (2 minor UI, 1 non-blocking logic edge case), and approved for post-launch fix with a clear timeline. Stakeholders signed off because they trusted the process and the documentation.</p>
+                    </div>
+                </div>
+
+                <!-- Q16 -->
+                <div class="qa-item">
+                    <div class="question">Q16. What metrics do you track as a Business Analyst?</div>
+                    <div class="answer">
+                        <p style="margin-bottom: 10px;">I track metrics at three levels — requirements quality, delivery health, and business outcome.</p>
+                        <table style="font-size: 10pt; margin: 12px 0;">
+                            <tr><th>Level</th><th>Metric</th><th>What it tells me</th></tr>
+                            <tr><td><strong>Requirements quality</strong></td><td>Requirements change rate mid-sprint</td><td>How stable my requirements are before dev starts</td></tr>
+                            <tr><td><strong>Requirements quality</strong></td><td>Defects traced to requirements gaps</td><td>Whether gaps in my documentation caused bugs</td></tr>
+                            <tr><td><strong>Delivery health</strong></td><td>UAT defect density (defects per feature)</td><td>Whether features were well-defined going into UAT</td></tr>
+                            <tr><td><strong>Delivery health</strong></td><td>Sprint carryover rate</td><td>Whether requirements were scoped correctly for the sprint</td></tr>
+                            <tr><td><strong>Business outcome</strong></td><td>Support ticket volume for shipped features</td><td>Whether the solution actually solved the user problem</td></tr>
+                        </table>
+                        <p>On Blink Payroll, after the late payroll feature shipped, the relevant support ticket category dropped significantly — that's the metric that mattered most, not the UAT pass rate.</p>
+                    </div>
+                </div>
+
+                <!-- Q17 -->
+                <div class="qa-item">
+                    <div class="question">Q17. How do you handle tight deadlines with incomplete information?</div>
+                    <div class="answer">
+                        <p style="margin-bottom: 10px;">Tight deadline + incomplete information is the normal state of most projects. The answer isn't to wait for perfect information — it's to be explicit about what you know, what you've assumed, and what risks those assumptions carry.</p>
+                        <p style="margin-bottom: 10px;"><strong>On the Adaptive Telehealth project</strong> during my freelance period, turnaround was fast and the client was still figuring out their full scope. Rather than waiting, I time-boxed the discovery: two days of research, competitive analysis, and one stakeholder call. From that I wrote an MVP scope document with assumptions clearly listed at the top — "Assuming single-provider model for Phase 1," "Assuming PHQ-9/GAD-7 are the only assessments in scope" — and presented it as "here's what I can define confidently right now, here's what needs your input before I go further."</p>
+                        <p>Assumptions documented are assumptions you can verify or correct. Assumptions unstated are time bombs.</p>
+                    </div>
+                </div>
+
+                <!-- Q18 -->
+                <div class="qa-item">
+                    <div class="question">Q18. How do you identify the root cause of a business problem?</div>
+                    <div class="answer">
+                        <p style="margin-bottom: 10px;">I use 5 Whys as the starting point — keep asking why until you hit a root cause, not a symptom. Most business problems presented to a BA are symptoms.</p>
+                        <p style="margin-bottom: 10px;"><strong>On Blink Payroll</strong>, the stated problem was "payroll is submitted late." That's a symptom.
+                            <br>Why? → HR forgets to submit after starting the run.
+                            <br>Why? → There's no reminder or deadline notification in the system.
+                            <br>Why? → The system treats "started" and "submitted" as the same status.
+                            <br>Why? → The original product didn't distinguish between the two states.
+                        </p>
+                        <p style="margin-bottom: 10px;">Root cause: missing state distinction in the payroll run lifecycle. The fix wasn't a reminder email — it was adding a distinct "pending submission" state with a deadline flag. The reminder was a downstream feature, not the root fix.</p>
+                        <p>If you solve the symptom you ship a workaround. If you solve the root cause you fix the problem.</p>
+                    </div>
+                </div>
+
+                <!-- Q19 -->
+                <div class="qa-item">
+                    <div class="question">Q19. Difference between functional vs non-functional requirements, with examples.</div>
+                    <div class="answer">
+                        <p style="margin-bottom: 10px;"><strong>Functional requirements</strong> define what the system does — the behaviour, the features, the actions.</p>
+                        <p style="margin-bottom: 10px;"><strong>Non-functional requirements</strong> define how well it does it — performance, security, reliability, compliance.</p>
+                        <table style="font-size: 10pt; margin: 12px 0;">
+                            <tr><th>Type</th><th>Example from RPM</th><th>Example from Payroll</th></tr>
+                            <tr><td><strong>Functional</strong></td><td>When heart rate exceeds 100 bpm, send a push notification to the assigned physician</td><td>System calculates gross-to-net pay based on federal and state tax tables</td></tr>
+                            <tr><td><strong>Non-functional</strong></td><td>All PHI data must be encrypted at rest (AES-256) and in transit (TLS 1.2+) — HIPAA requirement</td><td>Payroll run for up to 500 employees must complete within 30 seconds</td></tr>
+                            <tr><td><strong>Non-functional</strong></td><td>Vitals alert must be delivered within 60 seconds of reading submission</td><td>System must maintain 99.9% uptime during pay period windows</td></tr>
+                        </table>
+                        <p>A common mistake is treating non-functional requirements as optional or leaving them undefined. HIPAA compliance requirements are non-functional — but failing them is a legal issue, not a nice-to-have. I always list NFRs explicitly in the BRD alongside functional requirements.</p>
+                    </div>
+                </div>
+
+                <!-- Q20 -->
+                <div class="qa-item">
+                    <div class="question">Q20. Your project fails in production. What's your first step?</div>
+                    <div class="answer">
+                        <p style="margin-bottom: 10px;">Don't speculate. Don't blame. First step is to understand what actually failed — not what we think failed.</p>
+                        <p style="margin-bottom: 10px;">My immediate steps:
+                            <ol style="margin: 8px 0; padding-left: 20px;">
+                                <li><strong>Understand the failure precisely</strong> — what is broken, who is affected, what's the impact severity</li>
+                                <li><strong>Check the requirement</strong> — was the failure a gap in requirements, a gap in implementation, or an edge case that wasn't defined?</li>
+                                <li><strong>Triage</strong> — is this a rollback situation, a hotfix, or a configuration issue?</li>
+                                <li><strong>Communicate</strong> — tell stakeholders what's known, what's unknown, and what the next step is. Don't go quiet.</li>
+                                <li><strong>Document the root cause</strong> — after the fix, write a post-mortem that traces the failure back to its origin so it doesn't repeat</li>
+                            </ol>
+                        </p>
+                        <p style="margin-bottom: 10px;">From a BA perspective, production failures often trace back to either an untested edge case (which means the acceptance criteria weren't complete) or a requirement that was interpreted differently by dev and QA (which means the requirement wasn't clear enough).</p>
+                        <p>My job after a failure: ensure the requirement is corrected, the test case is added, and the gap is documented — so the next version doesn't fail the same way.</p>
+                    </div>
+                </div>
+
             </div>
         </details>
 
