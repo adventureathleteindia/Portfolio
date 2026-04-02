@@ -9203,6 +9203,276 @@ And each data point should show date, time, and value
             </div>
         </details>
 
+        <details class="collapsible" open>
+            <summary style="font-size: 13pt; font-weight: 600; color: var(--color-primary-dark); cursor: pointer; padding: 12px 0;">Round 1 &amp; Round 2 — BA Interview Questions (Process + Banking Domain)</summary>
+            <div class="detail-content">
+
+                <p style="margin-bottom: 20px; font-size: 10.5pt; color: #475569; background: #fef9c3; border-left: 4px solid #eab308; padding: 12px; border-radius: 6px;">Round 1 = General BA process questions. Round 2 = Banking/fintech domain + situational. All answers tied to real projects. Speak in stories — not theory.</p>
+
+                <p style="font-size: 11pt; font-weight: 700; color: #334155; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; margin-bottom: 16px;">ROUND 1 — General BA Process</p>
+
+                <!-- R1-Q1 -->
+                <div class="qa-item">
+                    <div class="question">R1-Q1. What is the practical difference between BRD, FRD, and User Stories in real projects?</div>
+                    <div class="answer">
+                        <p><strong>BRD (Business Requirements Document)</strong> — answers WHY and WHAT at the business level. Written for stakeholders and management before any development. Covers business goals, scope, constraints, and high-level requirements. On the RPM project, the BRD covered HIPAA compliance requirements, business objectives, and what the platform needed to achieve — not how it would work technically.</p>
+                        <p><strong>FRD (Functional Requirements Document)</strong> — answers HOW the system should behave. Written for the development team. Covers specific system functions, use cases, data flows, business rules, and edge cases. On the same RPM project, the FRD detailed CPT billing code logic, BLE device data sync intervals, alert thresholds, and user permission matrices.</p>
+                        <p><strong>User Stories</strong> — Agile format, short and user-centric. Who needs what and why. Accompanied by acceptance criteria that define done. Example from RPM: "As a provider, I want to view patient vitals on my dashboard so I can review readings without being on-site." Acceptance criteria locked what done actually meant.</p>
+                        <p style="background:#f0f9ff; border-left:3px solid #3b82f6; padding:10px; margin-top:8px;"><strong>In practice:</strong> BRD → FRD → User Stories is the waterfall path. In Agile, you may skip BRD and go straight to epics → user stories, using the FRD-equivalent detail inside the story's acceptance criteria and description. The level of documentation scales with project complexity and client formality.</p>
+                    </div>
+                </div>
+
+                <!-- R1-Q2 -->
+                <div class="qa-item">
+                    <div class="question">R1-Q2. How do you ensure requirement clarity in Agile where documentation is minimal?</div>
+                    <div class="answer">
+                        <p>Documentation being minimal doesn't mean clarity is optional — it just means the conversation IS the documentation. My approach:</p>
+                        <p><strong>1. Acceptance criteria are non-negotiable.</strong> Every story gets clear, testable done criteria before it enters a sprint. "User can submit form" is not a story. "User submits form → validation runs → success toast shown → data saved to DB → confirmation email sent within 2 minutes" is.</p>
+                        <p><strong>2. Refinement before sprint, not during.</strong> At Raftlabs, stories that weren't clear enough didn't go into sprint. We ran refinement calls 2–3 days before sprint start — BA, dev, and QA together. If the dev had a question during refinement, it got answered then. Not at 2am when they're coding.</p>
+                        <p><strong>3. Visual aids supplement text.</strong> A process flow or wireframe removes ambiguity faster than three paragraphs. On the Telehealth UK project, I drew out the 5-portal flow before writing a single story — every dev knew exactly which portal did what before sprint day one.</p>
+                        <p><strong>4. Capture decisions in Jira comments.</strong> Any clarification given verbally gets logged in the ticket immediately. No orphan decisions floating in someone's memory.</p>
+                        <p style="background:#f0f9ff; border-left:3px solid #3b82f6; padding:10px; margin-top:8px;"><strong>Result:</strong> On the School Management project (8 modules, 6 user roles), we ran 8 sprints with zero "this isn't what I meant" moments at UAT — because requirement clarity was enforced at refinement, not discovered at demo.</p>
+                    </div>
+                </div>
+
+                <!-- R1-Q3 -->
+                <div class="qa-item">
+                    <div class="question">R1-Q3. In Waterfall, how do you make sure requirement sign-off is actually meaningful?</div>
+                    <div class="answer">
+                        <p>A signature without understanding is just liability transfer. Meaningful sign-off requires three things:</p>
+                        <p><strong>1. Walkthrough, not email.</strong> Don't send a 50-page BRD and ask for a signature. Walk stakeholders through it section by section. On the Telehealth UK project, I ran a structured walkthrough with both the clinical and technical stakeholders — going through each portal's flow, user roles, and edge cases. They signed off on what they'd actually reviewed, not what they'd received.</p>
+                        <p><strong>2. Plain language alongside technical spec.</strong> Business stakeholders don't read data entity schemas. I always included a plain-English summary of what each section meant in business terms — so the person signing could actually validate it.</p>
+                        <p><strong>3. Change control process after sign-off.</strong> Sign-off without a change control process means it's treated as a suggestion. I established upfront: anything changing after sign-off goes through a change request — impact assessment, timeline impact, approval. This made stakeholders take sign-off seriously because they knew reverting it had a cost.</p>
+                        <p style="background:#f0f9ff; border-left:3px solid #3b82f6; padding:10px; margin-top:8px;"><strong>Key principle:</strong> Get sign-off from the decision maker, not the coordinator. A project manager signing the BRD on behalf of a director who never read it is not sign-off — it's a future dispute.</p>
+                    </div>
+                </div>
+
+                <!-- R1-Q4 -->
+                <div class="qa-item">
+                    <div class="question">R1-Q4. What is RTM and how do you use it in real projects?</div>
+                    <div class="answer">
+                        <p><strong>RTM = Requirements Traceability Matrix.</strong> A document that maps every requirement to its corresponding test case(s) and tracks test/UAT status. Columns typically: Req ID | Requirement | Test Case ID | Test Status | UAT Status | Defect ID (if failed).</p>
+                        <p><strong>Why it matters:</strong> Without RTM, you can't answer "has every requirement been tested?" or "if this requirement changes, which test cases break?" You're flying blind on coverage.</p>
+                        <p><strong>On the RPM project:</strong> Every HIPAA compliance requirement and CPT billing rule was in the RTM. Before UAT sign-off, I ran through the matrix with the QA lead — any requirement without a corresponding passed test case was a blocker. We caught two billing edge cases that hadn't been tested because the RTM flagged them as untested. Without it, those would've gone to prod.</p>
+                        <p><strong>On the Payroll project:</strong> The RTM was especially important for statutory compliance requirements — PF, ESI, TDS calculations. Each statutory rule had a test case. When the client changed a TDS threshold mid-project, the RTM immediately showed which 4 test cases needed to be re-run.</p>
+                        <p style="background:#f0f9ff; border-left:3px solid #3b82f6; padding:10px; margin-top:8px;"><strong>Also useful for impact analysis:</strong> When a requirement changes, look it up in the RTM → see which test cases are linked → re-run exactly those. No guessing what broke.</p>
+                    </div>
+                </div>
+
+                <!-- R1-Q5 -->
+                <div class="qa-item">
+                    <div class="question">R1-Q5. How do you handle requirement changes mid-sprint in Agile?</div>
+                    <div class="answer">
+                        <p><strong>First rule: protect sprint integrity.</strong> A sprint is a commitment. Accepting mid-sprint changes without process destroys velocity and trust.</p>
+                        <p><strong>My approach:</strong></p>
+                        <p><strong>Step 1 — Assess urgency.</strong> Is this a compliance/blocker issue (must fix now) or a preference change (can wait)? 90% of "urgent" mid-sprint requests can wait one sprint.</p>
+                        <p><strong>Step 2 — If truly critical:</strong> Bring to the team, assess the size, remove something equivalent from the sprint to make room. No free additions. The sprint has a capacity — something goes out for something to come in.</p>
+                        <p><strong>Step 3 — If can wait:</strong> Log it in the backlog, acknowledge it to the requester with an ETA, prioritize for the next sprint in planning.</p>
+                        <p><strong>Step 4 — Document the reason.</strong> Why was this change requested? Scope creep or genuine discovery? This pattern shows up in retrospectives and helps prevent recurrence.</p>
+                        <p style="background:#f0f9ff; border-left:3px solid #3b82f6; padding:10px; margin-top:8px;"><strong>At Raftlabs:</strong> UK Telehealth client regularly sent mid-sprint change requests. I implemented a simple rule: all changes go into a "change log" Jira ticket. Every Friday I'd review with the client — what's going next sprint, what's parked and why. Clients respected it because they had visibility. The team respected it because their sprint wasn't constantly disrupted.</p>
+                    </div>
+                </div>
+
+                <!-- R1-Q6 -->
+                <div class="qa-item">
+                    <div class="question">R1-Q6. UAT failed because business says requirement is incorrect, but dev followed documentation — what will you do?</div>
+                    <div class="answer">
+                        <p>This is a requirements gap, not a dev error. Don't let anyone frame it as one.</p>
+                        <p><strong>Step 1 — Investigate before reacting.</strong> Pull out the original requirement and what was signed off. Understand exactly what the business expected vs what was documented vs what was built. Three things can be different.</p>
+                        <p><strong>Step 2 — Identify the root cause.</strong> Was the requirement genuinely wrong? Ambiguous and interpreted differently? Or has the business expectation changed since sign-off (which is a scope change, not a BA error)?</p>
+                        <p><strong>Step 3 — Own it as BA if it's a gap.</strong> If the requirement was my mistake — I clarify it, write the corrected version, get it approved, and prioritize the fix. No blame. Dev did their job.</p>
+                        <p><strong>Step 4 — Scope change process if expectation shifted.</strong> If the business changed their mind after sign-off, that goes through change control — timeline and effort impact acknowledged.</p>
+                        <p style="background:#f0f9ff; border-left:3px solid #3b82f6; padding:10px; margin-top:8px;"><strong>At Raftlabs (Telehealth UK):</strong> During UAT, the client said a patient notification flow wasn't working as expected. Dev had followed the spec exactly. When I reviewed the BRD, the requirement was ambiguous — "notify patient when appointment is confirmed" didn't specify which confirmation step triggered it. My gap. I rewrote it with explicit trigger conditions, got sign-off, dev fixed in one sprint. UAT passed second round.</p>
+                    </div>
+                </div>
+
+                <!-- R1-Q7 -->
+                <div class="qa-item">
+                    <div class="question">R1-Q7. Developer says requirement is not feasible after discussion — how will you handle it?</div>
+                    <div class="answer">
+                        <p><strong>First: don't dismiss or override. Understand WHY it's not feasible.</strong> Is it technically impossible? Architecture limitation? Time-constrained? Third-party dependency? The reason changes the solution.</p>
+                        <p><strong>Step 1 — Understand the constraint.</strong> Sit with the dev and map out exactly where the blocker is. Sometimes "not feasible" means "not feasible the way you've written it" — which is solvable.</p>
+                        <p><strong>Step 2 — Separate the business goal from the stated requirement.</strong> The requirement is HOW we thought we'd solve the business problem. The business goal is the actual need. Can we achieve the same goal a different way?</p>
+                        <p><strong>Step 3 — Explore alternatives together.</strong> BA + dev together are better at finding alternatives than either alone.</p>
+                        <p><strong>Step 4 — Go back to business with options.</strong> Present: here's what was asked, here's why it can't be done as-is, here are two alternatives, here are the trade-offs. Let the business choose.</p>
+                        <p style="background:#f0f9ff; border-left:3px solid #3b82f6; padding:10px; margin-top:8px;"><strong>At Raftlabs (RPM):</strong> Dev said real-time BLE device sync as specified wasn't feasible within the sprint timeline — the polling frequency I'd specified would overload the server at scale. Business goal was "timely patient readings." We discussed — agreed on a 5-minute polling interval instead of continuous real-time. The clinical stakeholder confirmed 5-minute intervals were medically acceptable for the device type. We shipped on time. Business goal met. The compromise was documented in the BRD as a technical constraint.</p>
+                    </div>
+                </div>
+
+                <!-- R1-Q8 -->
+                <div class="qa-item">
+                    <div class="question">R1-Q8. Explain end-to-end loan lifecycle in banking systems.</div>
+                    <div class="answer">
+                        <p>The loan lifecycle has 6 stages — each with system touchpoints:</p>
+                        <p><strong>1. Lead &amp; Application</strong> — Customer applies via branch/app/website. LOS (Loan Origination System) captures application data: personal details, loan amount, purpose, income.</p>
+                        <p><strong>2. KYC &amp; Document Verification</strong> — Identity verification (Aadhaar, PAN), income proof, address proof. Integration with bureau APIs (CIBIL/Experian) for credit score pull. Fraud check.</p>
+                        <p><strong>3. Credit Assessment / Underwriting</strong> — Credit score analysis, debt-to-income ratio, repayment capacity check. Rule engine calculates eligibility and risk grade. Underwriter reviews and approves/rejects.</p>
+                        <p><strong>4. Approval &amp; Disbursement</strong> — Loan agreement generated, signed (e-sign). Disbursement to customer account via NEFT/IMPS. Core Banking System (CBS) creates the loan account with schedule.</p>
+                        <p><strong>5. Repayment &amp; EMI Collection</strong> — Amortization schedule generated (principal + interest split per EMI). Auto-debit via NACH mandate. Payment gateway captures transaction → updates LMS (Loan Management System). Receipts generated.</p>
+                        <p><strong>6. Closure / Foreclosure</strong> — On full repayment: account marked closed, NOC generated. On foreclosure: outstanding principal + pre-closure charges calculated, payment collected, account closed, lien removed.</p>
+                        <p style="background:#f0f9ff; border-left:3px solid #3b82f6; padding:10px; margin-top:8px;"><strong>Parallel to my experience:</strong> The Payroll system I worked on had a similar lifecycle — employee financial data intake → statutory calculations → multi-approval workflow → disbursement → audit trail → compliance reporting. The structured flow, calculation logic, and reconciliation requirements overlap significantly with loan system design.</p>
+                    </div>
+                </div>
+
+                <!-- R1-Q9 -->
+                <div class="qa-item">
+                    <div class="question">R1-Q9. What happens when EMI is deducted but not updated in system? How will you analyze?</div>
+                    <div class="answer">
+                        <p>This is a reconciliation failure — money moved at the bank but the system didn't register it. The customer's account still shows outstanding even though they paid. High severity — directly impacts customer trust and can trigger incorrect penalties or legal notices.</p>
+                        <p><strong>How I'd analyze as BA:</strong></p>
+                        <p><strong>Step 1 — Confirm the gap.</strong> Get the bank debit statement for the customer + pull the LMS transaction log for the same date/amount. Confirm the debit happened but the LMS entry is missing or in error state.</p>
+                        <p><strong>Step 2 — Trace the payment flow.</strong> The standard flow is: NACH/Bank debit → Payment Gateway → API callback to LMS → Transaction recorded → Account updated. Check at each junction: Did the gateway receive it? Did the callback fire? Did the API call succeed? Did the DB commit go through?</p>
+                        <p><strong>Step 3 — Identify the break point.</strong> Common causes: API timeout (payment registered at bank, callback never reached system), duplicate transaction check incorrectly blocking it, settlement file mismatch, DB transaction rollback.</p>
+                        <p><strong>Step 4 — Document and fix.</strong> Write a defect with expected flow vs actual at each step. Work with dev to apply the payment manually with a backdated entry if confirmed, ensure reconciliation process catches this daily going forward.</p>
+                        <p style="background:#f0f9ff; border-left:3px solid #3b82f6; padding:10px; margin-top:8px;"><strong>Similar situation on Payroll:</strong> We had a case where salary was processed in the payroll system but the bank disbursement file had a format error — employees didn't receive payment. Same analysis approach: trace from payroll run → disbursement file → bank API → bank confirmation. Found the file had an incorrect account number format for one batch. Fixed, reprocessed, reconciled.</p>
+                    </div>
+                </div>
+
+                <!-- R1-Q10 -->
+                <div class="qa-item">
+                    <div class="question">R1-Q10. Explain your recent project end-to-end and your exact contribution as a BA.</div>
+                    <div class="answer">
+                        <p><strong>Project: Payroll Management System (Financial Docs, Aug 2024–Present)</strong></p>
+                        <p><strong>What it is:</strong> A multi-company payroll platform handling salary processing, statutory compliance (PF, ESI, TDS, PT), payslip generation, and an employee self-service portal. Used by HR and finance teams across multiple companies on a single platform.</p>
+                        <p><strong>My contribution end-to-end:</strong></p>
+                        <p><strong>Discovery &amp; Requirements:</strong> Stakeholder interviews with HR managers and finance leads across 3 client companies. Identified differences in payroll structure across companies — different salary components, attendance integration, statutory applicability. Documented these as multi-company configuration requirements.</p>
+                        <p><strong>Documentation:</strong> Wrote BRD covering business objectives, scope, compliance requirements, and user roles. Wrote FRD covering payroll calculation logic, statutory deduction rules (slab-wise TDS, PF ceiling, ESI applicability), payslip generation, and reporting requirements. Created 40+ user stories with acceptance criteria covering every workflow — from payroll run initiation to bank disbursement file generation.</p>
+                        <p><strong>Delivery:</strong> Managed sprint planning and backlog grooming in Jira. Ran refinement sessions with dev and QA. Tracked blockers — escalated when a statutory calculation change (TDS regime switch) impacted 6 stories mid-sprint. Coordinated impact assessment and resequenced sprint accordingly.</p>
+                        <p><strong>UAT &amp; Sign-off:</strong> Prepared UAT test scenarios. Ran UAT with HR and finance users. Documented defects, tracked resolution, managed re-testing. Got formal sign-off on each module before release.</p>
+                        <p style="background:#f0f9ff; border-left:3px solid #3b82f6; padding:10px; margin-top:8px;"><strong>Outcome:</strong> Platform live and processing payroll for multiple companies. Zero statutory compliance errors in first 3 months post-launch. Employee portal reduced HR query volume by handling payslips, leave balances, and tax declarations self-service.</p>
+                    </div>
+                </div>
+
+                <p style="font-size: 11pt; font-weight: 700; color: #334155; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; margin: 28px 0 16px 0;">ROUND 2 — Banking Domain + Situational</p>
+
+                <!-- R2-Q1 -->
+                <div class="qa-item">
+                    <div class="question">R2-Q1. How does loan restructuring impact repayment schedule and system calculations?</div>
+                    <div class="answer">
+                        <p><strong>Loan restructuring</strong> = changing original loan terms due to borrower financial stress. Can involve reducing interest rate, extending tenure, adding a moratorium period, or converting overdue interest to principal.</p>
+                        <p><strong>Impact on repayment schedule:</strong> The amortization schedule must be completely recalculated. If tenure extends — more EMIs at lower amount. If rate reduces — same tenure, lower EMI. If moratorium given — EMI paused, interest may accrue and capitalise.</p>
+                        <p><strong>System impact:</strong></p>
+                        <p>→ LMS must create a new repayment schedule and close/supersede the old one<br>
+                        → All future EMI debit instructions (NACH mandate) must be updated<br>
+                        → Interest accrual engine must use new rate/terms from restructuring effective date<br>
+                        → Account must be flagged as "restructured" — impacts NPA classification and provisioning under RBI guidelines<br>
+                        → Audit trail: old schedule preserved, new schedule created with restructuring reference</p>
+                        <p style="background:#f0f9ff; border-left:3px solid #3b82f6; padding:10px; margin-top:8px;"><strong>Parallel in my work:</strong> On the Payroll system, mid-year salary revisions required similar recalculation logic — historical records preserved, new calculations applied from effective date, prorated amounts for the revision month. The principle of versioned financial records with an effective date is the same.</p>
+                    </div>
+                </div>
+
+                <!-- R2-Q2 -->
+                <div class="qa-item">
+                    <div class="question">R2-Q2. Explain part-payment vs foreclosure with system and accounting impact.</div>
+                    <div class="answer">
+                        <p><strong>Part-payment:</strong> Borrower pays an amount over and above the regular EMI, reducing the outstanding principal.</p>
+                        <p>System impact: Outstanding principal reduced → recalculate amortization. Business choice given to customer: reduce EMI (keep tenure) or reduce tenure (keep EMI). NACH mandate updated if EMI changes. Prepayment charges may apply (as per loan agreement). Receipt generated. Account ledger updated.</p>
+                        <p><strong>Foreclosure:</strong> Borrower closes the entire loan before tenure end.</p>
+                        <p>System impact: Calculate outstanding principal as of foreclosure date + accrued interest to date + pre-closure charges (typically 2–4% of outstanding, may be nil for floating rate post-RBI guidelines). Customer pays total. System: account marked closed, lien removed (property/vehicle), NOC letter generated, CBS account closed. NACH mandate cancelled.</p>
+                        <p><strong>Accounting impact:</strong> For part-payment — interest income reduces proportionally over remaining tenure. For foreclosure — any deferred processing income recognised immediately. Pre-closure charges booked as fee income.</p>
+                        <p style="background:#f0f9ff; border-left:3px solid #3b82f6; padding:10px; margin-top:8px;"><strong>As BA:</strong> These are two distinct workflows with different triggers, calculation logic, and output documents. Each needs separate user stories, separate calculation rules in the FRD, and separate test cases in the RTM.</p>
+                    </div>
+                </div>
+
+                <!-- R2-Q3 -->
+                <div class="qa-item">
+                    <div class="question">R2-Q3. How do banks handle NPA classification and recovery process from a system perspective?</div>
+                    <div class="answer">
+                        <p><strong>NPA = Non-Performing Asset.</strong> A loan where repayment (principal or interest) is overdue by 90+ days.</p>
+                        <p><strong>Classification (system perspective):</strong></p>
+                        <p>System tracks DPD (Days Past Due) per account. At 90 DPD → auto-classify as Sub-Standard NPA. At 12 months sub-standard → Doubtful. At 3 years doubtful → Loss asset. Classification runs as a nightly batch job. Accounts flagged in LMS, CBS updated, provisioning requirements triggered (RBI mandated % of outstanding set aside as provision).</p>
+                        <p><strong>Recovery process:</strong></p>
+                        <p>→ <strong>Soft recovery (0–90 DPD):</strong> Auto SMS/email reminders, telecalling, field visit scheduling — managed via CRM integration<br>
+                        → <strong>Legal notices (90+ DPD):</strong> SARFAESI Act (for secured loans &gt;₹1L) — demand notice → possession notice → auction<br>
+                        → <strong>DRT (Debt Recovery Tribunal):</strong> For larger loans<br>
+                        → <strong>OTS (One Time Settlement):</strong> Bank agrees to accept less than outstanding. System: settlement amount approved, payment received, account marked settled (not closed — different flag), write-off of remaining balance<br>
+                        → <strong>Write-off:</strong> Loan removed from asset books, provisioning reversed, recovery tracked off-balance-sheet</p>
+                        <p style="background:#f0f9ff; border-left:3px solid #3b82f6; padding:10px; margin-top:8px;"><strong>As BA on a banking system:</strong> NPA classification and recovery workflows need detailed state machine documentation — an account moves through specific states with specific triggers, and each state transition has system actions, notification triggers, and reporting implications.</p>
+                    </div>
+                </div>
+
+                <!-- R2-Q4 -->
+                <div class="qa-item">
+                    <div class="question">R2-Q4. A production issue is impacting disbursement — what will be your first actions as a BA?</div>
+                    <div class="answer">
+                        <p>Disbursement failures are high severity — money hasn't reached borrowers. First actions:</p>
+                        <p><strong>1. Assess scope immediately.</strong> How many loans are affected? Is it all disbursements or specific loan types/amounts/banks? Systematic (every disbursement) or intermittent? This determines urgency and escalation level.</p>
+                        <p><strong>2. Get the right people in the room.</strong> Dev lead, ops, and if needed the payment gateway support — within minutes. Don't spend an hour investigating alone.</p>
+                        <p><strong>3. Stop new disbursements if needed.</strong> If the issue is systemic, processing more disbursements may make reconciliation harder. Coordinate with ops on a hold until the root cause is clear.</p>
+                        <p><strong>4. Gather evidence.</strong> Pull the failed transaction IDs, error logs from the API, payment gateway status. As BA — I document the symptoms, the affected records, the timeline of when it started.</p>
+                        <p><strong>5. Communicate proactively.</strong> Stakeholders need to know. Don't wait until you have the answer — tell them you're investigating, the scope, and the ETA for next update.</p>
+                        <p><strong>6. Root cause and fix.</strong> Once identified — write the defect clearly: expected flow vs actual, where it broke, what the fix is. Validate fix in staging before re-enabling prod disbursements.</p>
+                        <p style="background:#f0f9ff; border-left:3px solid #3b82f6; padding:10px; margin-top:8px;"><strong>Parallel on Payroll:</strong> When a salary batch failed to disburse due to a bank API error, my first action was the same — scope the impact (which employees, which bank), stop further processing, get dev + finance ops on a call, communicate to HR within 30 minutes with an ETA. We resolved and reprocessed within 4 hours.</p>
+                    </div>
+                </div>
+
+                <!-- R2-Q5 -->
+                <div class="qa-item">
+                    <div class="question">R2-Q5. Stakeholders are pushing for release, but you see a high-risk gap in requirement — what will you do?</div>
+                    <div class="answer">
+                        <p>The BA's job here is not to block the release — it's to make sure the decision to release is an informed one.</p>
+                        <p><strong>Step 1 — Document the gap clearly.</strong> Not "I have a concern." Specifically: what is missing, what scenario does it break, what is the business/compliance/customer impact if it goes live as-is.</p>
+                        <p><strong>Step 2 — Quantify the risk.</strong> Is this a data corruption risk? A compliance gap? A customer-facing error that could trigger support escalations? A reputational issue? Numbers and scenarios are more persuasive than general warnings.</p>
+                        <p><strong>Step 3 — Present options, not just problems.</strong> Option A: delay release by X days to fix. Option B: release with a workaround (manual process to cover the gap temporarily). Option C: release with a known limitation communicated to users. Present trade-offs for each.</p>
+                        <p><strong>Step 4 — Get written acknowledgment if they proceed anyway.</strong> If stakeholders choose to release with the known gap — that's their call. But I get written confirmation that the risk was flagged, explained, and they chose to proceed. This is not defensive — it's professional accountability.</p>
+                        <p style="background:#f0f9ff; border-left:3px solid #3b82f6; padding:10px; margin-top:8px;"><strong>At Raftlabs (Telehealth UK):</strong> Before a release, I flagged a gap in the patient consent flow that could have GDPR implications. Client wanted to release anyway — their legal team said it was low risk. I documented the gap, the risk, and their decision in writing. They acknowledged it. We released. The fix went in the next sprint. No incident occurred, but the paper trail was there if needed.</p>
+                    </div>
+                </div>
+
+                <!-- R2-Q6 -->
+                <div class="qa-item">
+                    <div class="question">R2-Q6. Payment is successful at bank but failed in system — how will you trace the issue?</div>
+                    <div class="answer">
+                        <p>Classic integration/reconciliation gap. The payment exists at the bank but the system doesn't know about it.</p>
+                        <p><strong>Trace the payment flow step by step:</strong></p>
+                        <p><strong>Step 1 — Bank confirmation.</strong> Get the bank transaction ID, timestamp, and amount. Confirm the debit/credit happened successfully on the bank's side.</p>
+                        <p><strong>Step 2 — Payment gateway log.</strong> Did the gateway receive the transaction? Is there a gateway transaction ID? What status does the gateway show — success, pending, or error?</p>
+                        <p><strong>Step 3 — API callback check.</strong> Did the gateway send a callback/webhook to the application? Check API logs — was the callback received? What HTTP status was returned? If callback failed or timed out — the system never got notified that payment succeeded.</p>
+                        <p><strong>Step 4 — Application/DB log.</strong> If callback was received — did the application process it? Was there an exception? Did the DB transaction commit or roll back?</p>
+                        <p><strong>Common root causes:</strong> API timeout during high load; duplicate payment check incorrectly flagging the transaction; webhook URL misconfiguration after a deployment; DB deadlock causing rollback; settlement file from bank not processed by batch job.</p>
+                        <p style="background:#f0f9ff; border-left:3px solid #3b82f6; padding:10px; margin-top:8px;"><strong>As BA:</strong> Once the break point is found — document it as a defect with the exact flow, expected vs actual at each step, and the business impact (how many transactions affected, customer risk). Work with dev on the fix and a reconciliation script to apply the missed payments retroactively.</p>
+                    </div>
+                </div>
+
+                <!-- R2-Q7 -->
+                <div class="qa-item">
+                    <div class="question">R2-Q7. Tell me about a time you handled a difficult stakeholder. What was your approach?</div>
+                    <div class="answer">
+                        <div class="star-item"><strong>S:</strong> On the RPM project at Raftlabs, I had two stakeholder groups with directly conflicting requirements — the clinical team and the technical/operations team. Clinical wanted real-time alerts for every patient vital reading — any deviation, any time, immediate notification. The operations/tech team said this was not feasible at scale and would generate alert fatigue anyway.</div>
+                        <div class="star-item"><strong>T:</strong> Both were right from their perspective. My job was to find a solution that satisfied the underlying need — patient safety — without either ignoring the clinical team's concern or overloading the system.</div>
+                        <div class="star-item"><strong>A:</strong> I ran separate sessions with each group first — not to divide them, but to understand the root need without group pressure. The clinical team's underlying need wasn't "real-time for everything" — it was "don't miss a critical event." The tech team's constraint was server load, not reluctance. I then brought them together with a proposal: priority-based alerting — critical vitals (heart rate, blood pressure outside threshold) trigger real-time alerts; routine readings (weight, glucose within normal range) use a 15-minute polling interval. I showed both sides how this met the patient safety need and was technically feasible.</div>
+                        <div class="star-item"><strong>R:</strong> Both teams signed off. The alert system shipped on time. Zero complaints from the clinical team post-launch — the critical alerts worked exactly as needed. The approach became the standard for how we handled cross-team requirement conflicts for the rest of the project.</div>
+                    </div>
+                </div>
+
+                <!-- R2-Q8 -->
+                <div class="qa-item">
+                    <div class="question">R2-Q8. How do you prioritize tasks when multiple critical requirements come together?</div>
+                    <div class="answer">
+                        <p>When everything is critical, nothing is critical. The first step is to challenge the label.</p>
+                        <p><strong>My framework:</strong></p>
+                        <p><strong>1. Assess true business impact.</strong> What breaks if this doesn't ship? Revenue loss? Compliance violation? Customer-facing error? Or just someone's preference for this sprint? Most "critical" items drop a tier under this question.</p>
+                        <p><strong>2. Check dependencies.</strong> Some items are only critical because something else depends on them. Build the dependency chain first — the root item is what needs to move.</p>
+                        <p><strong>3. Assess effort.</strong> A high-impact, low-effort item should jump the queue over a high-impact, high-effort item if capacity is the constraint.</p>
+                        <p><strong>4. Use MoSCoW as a communication tool.</strong> Once I've ranked internally, I present it to stakeholders: Must Have, Should Have, Could Have for this sprint. This converts a political "all of them are critical" conversation into a structured trade-off discussion.</p>
+                        <p style="background:#f0f9ff; border-left:3px solid #3b82f6; padding:10px; margin-top:8px;"><strong>At Raftlabs:</strong> I ran four projects simultaneously — each client thought their item was most urgent. I maintained a single cross-project priority board. Every Friday: review what's in-flight, what's blocked, what's next. Decisions were made by impact and dependency, not by who emailed loudest. This meant I could justify every prioritization decision with a reason — which kept all four clients confident even when their item wasn't first.</p>
+                    </div>
+                </div>
+
+                <!-- R2-Q9 -->
+                <div class="qa-item">
+                    <div class="question">R2-Q9. Describe a situation where you had to take a decision without complete information.</div>
+                    <div class="answer">
+                        <div class="star-item"><strong>S:</strong> On the RPM project, the sprint was starting and a key clinical stakeholder was unavailable for two days. One of the stories required a decision on CPT billing code mapping for a specific device type — a decision that would affect how the billing module calculated reimbursement for that patient category. Without the decision, 3 stories were blocked.</div>
+                        <div class="star-item"><strong>T:</strong> I had to either delay the sprint start (losing two dev days) or make a call based on available information and document it as an assumption.</div>
+                        <div class="star-item"><strong>A:</strong> I reviewed the industry standard CPT code mapping documentation (CMS guidelines), cross-referenced with the codes already approved for other device types in our BRD, and made a decision — documented it explicitly as "Assumption: CPT code X applied based on CMS guidelines for device category Y — pending clinical stakeholder confirmation by [date]." I flagged it in the sprint notes and sent the stakeholder a one-line email asking for confirmation with a 48-hour deadline. The stories moved forward with a note that the assumption needed validation before UAT.</div>
+                        <div class="star-item"><strong>R:</strong> The stakeholder confirmed the mapping was correct two days later. No rework needed. The sprint completed on time. The key principle I applied: make a reversible decision with a documented assumption rather than making no decision. An undocumented assumption is a bug waiting to happen — a documented one is a managed risk.</div>
+                    </div>
+                </div>
+
+            </div>
+        </details>
+
         <details class="collapsible">
             <summary style="font-size: 13pt; font-weight: 600; color: var(--color-primary-dark); cursor: pointer; padding: 12px 0;">Your Positioning by Opportunity Type</summary>
             <div class="detail-content">
