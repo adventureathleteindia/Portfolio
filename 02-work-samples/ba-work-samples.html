@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BA Work Samples - Atul Chauhan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.5;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1 { font-size: 20pt; color: #2c3e50; border-bottom: 2px solid #2c3e50; padding-bottom: 10px; }
+        h2 { font-size: 14pt; color: #2c3e50; margin-top: 30px; border-bottom: 1px solid #ddd; padding-bottom: 6px; }
+        h3 { font-size: 12pt; color: #444; margin-top: 20px; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 10pt;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th { background: #f5f5f5; font-weight: bold; }
+
+        .intro-box {
+            background: #f9f9f9;
+            padding: 15px;
+            border-left: 3px solid #2c3e50;
+            margin: 15px 0;
+        }
+
+        .section { margin-bottom: 30px; }
+
+        .image-container {
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .image-caption {
+            font-size: 9pt;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .story-box {
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 12px 0;
+        }
+
+        .story-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .story-statement {
+            background: #f0f4f8;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .criteria-box {
+            background: #fff;
+            border-left: 3px solid #27ae60;
+            padding: 8px 12px;
+            margin: 6px 0;
+            font-size: 10pt;
+        }
+
+        .note {
+            background: #fff8e6;
+            border: 1px solid #f0d78c;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 10pt;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            font-size: 10pt;
+            color: #666;
+        }
+
+        @media print {
+            body { padding: 20px; }
+            .section { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Business Analyst - Work Samples</h1>
+
+    <div class="intro-box">
+        <strong>Atul Chauhan</strong> | Business Analyst | 5+ Years Experience<br>
+        Healthcare (HIPAA/GDPR) | Fintech | SaaS | EdTech<br>
+        This document contains sample artifacts from actual projects I have worked on.
+    </div>
+
+    <!-- Section 1: Workflow Documentation -->
+    <div class="section">
+        <h2>1. Workflow Documentation</h2>
+        <p>Below are process flows and role mappings I created during requirements gathering and analysis phases.</p>
+
+        <h3>1.1 Remote Patient Monitoring - User Roles & Permissions</h3>
+        <p>User roles and access hierarchy for an RPM platform (USA).</p>
+
+        <table>
+            <tr>
+                <th>Role</th>
+                <th>Access Level</th>
+                <th>Key Permissions</th>
+            </tr>
+            <tr>
+                <td>PDC Super Admin</td>
+                <td>Platform Level</td>
+                <td>Full platform access, manage all providers, device inventory</td>
+            </tr>
+            <tr>
+                <td>PDC Staff</td>
+                <td>Platform Level</td>
+                <td>Sub-admin functions, billing support, nurse assignments</td>
+            </tr>
+            <tr>
+                <td>Provider Admin</td>
+                <td>Clinic Level</td>
+                <td>Manage clinic staff, patients, view billing reports</td>
+            </tr>
+            <tr>
+                <td>Primary Ordering Provider (POP)</td>
+                <td>Patient Level</td>
+                <td>Review vitals, add clinical notes, set thresholds, sign-off reviews</td>
+            </tr>
+            <tr>
+                <td>Nurse</td>
+                <td>Patient Level</td>
+                <td>Daily patient queue, review vitals, add notes, escalate alerts</td>
+            </tr>
+            <tr>
+                <td>Patient</td>
+                <td>Own Data</td>
+                <td>View own vitals, submit readings, view alerts (read-only)</td>
+            </tr>
+        </table>
+
+        <h3>1.2 Device Allocation Process</h3>
+        <p>Step-by-step process for medical device allocation and patient monitoring.</p>
+
+        <table>
+            <tr>
+                <th>Step</th>
+                <th>Action</th>
+                <th>Actor</th>
+                <th>Output</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Receive devices from vendor</td>
+                <td>PDC Admin</td>
+                <td>Devices added to inventory</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Allocate device to patient</td>
+                <td>Provider Admin</td>
+                <td>Device linked to patient record</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Ship device to patient</td>
+                <td>PDC Staff</td>
+                <td>Device status: Shipped</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Patient sends readings</td>
+                <td>Patient</td>
+                <td>Vitals stored in system</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Alert triggered (if abnormal)</td>
+                <td>System</td>
+                <td>Notification to Nurse/POP</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Clinical review</td>
+                <td>Nurse/POP</td>
+                <td>Review notes, follow-up action</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Monthly billing review</td>
+                <td>Biller</td>
+                <td>CPT codes generated</td>
+            </tr>
+        </table>
+
+        <p style="margin-top: 25px; font-weight: bold; color: #2c3e50;">Visual Workflow Diagrams</p>
+
+        <h3>1.3 Vehicle Auction - Bidding Workflow</h3>
+        <div class="image-container">
+            <img src="../03-portfolio-demos/assets/vehicle-auction-flow.jpg" alt="Vehicle Auction Bidding Workflow">
+            <div class="image-caption">Vehicle Auction Platform (Netherlands) - Bidding system workflow</div>
+        </div>
+
+        <h3>1.4 Telehealth - Clinical Workflow</h3>
+        <div class="image-container">
+            <img src="../03-portfolio-demos/assets/telehealth-flow.jpg" alt="Telehealth Clinical Workflow">
+            <div class="image-caption">Telehealth Platform (UK) - Patient consultation workflow</div>
+        </div>
+
+        <h3>1.5 Supplement Management - App Flow</h3>
+        <div class="image-container">
+            <img src="../03-portfolio-demos/assets/supplement-flow.jpg" alt="Supplement Management App Flow">
+            <div class="image-caption">Supplement Management App (Canada) - User journey flow</div>
+        </div>
+    </div>
+
+    <!-- Section 2: Feature Breakdown -->
+    <div class="section">
+        <h2>2. Feature Breakdown</h2>
+        <p>Module-level feature breakdown showing depth of requirements analysis.</p>
+
+        <h3>2.1 RPM - Device Management Module</h3>
+        <p>Feature breakdown from Remote Patient Monitoring platform (USA).</p>
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>Sub-Features / Business Rules</th>
+                <th>Priority</th>
+            </tr>
+            <tr>
+                <td>Device Inventory</td>
+                <td>
+                    - Device registration with ICCID, IMSI, IMEI tracking<br>
+                    - Battery level monitoring (100%, 75%, 50%, 25%, Low)<br>
+                    - Signal strength indicator (25%, 50%, 75%, 100%)<br>
+                    - Device status: Active | Shipped | Out of Service | Returned<br>
+                    - Vendor integration with mio-labs.com for device data
+                </td>
+                <td>High</td>
+            </tr>
+            <tr>
+                <td>Device Allocation</td>
+                <td>
+                    - Allocate from PDC inventory → Provider → Patient<br>
+                    - Link device to patient record with allocation date<br>
+                    - Track shipping status and carrier information<br>
+                    - Device can only be allocated to one patient at a time<br>
+                    - Deallocation requires admin approval if active readings exist
+                </td>
+                <td>High</td>
+            </tr>
+            <tr>
+                <td>External Care Providers</td>
+                <td>
+                    - Directory of Specialists, PCPs, Dieticians by NPI number<br>
+                    - Share access: Grant temporary read access to patient data<br>
+                    - Revoke access: Remove shared access with audit log<br>
+                    - View profile: See provider credentials and contact info<br>
+                    - Specialty types: Dentist, Nutritionist, Dietician, Cardiologist
+                </td>
+                <td>Medium</td>
+            </tr>
+            <tr>
+                <td>Bulk Patient Onboarding</td>
+                <td>
+                    - Download CSV template with required fields<br>
+                    - Fields: Name, DOB, Phone, Email, POP ID, Insurance<br>
+                    - Validation: Check for duplicates, required fields, format<br>
+                    - Error report: Row-by-row validation errors<br>
+                    - Success: Create patient records, assign to POP
+                </td>
+                <td>Medium</td>
+            </tr>
+            <tr>
+                <td>Reading Sync</td>
+                <td>
+                    - Auto-sync readings within 5 seconds of device transmission<br>
+                    - Display last reading timestamp: "Today, 09:03 PM EST"<br>
+                    - Reading types: BP (mmHg), SpO2 (%), Glucose (mg/dL), Weight (lbs)<br>
+                    - Out-of-range alert triggers within 30 seconds
+                </td>
+                <td>High</td>
+            </tr>
+        </table>
+
+        <h3>2.2 Appointment Booking - Scenario Coverage</h3>
+        <p>Scenario analysis from Telehealth platform (UK), demonstrating coverage of booking edge cases.</p>
+        <table>
+            <tr>
+                <th style="width:22%">Scenario</th>
+                <th>Steps / Rules</th>
+            </tr>
+            <tr>
+                <td><strong>1. Patient Self-Booking</strong></td>
+                <td>
+                    1. Login to portal/app<br>
+                    2. Browse providers by specialty<br>
+                    3. View available slots (within working hours)<br>
+                    4. Select type: New Patient (45 min) or Follow-up (15 min)<br>
+                    5. Complete intake form<br>
+                    6. Receive confirmation + video link<br>
+                    7. Reminders sent: 24 hrs + 1 hr before
+                </td>
+            </tr>
+            <tr>
+                <td><strong>2. Admin Books for Patient</strong></td>
+                <td>
+                    1. Search patient by Name / DOB / Phone<br>
+                    2. If new: Create record first<br>
+                    3. Select provider, view calendar<br>
+                    4. Book slot, add notes (e.g., "needs translator")<br>
+                    5. System sends confirmation to patient
+                </td>
+            </tr>
+            <tr>
+                <td><strong>3. Provider Follow-up</strong></td>
+                <td>
+                    1. Provider marks "Follow-up in X days"<br>
+                    2. System suggests available slots<br>
+                    3. Provider selects OR sends 3 options to patient<br>
+                    4. Patient picks preferred time via link
+                </td>
+            </tr>
+            <tr>
+                <td><strong>4. Recurring</strong></td>
+                <td>
+                    <em>Series:</em> Same slot weekly for X sessions (therapy)<br>
+                    <em>Auto:</em> System suggests next per care plan (e.g., 3 months)
+                </td>
+            </tr>
+            <tr>
+                <td><strong>5. Rescheduling</strong></td>
+                <td>
+                    <em>By Patient:</em> Via portal if >24 hrs before<br>
+                    <em>By Clinic:</em> Select reason, patient notified + offered alternatives<br>
+                    <em>By Provider:</em> Mark day unavailable, batch reschedule
+                </td>
+            </tr>
+            <tr>
+                <td><strong>6. Cancellation</strong></td>
+                <td>
+                    <em>>24 hrs:</em> No fee, slot released to waitlist<br>
+                    <em><24 hrs:</em> Late fee may apply (configurable)<br>
+                    <em>No-show:</em> Fee charged, flagged in patient record
+                </td>
+            </tr>
+            <tr>
+                <td><strong>7. Waitlist</strong></td>
+                <td>
+                    1. Patient joins waitlist with preferred times<br>
+                    2. Slot opens (cancellation)<br>
+                    3. System notifies waitlist in order<br>
+                    4. First to confirm (within 2 hrs) gets slot
+                </td>
+            </tr>
+            <tr>
+                <td><strong>8. Day-of Check-in</strong></td>
+                <td>
+                    1. Patient receives check-in link (15 min before)<br>
+                    2. Update intake, confirm insurance, sign consent<br>
+                    3. Enter virtual waiting room<br>
+                    4. Provider admits to video call<br>
+                    5. After call: Status "Completed", billing triggered
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Section 3: Functional Requirements -->
+    <div class="section">
+        <h2>3. Functional Requirements (FRD Sample)</h2>
+        <p>Extract from the Functional Requirements Document for RPM Platform.</p>
+
+        <table>
+            <tr>
+                <th style="width:12%">Req ID</th>
+                <th style="width:40%">Requirement</th>
+                <th style="width:33%">Acceptance Criteria</th>
+                <th style="width:15%">Priority</th>
+            </tr>
+            <tr>
+                <td>FR-VIT-001</td>
+                <td>System shall receive vital readings from BLE-connected medical devices</td>
+                <td>Device data received within 5 seconds; readings stored with timestamp</td>
+                <td>High</td>
+            </tr>
+            <tr>
+                <td>FR-VIT-002</td>
+                <td>System shall validate readings against clinically acceptable ranges</td>
+                <td>Out-of-range values flagged; validation rules configurable per vital type</td>
+                <td>High</td>
+            </tr>
+            <tr>
+                <td>FR-VIT-003</td>
+                <td>System shall allow manual entry of vital readings with timestamp</td>
+                <td>Manual entries marked with "Manual" source flag</td>
+                <td>Medium</td>
+            </tr>
+            <tr>
+                <td>FR-VIT-004</td>
+                <td>System shall generate alerts when vitals exceed patient-specific thresholds</td>
+                <td>Alerts generated within 30 seconds; notification sent to assigned clinician</td>
+                <td>High</td>
+            </tr>
+            <tr>
+                <td>FR-REV-001</td>
+                <td>System shall present daily patient queue sorted by alert priority</td>
+                <td>Queue refreshes every 60 seconds; Critical > High > Medium > Low</td>
+                <td>High</td>
+            </tr>
+            <tr>
+                <td>FR-REV-002</td>
+                <td>System shall display patient summary card with latest vitals and trends</td>
+                <td>Summary loads within 3 seconds; shows last 7 days of readings</td>
+                <td>High</td>
+            </tr>
+            <tr>
+                <td>FR-REV-003</td>
+                <td>System shall track time spent on each patient review for CPT billing</td>
+                <td>Timer starts on card open; pauses on inactivity > 2 minutes</td>
+                <td>High</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Section 4: User Stories -->
+    <div class="section">
+        <h2>4. User Stories with Acceptance Criteria</h2>
+        <p>Sample user stories from Telehealth platform (UK).</p>
+
+        <div class="story-box">
+            <div class="story-title">TH-101 | Join Video Consultation | High Priority</div>
+            <div class="story-statement">
+                <strong>As a</strong> patient,<br>
+                <strong>I want to</strong> join my scheduled video consultation,<br>
+                <strong>So that</strong> I can speak with my doctor remotely.
+            </div>
+            <strong>Acceptance Criteria:</strong>
+            <div class="criteria-box">
+                ✓ "Join Call" button appears 15 minutes before appointment time<br>
+                ✓ System checks camera and microphone permissions before joining<br>
+                ✓ Patient enters virtual waiting room until doctor admits them<br>
+                ✓ If doctor is running late, patient sees estimated wait time
+            </div>
+        </div>
+
+        <div class="story-box">
+            <div class="story-title">TH-102 | View Prescription | High Priority</div>
+            <div class="story-statement">
+                <strong>As a</strong> patient,<br>
+                <strong>I want to</strong> view prescriptions issued by my doctor,<br>
+                <strong>So that</strong> I can collect my medication from the pharmacy.
+            </div>
+            <strong>Acceptance Criteria:</strong>
+            <div class="criteria-box">
+                ✓ Prescription shows: medication name, dosage, frequency, duration<br>
+                ✓ Linked pharmacy name and address is displayed<br>
+                ✓ Patient can download prescription as PDF<br>
+                ✓ Status shows: Issued / Sent to Pharmacy / Dispensed
+            </div>
+        </div>
+
+        <div class="story-box">
+            <div class="story-title">TH-103 | Cancel Appointment | Medium Priority</div>
+            <div class="story-statement">
+                <strong>As a</strong> patient,<br>
+                <strong>I want to</strong> cancel my upcoming appointment,<br>
+                <strong>So that</strong> the slot can be given to another patient.
+            </div>
+            <strong>Acceptance Criteria:</strong>
+            <div class="criteria-box">
+                ✓ Cancel option available only if appointment is >24 hours away<br>
+                ✓ Patient selects cancellation reason from dropdown<br>
+                ✓ Confirmation message shows cancellation was successful<br>
+                ✓ Doctor receives notification of the cancellation
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 5: UI/Wireframe Samples -->
+    <div class="section">
+        <h2>5. UI/Wireframe Samples</h2>
+        <p>Screenshots and wireframes from projects I contributed to during requirements phase.</p>
+
+        <h3>5.1 Remote Patient Monitoring - Feature Breakdown</h3>
+        <div class="image-container">
+            <img src="../03-portfolio-demos/assets/rpm-feature-1.png" alt="RPM Feature Breakdown">
+            <div class="image-caption">RPM Platform - Module and feature breakdown document</div>
+        </div>
+
+        <h3>5.2 Remote Patient Monitoring - High Fidelity Design</h3>
+        <div class="image-container">
+            <img src="../03-portfolio-demos/assets/rpm-design-1.png" alt="RPM Design Sample">
+            <div class="image-caption">RPM Platform - Clinical dashboard design</div>
+        </div>
+
+        <h3>5.3 Payroll Management System</h3>
+        <div class="image-container">
+            <img src="../03-portfolio-demos/assets/payroll-design-1.png" alt="Payroll Design Sample">
+            <div class="image-caption">Payroll System (USA) - Dashboard wireframe</div>
+        </div>
+
+        <h3>5.4 Vehicle Auction Platform</h3>
+        <div class="image-container">
+            <img src="../03-portfolio-demos/assets/vehicle-auction-design-1.png" alt="Vehicle Auction Design Sample">
+            <div class="image-caption">Vehicle Auction Platform (Netherlands) - Bidding interface</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <strong>Prepared by:</strong> Atul Chauhan | Business Analyst<br>
+        2026
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Process Flows Collection - BA Work Sample</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #334155;
+            --color-primary-dark: #1e293b;
+            --color-primary-light: #f1f5f9;
+            --color-text: #1F2937;
+            --color-text-secondary: #6B7280;
+            --color-bg: #FFFFFF;
+            --color-bg-secondary: #F9FAFB;
+            --color-border: #E5E7EB;
+            --color-success: #10B981;
+            --color-warning: #F59E0B;
+            --color-danger: #EF4444;
+            --color-info: #3B82F6;
+            --color-healthcare: #059669;
+            --color-fintech: #7C3AED;
+            --color-petcare: #F97316;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: var(--color-text);
+            background: var(--color-bg);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        @media print {
+            body { padding: 20px; max-width: 100%; }
+            .page-break { page-break-before: always; }
+            .no-break { page-break-inside: avoid; }
+        }
+
+        h1, h2, h3, h4 { font-family: 'Montserrat', Arial, sans-serif; }
+
+        /* Document Header */
+        .doc-header {
+            border: 2px solid var(--color-primary);
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .doc-header h1 {
+            font-size: 22pt;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .doc-header .subtitle {
+            font-size: 13pt;
+            color: var(--color-text);
+            margin-bottom: 20px;
+        }
+
+        .doc-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            text-align: left;
+            font-size: 10pt;
+            border-top: 1px solid var(--color-border);
+            padding-top: 20px;
+            margin-top: 10px;
+        }
+
+        .doc-meta-item label {
+            color: var(--color-text-secondary);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .doc-meta-item span {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        /* Section Styling */
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 14pt;
+            font-weight: 600;
+            color: var(--color-primary);
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+        }
+
+        /* Domain Badges */
+        .domain-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 9pt;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .domain-healthcare { background: #D1FAE5; color: #065F46; }
+        .domain-fintech { background: #EDE9FE; color: #5B21B6; }
+        .domain-petcare { background: #FFEDD5; color: #C2410C; }
+        .domain-general { background: #E0E7FF; color: #3730A3; }
+
+        /* Flow Container */
+        .flow-container {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+        }
+
+        .flow-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .flow-header h3 {
+            font-size: 13pt;
+            color: var(--color-text);
+        }
+
+        .flow-description {
+            font-size: 10pt;
+            color: var(--color-text-secondary);
+            margin-bottom: 20px;
+            padding-left: 20px;
+            border-left: 3px solid var(--color-primary-light);
+        }
+
+        /* Flow Diagram Styles */
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .flow-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Flow Shapes */
+        .flow-start, .flow-end {
+            background: var(--color-primary);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 10pt;
+            font-weight: 600;
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .flow-process {
+            background: white;
+            border: 2px solid var(--color-primary);
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 9.5pt;
+            text-align: center;
+            min-width: 140px;
+            max-width: 160px;
+        }
+
+        .flow-decision {
+            background: #FEF3C7;
+            border: 2px solid #F59E0B;
+            padding: 12px 16px;
+            transform: rotate(0deg);
+            font-size: 9pt;
+            text-align: center;
+            min-width: 120px;
+            position: relative;
+        }
+
+        .flow-decision::before {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid #F59E0B;
+        }
+
+        .flow-decision::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #F59E0B;
+        }
+
+        .flow-data {
+            background: #E0E7FF;
+            border: 2px solid #6366F1;
+            padding: 10px 16px;
+            font-size: 9pt;
+            text-align: center;
+            min-width: 120px;
+            transform: skewX(-10deg);
+        }
+
+        .flow-data span {
+            display: inline-block;
+            transform: skewX(10deg);
+        }
+
+        .flow-system {
+            background: #DCFCE7;
+            border: 2px solid #22C55E;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 9pt;
+            text-align: center;
+            min-width: 130px;
+        }
+
+        .flow-alert {
+            background: #FEE2E2;
+            border: 2px solid #EF4444;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 9pt;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        /* Arrows */
+        .arrow-down {
+            font-size: 20px;
+            color: var(--color-primary);
+            line-height: 1;
+        }
+
+        .arrow-right {
+            font-size: 18px;
+            color: var(--color-primary);
+        }
+
+        .arrow-branch {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .branch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .branch-label {
+            font-size: 9pt;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+        }
+
+        /* Swimlane Styles */
+        .swimlane-diagram {
+            display: grid;
+            gap: 0;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .swimlane {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .swimlane:last-child {
+            border-bottom: none;
+        }
+
+        .swimlane-label {
+            background: var(--color-primary);
+            color: white;
+            padding: 15px;
+            font-size: 10pt;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            writing-mode: horizontal-tb;
+        }
+
+        .swimlane-content {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            background: var(--color-bg-secondary);
+        }
+
+        .swimlane-step {
+            background: white;
+            border: 1px solid var(--color-border);
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 9pt;
+            text-align: center;
+        }
+
+        .swimlane-arrow {
+            color: var(--color-primary);
+            font-size: 14px;
+        }
+
+        /* Legend */
+        .flow-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            font-size: 9pt;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-shape {
+            width: 24px;
+            height: 16px;
+            border-radius: 3px;
+        }
+
+        .legend-start { background: var(--color-primary); }
+        .legend-process { background: white; border: 2px solid var(--color-primary); }
+        .legend-decision { background: #FEF3C7; border: 2px solid #F59E0B; }
+        .legend-data { background: #E0E7FF; border: 2px solid #6366F1; }
+        .legend-system { background: #DCFCE7; border: 2px solid #22C55E; }
+        .legend-alert { background: #FEE2E2; border: 2px solid #EF4444; }
+
+        /* Info Box */
+        .info-box {
+            background: var(--color-primary-light);
+            border-left: 4px solid var(--color-primary);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-box h4 {
+            font-size: 11pt;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        /* TOC */
+        .toc {
+            background: var(--color-bg-secondary);
+            padding: 20px 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .toc h3 {
+            font-size: 12pt;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+        }
+
+        .toc ol {
+            padding-left: 20px;
+        }
+
+        .toc li {
+            margin-bottom: 6px;
+            font-size: 10pt;
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--color-border);
+            text-align: center;
+            font-size: 9pt;
+            color: var(--color-text-secondary);
+        }
+
+        /* Vertical Flow */
+        .vertical-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Parallel Branches */
+        .parallel-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .parallel-branch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 10px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Document Header -->
+    <div class="doc-header">
+        <h1>Process Flows Collection</h1>
+        <div class="subtitle">Business Analyst Work Sample - Visual Process Documentation</div>
+        <div class="doc-meta">
+            <div class="doc-meta-item">
+                <label>Author</label>
+                <span>Atul Chauhan</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Document Type</label>
+                <span>Work Sample</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Last Updated</label>
+                <span>January 2026</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Total Flows</label>
+                <span>7 Process Flows</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Domains</label>
+                <span>4 Industries</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Notation</label>
+                <span>BPMN-inspired</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="toc">
+        <h3>Contents</h3>
+        <ol>
+            <li><strong>Healthcare:</strong> Patient Vital Recording & Alert Flow</li>
+            <li><strong>Healthcare:</strong> Telehealth Appointment Workflow</li>
+            <li><strong>Fintech:</strong> Payroll Processing Cycle</li>
+            <li><strong>Fintech:</strong> Employee Onboarding to Payroll</li>
+            <li><strong>Pet Care:</strong> Day-Care Booking Flow</li>
+            <li><strong>General:</strong> User Registration & Verification</li>
+        </ol>
+    </div>
+
+    <!-- Legend -->
+    <div class="info-box">
+        <h4>Flow Notation Legend</h4>
+        <div class="flow-legend">
+            <div class="legend-item">
+                <div class="legend-shape legend-start"></div>
+                <span>Start/End</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-shape legend-process"></div>
+                <span>Process Step</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-shape legend-decision"></div>
+                <span>Decision Point</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-shape legend-data"></div>
+                <span>Data/Input</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-shape legend-system"></div>
+                <span>System Action</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-shape legend-alert"></div>
+                <span>Alert/Notification</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Flow 1: Healthcare - Vital Recording -->
+    <div class="section">
+        <div class="flow-container">
+            <div class="flow-header">
+                <span class="domain-badge domain-healthcare">Healthcare</span>
+                <h3>Flow 1: Patient Vital Recording & Alert Process</h3>
+            </div>
+            <div class="flow-description">
+                This flow illustrates how patient-submitted vital signs are processed, validated against personalized thresholds, and trigger appropriate alerts to the care team when abnormalities are detected.
+            </div>
+
+            <div class="flow-diagram">
+                <div class="flow-start">Patient Opens App</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-process">Navigate to<br>"Record Vitals"</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-data"><span>Enter Vital Readings<br>(BP, HR, SpO2, Glucose)</span></div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-process">Submit Readings</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-system">System Validates<br>Input Format</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-decision">Valid<br>Data?</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="arrow-branch">
+                    <div class="branch">
+                        <div class="branch-label">Yes</div>
+                        <div class="arrow-down">&#8595;</div>
+                        <div class="flow-system">Store Reading<br>with Timestamp</div>
+                        <div class="arrow-down">&#8595;</div>
+                        <div class="flow-system">Compare Against<br>Patient Thresholds</div>
+                        <div class="arrow-down">&#8595;</div>
+                        <div class="flow-decision">Within Normal<br>Range?</div>
+                        <div class="arrow-down">&#8595;</div>
+                        <div class="parallel-container">
+                            <div class="parallel-branch">
+                                <div class="branch-label">Yes</div>
+                                <div class="flow-system">Update Patient<br>Dashboard</div>
+                                <div class="arrow-down">&#8595;</div>
+                                <div class="flow-end">Complete</div>
+                            </div>
+                            <div class="parallel-branch">
+                                <div class="branch-label">No</div>
+                                <div class="flow-alert">Generate Alert<br>for Care Team</div>
+                                <div class="arrow-down">&#8595;</div>
+                                <div class="flow-alert">Send Push<br>Notification</div>
+                                <div class="arrow-down">&#8595;</div>
+                                <div class="flow-end">Complete</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="branch">
+                        <div class="branch-label">No</div>
+                        <div class="arrow-down">&#8595;</div>
+                        <div class="flow-alert">Show Error<br>Message</div>
+                        <div class="arrow-down">&#8595;</div>
+                        <div class="flow-process">Return to<br>Input Form</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Flow 2: Telehealth Appointment -->
+    <div class="section">
+        <div class="flow-container">
+            <div class="flow-header">
+                <span class="domain-badge domain-healthcare">Healthcare</span>
+                <h3>Flow 2: Telehealth Appointment Workflow</h3>
+            </div>
+            <div class="flow-description">
+                End-to-end flow for scheduling, conducting, and documenting a telehealth consultation between patient and healthcare provider.
+            </div>
+
+            <div class="swimlane-diagram">
+                <div class="swimlane">
+                    <div class="swimlane-label">Patient</div>
+                    <div class="swimlane-content">
+                        <div class="swimlane-step">Request<br>Appointment</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Select Provider<br>& Time Slot</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Confirm<br>Booking</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Join Video<br>Call</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Attend<br>Consultation</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Rate & Review<br>Experience</div>
+                    </div>
+                </div>
+                <div class="swimlane">
+                    <div class="swimlane-label">System</div>
+                    <div class="swimlane-content">
+                        <div class="swimlane-step">Check Provider<br>Availability</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Create<br>Appointment</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Send<br>Confirmations</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Send Reminder<br>(24h, 1h before)</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Initialize<br>Video Session</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Record Session<br>(if consented)</div>
+                    </div>
+                </div>
+                <div class="swimlane">
+                    <div class="swimlane-label">Provider</div>
+                    <div class="swimlane-content">
+                        <div class="swimlane-step">Review Patient<br>History</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Join Video<br>Call</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Conduct<br>Consultation</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Document<br>Notes</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Prescribe<br>(if needed)</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Schedule<br>Follow-up</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Flow 2B: EMR+PMS Clinical Workflow -->
+    <div class="section">
+        <div class="flow-container">
+            <div class="flow-header">
+                <span class="domain-badge domain-healthcare">Healthcare</span>
+                <h3>Flow 2B: EMR + Practice Management Clinical Workflow</h3>
+            </div>
+            <div class="flow-description">
+                End-to-end clinical workflow from patient registration through medical billing, showing integration between Electronic Medical Records (EMR) and Practice Management System (PMS).
+            </div>
+
+            <div class="flow-diagram">
+                <div class="flow-start">Patient<br>Registration</div>
+                <div class="flow-row" style="font-size: 8pt; color: var(--color-text-secondary); margin: 5px 0;">
+                    (CCDA/FHIR Import) | Front Desk: Demographics, Vitals
+                </div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-process">Patient Intake</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-row">
+                    <div class="flow-system">Eligibility Check<br>(EDI 270/271)</div>
+                    <div class="flow-process">&#8594; Clearing House &#8594;</div>
+                    <div class="flow-data"><span>Insurance<br>Response</span></div>
+                </div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-row">
+                    <div class="flow-process">Pre-Authorization<br>(if required)</div>
+                    <div class="flow-process">&#8594;</div>
+                    <div class="flow-system">Insurance Company<br>Approval</div>
+                </div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-process">Scheduling<br>(Patient Portal / Reception)</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-system">SOAP Notes<br>(ICD-10 / CPT Coding)</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-row">
+                    <div class="flow-process">Lab Integration<br>(LOINC Codes)</div>
+                    <div class="flow-process">e-Prescription<br>(FDB, RxNorm)</div>
+                    <div class="flow-process">CDS<br>(Clinical Decision Support)</div>
+                </div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-row" style="font-size: 8pt; color: var(--color-text-secondary); margin: 5px 0;">
+                    Quality Reporting: e-CQM, PQRS/PCMH/MIPS
+                </div>
+
+                <div class="flow-system">Charge Generation<br>(Charge Capturing)</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-decision">Claim<br>Submission</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-row">
+                    <div class="flow-process">Manual<br>(CMS-1500)</div>
+                    <div class="flow-process">EDI 837<br>(Electronic)</div>
+                </div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-system">Clearing House<br>Processing</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-row">
+                    <div class="flow-system">EDI 835<br>(Remittance)</div>
+                    <div class="flow-process">&#8594;</div>
+                    <div class="flow-process">A/R Payments</div>
+                    <div class="flow-process">&#8594;</div>
+                    <div class="flow-data"><span>Insurance<br>Payment</span></div>
+                </div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-row">
+                    <div class="flow-process">Discharge/Referral</div>
+                    <div class="flow-system">Generate CCDA/FHIR<br>(for continuity)</div>
+                </div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-end">Encounter<br>Complete</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Flow 3: Payroll Processing -->
+    <div class="section">
+        <div class="flow-container">
+            <div class="flow-header">
+                <span class="domain-badge domain-fintech">Fintech</span>
+                <h3>Flow 3: Monthly Payroll Processing Cycle</h3>
+            </div>
+            <div class="flow-description">
+                Complete payroll processing workflow from data collection through salary disbursement and statutory compliance reporting.
+            </div>
+
+            <div class="flow-diagram">
+                <div class="flow-start">Payroll Cycle Begins<br>(25th of Month)</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-row">
+                    <div class="flow-data"><span>Import Attendance<br>Data</span></div>
+                    <span class="arrow-right">&#8594;</span>
+                    <div class="flow-data"><span>Import Leave<br>Records</span></div>
+                    <span class="arrow-right">&#8594;</span>
+                    <div class="flow-data"><span>Import Overtime<br>& Bonuses</span></div>
+                </div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-system">Consolidate Employee<br>Working Days</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-process">Calculate Gross Pay<br>(Basic + Allowances + Overtime)</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-row">
+                    <div class="flow-process">Calculate Tax<br>Withholding (Federal/State)</div>
+                    <div class="flow-process">Calculate 401(k)/FICA<br>Contributions</div>
+                    <div class="flow-process">Apply Loan Payments<br>& Other Deductions</div>
+                </div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-system">Calculate Net Pay<br>for All Employees</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-process">Generate Payroll<br>Summary Report</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-decision">Approved by<br>Finance?</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="parallel-container">
+                    <div class="parallel-branch">
+                        <div class="branch-label">Yes</div>
+                        <div class="flow-system">Generate Bank<br>Transfer File</div>
+                        <div class="arrow-down">&#8595;</div>
+                        <div class="flow-system">Process Salary<br>Disbursement</div>
+                        <div class="arrow-down">&#8595;</div>
+                        <div class="flow-system">Generate Pay Slips<br>for Employees</div>
+                        <div class="arrow-down">&#8595;</div>
+                        <div class="flow-alert">Email Pay Slips<br>to Employees</div>
+                        <div class="arrow-down">&#8595;</div>
+                        <div class="flow-process">Generate Tax<br>Reports (W-2, 941)</div>
+                        <div class="arrow-down">&#8595;</div>
+                        <div class="flow-end">Cycle Complete</div>
+                    </div>
+                    <div class="parallel-branch">
+                        <div class="branch-label">No</div>
+                        <div class="flow-process">Review & Correct<br>Discrepancies</div>
+                        <div class="arrow-down">&#8595;</div>
+                        <div class="flow-process">Recalculate<br>Affected Records</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Flow 4: Employee Onboarding -->
+    <div class="section">
+        <div class="flow-container">
+            <div class="flow-header">
+                <span class="domain-badge domain-fintech">Fintech</span>
+                <h3>Flow 4: Employee Onboarding to Payroll System</h3>
+            </div>
+            <div class="flow-description">
+                Process flow for adding a new employee to the payroll system, from HR data entry through first payroll processing.
+            </div>
+
+            <div class="swimlane-diagram">
+                <div class="swimlane">
+                    <div class="swimlane-label">HR Team</div>
+                    <div class="swimlane-content">
+                        <div class="swimlane-step">Create Employee<br>Profile</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Enter Personal<br>Details</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Upload<br>Documents</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Assign<br>Department</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Set Reporting<br>Manager</div>
+                    </div>
+                </div>
+                <div class="swimlane">
+                    <div class="swimlane-label">Payroll Admin</div>
+                    <div class="swimlane-content">
+                        <div class="swimlane-step">Enter Bank<br>Details</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Enter Tax<br>Information</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Assign Salary<br>Structure</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Set Effective<br>Date</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Verify &<br>Activate</div>
+                    </div>
+                </div>
+                <div class="swimlane">
+                    <div class="swimlane-label">System</div>
+                    <div class="swimlane-content">
+                        <div class="swimlane-step">Generate<br>Employee ID</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Validate SSN/<br>Tax ID</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Calculate<br>Pro-rata Salary</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Send Portal<br>Credentials</div>
+                        <span class="swimlane-arrow">&#8594;</span>
+                        <div class="swimlane-step">Include in<br>Next Payroll</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Flow 5: Pet Day-Care Booking -->
+    <div class="section">
+        <div class="flow-container">
+            <div class="flow-header">
+                <span class="domain-badge domain-petcare">Pet Care</span>
+                <h3>Flow 5: Pet Day-Care Booking Process</h3>
+            </div>
+            <div class="flow-description">
+                Complete booking flow from availability check through confirmation, including vaccination verification and capacity management.
+            </div>
+
+            <div class="flow-diagram">
+                <div class="flow-start">Pet Owner<br>Visits Platform</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-decision">Registered<br>User?</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="parallel-container">
+                    <div class="parallel-branch">
+                        <div class="branch-label">Yes</div>
+                        <div class="flow-process">Login to<br>Account</div>
+                    </div>
+                    <div class="parallel-branch">
+                        <div class="branch-label">No</div>
+                        <div class="flow-process">Create Account<br>& Add Pet Profile</div>
+                        <div class="arrow-down">&#8595;</div>
+                        <div class="flow-data"><span>Upload Vaccination<br>Records</span></div>
+                    </div>
+                </div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-process">Select Service Type<br>(Day Care / Boarding / Grooming)</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-process">Select Date &<br>Time Slot</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-system">Check Facility<br>Capacity</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-decision">Slot<br>Available?</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="parallel-container">
+                    <div class="parallel-branch">
+                        <div class="branch-label">Yes</div>
+                        <div class="flow-system">Verify Vaccination<br>Status</div>
+                        <div class="arrow-down">&#8595;</div>
+                        <div class="flow-decision">Vaccinations<br>Current?</div>
+                        <div class="arrow-down">&#8595;</div>
+                        <div class="parallel-container">
+                            <div class="parallel-branch">
+                                <div class="branch-label">Yes</div>
+                                <div class="flow-process">Calculate<br>Total Price</div>
+                                <div class="arrow-down">&#8595;</div>
+                                <div class="flow-process">Process<br>Payment</div>
+                                <div class="arrow-down">&#8595;</div>
+                                <div class="flow-system">Create Booking<br>Record</div>
+                                <div class="arrow-down">&#8595;</div>
+                                <div class="flow-alert">Send Confirmation<br>Email</div>
+                                <div class="arrow-down">&#8595;</div>
+                                <div class="flow-end">Booking Complete</div>
+                            </div>
+                            <div class="parallel-branch">
+                                <div class="branch-label">No</div>
+                                <div class="flow-alert">Show Update<br>Vaccination Notice</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="parallel-branch">
+                        <div class="branch-label">No</div>
+                        <div class="flow-alert">Show "Fully Booked"<br>Message</div>
+                        <div class="arrow-down">&#8595;</div>
+                        <div class="flow-process">Offer Waitlist<br>Option</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Flow 6: User Registration -->
+    <div class="section">
+        <div class="flow-container">
+            <div class="flow-header">
+                <span class="domain-badge domain-general">General</span>
+                <h3>Flow 6: User Registration & Email Verification</h3>
+            </div>
+            <div class="flow-description">
+                Standard user registration flow with email verification, applicable across multiple platform types with security best practices.
+            </div>
+
+            <div class="flow-diagram">
+                <div class="flow-start">User Clicks<br>"Sign Up"</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-data"><span>Enter Registration Data<br>(Name, Email, Password)</span></div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-system">Validate Email<br>Format</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-system">Check Email<br>Uniqueness</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="flow-decision">Email<br>Available?</div>
+                <div class="arrow-down">&#8595;</div>
+
+                <div class="parallel-container">
+                    <div class="parallel-branch">
+                        <div class="branch-label">Yes</div>
+                        <div class="flow-system">Validate Password<br>Strength</div>
+                        <div class="arrow-down">&#8595;</div>
+                        <div class="flow-decision">Password<br>Strong?</div>
+                        <div class="arrow-down">&#8595;</div>
+                        <div class="parallel-container">
+                            <div class="parallel-branch">
+                                <div class="branch-label">Yes</div>
+                                <div class="flow-system">Hash Password<br>& Create Account</div>
+                                <div class="arrow-down">&#8595;</div>
+                                <div class="flow-system">Generate<br>Verification Token</div>
+                                <div class="arrow-down">&#8595;</div>
+                                <div class="flow-alert">Send Verification<br>Email</div>
+                                <div class="arrow-down">&#8595;</div>
+                                <div class="flow-process">Show "Check<br>Your Email"</div>
+                                <div class="arrow-down">&#8595;</div>
+                                <div class="flow-process">User Clicks<br>Verification Link</div>
+                                <div class="arrow-down">&#8595;</div>
+                                <div class="flow-system">Verify Token<br>& Activate Account</div>
+                                <div class="arrow-down">&#8595;</div>
+                                <div class="flow-end">Registration<br>Complete</div>
+                            </div>
+                            <div class="parallel-branch">
+                                <div class="branch-label">No</div>
+                                <div class="flow-alert">Show Password<br>Requirements</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="parallel-branch">
+                        <div class="branch-label">No</div>
+                        <div class="flow-alert">Show "Email<br>Already Exists"</div>
+                        <div class="arrow-down">&#8595;</div>
+                        <div class="flow-process">Offer Login or<br>Password Reset</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="section">
+        <h2 class="section-title">Flow Documentation Standards</h2>
+
+        <div class="info-box">
+            <h4>Best Practices Applied</h4>
+            <ul style="list-style: disc; padding-left: 20px; margin-top: 10px;">
+                <li><strong>Clear Start/End Points:</strong> Every flow has defined entry and exit points</li>
+                <li><strong>Decision Points:</strong> All branches clearly labeled with Yes/No or condition</li>
+                <li><strong>System vs User Actions:</strong> Visual distinction between manual and automated steps</li>
+                <li><strong>Error Handling:</strong> Alternative paths shown for validation failures</li>
+                <li><strong>Swimlanes:</strong> Used for cross-functional flows showing role responsibilities</li>
+                <li><strong>Consistent Notation:</strong> BPMN-inspired shapes for universal understanding</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <h4>Tools Used for Flow Creation</h4>
+            <ul style="list-style: disc; padding-left: 20px; margin-top: 10px;">
+                <li><strong>Miro:</strong> Primary tool for collaborative flowcharts and workshops</li>
+                <li><strong>FigJam:</strong> Quick wireframe flows during design discussions</li>
+                <li><strong>Draw.io:</strong> Detailed technical flows with export options</li>
+                <li><strong>Whimsical:</strong> Clean presentation-ready diagrams</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- High-Level Project Flowcharts -->
+    <div class="section">
+        <h2 class="section-title">High-Level Project Flowcharts</h2>
+        <p style="margin-bottom: 20px;">
+            Visual flowcharts created during discovery and requirements phases, showing complete system interactions across multiple user roles.
+        </p>
+
+        <div class="info-box" style="margin-bottom: 30px;">
+            <h4>Telehealth Platform (UK) - System Flow</h4>
+            <p style="font-size: 9pt; color: var(--color-text-secondary); margin-bottom: 10px;">
+                Complete workflow showing Pharmacy, Super Admin, GP, Patient, and Diagnostic Center interactions
+            </p>
+            <img src="assets/telehealth-flow.jpg" alt="Telehealth Platform Workflow" style="width: 100%; border: 1px solid var(--color-border); border-radius: 6px;">
+        </div>
+
+        <div class="info-box" style="margin-bottom: 30px;">
+            <h4>Vehicle Auction Platform (Netherlands) - High-Level Flow</h4>
+            <p style="font-size: 9pt; color: var(--color-text-secondary); margin-bottom: 10px;">
+                B2B auction workflow covering Customer Website, Super Admin, and Dealer Dashboard
+            </p>
+            <img src="assets/vehicle-auction-flow.jpg" alt="Vehicle Auction Platform Flow" style="width: 100%; border: 1px solid var(--color-border); border-radius: 6px;">
+        </div>
+
+        <div class="info-box" style="margin-bottom: 30px;">
+            <h4>Supplement Management App (Canada) - User Journey</h4>
+            <p style="font-size: 9pt; color: var(--color-text-secondary); margin-bottom: 10px;">
+                Mobile app flow showing Admin Portal features and complete User journey from registration to tracking
+            </p>
+            <img src="assets/supplement-flow.jpg" alt="Supplement Management App Flow" style="width: 100%; border: 1px solid var(--color-border); border-radius: 6px;">
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="doc-footer">
+        <p><strong>Atul Chauhan</strong> | Business Analyst</p>
+        <p>This document demonstrates process flow documentation capabilities across multiple domains.</p>
+        <p>All flows follow BPMN-inspired notation for clarity and consistency.</p>
+    </div>
+
+</body>
+</html>

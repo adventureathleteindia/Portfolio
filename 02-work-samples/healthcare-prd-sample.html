@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Requirements Document - Remote Patient Monitoring Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #334155;
+            --color-primary-dark: #1e293b;
+            --color-primary-light: #f1f5f9;
+            --color-text: #1F2937;
+            --color-text-secondary: #6B7280;
+            --color-bg: #FFFFFF;
+            --color-bg-secondary: #F9FAFB;
+            --color-border: #E5E7EB;
+            --color-success: #10B981;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: var(--color-text);
+            background: var(--color-bg);
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        @media print { body { padding: 20px; max-width: 100%; } .page-break { page-break-before: always; } }
+
+        h1, h2, h3, h4 { font-family: 'Montserrat', Arial, sans-serif; }
+
+        .doc-header {
+            border: 2px solid var(--color-primary);
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .doc-header h1 { font-size: 22pt; color: var(--color-primary); margin-bottom: 8px; }
+        .doc-header .subtitle { font-size: 14pt; color: var(--color-text); margin-bottom: 20px; }
+
+        .doc-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            text-align: left;
+            font-size: 10pt;
+            border-top: 1px solid var(--color-border);
+            padding-top: 20px;
+        }
+
+        .doc-meta-item label { color: var(--color-text-secondary); display: block; margin-bottom: 2px; }
+        .doc-meta-item span { font-weight: 600; color: var(--color-text); }
+
+        .section { margin-bottom: 30px; }
+        .section-title {
+            font-size: 14pt;
+            font-weight: 600;
+            color: var(--color-primary);
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+        }
+        .subsection-title { font-size: 12pt; font-weight: 600; color: var(--color-text); margin: 20px 0 12px 0; }
+
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 10pt; }
+        th, td { border: 1px solid var(--color-border); padding: 10px 12px; text-align: left; }
+        th { background: var(--color-primary); color: white; font-weight: 600; }
+        tr:nth-child(even) { background: var(--color-bg-secondary); }
+
+        ul, ol { margin: 10px 0; padding-left: 24px; }
+        li { margin-bottom: 6px; }
+
+        .info-box {
+            background: var(--color-primary-light);
+            border-left: 4px solid var(--color-primary);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .info-box h4 { font-size: 11pt; color: var(--color-primary); margin-bottom: 8px; }
+
+        .feature-card {
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            background: var(--color-bg-secondary);
+        }
+        .feature-card h4 { font-size: 12pt; color: var(--color-primary); margin-bottom: 10px; }
+        .feature-card p { font-size: 10.5pt; margin-bottom: 10px; }
+        .feature-card .feature-details { font-size: 10pt; color: var(--color-text-secondary); }
+
+        .persona-card {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 20px;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .persona-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--color-primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28pt;
+            color: var(--color-primary);
+        }
+        .persona-info h4 { font-size: 12pt; color: var(--color-primary); margin-bottom: 4px; }
+        .persona-info .role { font-size: 10pt; color: var(--color-text-secondary); margin-bottom: 10px; }
+        .persona-info p { font-size: 10pt; }
+
+        .release-table td:first-child { font-weight: 600; width: 100px; }
+
+        .doc-footer {
+            border-top: 1px solid var(--color-border);
+            padding-top: 15px;
+            margin-top: 40px;
+            font-size: 9pt;
+            color: var(--color-text-secondary);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Document Header -->
+    <div class="doc-header">
+        <h1>Product Requirements Document</h1>
+        <div class="subtitle">Remote Patient Monitoring (RPM) Platform</div>
+        <div class="doc-meta">
+            <div class="doc-meta-item">
+                <label>Version</label>
+                <span>2.0</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Status</label>
+                <span>In Development</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Last Updated</label>
+                <span>January 2024</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Product Owner</label>
+                <span>Product Team</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Target Release</label>
+                <span>Q2 2024</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Platform</label>
+                <span>Web + iOS + Android</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Vision -->
+    <section class="section">
+        <h2 class="section-title">1. Product Vision</h2>
+
+        <div class="info-box">
+            <h4>Vision Statement</h4>
+            <p>Empower healthcare providers to deliver proactive, personalized care by enabling continuous remote monitoring
+            of chronic disease patients - improving outcomes while creating sustainable revenue through RPM billing.</p>
+        </div>
+
+        <h3 class="subsection-title">Problem Statement</h3>
+        <p>
+            Chronic disease patients (hypertension, diabetes, COPD) require ongoing monitoring, but traditional care
+            models only capture health data during infrequent office visits. This leads to missed early warning signs,
+            preventable hospitalizations, and reactive rather than proactive care. Additionally, providers struggle
+            to capture RPM billing revenue due to manual tracking requirements.
+        </p>
+
+        <h3 class="subsection-title">Solution</h3>
+        <p>
+            A comprehensive B2B platform that connects healthcare providers with their patients through FDA-cleared
+            Bluetooth medical devices, enabling real-time vitals monitoring, intelligent alerting, clinical review
+            workflows, and automated billing - all within a HIPAA-compliant environment.
+        </p>
+
+        <h3 class="subsection-title">Key Value Propositions</h3>
+        <ul>
+            <li><strong>For Super Admin:</strong> Multi-provider management, device inventory, request handling, activity logs</li>
+            <li><strong>For Providers/Hospitals:</strong> Patient management, care team coordination, billing eligibility tracking</li>
+            <li><strong>For Clinical Staff:</strong> Real-time vitals dashboard, alerts, patient profiles, medical history</li>
+            <li><strong>For Patients:</strong> Simple device pairing, automatic data sync, care team visibility</li>
+        </ul>
+    </section>
+
+    <!-- User Personas -->
+    <section class="section">
+        <h2 class="section-title">2. User Personas</h2>
+
+        <div class="persona-card">
+            <div class="persona-avatar">SA</div>
+            <div class="persona-info">
+                <h4>James - Super Admin</h4>
+                <div class="role">Platform Administrator | System Owner</div>
+                <p><strong>Goals:</strong> Manage all providers, allocate devices, handle requests, ensure platform uptime</p>
+                <p><strong>Pain Points:</strong> Manual device allocation, tracking multiple provider requests, lack of visibility</p>
+                <p><strong>Needs:</strong> Central dashboard with all stats, request queue management, activity logs, device inventory control</p>
+            </div>
+        </div>
+
+        <div class="persona-card">
+            <div class="persona-avatar">PV</div>
+            <div class="persona-info">
+                <h4>Dr. Healthcare Medical Hospital - Provider</h4>
+                <div class="role">Healthcare Organization | Primary Customer</div>
+                <p><strong>Goals:</strong> Enroll patients, manage care team, track device usage, ensure billing eligibility</p>
+                <p><strong>Pain Points:</strong> Bulk patient onboarding, coordinating external care providers, tracking POP assignments</p>
+                <p><strong>Needs:</strong> Patient management tabs, device allocation requests, care team directory, billing status</p>
+            </div>
+        </div>
+
+        <div class="persona-card">
+            <div class="persona-avatar">RN</div>
+            <div class="persona-info">
+                <h4>Sarah - Clinical Care Manager</h4>
+                <div class="role">Registered Nurse | Primary User</div>
+                <p><strong>Goals:</strong> Monitor assigned patients efficiently, prioritize high-risk cases, document interventions</p>
+                <p><strong>Pain Points:</strong> Too many patients to track manually, no alerts for concerning trends, documentation burden</p>
+                <p><strong>Needs:</strong> Quick health stats panel, vitals graphs, patient detail tabs (Results, Notes, Device, Medical Profile)</p>
+            </div>
+        </div>
+
+        <div class="persona-card">
+            <div class="persona-avatar">PT</div>
+            <div class="persona-info">
+                <h4>Robert - RPM Patient</h4>
+                <div class="role">65-year-old with Hypertension | End User</div>
+                <p><strong>Goals:</strong> Manage blood pressure, avoid ER visits, stay connected to care team</p>
+                <p><strong>Pain Points:</strong> Forgets to take readings, unsure if values are concerning, technology intimidation</p>
+                <p><strong>Needs:</strong> Simple device pairing, automatic data sync, minimal app interaction required</p>
+            </div>
+        </div>
+
+        <div class="persona-card">
+            <div class="persona-avatar">BL</div>
+            <div class="persona-info">
+                <h4>Maria - PDC Billing Coordinator</h4>
+                <div class="role">Healthcare Administrator | Secondary User</div>
+                <p><strong>Goals:</strong> Maximize RPM revenue, ensure compliant billing, minimize claim rejections</p>
+                <p><strong>Pain Points:</strong> Manual tracking of device transmission days, determining reading counts per device</p>
+                <p><strong>Needs:</strong> PDC Billing module with eligibility status, monthly views, device-level reading counts, CPT code automation</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section">
+        <h2 class="section-title">3. Feature Overview</h2>
+
+        <h3 class="subsection-title">Platform Navigation Structure</h3>
+        <p>The platform consists of seven main modules accessible via top navigation:</p>
+        <ul>
+            <li><strong>Dashboard</strong> - Overview stats and request management</li>
+            <li><strong>Device Inventory</strong> - Device tracking and allocation</li>
+            <li><strong>Providers</strong> - Healthcare provider/hospital management</li>
+            <li><strong>PDC Staff</strong> - Internal staff management</li>
+            <li><strong>PDC Nursing</strong> - Nursing staff workflows and requests</li>
+            <li><strong>PDC Billing</strong> - Billing eligibility and reporting</li>
+            <li><strong>Activity Logs</strong> - Audit trail and system logs</li>
+        </ul>
+
+        <div class="feature-card">
+            <h4>3.1 Super Admin Dashboard</h4>
+            <p>Centralized command center for platform administrators to monitor all providers, patients, and requests.</p>
+            <div class="feature-details">
+                <strong>Dashboard Stats Cards:</strong>
+                <ul>
+                    <li><strong>Total Providers:</strong> Active healthcare providers/hospitals (weekly change indicator)</li>
+                    <li><strong>Inactive Providers:</strong> Providers with suspended access</li>
+                    <li><strong>Total POP:</strong> Primary Ordering Providers count</li>
+                    <li><strong>Total Patients:</strong> All enrolled patients across providers</li>
+                    <li><strong>Unallotted Devices:</strong> Available devices vs total inventory (e.g., 50/500)</li>
+                    <li><strong>Device Allocation Requests:</strong> Pending device requests from providers</li>
+                    <li><strong>PDC Billing Requests:</strong> Pending billing-related requests</li>
+                    <li><strong>PDC Nursing Requests:</strong> Pending nursing support requests</li>
+                </ul>
+                <strong>Request Management Table:</strong>
+                <ul>
+                    <li>Columns: S.No, Provider Name, Request Type, Patient ID, Dates, Status, Action</li>
+                    <li>Request Types: Device Allocation, Support, PDC Nursing (Enable/Disable), PDC Billing (Enable/Disable)</li>
+                    <li>Status tracking: Pending, Approved, Rejected</li>
+                </ul>
+                <strong>Analytics Charts:</strong>
+                <ul>
+                    <li>Patients Onboarded (weekly/monthly trend)</li>
+                    <li>Requests volume (weekly/monthly trend)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <h4>3.2 Device Inventory Management</h4>
+            <p>Complete lifecycle management of RPM devices from procurement to patient assignment.</p>
+            <div class="feature-details">
+                <strong>Device Information Modal:</strong>
+                <ul>
+                    <li><strong>Device ID:</strong> Unique identifier (e.g., TMB-2092-G)</li>
+                    <li><strong>Device Type:</strong> RPM Device, BPM Device, etc.</li>
+                    <li><strong>Battery Level:</strong> Percentage indicator (e.g., 100%)</li>
+                    <li><strong>Signal Strength:</strong> Connectivity indicator (e.g., 25%)</li>
+                    <li><strong>Device Status:</strong> Active, Inactive, Unassigned</li>
+                    <li><strong>Network Identifiers:</strong> ICCID, IMSI, IMEI numbers</li>
+                    <li><strong>Latest Reading:</strong> Most recent measurement with timestamp</li>
+                    <li><strong>Assigned Patient:</strong> Patient name, age, gender, location, last active time</li>
+                </ul>
+                <strong>Device Allocation Workflow:</strong>
+                <ul>
+                    <li>Provider submits device allocation request with Patient ID</li>
+                    <li>Super Admin reviews and approves/rejects</li>
+                    <li>Device automatically linked to patient profile</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <h4>3.3 Provider Management</h4>
+            <p>Multi-tenant architecture supporting multiple healthcare providers with isolated patient data.</p>
+            <div class="feature-details">
+                <strong>Provider View Tabs:</strong>
+                <ul>
+                    <li><strong>Provider Details:</strong> Hospital/clinic information, contact, address</li>
+                    <li><strong>Allotted Devices:</strong> Devices assigned to this provider</li>
+                    <li><strong>Patient Management:</strong> All patients under this provider</li>
+                    <li><strong>Primary Ordering Provider Management:</strong> POP assignments</li>
+                </ul>
+                <strong>Provider Stats:</strong>
+                <ul>
+                    <li>Total Patients count</li>
+                    <li>Patients Enrolled (active monitoring)</li>
+                    <li>Weekly change indicators</li>
+                </ul>
+                <strong>Patient List Filters:</strong>
+                <ul>
+                    <li>Primary Ordering Provider dropdown</li>
+                    <li>Patient Enrollment Status (All, Enrolled, Pending, Inactive)</li>
+                    <li>Device Status (All, Active, Inactive, Unassigned)</li>
+                    <li>Search by Patient ID or Name</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <h4>3.4 Patient Health Statistics (Quick Stats Panel)</h4>
+            <p>Real-time patient health data display with instant stats and historical trends.</p>
+            <div class="feature-details">
+                <strong>Patient Header:</strong>
+                <ul>
+                    <li>Patient Name with Enrollment Status badge (Enrolled, Pending)</li>
+                    <li>Patient ID, Gender, Age</li>
+                    <li>Primary Ordering Provider name</li>
+                    <li>Current Vitals: Blood Pressure (systolic/diastolic mmHg), Heart Rate (BPM)</li>
+                    <li>Latest reading timestamp</li>
+                    <li>Last active indicator</li>
+                </ul>
+                <strong>Patient Detail Tabs:</strong>
+                <ul>
+                    <li><strong>Results:</strong> Vitals readings with alert indicators</li>
+                    <li><strong>Notes:</strong> Clinical notes and observations</li>
+                    <li><strong>Device:</strong> Assigned device information</li>
+                    <li><strong>Patient Profile:</strong> Demographics, contact info</li>
+                    <li><strong>Medical Profile:</strong> Conditions, medications, allergies</li>
+                    <li><strong>Patient Care Team:</strong> External care providers</li>
+                    <li><strong>Activity:</strong> Patient interaction history</li>
+                </ul>
+                <strong>Alert Notifications:</strong>
+                <ul>
+                    <li>Inline alerts: "Patient's last reading is 128/92 mmHg. This indicates high blood pressure. Further evaluation is advised."</li>
+                </ul>
+                <strong>Vitals Graphs (Time-Series):</strong>
+                <ul>
+                    <li>Blood Pressure results graph (weekly view) - Systolic/Diastolic lines</li>
+                    <li>Heart Rate result graph (weekly view) - Pulse line</li>
+                    <li>Date range selector (This Week, This Month, Custom)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <h4>3.5 External Care Provider Directory</h4>
+            <p>Manage patient's external care team including primary care physicians and specialists.</p>
+            <div class="feature-details">
+                <strong>Care Provider Types:</strong>
+                <ul>
+                    <li>Primary Care Provider (PCP)</li>
+                    <li>Specialist 1, Specialist 2, etc.</li>
+                </ul>
+                <strong>Provider Information:</strong>
+                <ul>
+                    <li>Name, Email, Specialty (Dentist, Nutritionist, Dietician, etc.)</li>
+                    <li>NPI Number (National Provider Identifier)</li>
+                </ul>
+                <strong>Access Management:</strong>
+                <ul>
+                    <li>Assign New provider to patient</li>
+                    <li>Share access (grant view permissions)</li>
+                    <li>Revoke access (remove permissions)</li>
+                    <li>View Profile, Remove from care team</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <h4>3.6 Bulk Patient Onboarding</h4>
+            <p>Efficient enrollment of multiple patients via CSV upload.</p>
+            <div class="feature-details">
+                <strong>Steps to Follow:</strong>
+                <ol>
+                    <li>Download PDC spreadsheet template (CSV format)</li>
+                    <li>Fill all Patient Information with respective POP ID</li>
+                    <li>Make sure to save changes locally</li>
+                    <li>Save the file in CSV format</li>
+                    <li>Upload the CSV file via drag-and-drop or file browser</li>
+                    <li>Click Submit button to process</li>
+                </ol>
+                <strong>UI Elements:</strong>
+                <ul>
+                    <li>Download Template button</li>
+                    <li>File upload area (drag-and-drop supported)</li>
+                    <li>Submit button</li>
+                    <li>Validation feedback for errors</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <h4>3.7 PDC Billing Module</h4>
+            <p>Automated tracking for RPM billing eligibility and CPT code determination.</p>
+            <div class="feature-details">
+                <strong>Billing Information Screen:</strong>
+                <ul>
+                    <li><strong>Eligibility Status:</strong> Eligible (green) / Not Eligible indicator</li>
+                    <li><strong>Month Selector:</strong> View billing data by month (e.g., Nov 2023)</li>
+                    <li><strong>POP Associated:</strong> Primary Ordering Provider name</li>
+                    <li><strong>Calls Taken:</strong> Number of clinical calls/interactions</li>
+                </ul>
+                <strong>Per-Device Billing Data:</strong>
+                <ul>
+                    <li><strong>Device Label:</strong> BPM Device 1, BPM Device 2, etc.</li>
+                    <li><strong>Device ID:</strong> Unique identifier</li>
+                    <li><strong>Device Status:</strong> Active/Inactive</li>
+                    <li><strong>Readings Received:</strong> Count of readings for billing period</li>
+                </ul>
+                <strong>CPT Code Logic:</strong>
+                <ul>
+                    <li><strong>99453:</strong> Initial device setup and patient education (one-time)</li>
+                    <li><strong>99454:</strong> Device supply with daily recording (16+ days/month required)</li>
+                    <li><strong>99457:</strong> First 20 minutes of clinical time per month</li>
+                    <li><strong>99458:</strong> Each additional 20 minutes of clinical time</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div class="page-break"></div>
+
+    <!-- User Flows -->
+    <section class="section">
+        <h2 class="section-title">4. Key User Flows</h2>
+
+        <h3 class="subsection-title">4.1 Patient Enrollment Flow</h3>
+        <table>
+            <tr>
+                <th>Step</th>
+                <th>Actor</th>
+                <th>Action</th>
+                <th>System Response</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Staff</td>
+                <td>Click "Enroll New Patient"</td>
+                <td>Display enrollment form</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Staff</td>
+                <td>Enter patient demographics, diagnosis codes</td>
+                <td>Validate required fields</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Staff</td>
+                <td>Capture digital consent signature</td>
+                <td>Store consent with timestamp</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Staff</td>
+                <td>Scan device barcode or enter serial</td>
+                <td>Associate device with patient</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Staff</td>
+                <td>Generate app installation QR code</td>
+                <td>Display QR code for patient</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Patient</td>
+                <td>Scan QR, install app, pair device</td>
+                <td>BLE pairing wizard guides patient</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Patient</td>
+                <td>Take first reading</td>
+                <td>Reading syncs, enrollment complete</td>
+            </tr>
+        </table>
+
+        <h3 class="subsection-title">4.2 Daily Clinical Review Flow</h3>
+        <table>
+            <tr>
+                <th>Step</th>
+                <th>Actor</th>
+                <th>Action</th>
+                <th>System Response</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Nurse</td>
+                <td>Log in to dashboard</td>
+                <td>Show patient list with alert badges</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Nurse</td>
+                <td>Click "Alerts" filter</td>
+                <td>Show only patients with active alerts</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Nurse</td>
+                <td>Select critical alert patient</td>
+                <td>Display patient detail with readings</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Nurse</td>
+                <td>Review readings history and trends</td>
+                <td>Show chart and data table</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Nurse</td>
+                <td>Add clinical note, mark alert reviewed</td>
+                <td>Log time spent, save note, clear alert</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Nurse</td>
+                <td>Optionally escalate or call patient</td>
+                <td>Log escalation, initiate call</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Release Plan -->
+    <section class="section">
+        <h2 class="section-title">5. Release Plan</h2>
+
+        <table class="release-table">
+            <tr>
+                <th>Release</th>
+                <th>Features</th>
+                <th>Target Date</th>
+            </tr>
+            <tr>
+                <td>MVP (v1.0)</td>
+                <td>
+                    - Patient enrollment and device assignment<br>
+                    - BP monitor integration<br>
+                    - Clinical dashboard with alerts<br>
+                    - Basic billing reports
+                </td>
+                <td>Q2 2024</td>
+            </tr>
+            <tr>
+                <td>v1.1</td>
+                <td>
+                    - Pulse oximeter and weight scale support<br>
+                    - Trending alerts<br>
+                    - Enhanced billing automation
+                </td>
+                <td>Q3 2024</td>
+            </tr>
+            <tr>
+                <td>v1.2</td>
+                <td>
+                    - Glucometer integration<br>
+                    - Patient mobile app redesign<br>
+                    - EHR integration (Phase 1)
+                </td>
+                <td>Q4 2024</td>
+            </tr>
+            <tr>
+                <td>v2.0</td>
+                <td>
+                    - Telehealth video integration<br>
+                    - AI-powered risk predictions<br>
+                    - Multi-provider support
+                </td>
+                <td>2026</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Success Metrics -->
+    <section class="section">
+        <h2 class="section-title">6. Success Metrics</h2>
+
+        <table>
+            <tr>
+                <th>Metric</th>
+                <th>Definition</th>
+                <th>Target</th>
+                <th>Measurement</th>
+            </tr>
+            <tr>
+                <td>Patient Enrollment</td>
+                <td>Active patients in monitoring</td>
+                <td>500+ in Year 1</td>
+                <td>Monthly count</td>
+            </tr>
+            <tr>
+                <td>Device Adherence</td>
+                <td>% patients with 16+ reading days/month</td>
+                <td>80%+</td>
+                <td>Monthly analysis</td>
+            </tr>
+            <tr>
+                <td>Alert Response Time</td>
+                <td>Time from alert to clinical review</td>
+                <td>&lt; 4 hours (critical)</td>
+                <td>System logs</td>
+            </tr>
+            <tr>
+                <td>Billing Capture Rate</td>
+                <td>% eligible patients billed</td>
+                <td>95%+</td>
+                <td>Monthly report</td>
+            </tr>
+            <tr>
+                <td>Clinical Time Logged</td>
+                <td>Average review minutes per patient</td>
+                <td>Track for billing</td>
+                <td>System tracking</td>
+            </tr>
+            <tr>
+                <td>User Satisfaction (Clinicians)</td>
+                <td>NPS score from clinical users</td>
+                <td>50+</td>
+                <td>Quarterly survey</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Technical Considerations -->
+    <section class="section">
+        <h2 class="section-title">7. Technical Considerations</h2>
+
+        <h3 class="subsection-title">Platform Requirements</h3>
+        <ul>
+            <li><strong>Web App:</strong> React-based SPA, responsive design, modern browsers (Chrome, Safari, Edge)</li>
+            <li><strong>iOS App:</strong> Swift/SwiftUI, iOS 14+, CoreBluetooth for BLE</li>
+            <li><strong>Android App:</strong> Kotlin, Android 10+, BLE support</li>
+            <li><strong>Backend:</strong> Cloud-hosted API, PostgreSQL database, HIPAA-compliant infrastructure</li>
+        </ul>
+
+        <h3 class="subsection-title">Integration Points</h3>
+        <ul>
+            <li>BLE medical device protocols (standard health profiles)</li>
+            <li>Push notification services (APNs, FCM)</li>
+            <li>Email service for alerts and reports</li>
+            <li>Future: EHR integration via HL7 FHIR APIs</li>
+        </ul>
+
+        <h3 class="subsection-title">Security & Compliance</h3>
+        <ul>
+            <li>HIPAA compliance: encryption, access controls, audit logs, BAAs</li>
+            <li>SOC 2 Type II certification for hosting</li>
+            <li>Role-based access control (RBAC)</li>
+            <li>Data retention per healthcare regulations</li>
+        </ul>
+    </section>
+
+    <!-- Open Questions -->
+    <section class="section">
+        <h2 class="section-title">8. Open Questions & Decisions</h2>
+
+        <table>
+            <tr>
+                <th>Question</th>
+                <th>Options</th>
+                <th>Decision</th>
+                <th>Owner</th>
+            </tr>
+            <tr>
+                <td>Which device vendors to support first?</td>
+                <td>Omron, Withings, iHealth</td>
+                <td>TBD - awaiting vendor evaluations</td>
+                <td>Product</td>
+            </tr>
+            <tr>
+                <td>Alert notification channels?</td>
+                <td>In-app only vs. SMS/Email</td>
+                <td>In-app + email for MVP</td>
+                <td>Product</td>
+            </tr>
+            <tr>
+                <td>EHR integration priority?</td>
+                <td>Epic, Cerner, Athena</td>
+                <td>Deferred to v1.2</td>
+                <td>Product</td>
+            </tr>
+            <tr>
+                <td>Patient app branding?</td>
+                <td>White-label vs. branded</td>
+                <td>Branded for MVP, white-label later</td>
+                <td>Design</td>
+            </tr>
+        </table>
+    </section>
+
+    <div class="doc-footer">
+        <p>CONFIDENTIAL - For Internal Use Only</p>
+        <p>Product Requirements Document | Remote Patient Monitoring Platform | v1.0</p>
+    </div>
+
+</body>
+</html>

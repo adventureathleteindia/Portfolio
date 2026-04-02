@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Requirements Document - Payroll Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #334155;
+            --color-primary-dark: #1e293b;
+            --color-primary-light: #f1f5f9;
+            --color-text: #1F2937;
+            --color-text-secondary: #6B7280;
+            --color-bg: #FFFFFF;
+            --color-bg-secondary: #F9FAFB;
+            --color-border: #E5E7EB;
+            --color-success: #10B981;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: var(--color-text);
+            background: var(--color-bg);
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        @media print { body { padding: 20px; max-width: 100%; } .page-break { page-break-before: always; } }
+
+        h1, h2, h3, h4 { font-family: 'Montserrat', Arial, sans-serif; }
+
+        .doc-header {
+            border: 2px solid var(--color-primary);
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .doc-header h1 { font-size: 22pt; color: var(--color-primary); margin-bottom: 8px; }
+        .doc-header .subtitle { font-size: 14pt; color: var(--color-text); margin-bottom: 20px; }
+
+        .doc-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            text-align: left;
+            font-size: 10pt;
+            border-top: 1px solid var(--color-border);
+            padding-top: 20px;
+        }
+
+        .doc-meta-item label { color: var(--color-text-secondary); display: block; margin-bottom: 2px; }
+        .doc-meta-item span { font-weight: 600; color: var(--color-text); }
+
+        .section { margin-bottom: 30px; }
+        .section-title {
+            font-size: 14pt;
+            font-weight: 600;
+            color: var(--color-primary);
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+        }
+        .subsection-title { font-size: 12pt; font-weight: 600; color: var(--color-text); margin: 20px 0 12px 0; }
+
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 10pt; }
+        th, td { border: 1px solid var(--color-border); padding: 10px 12px; text-align: left; }
+        th { background: var(--color-primary); color: white; font-weight: 600; }
+        tr:nth-child(even) { background: var(--color-bg-secondary); }
+
+        ul, ol { margin: 10px 0; padding-left: 24px; }
+        li { margin-bottom: 6px; }
+
+        .info-box {
+            background: var(--color-primary-light);
+            border-left: 4px solid var(--color-primary);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .info-box h4 { font-size: 11pt; color: var(--color-primary); margin-bottom: 8px; }
+
+        .feature-card {
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            background: var(--color-bg-secondary);
+        }
+        .feature-card h4 { font-size: 12pt; color: var(--color-primary); margin-bottom: 10px; }
+        .feature-card p { font-size: 10.5pt; margin-bottom: 10px; }
+        .feature-card .feature-details { font-size: 10pt; color: var(--color-text-secondary); }
+
+        .persona-card {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 20px;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .persona-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--color-primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28pt;
+            color: var(--color-primary);
+        }
+        .persona-info h4 { font-size: 12pt; color: var(--color-primary); margin-bottom: 4px; }
+        .persona-info .role { font-size: 10pt; color: var(--color-text-secondary); margin-bottom: 10px; }
+        .persona-info p { font-size: 10pt; }
+
+        .doc-footer {
+            border-top: 1px solid var(--color-border);
+            padding-top: 15px;
+            margin-top: 40px;
+            font-size: 9pt;
+            color: var(--color-text-secondary);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Document Header -->
+    <div class="doc-header">
+        <h1>Product Requirements Document</h1>
+        <div class="subtitle">Payroll Management System</div>
+        <div class="doc-meta">
+            <div class="doc-meta-item">
+                <label>Version</label>
+                <span>1.0</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Status</label>
+                <span>In Development</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Last Updated</label>
+                <span>January 2024</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Product Owner</label>
+                <span>Product Team</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Target Release</label>
+                <span>Q1 2024</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Platform</label>
+                <span>Web (SaaS)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Vision -->
+    <section class="section">
+        <h2 class="section-title">1. Product Vision</h2>
+
+        <div class="info-box">
+            <h4>Vision Statement</h4>
+            <p>Make payroll effortless for small and medium businesses - accurate calculations, compliant tax handling,
+            and happy employees - all in a few clicks.</p>
+        </div>
+
+        <h3 class="subsection-title">Problem Statement</h3>
+        <p>
+            Small and medium businesses struggle with payroll complexity. Manual calculations lead to errors,
+            tax compliance is confusing, and employees lack visibility into their pay. Existing solutions are
+            either too expensive, too complex, or don't handle multi-state tax scenarios well.
+        </p>
+
+        <h3 class="subsection-title">Solution</h3>
+        <p>
+            A modern, intuitive payroll platform that automates the entire pay cycle - from employee onboarding
+            to direct deposit - with built-in tax compliance, self-service employee portals, and clear audit trails.
+            Designed for businesses with 5-500 employees across multiple states.
+        </p>
+    </section>
+
+    <!-- User Personas -->
+    <section class="section">
+        <h2 class="section-title">2. User Personas</h2>
+
+        <div class="persona-card">
+            <div class="persona-avatar">HR</div>
+            <div class="persona-info">
+                <h4>Jennifer - HR/Payroll Manager</h4>
+                <div class="role">Small Business (50 employees) | Primary User</div>
+                <p><strong>Goals:</strong> Run accurate payroll on time, stay tax compliant, minimize manual work</p>
+                <p><strong>Pain Points:</strong> Spreadsheet errors, tax table updates, employee questions about pay</p>
+                <p><strong>Needs:</strong> One-click payroll run, automatic tax calculations, employee self-service</p>
+            </div>
+        </div>
+
+        <div class="persona-card">
+            <div class="persona-avatar">BO</div>
+            <div class="persona-info">
+                <h4>Mike - Business Owner</h4>
+                <div class="role">Multi-location Business | Decision Maker</div>
+                <p><strong>Goals:</strong> Oversee payroll costs, ensure compliance, manage multiple companies</p>
+                <p><strong>Pain Points:</strong> Lack of visibility, worried about IRS penalties, no consolidated view</p>
+                <p><strong>Needs:</strong> Dashboard with payroll summary, multi-company support, cost reports</p>
+            </div>
+        </div>
+
+        <div class="persona-card">
+            <div class="persona-avatar">EE</div>
+            <div class="persona-info">
+                <h4>Alex - Employee</h4>
+                <div class="role">Hourly Worker | End User</div>
+                <p><strong>Goals:</strong> Get paid correctly and on time, access pay stubs, update direct deposit</p>
+                <p><strong>Pain Points:</strong> Can't find old pay stubs, unsure why deductions changed, W-2 delays</p>
+                <p><strong>Needs:</strong> Mobile-friendly portal, clear pay breakdown, instant W-2 access</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section">
+        <h2 class="section-title">3. Feature Overview</h2>
+
+        <div class="feature-card">
+            <h4>3.1 Company & Employee Setup</h4>
+            <p>Quick onboarding for companies and employees with guided workflows.</p>
+            <div class="feature-details">
+                <strong>Key Capabilities:</strong>
+                <ul>
+                    <li>Company setup wizard: business info, tax IDs, pay schedules</li>
+                    <li>Employee self-onboarding via invitation link</li>
+                    <li>W-4 and direct deposit capture during onboarding</li>
+                    <li>Bulk employee import from CSV</li>
+                    <li>Multi-company support from single dashboard</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <h4>3.2 Payroll Processing</h4>
+            <p>Run payroll in minutes with automatic calculations and preview before finalizing.</p>
+            <div class="feature-details">
+                <strong>Workflow:</strong>
+                <ul>
+                    <li><strong>Step 1:</strong> Select pay period and review hours/salary</li>
+                    <li><strong>Step 2:</strong> Add bonuses, commissions, or adjustments</li>
+                    <li><strong>Step 3:</strong> Preview payroll with full breakdown</li>
+                    <li><strong>Step 4:</strong> Approve and submit for processing</li>
+                    <li><strong>Step 5:</strong> Direct deposits initiated, pay stubs generated</li>
+                </ul>
+                <strong>Automation:</strong> Recurring payroll scheduling, automatic overtime calculation
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <h4>3.3 Tax Calculations & Compliance</h4>
+            <p>Always-current tax tables with automatic federal, state, and local calculations.</p>
+            <div class="feature-details">
+                <strong>Tax Support:</strong>
+                <ul>
+                    <li>Federal income tax (based on W-4)</li>
+                    <li>Social Security and Medicare (FICA)</li>
+                    <li>State income tax (all 50 states)</li>
+                    <li>Local/city taxes where applicable</li>
+                    <li>Unemployment taxes (FUTA, SUTA)</li>
+                </ul>
+                <strong>Compliance:</strong> Automatic tax table updates, year-end W-2/W-3 generation, quarterly 941 reports
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <h4>3.4 Employee Self-Service Portal</h4>
+            <p>Empower employees to access their pay info and update personal details.</p>
+            <div class="feature-details">
+                <strong>Employee Access:</strong>
+                <ul>
+                    <li>View and download pay stubs (current and historical)</li>
+                    <li>Access W-2 and other tax documents</li>
+                    <li>Update personal info and address</li>
+                    <li>Change direct deposit bank accounts</li>
+                    <li>Adjust W-4 withholding elections</li>
+                    <li>Mobile-responsive design for phone access</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <h4>3.5 Reports & Analytics</h4>
+            <p>Comprehensive reporting for payroll analysis, taxes, and compliance.</p>
+            <div class="feature-details">
+                <strong>Standard Reports:</strong>
+                <ul>
+                    <li>Payroll summary by pay period</li>
+                    <li>Tax liability reports (federal, state, local)</li>
+                    <li>Employee earnings history</li>
+                    <li>Department/location cost breakdown</li>
+                    <li>Year-to-date summaries</li>
+                </ul>
+                <strong>Export:</strong> PDF, CSV, Excel formats
+            </div>
+        </div>
+    </section>
+
+    <div class="page-break"></div>
+
+    <!-- User Flows -->
+    <section class="section">
+        <h2 class="section-title">4. Key User Flows</h2>
+
+        <h3 class="subsection-title">4.1 Running Payroll</h3>
+        <table>
+            <tr>
+                <th>Step</th>
+                <th>Actor</th>
+                <th>Action</th>
+                <th>System Response</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Admin</td>
+                <td>Navigate to Payroll > Run Payroll</td>
+                <td>Show pay period selection</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Admin</td>
+                <td>Select company and pay period</td>
+                <td>Load employees with hours/salary</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Admin</td>
+                <td>Review hours, add any adjustments</td>
+                <td>Update totals in real-time</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Admin</td>
+                <td>Click "Preview Payroll"</td>
+                <td>Show full calculation breakdown</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Admin</td>
+                <td>Review preview, click "Approve & Submit"</td>
+                <td>Process payroll, initiate deposits</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>System</td>
+                <td>Generate pay stubs, send notifications</td>
+                <td>Employees receive email notification</td>
+            </tr>
+        </table>
+
+        <h3 class="subsection-title">4.2 Employee Viewing Pay Stub</h3>
+        <table>
+            <tr>
+                <th>Step</th>
+                <th>Actor</th>
+                <th>Action</th>
+                <th>System Response</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Employee</td>
+                <td>Log in to employee portal</td>
+                <td>Show dashboard with latest pay</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Employee</td>
+                <td>Click on pay stub or navigate to Pay History</td>
+                <td>Display list of all pay stubs</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Employee</td>
+                <td>Select specific pay stub</td>
+                <td>Show detailed breakdown</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Employee</td>
+                <td>Click "Download PDF"</td>
+                <td>Generate and download pay stub PDF</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Release Plan -->
+    <section class="section">
+        <h2 class="section-title">5. Release Plan</h2>
+
+        <table>
+            <tr>
+                <th>Release</th>
+                <th>Features</th>
+                <th>Target</th>
+            </tr>
+            <tr>
+                <td><strong>MVP (v1.0)</strong></td>
+                <td>
+                    - Company and employee setup<br>
+                    - Basic payroll run (salary employees)<br>
+                    - Federal + top 10 state tax support<br>
+                    - Pay stub generation<br>
+                    - Employee portal (view only)
+                </td>
+                <td>Q1 2024</td>
+            </tr>
+            <tr>
+                <td><strong>v1.1</strong></td>
+                <td>
+                    - Hourly employees with overtime<br>
+                    - All 50 states tax support<br>
+                    - Direct deposit processing<br>
+                    - Employee self-service updates
+                </td>
+                <td>Q2 2024</td>
+            </tr>
+            <tr>
+                <td><strong>v1.2</strong></td>
+                <td>
+                    - Multi-company support<br>
+                    - W-2 generation<br>
+                    - Quarterly tax reports<br>
+                    - Advanced reporting
+                </td>
+                <td>Q3 2024</td>
+            </tr>
+            <tr>
+                <td><strong>v2.0</strong></td>
+                <td>
+                    - Benefits administration integration<br>
+                    - Time tracking integration<br>
+                    - Contractor payments (1099)<br>
+                    - API for third-party integrations
+                </td>
+                <td>2026</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Success Metrics -->
+    <section class="section">
+        <h2 class="section-title">6. Success Metrics</h2>
+
+        <table>
+            <tr>
+                <th>Metric</th>
+                <th>Definition</th>
+                <th>Target</th>
+            </tr>
+            <tr>
+                <td>Payroll Processing Time</td>
+                <td>Average time to complete payroll run</td>
+                <td>&lt; 10 minutes</td>
+            </tr>
+            <tr>
+                <td>Error Rate</td>
+                <td>% of payrolls requiring correction</td>
+                <td>&lt; 0.5%</td>
+            </tr>
+            <tr>
+                <td>Employee Self-Service Adoption</td>
+                <td>% employees accessing portal monthly</td>
+                <td>80%+</td>
+            </tr>
+            <tr>
+                <td>Support Tickets</td>
+                <td>Tickets per company per month</td>
+                <td>&lt; 2</td>
+            </tr>
+            <tr>
+                <td>NPS Score</td>
+                <td>Net Promoter Score from admins</td>
+                <td>50+</td>
+            </tr>
+            <tr>
+                <td>Churn Rate</td>
+                <td>Monthly customer churn</td>
+                <td>&lt; 3%</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Technical -->
+    <section class="section">
+        <h2 class="section-title">7. Technical Considerations</h2>
+
+        <h3 class="subsection-title">Platform Architecture</h3>
+        <ul>
+            <li><strong>Frontend:</strong> React SPA, responsive design, Material UI components</li>
+            <li><strong>Backend:</strong> Node.js API, PostgreSQL database</li>
+            <li><strong>Infrastructure:</strong> AWS, auto-scaling, multi-region</li>
+            <li><strong>Security:</strong> SOC 2 compliant, AES-256 encryption, PCI-DSS for payments</li>
+        </ul>
+
+        <h3 class="subsection-title">Integrations</h3>
+        <ul>
+            <li>ACH/Direct Deposit processor (Plaid, Stripe)</li>
+            <li>Tax table provider (automatic updates)</li>
+            <li>Email service (transactional emails, notifications)</li>
+            <li>PDF generation for documents</li>
+            <li>Future: QuickBooks, Xero accounting sync</li>
+        </ul>
+    </section>
+
+    <div class="doc-footer">
+        <p>CONFIDENTIAL - For Internal Use Only</p>
+        <p>Product Requirements Document | Payroll Management System | v1.0</p>
+    </div>
+
+</body>
+</html>

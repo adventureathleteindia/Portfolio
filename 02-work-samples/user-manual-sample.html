@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Manual Sample - Employee Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #334155;
+            --color-primary-dark: #1e293b;
+            --color-primary-light: #f1f5f9;
+            --color-text: #1F2937;
+            --color-text-secondary: #6B7280;
+            --color-bg: #FFFFFF;
+            --color-bg-secondary: #F3F4F6;
+            --color-border: #E5E7EB;
+            --color-success: #10B981;
+            --color-warning: #F59E0B;
+            --color-error: #EF4444;
+            --color-info: #3B82F6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 11pt;
+            line-height: 1.7;
+            color: var(--color-text);
+            background: var(--color-bg);
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; color: var(--color-primary); }
+        h1 { font-size: 24pt; margin-bottom: 8px; }
+        h2 { font-size: 16pt; margin: 35px 0 15px; padding-bottom: 8px; border-bottom: 2px solid var(--color-primary); }
+        h3 { font-size: 13pt; margin: 25px 0 12px; color: var(--color-primary-dark); }
+        h4 { font-size: 11pt; margin: 18px 0 10px; color: var(--color-text); }
+
+        .doc-header {
+            border-bottom: 3px solid var(--color-primary);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .doc-subtitle {
+            font-size: 14pt;
+            color: var(--color-text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .doc-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 10pt;
+            background: var(--color-bg-secondary);
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .doc-meta-item { display: flex; flex-direction: column; }
+        .doc-meta-item label { color: var(--color-text-secondary); font-size: 9pt; }
+        .doc-meta-item span { font-weight: 600; }
+
+        /* Table of Contents */
+        .toc {
+            background: var(--color-bg-secondary);
+            padding: 20px 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .toc h3 {
+            margin: 0 0 15px 0;
+            font-size: 12pt;
+        }
+
+        .toc-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .toc-list li {
+            padding: 6px 0;
+            border-bottom: 1px dashed var(--color-border);
+        }
+
+        .toc-list li:last-child { border-bottom: none; }
+
+        .toc-list a {
+            color: var(--color-primary);
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .toc-list a:hover { text-decoration: underline; }
+
+        .toc-section { font-weight: 600; }
+        .toc-page { color: var(--color-text-secondary); }
+
+        /* Instruction Steps */
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            position: relative;
+            padding: 12px 12px 12px 45px;
+            margin: 10px 0;
+            background: var(--color-bg-secondary);
+            border-radius: 6px;
+            border-left: 3px solid var(--color-primary);
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            background: var(--color-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10pt;
+            font-weight: 600;
+        }
+
+        /* Callout Boxes */
+        .callout {
+            padding: 15px 18px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-size: 10pt;
+        }
+
+        .callout-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .callout-tip {
+            background: #ECFDF5;
+            border: 1px solid var(--color-success);
+        }
+        .callout-tip .callout-title { color: #065F46; }
+
+        .callout-warning {
+            background: #FFFBEB;
+            border: 1px solid var(--color-warning);
+        }
+        .callout-warning .callout-title { color: #92400E; }
+
+        .callout-note {
+            background: #EFF6FF;
+            border: 1px solid var(--color-info);
+        }
+        .callout-note .callout-title { color: #1E40AF; }
+
+        .callout-important {
+            background: #FEF2F2;
+            border: 1px solid var(--color-error);
+        }
+        .callout-important .callout-title { color: #991B1B; }
+
+        /* Screenshot Placeholder */
+        .screenshot {
+            background: var(--color-bg-secondary);
+            border: 2px dashed var(--color-border);
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            margin: 20px 0;
+            color: var(--color-text-secondary);
+        }
+
+        .screenshot-label {
+            font-size: 10pt;
+            font-style: italic;
+        }
+
+        /* UI Element References */
+        .ui-element {
+            background: var(--color-primary-light);
+            color: var(--color-primary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 10pt;
+            font-weight: 500;
+        }
+
+        .button-ref {
+            background: var(--color-primary);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 9pt;
+            font-weight: 500;
+        }
+
+        .menu-path {
+            color: var(--color-primary);
+            font-weight: 500;
+        }
+
+        .menu-path span {
+            color: var(--color-text-secondary);
+            margin: 0 5px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 10pt;
+        }
+
+        th, td {
+            border: 1px solid var(--color-border);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: var(--color-primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) { background: var(--color-bg-secondary); }
+
+        /* Keyboard Shortcuts */
+        .kbd {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 9pt;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* FAQ Section */
+        .faq-item {
+            margin: 15px 0;
+            padding: 15px;
+            background: var(--color-bg-secondary);
+            border-radius: 6px;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .faq-answer {
+            color: var(--color-text);
+        }
+
+        /* Quick Reference Card */
+        .quick-ref {
+            background: linear-gradient(135deg, var(--color-primary-light) 0%, #E2E8F0 100%);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .quick-ref h4 {
+            color: var(--color-primary);
+            margin: 0 0 12px 0;
+            font-size: 12pt;
+        }
+
+        .quick-ref-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .quick-ref-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            font-size: 10pt;
+        }
+
+        @media print {
+            body { padding: 20px; }
+            .callout, .step-list li { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="doc-header">
+        <h1>Employee Portal</h1>
+        <p class="doc-subtitle">User Manual</p>
+        <div class="doc-meta">
+            <div class="doc-meta-item">
+                <label>Version</label>
+                <span>3.2</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Last Updated</label>
+                <span>January 2026</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Audience</label>
+                <span>All Employees</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="toc">
+        <h3>Table of Contents</h3>
+        <ul class="toc-list">
+            <li><a href="#intro"><span class="toc-section">1. Introduction</span><span class="toc-page">2</span></a></li>
+            <li><a href="#getting-started"><span class="toc-section">2. Getting Started</span><span class="toc-page">2</span></a></li>
+            <li><a href="#dashboard"><span class="toc-section">3. Dashboard Overview</span><span class="toc-page">3</span></a></li>
+            <li><a href="#time-off"><span class="toc-section">4. Requesting Time Off</span><span class="toc-page">4</span></a></li>
+            <li><a href="#pay-stubs"><span class="toc-section">5. Viewing Pay Stubs</span><span class="toc-page">5</span></a></li>
+            <li><a href="#profile"><span class="toc-section">6. Managing Your Profile</span><span class="toc-page">6</span></a></li>
+            <li><a href="#troubleshooting"><span class="toc-section">7. Troubleshooting</span><span class="toc-page">7</span></a></li>
+            <li><a href="#faq"><span class="toc-section">8. FAQ</span><span class="toc-page">8</span></a></li>
+        </ul>
+    </div>
+
+    <h2 id="intro">1. Introduction</h2>
+    <p>The Employee Portal is your central hub for managing your employment information, viewing pay stubs, requesting time off, and updating your personal details. This guide will walk you through each feature of the portal.</p>
+
+    <h3>1.1 System Requirements</h3>
+    <table>
+        <tr>
+            <th>Requirement</th>
+            <th>Minimum</th>
+            <th>Recommended</th>
+        </tr>
+        <tr>
+            <td>Browser</td>
+            <td>Chrome 90+, Firefox 88+, Safari 14+, Edge 90+</td>
+            <td>Latest version of Chrome or Firefox</td>
+        </tr>
+        <tr>
+            <td>Screen Resolution</td>
+            <td>1280 x 720</td>
+            <td>1920 x 1080</td>
+        </tr>
+        <tr>
+            <td>Internet Connection</td>
+            <td>Broadband (1 Mbps)</td>
+            <td>High-speed (10+ Mbps)</td>
+        </tr>
+    </table>
+
+    <h2 id="getting-started">2. Getting Started</h2>
+
+    <h3>2.1 Accessing the Portal</h3>
+    <ol class="step-list">
+        <li>Open your web browser and navigate to <span class="ui-element">portal.company.com</span></li>
+        <li>Enter your company email address in the <span class="ui-element">Email</span> field</li>
+        <li>Enter your password in the <span class="ui-element">Password</span> field</li>
+        <li>Click the <span class="button-ref">Sign In</span> button</li>
+    </ol>
+
+    <div class="screenshot">
+        <p class="screenshot-label">[Screenshot: Login Page]</p>
+    </div>
+
+    <div class="callout callout-tip">
+        <div class="callout-title">💡 Tip</div>
+        <p>Enable "Remember Me" to stay logged in for 30 days on trusted devices.</p>
+    </div>
+
+    <h3>2.2 First-Time Login</h3>
+    <p>If this is your first time logging in, you'll need to set up your account:</p>
+    <ol class="step-list">
+        <li>Click the <span class="button-ref">First Time User?</span> link on the login page</li>
+        <li>Enter your employee ID (found on your offer letter or ID badge)</li>
+        <li>Enter the temporary password provided by HR</li>
+        <li>Create a new password meeting the security requirements:
+            <ul style="margin: 8px 0 0 20px;">
+                <li>Minimum 12 characters</li>
+                <li>At least one uppercase letter</li>
+                <li>At least one number</li>
+                <li>At least one special character (!@#$%)</li>
+            </ul>
+        </li>
+        <li>Set up your security questions for account recovery</li>
+        <li>Click <span class="button-ref">Complete Setup</span></li>
+    </ol>
+
+    <div class="callout callout-important">
+        <div class="callout-title">⚠️ Important</div>
+        <p>Never share your password with anyone. IT will never ask for your password.</p>
+    </div>
+
+    <h2 id="dashboard">3. Dashboard Overview</h2>
+    <p>After logging in, you'll see your personalized dashboard with quick access to key information.</p>
+
+    <div class="screenshot">
+        <p class="screenshot-label">[Screenshot: Dashboard Overview with labeled sections]</p>
+    </div>
+
+    <h3>3.1 Dashboard Components</h3>
+    <table>
+        <tr>
+            <th>Section</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><strong>Welcome Banner</strong></td>
+            <td>Displays your name, job title, and any important announcements</td>
+        </tr>
+        <tr>
+            <td><strong>Time Off Balance</strong></td>
+            <td>Shows available PTO, sick leave, and personal days</td>
+        </tr>
+        <tr>
+            <td><strong>Recent Pay</strong></td>
+            <td>Quick view of your most recent pay stub summary</td>
+        </tr>
+        <tr>
+            <td><strong>Pending Tasks</strong></td>
+            <td>Action items requiring your attention (document signatures, training)</td>
+        </tr>
+        <tr>
+            <td><strong>Quick Links</strong></td>
+            <td>Shortcuts to frequently used features</td>
+        </tr>
+    </table>
+
+    <h3>3.2 Navigation Menu</h3>
+    <p>The main navigation menu is located on the left side of the screen:</p>
+    <ul style="margin: 10px 0 10px 25px;">
+        <li><strong>Dashboard</strong> - Return to home screen</li>
+        <li><strong>Time & Attendance</strong> - Log hours, view timesheets</li>
+        <li><strong>Time Off</strong> - Request and manage PTO</li>
+        <li><strong>Pay</strong> - View pay stubs and tax documents</li>
+        <li><strong>Benefits</strong> - Manage health insurance and 401(k)</li>
+        <li><strong>My Profile</strong> - Update personal information</li>
+        <li><strong>Help</strong> - Access support resources</li>
+    </ul>
+
+    <h2 id="time-off">4. Requesting Time Off</h2>
+
+    <h3>4.1 Submitting a New Request</h3>
+    <ol class="step-list">
+        <li>Navigate to <span class="menu-path">Time Off<span>›</span>New Request</span></li>
+        <li>Select the type of time off from the dropdown:
+            <ul style="margin: 8px 0 0 20px;">
+                <li>Vacation (PTO)</li>
+                <li>Sick Leave</li>
+                <li>Personal Day</li>
+                <li>Bereavement</li>
+                <li>Jury Duty</li>
+            </ul>
+        </li>
+        <li>Click on the calendar to select your start date</li>
+        <li>Click on the calendar to select your end date (or same day for single day off)</li>
+        <li>Enter the number of hours per day (default is 8)</li>
+        <li>Add any notes for your manager in the <span class="ui-element">Comments</span> field</li>
+        <li>Review the summary showing total hours to be deducted</li>
+        <li>Click <span class="button-ref">Submit Request</span></li>
+    </ol>
+
+    <div class="screenshot">
+        <p class="screenshot-label">[Screenshot: Time Off Request Form]</p>
+    </div>
+
+    <div class="callout callout-note">
+        <div class="callout-title">📝 Note</div>
+        <p>Requests for 3+ consecutive days should be submitted at least 2 weeks in advance. Your manager will be notified automatically via email.</p>
+    </div>
+
+    <h3>4.2 Checking Request Status</h3>
+    <ol class="step-list">
+        <li>Go to <span class="menu-path">Time Off<span>›</span>My Requests</span></li>
+        <li>View the status column for each request:
+            <ul style="margin: 8px 0 0 20px;">
+                <li><span style="color: #D97706; font-weight: 600;">Pending</span> - Awaiting manager approval</li>
+                <li><span style="color: #059669; font-weight: 600;">Approved</span> - Request confirmed</li>
+                <li><span style="color: #DC2626; font-weight: 600;">Denied</span> - Request rejected (see comments)</li>
+                <li><span style="color: #6B7280; font-weight: 600;">Cancelled</span> - You cancelled the request</li>
+            </ul>
+        </li>
+    </ol>
+
+    <h3>4.3 Cancelling a Request</h3>
+    <ol class="step-list">
+        <li>Navigate to <span class="menu-path">Time Off<span>›</span>My Requests</span></li>
+        <li>Find the request you wish to cancel</li>
+        <li>Click the <span class="button-ref">Cancel</span> button (only available for Pending or Approved requests)</li>
+        <li>Confirm the cancellation in the popup dialog</li>
+    </ol>
+
+    <div class="callout callout-warning">
+        <div class="callout-title">⚠️ Warning</div>
+        <p>Approved requests within 48 hours of the start date may require manager intervention to cancel. Contact your manager directly.</p>
+    </div>
+
+    <h2 id="pay-stubs">5. Viewing Pay Stubs</h2>
+
+    <h3>5.1 Accessing Pay Stubs</h3>
+    <ol class="step-list">
+        <li>Click <span class="menu-path">Pay<span>›</span>Pay Stubs</span> in the navigation menu</li>
+        <li>Select the year from the dropdown filter</li>
+        <li>Click on any pay date to view the full pay stub</li>
+    </ol>
+
+    <h3>5.2 Understanding Your Pay Stub</h3>
+    <table>
+        <tr>
+            <th>Section</th>
+            <th>What It Shows</th>
+        </tr>
+        <tr>
+            <td><strong>Earnings</strong></td>
+            <td>Gross pay, regular hours, overtime, bonuses, commissions</td>
+        </tr>
+        <tr>
+            <td><strong>Taxes</strong></td>
+            <td>Federal withholding, state tax, Social Security, Medicare</td>
+        </tr>
+        <tr>
+            <td><strong>Deductions</strong></td>
+            <td>Health insurance, 401(k), HSA contributions, other benefits</td>
+        </tr>
+        <tr>
+            <td><strong>Net Pay</strong></td>
+            <td>Your take-home amount after all deductions</td>
+        </tr>
+        <tr>
+            <td><strong>YTD Totals</strong></td>
+            <td>Cumulative earnings and deductions for the year</td>
+        </tr>
+    </table>
+
+    <h3>5.3 Downloading Pay Stubs</h3>
+    <ol class="step-list">
+        <li>Open the pay stub you want to download</li>
+        <li>Click the <span class="button-ref">Download PDF</span> button in the top-right corner</li>
+        <li>The file will download to your browser's default download folder</li>
+    </ol>
+
+    <div class="callout callout-tip">
+        <div class="callout-title">💡 Tip</div>
+        <p>Use <span class="kbd">Ctrl</span> + <span class="kbd">P</span> (or <span class="kbd">Cmd</span> + <span class="kbd">P</span> on Mac) to print directly from the browser.</p>
+    </div>
+
+    <h3>5.4 Accessing Tax Documents</h3>
+    <p>W-2 forms and other tax documents are available under <span class="menu-path">Pay<span>›</span>Tax Documents</span>:</p>
+    <ul style="margin: 10px 0 10px 25px;">
+        <li><strong>W-2</strong> - Available by January 31st each year</li>
+        <li><strong>1095-C</strong> - Health coverage information (if applicable)</li>
+    </ul>
+
+    <h2 id="profile">6. Managing Your Profile</h2>
+
+    <h3>6.1 Updating Contact Information</h3>
+    <ol class="step-list">
+        <li>Navigate to <span class="menu-path">My Profile<span>›</span>Contact Info</span></li>
+        <li>Click <span class="button-ref">Edit</span> next to the section you want to update</li>
+        <li>Update your information (address, phone number, emergency contact)</li>
+        <li>Click <span class="button-ref">Save Changes</span></li>
+    </ol>
+
+    <div class="callout callout-note">
+        <div class="callout-title">📝 Note</div>
+        <p>Address changes may require additional documentation. HR will contact you if verification is needed.</p>
+    </div>
+
+    <h3>6.2 Changing Your Password</h3>
+    <ol class="step-list">
+        <li>Click your name in the top-right corner</li>
+        <li>Select <span class="ui-element">Account Settings</span></li>
+        <li>Click <span class="button-ref">Change Password</span></li>
+        <li>Enter your current password</li>
+        <li>Enter your new password (must meet security requirements)</li>
+        <li>Confirm your new password</li>
+        <li>Click <span class="button-ref">Update Password</span></li>
+    </ol>
+
+    <h3>6.3 Updating Direct Deposit</h3>
+    <ol class="step-list">
+        <li>Go to <span class="menu-path">My Profile<span>›</span>Payment Method</span></li>
+        <li>Click <span class="button-ref">Add Account</span> or <span class="button-ref">Edit</span> existing account</li>
+        <li>Enter your bank's routing number (9 digits)</li>
+        <li>Enter your account number</li>
+        <li>Select account type (Checking or Savings)</li>
+        <li>Set the deposit amount (percentage or fixed amount)</li>
+        <li>Click <span class="button-ref">Save</span></li>
+    </ol>
+
+    <div class="callout callout-important">
+        <div class="callout-title">⚠️ Important</div>
+        <p>Direct deposit changes made after the 15th of the month will take effect in the following pay period.</p>
+    </div>
+
+    <h2 id="troubleshooting">7. Troubleshooting</h2>
+
+    <h3>7.1 Common Issues</h3>
+    <table>
+        <tr>
+            <th>Issue</th>
+            <th>Solution</th>
+        </tr>
+        <tr>
+            <td>"Invalid credentials" error</td>
+            <td>Verify you're using your company email. Check Caps Lock. Use "Forgot Password" if needed.</td>
+        </tr>
+        <tr>
+            <td>Account locked after failed attempts</td>
+            <td>Wait 15 minutes, then try again. Contact IT if issue persists.</td>
+        </tr>
+        <tr>
+            <td>Page not loading properly</td>
+            <td>Clear browser cache (<span class="kbd">Ctrl</span>+<span class="kbd">Shift</span>+<span class="kbd">Del</span>), try a different browser, or disable browser extensions.</td>
+        </tr>
+        <tr>
+            <td>Missing pay stub</td>
+            <td>Pay stubs are posted within 2 business days of pay date. Contact Payroll if missing after 3 days.</td>
+        </tr>
+        <tr>
+            <td>Time off balance incorrect</td>
+            <td>Balances update after manager approval. Contact HR if discrepancy persists after approval.</td>
+        </tr>
+    </table>
+
+    <h3>7.2 Getting Help</h3>
+    <div class="quick-ref">
+        <h4>Support Contact Information</h4>
+        <div class="quick-ref-grid">
+            <div class="quick-ref-item">
+                <span>IT Help Desk:</span>
+                <span>helpdesk@company.com</span>
+            </div>
+            <div class="quick-ref-item">
+                <span>HR Support:</span>
+                <span>hr@company.com</span>
+            </div>
+            <div class="quick-ref-item">
+                <span>Payroll Questions:</span>
+                <span>payroll@company.com</span>
+            </div>
+            <div class="quick-ref-item">
+                <span>Phone Support:</span>
+                <span>1-800-555-0123</span>
+            </div>
+        </div>
+    </div>
+
+    <h2 id="faq">8. Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+        <p class="faq-question">Q: How do I reset my password if I forgot it?</p>
+        <p class="faq-answer">A: Click "Forgot Password" on the login page, enter your email, and follow the instructions sent to your inbox. The reset link expires in 24 hours.</p>
+    </div>
+
+    <div class="faq-item">
+        <p class="faq-question">Q: Why can't I see my pay stub for the current pay period?</p>
+        <p class="faq-answer">A: Pay stubs are typically available 1-2 business days after the pay date. If it's been more than 3 business days, contact the Payroll department.</p>
+    </div>
+
+    <div class="faq-item">
+        <p class="faq-question">Q: Can I access the portal from my personal phone?</p>
+        <p class="faq-answer">A: Yes, the portal is mobile-responsive. You can also download the company mobile app from the App Store or Google Play for a better mobile experience.</p>
+    </div>
+
+    <div class="faq-item">
+        <p class="faq-question">Q: How far in advance can I request time off?</p>
+        <p class="faq-answer">A: You can submit requests up to 12 months in advance. Requests for dates more than 6 months out may not be approved until closer to the date.</p>
+    </div>
+
+    <div class="faq-item">
+        <p class="faq-question">Q: Who approves my time off requests?</p>
+        <p class="faq-answer">A: Your direct manager receives all time off requests and is responsible for approval. If your manager is unavailable, the request escalates to their manager after 5 business days.</p>
+    </div>
+
+    <div class="faq-item">
+        <p class="faq-question">Q: Can I split my direct deposit between multiple accounts?</p>
+        <p class="faq-answer">A: Yes, you can add up to 3 bank accounts and specify a percentage or fixed amount for each. One account must be designated as the "remainder" account.</p>
+    </div>
+
+    <div class="quick-ref" style="margin-top: 40px;">
+        <h4>Keyboard Shortcuts</h4>
+        <div class="quick-ref-grid">
+            <div class="quick-ref-item">
+                <span><span class="kbd">Alt</span> + <span class="kbd">D</span></span>
+                <span>Go to Dashboard</span>
+            </div>
+            <div class="quick-ref-item">
+                <span><span class="kbd">Alt</span> + <span class="kbd">T</span></span>
+                <span>Open Time Off</span>
+            </div>
+            <div class="quick-ref-item">
+                <span><span class="kbd">Alt</span> + <span class="kbd">P</span></span>
+                <span>View Pay Stubs</span>
+            </div>
+            <div class="quick-ref-item">
+                <span><span class="kbd">Alt</span> + <span class="kbd">H</span></span>
+                <span>Open Help</span>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--color-border); font-size: 9pt; color: var(--color-text-secondary);">
+        <p><strong>Document Information</strong></p>
+        <p>Version 3.2 | Last Updated: January 2026 | Owner: HR Operations</p>
+        <p style="margin-top: 10px;">For the latest version of this manual, visit the Help section of the Employee Portal.</p>
+    </div>
+
+</body>
+</html>

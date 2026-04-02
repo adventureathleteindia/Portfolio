@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOP Sample - Monthly Payroll Processing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #334155;
+            --color-primary-dark: #1e293b;
+            --color-primary-light: #f1f5f9;
+            --color-text: #1F2937;
+            --color-text-secondary: #6B7280;
+            --color-bg: #FFFFFF;
+            --color-bg-secondary: #F3F4F6;
+            --color-border: #E5E7EB;
+            --color-success: #10B981;
+            --color-warning: #F59E0B;
+            --color-error: #EF4444;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: var(--color-text);
+            background: var(--color-bg);
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; color: var(--color-primary); }
+        h1 { font-size: 24pt; margin-bottom: 8px; }
+        h2 { font-size: 16pt; margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 2px solid var(--color-primary); }
+        h3 { font-size: 13pt; margin: 20px 0 10px; }
+        h4 { font-size: 11pt; margin: 15px 0 8px; color: var(--color-text); }
+
+        .doc-header {
+            border-bottom: 3px solid var(--color-primary);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .doc-meta {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 10pt;
+        }
+
+        .doc-meta-item { display: flex; gap: 8px; }
+        .doc-meta-item label { color: var(--color-text-secondary); min-width: 100px; }
+        .doc-meta-item span { font-weight: 500; }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 9pt;
+            font-weight: 600;
+        }
+        .badge-active { background: #DCFCE7; color: #166534; }
+        .badge-confidential { background: #FEF3C7; color: #92400E; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 10pt;
+        }
+
+        th, td {
+            border: 1px solid var(--color-border);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: var(--color-primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) { background: var(--color-bg-secondary); }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: var(--color-primary);
+            color: white;
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 10pt;
+            margin-right: 10px;
+        }
+
+        .step-container {
+            background: var(--color-bg-secondary);
+            border-left: 4px solid var(--color-primary);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .step-details { margin-left: 38px; }
+        .step-details ul { margin: 8px 0 8px 20px; }
+        .step-details li { margin: 4px 0; }
+
+        .responsible-tag {
+            display: inline-block;
+            background: var(--color-primary-light);
+            color: var(--color-primary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 9pt;
+            font-weight: 500;
+            margin-left: 10px;
+        }
+
+        .warning-box {
+            background: #FEF3C7;
+            border: 1px solid #F59E0B;
+            border-radius: 6px;
+            padding: 12px 15px;
+            margin: 15px 0;
+            font-size: 10pt;
+        }
+
+        .warning-box strong { color: #92400E; }
+
+        .info-box {
+            background: #DBEAFE;
+            border: 1px solid #3B82F6;
+            border-radius: 6px;
+            padding: 12px 15px;
+            margin: 15px 0;
+            font-size: 10pt;
+        }
+
+        .info-box strong { color: #1E40AF; }
+
+        .checklist {
+            background: var(--color-bg-secondary);
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin: 15px 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .checklist-item:last-child { border-bottom: none; }
+
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--color-primary);
+            border-radius: 3px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            padding: 15px;
+            background: var(--color-bg-secondary);
+            border-radius: 8px;
+        }
+
+        .timeline-item {
+            text-align: center;
+            flex: 1;
+            position: relative;
+        }
+
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: 0;
+            width: 50%;
+            height: 2px;
+            background: var(--color-primary);
+        }
+
+        .timeline-item:not(:first-child)::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 50%;
+            height: 2px;
+            background: var(--color-primary);
+        }
+
+        .timeline-dot {
+            width: 30px;
+            height: 30px;
+            background: var(--color-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            font-weight: 600;
+            font-size: 10pt;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-label {
+            font-size: 9pt;
+            color: var(--color-text-secondary);
+        }
+
+        .timeline-date {
+            font-size: 10pt;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        .signature-section {
+            margin-top: 40px;
+            border-top: 2px solid var(--color-border);
+            padding-top: 20px;
+        }
+
+        .signature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .signature-box {
+            border: 1px solid var(--color-border);
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .signature-line {
+            border-bottom: 1px solid var(--color-text);
+            height: 40px;
+            margin: 10px 0;
+        }
+
+        .signature-label {
+            font-size: 9pt;
+            color: var(--color-text-secondary);
+        }
+
+        @media print {
+            body { padding: 20px; }
+            .step-container { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="doc-header">
+        <h1>Standard Operating Procedure</h1>
+        <p style="font-size: 14pt; color: var(--color-text-secondary);">Monthly Payroll Processing</p>
+        <div class="doc-meta">
+            <div class="doc-meta-item">
+                <label>SOP ID:</label>
+                <span>SOP-FIN-001</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Version:</label>
+                <span>2.1</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Effective Date:</label>
+                <span>January 15, 2026</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Review Date:</label>
+                <span>January 15, 2026</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Department:</label>
+                <span>Finance & HR Operations</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Status:</label>
+                <span class="badge badge-active">Active</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Classification:</label>
+                <span class="badge badge-confidential">Confidential</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Owner:</label>
+                <span>Payroll Manager</span>
+            </div>
+        </div>
+    </div>
+
+    <h2>1. Purpose</h2>
+    <p>This Standard Operating Procedure establishes the step-by-step process for executing monthly payroll to ensure accurate, timely, and compliant payment of employee compensation. This SOP ensures consistency across all payroll cycles and compliance with federal and state tax regulations.</p>
+
+    <h2>2. Scope</h2>
+    <p>This procedure applies to:</p>
+    <ul style="margin: 10px 0 10px 25px;">
+        <li>All full-time and part-time employees (W-2)</li>
+        <li>All company locations within the United States</li>
+        <li>Regular monthly payroll cycles (not applicable to off-cycle or contractor payments)</li>
+    </ul>
+
+    <h2>3. Roles and Responsibilities</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Role</th>
+                <th style="width: 40%;">Responsibilities</th>
+                <th style="width: 35%;">Authority Level</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Payroll Specialist</strong></td>
+                <td>Data entry, timesheet collection, preliminary calculations, report generation</td>
+                <td>Execute payroll processing steps</td>
+            </tr>
+            <tr>
+                <td><strong>Payroll Manager</strong></td>
+                <td>Review and approve payroll, resolve discrepancies, final submission</td>
+                <td>Approve payroll runs up to $500K</td>
+            </tr>
+            <tr>
+                <td><strong>HR Manager</strong></td>
+                <td>Validate employee data changes, approve new hires/terminations</td>
+                <td>Approve personnel changes</td>
+            </tr>
+            <tr>
+                <td><strong>Finance Director</strong></td>
+                <td>Final approval for payroll funding, audit oversight</td>
+                <td>Approve payroll runs above $500K</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>4. Timeline Overview</h2>
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-dot">1</div>
+            <div class="timeline-date">Day 1-5</div>
+            <div class="timeline-label">Data Collection</div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-dot">2</div>
+            <div class="timeline-date">Day 6-10</div>
+            <div class="timeline-label">Processing</div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-dot">3</div>
+            <div class="timeline-date">Day 11-15</div>
+            <div class="timeline-label">Review</div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-dot">4</div>
+            <div class="timeline-date">Day 16-20</div>
+            <div class="timeline-label">Approval</div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-dot">5</div>
+            <div class="timeline-date">Day 25</div>
+            <div class="timeline-label">Payment</div>
+        </div>
+    </div>
+
+    <h2>5. Procedure Steps</h2>
+
+    <h3>Phase 1: Data Collection (Day 1-5)</h3>
+
+    <div class="step-container">
+        <div class="step-title">
+            <span class="step-number">1</span>
+            Collect Timesheet Data
+            <span class="responsible-tag">Payroll Specialist</span>
+        </div>
+        <div class="step-details">
+            <ul>
+                <li>Export approved timesheets from the time tracking system (Workday/ADP)</li>
+                <li>Verify all employees have submitted timesheets for the pay period</li>
+                <li>Flag any missing or incomplete submissions</li>
+                <li>Send reminder notifications to managers with pending approvals</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="step-container">
+        <div class="step-title">
+            <span class="step-number">2</span>
+            Gather HR Updates
+            <span class="responsible-tag">HR Manager</span>
+        </div>
+        <div class="step-details">
+            <ul>
+                <li>Compile list of new hires with start dates within pay period</li>
+                <li>Document terminations and final pay calculations</li>
+                <li>Record salary changes, promotions, or department transfers</li>
+                <li>Update benefit enrollment changes (401(k), health insurance)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="step-container">
+        <div class="step-title">
+            <span class="step-number">3</span>
+            Collect Variable Pay Data
+            <span class="responsible-tag">Payroll Specialist</span>
+        </div>
+        <div class="step-details">
+            <ul>
+                <li>Gather commission reports from Sales department</li>
+                <li>Collect bonus authorization forms</li>
+                <li>Document overtime hours requiring approval</li>
+                <li>Record any reimbursements or expense payments</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>Phase 2: Payroll Processing (Day 6-10)</h3>
+
+    <div class="step-container">
+        <div class="step-title">
+            <span class="step-number">4</span>
+            Enter Payroll Data
+            <span class="responsible-tag">Payroll Specialist</span>
+        </div>
+        <div class="step-details">
+            <ul>
+                <li>Input regular hours, overtime, and PTO used</li>
+                <li>Enter variable compensation (commissions, bonuses)</li>
+                <li>Apply salary adjustments and new hire rates</li>
+                <li>Process garnishments and court-ordered deductions</li>
+            </ul>
+            <div class="warning-box">
+                <strong>Warning:</strong> Double-check all manual entries. Data entry errors are the leading cause of payroll discrepancies.
+            </div>
+        </div>
+    </div>
+
+    <div class="step-container">
+        <div class="step-title">
+            <span class="step-number">5</span>
+            Calculate Deductions
+            <span class="responsible-tag">Payroll Specialist</span>
+        </div>
+        <div class="step-details">
+            <ul>
+                <li>Verify federal income tax withholding based on W-4</li>
+                <li>Calculate state and local tax withholdings</li>
+                <li>Process 401(k) contributions (employee + employer match)</li>
+                <li>Deduct health insurance, HSA, and FSA contributions</li>
+                <li>Apply FICA taxes (Social Security 6.2%, Medicare 1.45%)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="step-container">
+        <div class="step-title">
+            <span class="step-number">6</span>
+            Run Preliminary Payroll
+            <span class="responsible-tag">Payroll Specialist</span>
+        </div>
+        <div class="step-details">
+            <ul>
+                <li>Execute payroll calculation in preview mode</li>
+                <li>Generate preliminary payroll register</li>
+                <li>Create departmental cost allocation reports</li>
+                <li>Export data for review without committing transactions</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>Phase 3: Review and Validation (Day 11-15)</h3>
+
+    <div class="step-container">
+        <div class="step-title">
+            <span class="step-number">7</span>
+            Perform Quality Checks
+            <span class="responsible-tag">Payroll Specialist</span>
+        </div>
+        <div class="step-details">
+            <p>Complete the following validation checklist:</p>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <span>Compare total payroll to previous month (variance &lt; 5%)</span>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <span>Verify headcount matches HR records</span>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <span>Confirm all new hires are included with correct rates</span>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <span>Validate terminated employees are excluded or have final pay</span>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <span>Check tax calculations against published tables</span>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <span>Verify 401(k) contributions do not exceed annual limits</span>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <span>Confirm garnishment deductions are applied correctly</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="step-container">
+        <div class="step-title">
+            <span class="step-number">8</span>
+            Resolve Discrepancies
+            <span class="responsible-tag">Payroll Manager</span>
+        </div>
+        <div class="step-details">
+            <ul>
+                <li>Investigate any variances flagged during quality checks</li>
+                <li>Contact department managers for timesheet clarifications</li>
+                <li>Coordinate with HR for personnel data corrections</li>
+                <li>Document all adjustments with justification</li>
+            </ul>
+            <div class="info-box">
+                <strong>Note:</strong> All discrepancies over $500 must be documented in the Payroll Exception Log and require manager approval.
+            </div>
+        </div>
+    </div>
+
+    <h3>Phase 4: Approval and Submission (Day 16-20)</h3>
+
+    <div class="step-container">
+        <div class="step-title">
+            <span class="step-number">9</span>
+            Manager Review and Approval
+            <span class="responsible-tag">Payroll Manager</span>
+        </div>
+        <div class="step-details">
+            <ul>
+                <li>Review final payroll register and summary reports</li>
+                <li>Verify all exceptions have been addressed</li>
+                <li>Compare to budget allocations by department</li>
+                <li>Sign off on payroll batch in the system</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="step-container">
+        <div class="step-title">
+            <span class="step-number">10</span>
+            Finance Approval (if applicable)
+            <span class="responsible-tag">Finance Director</span>
+        </div>
+        <div class="step-details">
+            <ul>
+                <li>Required for payroll totals exceeding $500,000</li>
+                <li>Review funding availability in payroll account</li>
+                <li>Approve wire transfer or ACH batch</li>
+                <li>Provide final authorization in system</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="step-container">
+        <div class="step-title">
+            <span class="step-number">11</span>
+            Submit Payroll for Processing
+            <span class="responsible-tag">Payroll Manager</span>
+        </div>
+        <div class="step-details">
+            <ul>
+                <li>Commit payroll batch to payment processor</li>
+                <li>Initiate ACH direct deposit file transmission</li>
+                <li>Queue check printing for non-ACH employees</li>
+                <li>Submit tax payment files to federal and state agencies</li>
+            </ul>
+            <div class="warning-box">
+                <strong>Critical:</strong> Submission must occur by 3:00 PM EST on Day 20 to ensure on-time payment processing.
+            </div>
+        </div>
+    </div>
+
+    <h3>Phase 5: Post-Processing (Day 21-25)</h3>
+
+    <div class="step-container">
+        <div class="step-title">
+            <span class="step-number">12</span>
+            Verify Payment Transmission
+            <span class="responsible-tag">Payroll Specialist</span>
+        </div>
+        <div class="step-details">
+            <ul>
+                <li>Confirm ACH file acceptance by bank</li>
+                <li>Verify tax payments are scheduled correctly</li>
+                <li>Ensure check stock is available for printing</li>
+                <li>Monitor for any rejected transactions</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="step-container">
+        <div class="step-title">
+            <span class="step-number">13</span>
+            Generate Reports and Archive
+            <span class="responsible-tag">Payroll Specialist</span>
+        </div>
+        <div class="step-details">
+            <ul>
+                <li>Create final payroll register (PDF and Excel)</li>
+                <li>Generate general ledger journal entries</li>
+                <li>Produce tax liability reports (941, state filings)</li>
+                <li>Archive all supporting documentation</li>
+                <li>Update payroll calendar for next cycle</li>
+            </ul>
+        </div>
+    </div>
+
+    <h2>6. Exception Handling</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Exception Type</th>
+                <th style="width: 45%;">Resolution Process</th>
+                <th style="width: 30%;">Escalation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Missing timesheet</td>
+                <td>Contact employee and manager; use previous period average if unresolved</td>
+                <td>HR Manager if &gt; 2 days late</td>
+            </tr>
+            <tr>
+                <td>Overpayment discovered</td>
+                <td>Document error, calculate recovery amount, notify employee, set up repayment plan</td>
+                <td>Payroll Manager for amounts &gt; $500</td>
+            </tr>
+            <tr>
+                <td>Underpayment discovered</td>
+                <td>Process off-cycle payment within 48 hours; document root cause</td>
+                <td>Immediate correction required</td>
+            </tr>
+            <tr>
+                <td>Bank rejection</td>
+                <td>Verify banking details, resubmit or issue manual check</td>
+                <td>Finance Director if recurring</td>
+            </tr>
+            <tr>
+                <td>Tax calculation error</td>
+                <td>Recalculate, file amended returns if necessary</td>
+                <td>Finance Director and legal review</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>7. Compliance Requirements</h2>
+    <ul style="margin: 10px 0 10px 25px;">
+        <li><strong>FLSA Compliance:</strong> Ensure proper overtime calculations for non-exempt employees</li>
+        <li><strong>Tax Deposits:</strong> Federal tax deposits due by the 15th of the following month</li>
+        <li><strong>Form 941:</strong> Quarterly federal tax return due by the last day of the month following the quarter</li>
+        <li><strong>W-2 Distribution:</strong> Annual W-2 forms must be distributed by January 31st</li>
+        <li><strong>Record Retention:</strong> Maintain payroll records for minimum 7 years</li>
+    </ul>
+
+    <h2>8. Related Documents</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Document</th>
+                <th>Document ID</th>
+                <th>Purpose</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Off-Cycle Payroll Procedure</td>
+                <td>SOP-FIN-002</td>
+                <td>Processing bonus, termination, or correction payments</td>
+            </tr>
+            <tr>
+                <td>Contractor Payment Procedure</td>
+                <td>SOP-FIN-003</td>
+                <td>Processing 1099 contractor payments</td>
+            </tr>
+            <tr>
+                <td>Payroll Exception Log Template</td>
+                <td>TPL-FIN-001</td>
+                <td>Documenting and tracking payroll discrepancies</td>
+            </tr>
+            <tr>
+                <td>Year-End Processing Checklist</td>
+                <td>CHK-FIN-001</td>
+                <td>Annual W-2 and tax filing procedures</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>9. Revision History</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Version</th>
+                <th>Date</th>
+                <th>Author</th>
+                <th>Changes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1.0</td>
+                <td>Mar 1, 2024</td>
+                <td>J. Smith</td>
+                <td>Initial release</td>
+            </tr>
+            <tr>
+                <td>2.0</td>
+                <td>Sep 15, 2024</td>
+                <td>A. Johnson</td>
+                <td>Added multi-state tax handling procedures</td>
+            </tr>
+            <tr>
+                <td>2.1</td>
+                <td>Jan 15, 2026</td>
+                <td>M. Williams</td>
+                <td>Updated timeline, added exception handling section</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="signature-section">
+        <h2>10. Approval Signatures</h2>
+        <div class="signature-grid">
+            <div class="signature-box">
+                <p><strong>Prepared By:</strong></p>
+                <div class="signature-line"></div>
+                <p class="signature-label">Payroll Manager | Date</p>
+            </div>
+            <div class="signature-box">
+                <p><strong>Reviewed By:</strong></p>
+                <div class="signature-line"></div>
+                <p class="signature-label">HR Director | Date</p>
+            </div>
+            <div class="signature-box">
+                <p><strong>Approved By:</strong></p>
+                <div class="signature-line"></div>
+                <p class="signature-label">Finance Director | Date</p>
+            </div>
+            <div class="signature-box">
+                <p><strong>Effective Date Authorized:</strong></p>
+                <div class="signature-line"></div>
+                <p class="signature-label">COO | Date</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: 9pt;">
+        <p><strong>Confidential Document</strong> | This SOP is for internal use only.</p>
+        <p>Unauthorized distribution is prohibited.</p>
+    </div>
+
+</body>
+</html>

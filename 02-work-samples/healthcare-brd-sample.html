@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Requirements Document - Remote Patient Monitoring Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #334155;
+            --color-primary-dark: #1e293b;
+            --color-primary-light: #f1f5f9;
+            --color-text: #1F2937;
+            --color-text-secondary: #6B7280;
+            --color-bg: #FFFFFF;
+            --color-bg-secondary: #F9FAFB;
+            --color-border: #E5E7EB;
+            --color-success: #10B981;
+            --color-warning: #F59E0B;
+            --color-danger: #EF4444;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: var(--color-text);
+            background: var(--color-bg);
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        @media print {
+            body { padding: 20px; max-width: 100%; }
+            .page-break { page-break-before: always; }
+        }
+
+        h1, h2, h3, h4 { font-family: 'Montserrat', Arial, sans-serif; }
+
+        /* Document Header */
+        .doc-header {
+            border: 2px solid var(--color-primary);
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .doc-header h1 {
+            font-size: 22pt;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .doc-header .subtitle {
+            font-size: 14pt;
+            color: var(--color-text);
+            margin-bottom: 20px;
+        }
+
+        .doc-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            text-align: left;
+            font-size: 10pt;
+            border-top: 1px solid var(--color-border);
+            padding-top: 20px;
+            margin-top: 10px;
+        }
+
+        .doc-meta-item label {
+            color: var(--color-text-secondary);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .doc-meta-item span {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        /* Section Styling */
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 14pt;
+            font-weight: 600;
+            color: var(--color-primary);
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+        }
+
+        .subsection-title {
+            font-size: 12pt;
+            font-weight: 600;
+            color: var(--color-text);
+            margin: 20px 0 12px 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 10pt;
+        }
+
+        th, td {
+            border: 1px solid var(--color-border);
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        th {
+            background: var(--color-primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: var(--color-bg-secondary);
+        }
+
+        /* Priority Badges */
+        .priority-high { background: #FEE2E2; color: #991B1B; padding: 2px 8px; border-radius: 4px; font-size: 9pt; }
+        .priority-medium { background: #FEF3C7; color: #92400E; padding: 2px 8px; border-radius: 4px; font-size: 9pt; }
+        .priority-low { background: #D1FAE5; color: #065F46; padding: 2px 8px; border-radius: 4px; font-size: 9pt; }
+
+        /* Lists */
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 24px;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        /* Info Boxes */
+        .info-box {
+            background: var(--color-primary-light);
+            border-left: 4px solid var(--color-primary);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-box.compliance {
+            background: #DCFCE7;
+            border-left-color: var(--color-success);
+        }
+
+        .info-box h4 {
+            font-size: 11pt;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .info-box.compliance h4 {
+            color: #166534;
+        }
+
+        /* TOC */
+        .toc {
+            background: var(--color-bg-secondary);
+            padding: 20px 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .toc h3 {
+            font-size: 12pt;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+        }
+
+        .toc ol {
+            padding-left: 20px;
+        }
+
+        .toc li {
+            margin-bottom: 4px;
+            font-size: 10pt;
+        }
+
+        /* User Stories */
+        .user-story {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .user-story-id {
+            font-size: 9pt;
+            color: var(--color-primary);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .user-story-text {
+            font-size: 10.5pt;
+            margin-bottom: 8px;
+        }
+
+        .acceptance-criteria {
+            font-size: 10pt;
+            color: var(--color-text-secondary);
+            border-top: 1px solid var(--color-border);
+            padding-top: 8px;
+            margin-top: 8px;
+        }
+
+        .acceptance-criteria strong {
+            color: var(--color-text);
+        }
+
+        /* Footer */
+        .doc-footer {
+            border-top: 1px solid var(--color-border);
+            padding-top: 15px;
+            margin-top: 40px;
+            font-size: 9pt;
+            color: var(--color-text-secondary);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Document Header -->
+    <div class="doc-header">
+        <h1>Business Requirements Document</h1>
+        <div class="subtitle">Remote Patient Monitoring (RPM) Platform</div>
+        <div class="doc-meta">
+            <div class="doc-meta-item">
+                <label>Document Version</label>
+                <span>1.0</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Status</label>
+                <span>Approved</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Last Updated</label>
+                <span>January 2024</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Author</label>
+                <span>Business Analyst</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Stakeholders</label>
+                <span>Product, Clinical, Engineering</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Compliance</label>
+                <span>HIPAA Required</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="toc">
+        <h3>Table of Contents</h3>
+        <ol>
+            <li>Executive Summary</li>
+            <li>Business Objectives</li>
+            <li>Scope & Boundaries</li>
+            <li>Stakeholder Analysis</li>
+            <li>Functional Requirements
+                <ul style="margin-top: 5px; font-size: 9pt;">
+                    <li>5.1 Super Admin Dashboard</li>
+                    <li>5.2 Device Inventory Management</li>
+                    <li>5.3 Provider Management (Multi-Tenant)</li>
+                    <li>5.4 Patient Enrollment Module</li>
+                    <li>5.5 Patient Health Statistics</li>
+                    <li>5.6 External Care Provider Directory</li>
+                    <li>5.7 Device BLE Integration</li>
+                    <li>5.8 PDC Billing Module</li>
+                </ul>
+            </li>
+            <li>Non-Functional Requirements</li>
+            <li>Compliance Requirements</li>
+            <li>User Stories</li>
+            <li>Assumptions & Dependencies</li>
+            <li>Risks & Mitigations</li>
+        </ol>
+    </div>
+
+    <!-- 1. Executive Summary -->
+    <section class="section">
+        <h2 class="section-title">1. Executive Summary</h2>
+        <p>
+            This document outlines the business requirements for a Remote Patient Monitoring (RPM) platform that enables
+            healthcare providers to monitor patient vitals remotely, conduct clinical reviews, and generate compliant
+            billing claims. The platform will support Bluetooth-enabled medical devices, real-time data synchronization,
+            and automated CPT code billing for Medicare reimbursement.
+        </p>
+
+        <div class="info-box">
+            <h4>Business Problem</h4>
+            <p>Healthcare providers lack an integrated solution to monitor chronic disease patients remotely,
+            leading to missed interventions, hospital readmissions, and lost revenue from unbilled RPM services.</p>
+        </div>
+
+        <h3 class="subsection-title">Target Users (B2B Multi-Tenant Architecture)</h3>
+        <ul>
+            <li><strong>Super Admin:</strong> Platform administrators managing all providers, device inventory, and request queues</li>
+            <li><strong>Healthcare Providers/Hospitals:</strong> Organizations enrolling patients, managing care teams, and tracking billing eligibility</li>
+            <li><strong>Primary Ordering Providers (POP):</strong> Physicians responsible for patient care under RPM programs</li>
+            <li><strong>Clinical Staff:</strong> Nurses reviewing patient vitals, adding notes, and managing alerts</li>
+            <li><strong>PDC Billing Coordinators:</strong> Staff tracking eligibility, device readings, and CPT code qualification</li>
+            <li><strong>Patients:</strong> Individuals with chronic conditions using BLE devices for remote monitoring</li>
+        </ul>
+    </section>
+
+    <!-- 2. Business Objectives -->
+    <section class="section">
+        <h2 class="section-title">2. Business Objectives</h2>
+        <table>
+            <tr>
+                <th>Objective</th>
+                <th>Success Metric</th>
+                <th>Target</th>
+            </tr>
+            <tr>
+                <td>Increase RPM program enrollment</td>
+                <td>Active patients in monitoring</td>
+                <td>500+ patients in Year 1</td>
+            </tr>
+            <tr>
+                <td>Improve patient outcomes</td>
+                <td>30-day readmission rate reduction</td>
+                <td>20% reduction</td>
+            </tr>
+            <tr>
+                <td>Maximize RPM billing revenue</td>
+                <td>Monthly claims submitted</td>
+                <td>90%+ eligible patients billed</td>
+            </tr>
+            <tr>
+                <td>Reduce clinical staff workload</td>
+                <td>Time spent on manual data entry</td>
+                <td>50% reduction</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- 3. Scope -->
+    <section class="section">
+        <h2 class="section-title">3. Scope & Boundaries</h2>
+
+        <h3 class="subsection-title">In Scope</h3>
+        <ul>
+            <li><strong>Super Admin Dashboard:</strong> Central command for managing providers, devices, and requests</li>
+            <li><strong>Multi-Provider Architecture:</strong> Support for multiple healthcare organizations with isolated data</li>
+            <li><strong>Device Inventory Management:</strong> Track devices with ICCID/IMSI/IMEI, battery level, signal strength</li>
+            <li><strong>Provider Management:</strong> Tabs for Provider Details, Allotted Devices, Patient Management, POP Management</li>
+            <li><strong>Bulk Patient Onboarding:</strong> CSV upload with template download for multiple patient enrollment</li>
+            <li><strong>External Care Provider Directory:</strong> Manage PCP and specialists with NPI numbers</li>
+            <li><strong>Patient Health Statistics:</strong> Quick stats panel with vitals graphs and alert notifications</li>
+            <li><strong>PDC Billing Module:</strong> Eligibility tracking, device reading counts, CPT code automation</li>
+            <li><strong>BLE Device Integration:</strong> Blood pressure monitors, pulse oximeters, weight scales, glucometers</li>
+            <li><strong>Request Management:</strong> Device allocation, PDC Nursing, PDC Billing request workflows</li>
+            <li><strong>Activity Logs:</strong> Comprehensive audit trail for compliance</li>
+            <li>Patient mobile application for data sync</li>
+            <li>HIPAA-compliant data handling</li>
+        </ul>
+
+        <h3 class="subsection-title">Out of Scope</h3>
+        <ul>
+            <li>Direct EHR integration (Phase 2)</li>
+            <li>Telehealth video consultations (separate module)</li>
+            <li>Insurance eligibility verification</li>
+            <li>Patient billing and payment collection</li>
+        </ul>
+    </section>
+
+    <!-- 4. Stakeholder Analysis -->
+    <section class="section">
+        <h2 class="section-title">4. Stakeholder Analysis</h2>
+        <table>
+            <tr>
+                <th>Stakeholder</th>
+                <th>Role</th>
+                <th>Interest</th>
+                <th>Influence</th>
+            </tr>
+            <tr>
+                <td>Super Admin (Platform)</td>
+                <td>System Owner</td>
+                <td>Provider onboarding, device inventory, request handling, platform uptime</td>
+                <td>High</td>
+            </tr>
+            <tr>
+                <td>Healthcare Provider/Hospital</td>
+                <td>Primary Customer</td>
+                <td>Patient enrollment, care team management, billing eligibility</td>
+                <td>High</td>
+            </tr>
+            <tr>
+                <td>Primary Ordering Provider (POP)</td>
+                <td>Medical Authority</td>
+                <td>Patient assignment, clinical oversight, care team coordination</td>
+                <td>High</td>
+            </tr>
+            <tr>
+                <td>Nursing Staff</td>
+                <td>Primary User</td>
+                <td>Quick stats panel, vitals graphs, patient detail tabs, actionable alerts</td>
+                <td>Medium</td>
+            </tr>
+            <tr>
+                <td>PDC Billing Coordinator</td>
+                <td>Key User</td>
+                <td>Eligibility status, device reading counts, monthly reports, CPT automation</td>
+                <td>Medium</td>
+            </tr>
+            <tr>
+                <td>IT/Compliance</td>
+                <td>Technical Oversight</td>
+                <td>Security, HIPAA compliance, audit logs, multi-tenant isolation</td>
+                <td>High</td>
+            </tr>
+            <tr>
+                <td>Patients</td>
+                <td>End User</td>
+                <td>Simple device pairing, minimal app interaction</td>
+                <td>Low</td>
+            </tr>
+        </table>
+    </section>
+
+    <div class="page-break"></div>
+
+    <!-- 5. Functional Requirements -->
+    <section class="section">
+        <h2 class="section-title">5. Functional Requirements</h2>
+
+        <h3 class="subsection-title">5.1 Super Admin Dashboard</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Requirement</th>
+                <th>Priority</th>
+            </tr>
+            <tr>
+                <td>FR-001</td>
+                <td>Dashboard shall display stats cards: Total Providers, Inactive Providers, Total POP, Total Patients</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-002</td>
+                <td>Dashboard shall display: Unallotted Devices (available/total), Device Allocation Requests, PDC Billing Requests, PDC Nursing Requests</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-003</td>
+                <td>Dashboard shall show weekly change indicators for all stats</td>
+                <td><span class="priority-medium">Medium</span></td>
+            </tr>
+            <tr>
+                <td>FR-004</td>
+                <td>System shall display New Requests table with columns: S.No, Provider Name, Request Type, Patient ID, Dates, Status, Action</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-005</td>
+                <td>System shall support request types: Device Allocation, Support, PDC Nursing (Enable/Disable), PDC Billing (Enable/Disable)</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-006</td>
+                <td>Dashboard shall display analytics charts for Patients Onboarded and Requests volume (weekly/monthly)</td>
+                <td><span class="priority-medium">Medium</span></td>
+            </tr>
+        </table>
+
+        <h3 class="subsection-title">5.2 Device Inventory Management</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Requirement</th>
+                <th>Priority</th>
+            </tr>
+            <tr>
+                <td>FR-007</td>
+                <td>System shall track device information: Device ID, Device Type, Battery Level (%), Signal Strength (%)</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-008</td>
+                <td>System shall store device network identifiers: ICCID, IMSI, IMEI numbers</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-009</td>
+                <td>Device modal shall display: Latest Reading with timestamp, Assigned Patient (name, age, gender, location, last active)</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-010</td>
+                <td>Device status shall be tracked as: Active, Inactive, Unassigned</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-011</td>
+                <td>Device allocation workflow: Provider request → Super Admin review → Approve/Reject → Auto-link to patient</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+        </table>
+
+        <h3 class="subsection-title">5.3 Provider Management (Multi-Tenant)</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Requirement</th>
+                <th>Priority</th>
+            </tr>
+            <tr>
+                <td>FR-012</td>
+                <td>Provider view shall have tabs: Provider Details, Allotted Devices, Patient Management, Primary Ordering Provider Management</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-013</td>
+                <td>Provider stats shall show: Total Patients, Patients Enrolled (active monitoring), weekly change indicators</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-014</td>
+                <td>Patient List shall have filters: Primary Ordering Provider, Patient Enrollment Status, Device Status, Search</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-015</td>
+                <td>System shall isolate patient data between providers (multi-tenant security)</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+        </table>
+
+        <h3 class="subsection-title">5.4 Patient Enrollment Module</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Requirement</th>
+                <th>Priority</th>
+            </tr>
+            <tr>
+                <td>FR-016</td>
+                <td>System shall allow staff to enroll new patients with demographics, diagnosis codes, and consent</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-017</td>
+                <td>System shall assign one or more BLE devices to a patient profile</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-018</td>
+                <td>System shall capture patient consent for RPM services with digital signature</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-019</td>
+                <td>System shall provide downloadable PDC spreadsheet template for bulk enrollment</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-020</td>
+                <td>Bulk enrollment shall support: CSV upload (drag-and-drop), validation feedback, POP ID mapping</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-021</td>
+                <td>Patient status shall be tracked as: Enrolled, Pending, Inactive</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+        </table>
+
+        <h3 class="subsection-title">5.5 Patient Health Statistics</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Requirement</th>
+                <th>Priority</th>
+            </tr>
+            <tr>
+                <td>FR-022</td>
+                <td>Patient header shall display: Name, Enrollment Status badge, Patient ID, Gender, Age, POP name</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-023</td>
+                <td>Quick stats shall show: Blood Pressure (systolic/diastolic mmHg), Heart Rate (BPM), latest reading timestamp</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-024</td>
+                <td>Patient detail shall have tabs: Results, Notes, Device, Patient Profile, Medical Profile, Patient Care Team, Activity</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-025</td>
+                <td>System shall display inline alert notifications (e.g., "Patient's last reading indicates high blood pressure")</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-026</td>
+                <td>Vitals graphs shall show: Blood Pressure trend (Systolic/Diastolic), Heart Rate trend, with date range selector</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+        </table>
+
+        <h3 class="subsection-title">5.6 External Care Provider Directory</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Requirement</th>
+                <th>Priority</th>
+            </tr>
+            <tr>
+                <td>FR-027</td>
+                <td>System shall support care provider types: Primary Care Provider (PCP), Specialist 1, Specialist 2, etc.</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-028</td>
+                <td>Care provider info shall include: Name, Email, Specialty, NPI Number (National Provider Identifier)</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-029</td>
+                <td>Access management actions: Assign New, Share access, Revoke access, View Profile, Remove</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+        </table>
+
+        <h3 class="subsection-title">5.7 Device BLE Integration</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Requirement</th>
+                <th>Priority</th>
+            </tr>
+            <tr>
+                <td>FR-030</td>
+                <td>System shall support BLE pairing with FDA-cleared blood pressure monitors</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-031</td>
+                <td>System shall support BLE pairing with pulse oximeters, weight scales, and glucometers</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-032</td>
+                <td>System shall automatically sync readings when patient app is in foreground or background</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-033</td>
+                <td>System shall retry failed syncs and queue readings for later transmission</td>
+                <td><span class="priority-medium">Medium</span></td>
+            </tr>
+        </table>
+
+        <h3 class="subsection-title">5.8 PDC Billing Module</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Requirement</th>
+                <th>Priority</th>
+            </tr>
+            <tr>
+                <td>FR-034</td>
+                <td>Billing screen shall display: Eligibility Status (Eligible/Not Eligible), Month Selector, POP Associated</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-035</td>
+                <td>Billing screen shall show Calls Taken count for clinical interactions</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-036</td>
+                <td>Per-device billing data shall include: Device Label (BPM Device 1, 2), Device ID, Device Status, Readings Received count</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-037</td>
+                <td>System shall calculate eligible CPT codes (99453, 99454, 99457, 99458) based on readings and clinical time</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-038</td>
+                <td>System shall generate monthly billing reports with patient-level detail</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-039</td>
+                <td>System shall export billing data in CSV format for claims submission</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-040</td>
+                <td>System shall track billing history and prevent duplicate claims</td>
+                <td><span class="priority-medium">Medium</span></td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- 6. Non-Functional Requirements -->
+    <section class="section">
+        <h2 class="section-title">6. Non-Functional Requirements</h2>
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Requirement</th>
+                <th>Target</th>
+            </tr>
+            <tr>
+                <td>Performance</td>
+                <td>Dashboard page load time</td>
+                <td>&lt; 3 seconds</td>
+            </tr>
+            <tr>
+                <td>Performance</td>
+                <td>Device data sync latency</td>
+                <td>&lt; 5 seconds from reading</td>
+            </tr>
+            <tr>
+                <td>Availability</td>
+                <td>System uptime</td>
+                <td>99.5% monthly</td>
+            </tr>
+            <tr>
+                <td>Scalability</td>
+                <td>Concurrent users supported</td>
+                <td>100+ clinical users</td>
+            </tr>
+            <tr>
+                <td>Scalability</td>
+                <td>Patient capacity</td>
+                <td>10,000+ active patients</td>
+            </tr>
+            <tr>
+                <td>Security</td>
+                <td>Data encryption</td>
+                <td>AES-256 at rest, TLS 1.3 in transit</td>
+            </tr>
+            <tr>
+                <td>Usability</td>
+                <td>Mobile app ease of use</td>
+                <td>Pairing in &lt; 3 steps</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- 7. Compliance Requirements -->
+    <section class="section">
+        <h2 class="section-title">7. Compliance Requirements (HIPAA)</h2>
+
+        <div class="info-box compliance">
+            <h4>HIPAA Compliance is Mandatory</h4>
+            <p>All system components handling Protected Health Information (PHI) must comply with HIPAA Security Rule and Privacy Rule requirements.</p>
+        </div>
+
+        <table>
+            <tr>
+                <th>Requirement</th>
+                <th>Implementation</th>
+            </tr>
+            <tr>
+                <td>Access Control</td>
+                <td>Role-based access with unique user IDs, automatic session timeout after 15 minutes of inactivity</td>
+            </tr>
+            <tr>
+                <td>Audit Controls</td>
+                <td>Comprehensive audit logs for all PHI access, modification, and deletion events</td>
+            </tr>
+            <tr>
+                <td>Integrity Controls</td>
+                <td>Data validation on input, checksums for data integrity verification</td>
+            </tr>
+            <tr>
+                <td>Transmission Security</td>
+                <td>TLS 1.3 encryption for all data in transit, certificate pinning in mobile app</td>
+            </tr>
+            <tr>
+                <td>Encryption</td>
+                <td>AES-256 encryption for PHI at rest in database and backups</td>
+            </tr>
+            <tr>
+                <td>BAA Requirements</td>
+                <td>Business Associate Agreements with all third-party service providers</td>
+            </tr>
+        </table>
+    </section>
+
+    <div class="page-break"></div>
+
+    <!-- 8. User Stories -->
+    <section class="section">
+        <h2 class="section-title">8. Sample User Stories</h2>
+
+        <div class="user-story">
+            <div class="user-story-id">US-001: Patient Enrollment</div>
+            <div class="user-story-text">
+                <strong>As a</strong> clinical coordinator, <strong>I want to</strong> enroll a new patient into the RPM program,
+                <strong>so that</strong> I can begin monitoring their vitals remotely.
+            </div>
+            <div class="acceptance-criteria">
+                <strong>Acceptance Criteria:</strong><br>
+                - Can enter patient demographics (name, DOB, contact info)<br>
+                - Can select diagnosis codes from ICD-10 dropdown<br>
+                - Can capture digital consent signature<br>
+                - System assigns unique patient ID upon save<br>
+                - Patient appears in active patient list immediately
+            </div>
+        </div>
+
+        <div class="user-story">
+            <div class="user-story-id">US-002: Device Pairing</div>
+            <div class="user-story-text">
+                <strong>As a</strong> patient, <strong>I want to</strong> pair my blood pressure monitor with the mobile app,
+                <strong>so that</strong> my readings are automatically sent to my care team.
+            </div>
+            <div class="acceptance-criteria">
+                <strong>Acceptance Criteria:</strong><br>
+                - App detects nearby BLE devices<br>
+                - Patient selects device from list to initiate pairing<br>
+                - Successful pairing confirmed with visual feedback<br>
+                - Test reading syncs within 10 seconds<br>
+                - Device remains paired across app restarts
+            </div>
+        </div>
+
+        <div class="user-story">
+            <div class="user-story-id">US-003: Critical Alert Review</div>
+            <div class="user-story-text">
+                <strong>As a</strong> nurse, <strong>I want to</strong> see patients with critical readings highlighted,
+                <strong>so that</strong> I can prioritize urgent interventions.
+            </div>
+            <div class="acceptance-criteria">
+                <strong>Acceptance Criteria:</strong><br>
+                - Patients with readings outside threshold appear in red<br>
+                - Alert badge shows count of unreviewed critical readings<br>
+                - Clicking patient opens detail view with vitals history<br>
+                - Can mark alert as reviewed with clinical note<br>
+                - Review time logged for billing purposes
+            </div>
+        </div>
+
+        <div class="user-story">
+            <div class="user-story-id">US-004: Monthly Billing Report</div>
+            <div class="user-story-text">
+                <strong>As a</strong> billing manager, <strong>I want to</strong> generate a monthly RPM billing report,
+                <strong>so that</strong> I can submit accurate claims for reimbursement.
+            </div>
+            <div class="acceptance-criteria">
+                <strong>Acceptance Criteria:</strong><br>
+                - Report shows all patients with qualifying activity<br>
+                - CPT codes auto-calculated based on transmission days and clinical time<br>
+                - Report includes patient name, MRN, dates of service, CPT codes<br>
+                - Can export to CSV for upload to billing system<br>
+                - Report excludes patients already billed for the period
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. Assumptions & Dependencies -->
+    <section class="section">
+        <h2 class="section-title">9. Assumptions & Dependencies</h2>
+
+        <h3 class="subsection-title">Assumptions</h3>
+        <ul>
+            <li>Patients have smartphones capable of running the mobile app (iOS 14+ or Android 10+)</li>
+            <li>Clinical staff have access to modern web browsers (Chrome, Safari, Edge)</li>
+            <li>Internet connectivity is available at patient homes for data sync</li>
+            <li>Organization will provide FDA-cleared BLE devices to patients</li>
+            <li>Clinical staff will complete training before go-live</li>
+        </ul>
+
+        <h3 class="subsection-title">Dependencies</h3>
+        <ul>
+            <li>Device vendor API documentation for BLE integration</li>
+            <li>IT infrastructure provisioning (cloud hosting, SSL certificates)</li>
+            <li>Legal review and approval of patient consent forms</li>
+            <li>Compliance team sign-off on HIPAA security controls</li>
+        </ul>
+    </section>
+
+    <!-- 10. Risks -->
+    <section class="section">
+        <h2 class="section-title">10. Risks & Mitigations</h2>
+        <table>
+            <tr>
+                <th>Risk</th>
+                <th>Impact</th>
+                <th>Probability</th>
+                <th>Mitigation</th>
+            </tr>
+            <tr>
+                <td>Device compatibility issues</td>
+                <td>High</td>
+                <td>Medium</td>
+                <td>Test with all target devices early; maintain approved device list</td>
+            </tr>
+            <tr>
+                <td>Patient adoption challenges</td>
+                <td>High</td>
+                <td>Medium</td>
+                <td>Simplify onboarding; provide patient education materials</td>
+            </tr>
+            <tr>
+                <td>HIPAA compliance gaps</td>
+                <td>High</td>
+                <td>Low</td>
+                <td>Engage compliance team throughout; conduct security audit before launch</td>
+            </tr>
+            <tr>
+                <td>Billing calculation errors</td>
+                <td>Medium</td>
+                <td>Medium</td>
+                <td>Validate billing logic with CMS guidelines; manual review in initial months</td>
+            </tr>
+            <tr>
+                <td>Scope creep from stakeholders</td>
+                <td>Medium</td>
+                <td>High</td>
+                <td>Formal change request process; defer non-critical features to Phase 2</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Approval Section -->
+    <section class="section">
+        <h2 class="section-title">Document Approval</h2>
+        <table>
+            <tr>
+                <th>Role</th>
+                <th>Name</th>
+                <th>Signature</th>
+                <th>Date</th>
+            </tr>
+            <tr>
+                <td>Product Owner</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Clinical Director</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>IT/Compliance Lead</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Engineering Lead</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Appendix: Design Resources -->
+    <section class="section">
+        <h2 class="section-title">Appendix: Design Resources</h2>
+        <div class="info-box">
+            <h4>Wireframes & Visual Designs</h4>
+            <p>Interactive wireframes and polished UI designs are available in Figma for stakeholder review:</p>
+            <p><strong>Figma Link:</strong> <a href="https://www.figma.com/file/UPsTBAKbO89ZJggwtC1ulv/RPM-sample?type=design&node-id=0%3A1&mode=design&t=2cRLg8W93HhNMVBe-1" target="_blank">RPM Platform - Wireframes & Designs</a></p>
+            <p><em>Note: View-only access. Contact Business Analyst for edit permissions.</em></p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="doc-footer">
+        <p>CONFIDENTIAL - For Internal Use Only</p>
+        <p>Business Requirements Document | Remote Patient Monitoring Platform | v1.0</p>
+    </div>
+
+</body>
+</html>

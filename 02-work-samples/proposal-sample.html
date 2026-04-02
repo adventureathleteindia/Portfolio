@@ -1,0 +1,1762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Proposal - Pet Day-Care Management Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #334155;
+            --color-primary-dark: #1e293b;
+            --color-primary-light: #f1f5f9;
+            --color-text: #1F2937;
+            --color-text-secondary: #6B7280;
+            --color-bg: #FFFFFF;
+            --color-bg-secondary: #F9FAFB;
+            --color-border: #E5E7EB;
+            --color-success: #10B981;
+            --color-accent: #0EA5E9;
+            --color-warning: #F59E0B;
+            --color-info: #3B82F6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: var(--color-text);
+            background: var(--color-bg);
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        @media print {
+            body { padding: 20px; max-width: 100%; }
+            .page-break { page-break-before: always; }
+            .no-print { display: none; }
+        }
+
+        h1, h2, h3, h4 { font-family: 'Montserrat', Arial, sans-serif; }
+
+        /* Cover Page */
+        .cover-page {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 3px solid var(--color-primary);
+            padding: 60px 40px;
+            margin-bottom: 40px;
+        }
+
+        .cover-badge {
+            background: var(--color-primary);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 10pt;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .cover-page h1 {
+            font-size: 28pt;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+        }
+
+        .cover-page .subtitle {
+            font-size: 16pt;
+            color: var(--color-text);
+            margin-bottom: 30px;
+        }
+
+        .cover-description {
+            font-size: 12pt;
+            color: var(--color-text-secondary);
+            max-width: 520px;
+            margin-bottom: 40px;
+        }
+
+        .cover-meta {
+            font-size: 11pt;
+            color: var(--color-text-secondary);
+            margin-top: 30px;
+        }
+
+        .cover-meta p { margin: 5px 0; }
+
+        /* Table of Contents */
+        .toc {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 30px 40px;
+            margin-bottom: 40px;
+        }
+
+        .toc h2 {
+            font-size: 16pt;
+            color: var(--color-primary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .toc-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 10px 0;
+            border-bottom: 1px dotted var(--color-border);
+        }
+
+        .toc-list li:last-child { border-bottom: none; }
+
+        .toc-section {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .toc-page {
+            font-size: 10pt;
+            color: var(--color-text-secondary);
+        }
+
+        .toc-sub {
+            padding-left: 20px;
+            font-weight: 400;
+            font-size: 10pt;
+        }
+
+        /* Section Styling */
+        .section { margin-bottom: 35px; }
+        .section-title {
+            font-size: 14pt;
+            font-weight: 600;
+            color: var(--color-primary);
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+        }
+        .subsection-title {
+            font-size: 12pt;
+            font-weight: 600;
+            color: var(--color-text);
+            margin: 24px 0 12px 0;
+        }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 10pt; }
+        th, td { border: 1px solid var(--color-border); padding: 10px 12px; text-align: left; }
+        th { background: var(--color-primary); color: white; font-weight: 600; }
+        tr:nth-child(even) { background: var(--color-bg-secondary); }
+
+        ul, ol { margin: 10px 0; padding-left: 24px; }
+        li { margin-bottom: 6px; }
+
+        .info-box {
+            background: var(--color-primary-light);
+            border-left: 4px solid var(--color-primary);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .info-box h4 { font-size: 11pt; color: var(--color-primary); margin-bottom: 8px; }
+
+        .warning-box {
+            background: #FEF3C7;
+            border-left: 4px solid var(--color-warning);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .warning-box h4 { font-size: 11pt; color: #92400E; margin-bottom: 8px; }
+
+        .assumption-box {
+            background: #EFF6FF;
+            border-left: 4px solid var(--color-info);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .assumption-box h4 { font-size: 11pt; color: #1E40AF; margin-bottom: 8px; }
+
+        /* Modular Flow Diagram */
+        .flow-diagram {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+
+        .flow-title {
+            text-align: center;
+            font-weight: 600;
+            font-size: 11pt;
+            color: var(--color-primary);
+            margin-bottom: 25px;
+        }
+
+        .flow-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .flow-module {
+            background: white;
+            border: 2px solid var(--color-primary);
+            border-radius: 8px;
+            padding: 12px 18px;
+            text-align: center;
+            font-size: 9pt;
+            font-weight: 500;
+            min-width: 130px;
+        }
+
+        .flow-module.core {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .flow-module.external {
+            background: #E0F2FE;
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+        }
+
+        .flow-arrow {
+            color: var(--color-primary);
+            font-size: 16pt;
+            font-weight: bold;
+        }
+
+        .flow-connector {
+            width: 2px;
+            height: 20px;
+            background: var(--color-primary);
+            margin: 0 auto;
+        }
+
+        .flow-label {
+            font-size: 8pt;
+            color: var(--color-text-secondary);
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        /* Feature Modules - Enhanced */
+        .module-card {
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .module-card h4 {
+            font-size: 12pt;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .module-priority {
+            font-size: 8pt;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        .priority-mvp { background: #DCFCE7; color: #166534; }
+        .priority-phase2 { background: #FEF3C7; color: #92400E; }
+
+        .module-card ul { margin: 0; padding-left: 20px; font-size: 10pt; }
+
+        .feature-table { table-layout: fixed; }
+        .feature-table td:first-child { font-weight: 500; }
+        .feature-table td { text-align: left; vertical-align: top; }
+
+        /* Questions Section */
+        .question-item {
+            background: var(--color-bg-secondary);
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin: 12px 0;
+        }
+
+        .question-item .q {
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .question-item .context {
+            font-size: 10pt;
+            color: var(--color-text-secondary);
+            font-style: italic;
+        }
+
+        /* Pricing Table */
+        .pricing-table td:last-child { text-align: right; font-weight: 600; }
+        .pricing-total { background: var(--color-primary-light) !important; font-weight: 700 !important; }
+
+        /* Timeline */
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .timeline-item:last-child { border-bottom: none; }
+        .timeline-phase {
+            font-weight: 600;
+            color: var(--color-primary);
+            font-size: 10pt;
+        }
+        .timeline-details { font-size: 10pt; }
+        .timeline-deliverables {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed var(--color-border);
+            font-size: 9pt;
+            color: var(--color-text-secondary);
+        }
+
+        /* Acceptance Criteria */
+        .ac-list {
+            background: #F0FDF4;
+            border: 1px solid #BBF7D0;
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin: 10px 0;
+            font-size: 10pt;
+        }
+        .ac-list strong {
+            color: #166534;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .doc-footer {
+            border-top: 1px solid var(--color-border);
+            padding-top: 15px;
+            margin-top: 40px;
+            font-size: 9pt;
+            color: var(--color-text-secondary);
+            text-align: center;
+        }
+
+        /* Two Column Layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 700px) {
+            .two-col { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================== -->
+    <!-- COVER PAGE -->
+    <!-- ============================================== -->
+    <div class="cover-page">
+        <div class="cover-badge">Software Development Proposal</div>
+        <h1>PROJECT PROPOSAL</h1>
+        <div class="subtitle">Pet Day-Care Management Platform</div>
+        <p class="cover-description">
+            A comprehensive SaaS solution for pet boarding facilities to manage bookings,
+            check-ins, pet profiles, and customer communications - replacing manual processes
+            with an integrated digital platform.
+        </p>
+        <div class="cover-meta">
+            <p><strong>Prepared For:</strong> [Client Name]</p>
+            <p><strong>Prepared By:</strong> Atul Chauhan, Business Analyst</p>
+            <p><strong>Date:</strong> January 2026</p>
+            <p><strong>Version:</strong> 1.0</p>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- ============================================== -->
+    <!-- TABLE OF CONTENTS -->
+    <!-- ============================================== -->
+    <div class="toc">
+        <h2>Table of Contents</h2>
+        <ol class="toc-list">
+            <li>
+                <span class="toc-section">1. Executive Summary</span>
+                <span class="toc-page">3</span>
+            </li>
+            <li>
+                <span class="toc-section">2. Project Objective & Vision</span>
+                <span class="toc-page">3</span>
+            </li>
+            <li>
+                <span class="toc-section">3. Understanding Your Needs</span>
+                <span class="toc-page">4</span>
+            </li>
+            <li>
+                <span class="toc-section">4. Questions & Assumptions</span>
+                <span class="toc-page">5</span>
+            </li>
+            <li>
+                <span class="toc-section">5. Proposed Solution</span>
+                <span class="toc-page">6</span>
+            </li>
+            <li class="toc-sub">
+                <span>5.1 Platform Architecture</span>
+                <span class="toc-page">6</span>
+            </li>
+            <li class="toc-sub">
+                <span>5.2 Modular Flow Diagram</span>
+                <span class="toc-page">6</span>
+            </li>
+            <li>
+                <span class="toc-section">6. Feature Breakdown (MVP)</span>
+                <span class="toc-page">7</span>
+            </li>
+            <li class="toc-sub">
+                <span>6.1 Booking Management</span>
+                <span class="toc-page">7</span>
+            </li>
+            <li class="toc-sub">
+                <span>6.2 Pet Profiles</span>
+                <span class="toc-page">8</span>
+            </li>
+            <li class="toc-sub">
+                <span>6.3 Check-In / Check-Out</span>
+                <span class="toc-page">8</span>
+            </li>
+            <li class="toc-sub">
+                <span>6.4 Customer Management</span>
+                <span class="toc-page">9</span>
+            </li>
+            <li class="toc-sub">
+                <span>6.5 Reporting & Analytics</span>
+                <span class="toc-page">9</span>
+            </li>
+            <li>
+                <span class="toc-section">7. Technology Stack</span>
+                <span class="toc-page">10</span>
+            </li>
+            <li>
+                <span class="toc-section">8. Project Timeline</span>
+                <span class="toc-page">11</span>
+            </li>
+            <li>
+                <span class="toc-section">9. Investment & Payment Terms</span>
+                <span class="toc-page">12</span>
+            </li>
+            <li>
+                <span class="toc-section">10. Future Enhancements (Phase 2+)</span>
+                <span class="toc-page">13</span>
+            </li>
+            <li>
+                <span class="toc-section">11. Next Steps</span>
+                <span class="toc-page">14</span>
+            </li>
+        </ol>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- ============================================== -->
+    <!-- 1. EXECUTIVE SUMMARY -->
+    <!-- ============================================== -->
+    <section class="section">
+        <h2 class="section-title">1. Executive Summary</h2>
+
+        <p>
+            This proposal outlines the development of a <strong>Pet Day-Care Management Platform</strong> designed to streamline
+            operations for pet boarding facilities. The solution will replace manual booking processes, paper-based
+            check-ins, and fragmented customer communication with an integrated digital platform.
+        </p>
+
+        <div class="info-box">
+            <h4>Key Benefits</h4>
+            <ul>
+                <li><strong>70% reduction</strong> in booking time with online reservations</li>
+                <li><strong>Eliminate paper</strong> with digital check-in/check-out workflows</li>
+                <li><strong>Improve retention</strong> via automated reminders and pet profiles</li>
+                <li><strong>Real-time visibility</strong> into occupancy, revenue, and trends</li>
+            </ul>
+        </div>
+
+        <h3 class="subsection-title">Scope Summary</h3>
+        <p>
+            The MVP includes core modules for booking management, pet profiles, check-in/check-out workflows,
+            customer management, and basic reporting. Future phases will add mobile apps, payment processing,
+            and grooming/training service integration.
+        </p>
+
+        <table>
+            <tr>
+                <th>Aspect</th>
+                <th>Details</th>
+            </tr>
+            <tr>
+                <td>Timeline</td>
+                <td>12-14 weeks for MVP delivery</td>
+            </tr>
+            <tr>
+                <td>Investment</td>
+                <td>$XX,XXX - $XX,XXX (detailed breakdown in Section 9)</td>
+            </tr>
+            <tr>
+                <td>Platforms</td>
+                <td>Web-based (Admin Dashboard + Customer Portal)</td>
+            </tr>
+            <tr>
+                <td>Users</td>
+                <td>Facility Staff (Admin) + Pet Owners (Customer Portal)</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- 2. PROJECT OBJECTIVE & VISION -->
+    <!-- ============================================== -->
+    <section class="section">
+        <h2 class="section-title">2. Project Objective & Vision</h2>
+
+        <h3 class="subsection-title">Objective</h3>
+        <p>
+            Build a cloud-based SaaS platform that enables pet boarding facilities to manage their entire
+            operation digitally - from booking and check-in to reporting and customer communication -
+            reducing administrative overhead and improving customer experience.
+        </p>
+
+        <h3 class="subsection-title">Vision</h3>
+        <p>
+            Create the go-to digital solution for pet care businesses, starting with day-care and boarding,
+            expandable to grooming, training, veterinary partnerships, and multi-location franchise management.
+        </p>
+
+        <h3 class="subsection-title">Success Criteria</h3>
+        <table>
+            <tr>
+                <th>Metric</th>
+                <th>Target</th>
+                <th>Measurement</th>
+            </tr>
+            <tr>
+                <td>Booking Time</td>
+                <td>70% reduction</td>
+                <td>Average time from inquiry to confirmed booking</td>
+            </tr>
+            <tr>
+                <td>Administrative Hours</td>
+                <td>50% reduction</td>
+                <td>Weekly hours spent on manual admin tasks</td>
+            </tr>
+            <tr>
+                <td>Customer Satisfaction</td>
+                <td>4.5+ rating</td>
+                <td>Post-visit feedback score</td>
+            </tr>
+            <tr>
+                <td>System Uptime</td>
+                <td>99.5%</td>
+                <td>Monthly availability percentage</td>
+            </tr>
+        </table>
+    </section>
+
+    <div class="page-break"></div>
+
+    <!-- ============================================== -->
+    <!-- 3. UNDERSTANDING YOUR NEEDS -->
+    <!-- ============================================== -->
+    <section class="section">
+        <h2 class="section-title">3. Understanding Your Needs</h2>
+
+        <div class="two-col">
+            <div>
+                <h3 class="subsection-title">Current Challenges</h3>
+                <ul>
+                    <li>Phone/email bookings are time-consuming and error-prone</li>
+                    <li>No centralized system for pet medical info and preferences</li>
+                    <li>Manual tracking of check-ins leads to billing discrepancies</li>
+                    <li>Difficulty managing peak season demand and waitlists</li>
+                    <li>Limited visibility into business metrics and trends</li>
+                    <li>Inconsistent customer communication</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="subsection-title">Desired Outcomes</h3>
+                <ul>
+                    <li>Enable 24/7 online booking for customers</li>
+                    <li>Centralize pet information with medical records</li>
+                    <li>Automate check-in/check-out with accurate time tracking</li>
+                    <li>Provide dashboard with occupancy and revenue insights</li>
+                    <li>Reduce administrative overhead by 50%</li>
+                    <li>Automated notifications and reminders</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3 class="subsection-title">User Personas</h3>
+        <table>
+            <tr>
+                <th>Persona</th>
+                <th>Description</th>
+                <th>Key Needs</th>
+            </tr>
+            <tr>
+                <td><strong>Facility Manager</strong></td>
+                <td>Oversees daily operations, staff, and business performance</td>
+                <td>Dashboard, reports, staff management, capacity planning</td>
+            </tr>
+            <tr>
+                <td><strong>Front Desk Staff</strong></td>
+                <td>Handles check-ins, check-outs, and customer inquiries</td>
+                <td>Quick lookup, easy check-in, booking management</td>
+            </tr>
+            <tr>
+                <td><strong>Pet Owner</strong></td>
+                <td>Busy professional who needs reliable pet care</td>
+                <td>Easy booking, pet profile management, updates on pet</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- 4. QUESTIONS & ASSUMPTIONS -->
+    <!-- ============================================== -->
+    <section class="section">
+        <h2 class="section-title">4. Questions & Assumptions</h2>
+
+        <p>
+            To ensure accurate scope and estimation, the following questions require clarification.
+            Current assumptions are noted where applicable.
+        </p>
+
+        <h3 class="subsection-title">Open Questions</h3>
+
+        <div class="question-item">
+            <p class="q">Q1: What is the expected number of daily bookings and concurrent users?</p>
+            <p class="context">This impacts infrastructure sizing and affects hosting costs. Current assumption: 50-100 bookings/day, 20 concurrent users.</p>
+        </div>
+
+        <div class="question-item">
+            <p class="q">Q2: Is online payment processing required in MVP?</p>
+            <p class="context">Payment integration (Stripe/PayPal) adds 2-3 weeks to timeline. Current assumption: Payment processing in Phase 2, MVP uses manual payment recording.</p>
+        </div>
+
+        <div class="question-item">
+            <p class="q">Q3: Are there specific compliance requirements (state regulations, insurance)?</p>
+            <p class="context">Some states require specific record-keeping for pet boarding. Current assumption: Standard data retention, no specific compliance beyond general best practices.</p>
+        </div>
+
+        <div class="question-item">
+            <p class="q">Q4: What integrations are needed with existing tools?</p>
+            <p class="context">Examples: Accounting software (QuickBooks), email marketing (Mailchimp), calendar sync. Current assumption: Email notifications only in MVP.</p>
+        </div>
+
+        <div class="question-item">
+            <p class="q">Q5: Should the system support multiple facility locations?</p>
+            <p class="context">Multi-location requires additional complexity in data architecture. Current assumption: Single location in MVP.</p>
+        </div>
+
+        <h3 class="subsection-title">Assumptions (For This Proposal)</h3>
+
+        <div class="assumption-box">
+            <h4>Assumptions - Please Confirm</h4>
+            <ul>
+                <li>Single facility location for MVP</li>
+                <li>English language only (no localization in MVP)</li>
+                <li>Client will provide logo, branding guidelines, and content</li>
+                <li>Web-based access is sufficient (mobile app in Phase 2)</li>
+                <li>Email is primary notification channel (SMS optional add-on)</li>
+                <li>Standard business hours for support during development</li>
+                <li>Client has domain and basic hosting preferences identified</li>
+            </ul>
+        </div>
+
+        <div class="warning-box">
+            <h4>Scope Exclusions</h4>
+            <ul>
+                <li>Native mobile apps (iOS/Android) - Phase 2</li>
+                <li>Payment gateway integration - Phase 2</li>
+                <li>Multi-language support - Future phase</li>
+                <li>Hardware procurement (tablets, kiosks) - Client responsibility</li>
+                <li>Third-party API integrations beyond email - Quoted separately</li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="page-break"></div>
+
+    <!-- ============================================== -->
+    <!-- 5. PROPOSED SOLUTION -->
+    <!-- ============================================== -->
+    <section class="section">
+        <h2 class="section-title">5. Proposed Solution</h2>
+
+        <p>
+            We propose a cloud-based SaaS platform accessible via web browser, with a customer-facing booking
+            portal and an admin dashboard for facility staff. The system will be designed for ease of use,
+            requiring minimal training.
+        </p>
+
+        <h3 class="subsection-title">5.1 Platform Architecture</h3>
+        <table>
+            <tr>
+                <th>Component</th>
+                <th>Description</th>
+                <th>Users</th>
+            </tr>
+            <tr>
+                <td><strong>Admin Dashboard</strong></td>
+                <td>Web application for staff to manage bookings, pets, check-ins, and operations</td>
+                <td>Facility Staff</td>
+            </tr>
+            <tr>
+                <td><strong>Customer Portal</strong></td>
+                <td>Online booking, pet profile management, booking history for pet owners</td>
+                <td>Pet Owners</td>
+            </tr>
+            <tr>
+                <td><strong>Backend API</strong></td>
+                <td>Secure REST API handling business logic, authentication, and data storage</td>
+                <td>System</td>
+            </tr>
+            <tr>
+                <td><strong>Database</strong></td>
+                <td>Cloud-hosted relational database with automated daily backups</td>
+                <td>System</td>
+            </tr>
+            <tr>
+                <td><strong>Notification Service</strong></td>
+                <td>Email notifications for confirmations, reminders, and alerts</td>
+                <td>All Users</td>
+            </tr>
+        </table>
+
+        <h3 class="subsection-title">5.2 Application Modular Flow</h3>
+
+        <!-- Customer Portal Flow -->
+        <div class="flow-diagram" style="margin-bottom: 30px;">
+            <div class="flow-title" style="display: flex; align-items: center; gap: 10px; justify-content: center;">
+                <span style="font-size: 18pt;">👤</span>
+                Web Customer Portal (Mobile Responsive)
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 20px;">
+                <!-- Row 1: Homepage & Marketing -->
+                <div class="flow-module core" style="grid-column: 1;">Homepage</div>
+                <div class="flow-module" style="grid-column: 2;">Sign up / Login</div>
+                <div class="flow-module" style="grid-column: 3;">Customer details into database</div>
+                <div class="flow-module" style="grid-column: 4;">Add pet/details</div>
+                <div class="flow-module" style="grid-column: 5;">Profile</div>
+
+                <!-- Row 2 -->
+                <div class="flow-module external" style="grid-column: 1; font-size: 8pt;">
+                    Link to marketing page:<br>
+                    • Informational content<br>
+                    • Help and support<br>
+                    • Terms and conditions
+                </div>
+                <div class="flow-module" style="grid-column: 2;">Search</div>
+                <div class="flow-module" style="grid-column: 3;">Signup request for approval</div>
+                <div class="flow-module" style="grid-column: 4;">Detailed view</div>
+                <div class="flow-module" style="grid-column: 5;">Edit details</div>
+
+                <!-- Row 3 -->
+                <div style="grid-column: 1;"></div>
+                <div class="flow-module" style="grid-column: 2;">List of services and providers</div>
+                <div class="flow-module" style="grid-column: 3;">Reminders and notifications</div>
+                <div class="flow-module" style="grid-column: 4;">Check-in status</div>
+                <div class="flow-module external" style="grid-column: 5;">Wallet</div>
+
+                <!-- Row 4 -->
+                <div style="grid-column: 1;"></div>
+                <div class="flow-module" style="grid-column: 2;">Available slots</div>
+                <div class="flow-module" style="grid-column: 3;">Agree terms and conditions</div>
+                <div class="flow-module" style="grid-column: 4;">Check-out status</div>
+                <div class="flow-module" style="grid-column: 5; font-size: 8pt;">Add money to wallet<br>(Payment gateway)</div>
+
+                <!-- Row 5 -->
+                <div style="grid-column: 1;"></div>
+                <div class="flow-module" style="grid-column: 2;">Appointment scheduling</div>
+                <div class="flow-module" style="grid-column: 3;">Refund Policy</div>
+                <div class="flow-module" style="grid-column: 4;">Payment link from admin</div>
+                <div class="flow-module" style="grid-column: 5;">Edit Pet details</div>
+
+                <!-- Row 6 -->
+                <div style="grid-column: 1;"></div>
+                <div class="flow-module core" style="grid-column: 2;">Booking request to admin</div>
+                <div class="flow-module core" style="grid-column: 3;">Booking confirmed</div>
+                <div class="flow-module core" style="grid-column: 4;">Payment confirmed</div>
+                <div class="flow-module" style="grid-column: 5;">Schedules (calendar view)</div>
+
+                <!-- Row 7 -->
+                <div style="grid-column: 1;"></div>
+                <div style="grid-column: 2;"></div>
+                <div class="flow-module" style="grid-column: 3;">Automatic deduction after successful visit</div>
+                <div class="flow-module external" style="grid-column: 4; font-size: 8pt;">Store pictures on DB with print option</div>
+                <div class="flow-module" style="grid-column: 5;">Daily/monthly boarding information</div>
+
+                <!-- Row 8 -->
+                <div style="grid-column: 1;"></div>
+                <div style="grid-column: 2;"></div>
+                <div style="grid-column: 3;"></div>
+                <div style="grid-column: 4;"></div>
+                <div class="flow-module" style="grid-column: 5;">Payments</div>
+            </div>
+
+            <div style="margin-top: 20px; padding: 12px; background: #f0f9ff; border-radius: 6px; font-size: 9pt;">
+                <strong>Services Offered:</strong> Day care | Day care with bath | Boarding | Boarding with bath | Bath only<br>
+                <strong>Slot Status:</strong> Available | Reserved | Already selected | Unavailable
+            </div>
+        </div>
+
+        <!-- Service Provider/Admin Portal Flow -->
+        <div class="flow-diagram">
+            <div class="flow-title" style="display: flex; align-items: center; gap: 10px; justify-content: center;">
+                <span style="font-size: 18pt;">🏥</span>
+                Service Provider / Admin Portal (Mobile Responsive)
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 20px;">
+                <!-- Row 1 -->
+                <div class="flow-module core" style="grid-column: 1;">Login</div>
+                <div class="flow-module core" style="grid-column: 2;">Dashboard</div>
+                <div class="flow-module" style="grid-column: 3;">Customer Management</div>
+                <div class="flow-module" style="grid-column: 4;">Manage Services</div>
+                <div class="flow-module" style="grid-column: 5;">View Payments Received</div>
+
+                <!-- Row 2 -->
+                <div class="flow-module" style="grid-column: 1;">Profile</div>
+                <div class="flow-module" style="grid-column: 2;">Upcoming bookings (accept/reject)</div>
+                <div class="flow-module" style="grid-column: 3;">List of customers</div>
+                <div class="flow-module" style="grid-column: 4;">Add services</div>
+                <div class="flow-module" style="grid-column: 5;">Reports</div>
+
+                <!-- Row 3 -->
+                <div class="flow-module" style="grid-column: 1;">Edit service provider</div>
+                <div class="flow-module" style="grid-column: 2;">View Monthly subscription plan and payments</div>
+                <div class="flow-module" style="grid-column: 3;">New customer registration</div>
+                <div class="flow-module" style="grid-column: 4;">Customer registration approval</div>
+                <div class="flow-module" style="grid-column: 5;">User roles and permissions</div>
+
+                <!-- Row 4 -->
+                <div class="flow-module" style="grid-column: 1;">Update info</div>
+                <div class="flow-module" style="grid-column: 2; font-size: 8pt;">Basic stats:<br>• Services used<br>• Number of customers</div>
+                <div class="flow-module" style="grid-column: 3;">Add customer/pet details</div>
+                <div class="flow-module" style="grid-column: 4;">Select user/pet and enter details</div>
+                <div class="flow-module" style="grid-column: 5;">Manage schedule and availability</div>
+
+                <!-- Row 5 -->
+                <div class="flow-module" style="grid-column: 1; font-size: 8pt;">Profile documents, history, details</div>
+                <div class="flow-module" style="grid-column: 2;">Update activities status</div>
+                <div class="flow-module" style="grid-column: 3;">Select services</div>
+                <div class="flow-module" style="grid-column: 4;">Profile details and history</div>
+                <div class="flow-module" style="grid-column: 5;">View Monthly subscription</div>
+
+                <!-- Row 6 -->
+                <div class="flow-module" style="grid-column: 1;">To-do list</div>
+                <div class="flow-module" style="grid-column: 2;">Add picture etc.</div>
+                <div class="flow-module" style="grid-column: 3;">Schedule booking (Calendar)</div>
+                <div class="flow-module core" style="grid-column: 4;">View on Whiteboard</div>
+                <div class="flow-module" style="grid-column: 5;">Notifications</div>
+
+                <!-- Row 7: Whiteboard Row -->
+                <div class="flow-module external" style="grid-column: 1;">Restrict customer sign-in</div>
+                <div style="grid-column: 2;"></div>
+                <div class="flow-module core" style="grid-column: 3;">Check-in</div>
+                <div class="flow-module core" style="grid-column: 4;">Checkout</div>
+                <div class="flow-module" style="grid-column: 5;">Details and pet record</div>
+
+                <!-- Row 8: Bottom operations -->
+                <div class="flow-module external" style="grid-column: 1; font-size: 8pt;">Print kennel chit / Kennel Card</div>
+                <div class="flow-module" style="grid-column: 2;">Print/email report</div>
+                <div class="flow-module" style="grid-column: 3; font-size: 8pt;">Automatically deducts payments of client</div>
+                <div class="flow-module core" style="grid-column: 4; font-size: 8pt;">Share payment link with client (Pop-up)</div>
+                <div class="flow-module" style="grid-column: 5; font-size: 8pt;">Update details / Override information / Add new</div>
+
+                <!-- Row 9: VOIP and hide -->
+                <div style="grid-column: 1;"></div>
+                <div style="grid-column: 2;"></div>
+                <div class="flow-module external" style="grid-column: 3; font-size: 8pt;">Hide information from customers</div>
+                <div class="flow-module external" style="grid-column: 4; font-size: 8pt;">Option to call customer (VOIP)</div>
+                <div style="grid-column: 5;"></div>
+            </div>
+
+            <div style="margin-top: 20px; padding: 12px; background: #fef3c7; border-radius: 6px; font-size: 9pt;">
+                <strong>Whiteboard Features:</strong> List of accepted bookings | Status (ongoing/pending) | Check-in (service taken, duration, add picture, add note) | Checkout (calculate time & charges) | View on SmartTV | Auto-deduct from wallet OR share payment link | Print kennel chit/Kennel Card
+            </div>
+        </div>
+
+        <div class="flow-label" style="margin-top: 15px; text-align: center; padding: 10px; background: var(--color-bg-secondary); border-radius: 6px;">
+            <strong>Legend:</strong>
+            <span style="background: var(--color-primary); color: white; padding: 2px 8px; border-radius: 4px; margin: 0 5px;">Core Flow</span>
+            <span style="background: #E0F2FE; color: var(--color-accent); padding: 2px 8px; border-radius: 4px; margin: 0 5px;">Integration/Special Feature</span>
+            <span style="background: white; border: 2px solid var(--color-primary); padding: 2px 8px; border-radius: 4px; margin: 0 5px;">Standard Module</span>
+        </div>
+    </section>
+
+    <div class="page-break"></div>
+
+    <!-- ============================================== -->
+    <!-- 6. FEATURE BREAKDOWN (MVP) -->
+    <!-- ============================================== -->
+    <section class="section">
+        <h2 class="section-title">6. Feature Breakdown (MVP)</h2>
+
+        <p>
+            Detailed line-item breakdown of features for both Customer Portal and Service Provider/Admin Portal.
+            All features below are included in the MVP scope unless marked as Phase 2.
+        </p>
+
+        <!-- 6.1 Web Customer Portal -->
+        <div class="module-card">
+            <h4>
+                6.1 Web Customer Portal (Mobile Responsive)
+                <span class="module-priority priority-mvp">MVP</span>
+            </h4>
+
+            <table class="feature-table">
+                <tr>
+                    <th style="width: 25%;">Category</th>
+                    <th style="width: 75%;">Line Items</th>
+                </tr>
+                <tr>
+                    <td><strong>Link to Marketing Page</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>Informational content about services</li>
+                            <li>Help and support section</li>
+                            <li>Terms and conditions</li>
+                            <li>Add "Register as a user" tab</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Login / Register</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>User Registration: Name, Email, Password, Confirm Password, Mobile Number</li>
+                            <li>Verify Mobile Number (SMS Verification)</li>
+                            <li>Login with email and password</li>
+                            <li>Forgot Password / Reset Password flow</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Pet Profile Setup</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>Enter pet details: Breed, Gender, Weight, Color, Date of Birth</li>
+                            <li>Food details and special dietary notes</li>
+                            <li>Special care notes</li>
+                            <li>Enter vaccination details with document upload</li>
+                            <li>Auto-generated reminders for vaccination expiration</li>
+                            <li>Registration request sent to Admin (Waiting for approval)</li>
+                            <li>Approval confirmed notification</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Search Services</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>Services offered: Day care | Day care with bath | Boarding | Boarding with bath | Bath only</li>
+                            <li>Overview of each service with details</li>
+                            <li>Choice of service selection</li>
+                            <li>Length of service selection</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Book Appointment Flow</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>View service details - Overview</li>
+                            <li>Date Selection (calendar picker)</li>
+                            <li>View available slots:
+                                <ul style="margin: 0; padding-left: 15px;">
+                                    <li>Available slots (green)</li>
+                                    <li>Reserved slots (yellow)</li>
+                                    <li>Already selected slots (blue)</li>
+                                    <li>Unavailable slots (gray)</li>
+                                </ul>
+                            </li>
+                            <li>Booking Screen: Select slot</li>
+                            <li>Booking request sent to provider</li>
+                            <li>Booking confirmed notification</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Check-in / Check-out</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>View check-in status</li>
+                            <li>Check-out: View payment details</li>
+                            <li>Payment deducted automatically (through wallet)</li>
+                            <li>Payment completed from link shared by Admin</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Profile Management</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>View/Edit account details</li>
+                            <li>Add/Edit Pet Parent profile</li>
+                            <li>View/Add/Edit/Delete Pet Profile</li>
+                            <li>View documents or pictures related to pet</li>
+                            <li>Manage Payment account</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Wallet</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>Add money via credit or debit card (Stripe integration)</li>
+                            <li>Add money into wallet (auto-deduct on checkout)</li>
+                            <li>View wallet balance</li>
+                            <li>View transaction history</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Schedules</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>Calendar view to see scheduled bookings/appointments</li>
+                            <li>View booking status (confirmed, pending, completed)</li>
+                            <li>View appointment details</li>
+                            <li>Weekly/monthly booking view</li>
+                            <li>Cancel upcoming appointments</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Notifications</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>Push notification from pet care provider</li>
+                            <li>Reminders related to pet care/vaccination</li>
+                            <li>Booking request approved notification</li>
+                            <li>Payment request received from Admin</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- 6.2 Service Provider / Admin Portal -->
+        <div class="module-card">
+            <h4>
+                6.2 Service Provider / Admin Portal (Mobile Responsive)
+                <span class="module-priority priority-mvp">MVP</span>
+            </h4>
+
+            <table class="feature-table">
+                <tr>
+                    <th style="width: 25%;">Category</th>
+                    <th style="width: 75%;">Line Items</th>
+                </tr>
+                <tr>
+                    <td><strong>Sign-in</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>Sign-in with provided email and password</li>
+                            <li>Forgot password</li>
+                            <li>Reset password</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Dashboard</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>Basic stats: Number of users, Number of pets, List view and details</li>
+                            <li>Total earnings: Total amount, Date wise list view with history</li>
+                            <li>Services overview</li>
+                            <li>Earning breakdown (daily/weekly)</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Bookings</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>View new booking requests (accept/reject)</li>
+                            <li>Weekly/monthly bookings view</li>
+                            <li>List view of all bookings</li>
+                            <li>Request Admin to cancel booking with reason</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Customer Management</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>List of customers with search</li>
+                            <li>Select customer to view/edit details</li>
+                            <li>Option to call the customer (through VOIP integration)</li>
+                            <li>Register new customer manually</li>
+                            <li>Option to hide information from customers</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Whiteboard (Check-in/Checkout)</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>List of accepted bookings</li>
+                            <li>Number of ongoing/pending bookings with status</li>
+                            <li>New check-in / Register new customer</li>
+                            <li><strong>Check-in:</strong> Service taken, Service duration, Add picture, Add note</li>
+                            <li><strong>Checkout screen:</strong> Search pet name/Customer, Calculate Date and Time for stay and services</li>
+                            <li>Kennel Card and Kennel Chit information</li>
+                            <li>Bath Price pulled from Pet DB</li>
+                            <li>System check for double onboarding and double entry</li>
+                            <li>View total chargeable amount on whiteboard</li>
+                            <li>Print / email total amount receipt</li>
+                            <li>Payment deducted from wallet OR Payment link shared on email</li>
+                            <li>Payment confirmed status</li>
+                            <li>Print report</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>User Management</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li><strong>Manage Pet Parents (customers):</strong>
+                                <ul style="margin: 0; padding-left: 15px;">
+                                    <li>Listing with search</li>
+                                    <li>View profile and services</li>
+                                    <li>Activate/Deactivate account</li>
+                                </ul>
+                            </li>
+                            <li><strong>Manage Staff:</strong>
+                                <ul style="margin: 0; padding-left: 15px;">
+                                    <li>Add/Edit/Delete Staff</li>
+                                    <li>View listing and details</li>
+                                    <li>Manage cancel requests</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Reporting</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>View Daily/weekly/monthly scheduling</li>
+                            <li>Current check-in report</li>
+                            <li>Customer visits report</li>
+                            <li>Pet visits (birthdays, vaccination due dates)</li>
+                            <li>Daily service report</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Manage Services</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>List view of all services</li>
+                            <li>Add a service (day care, boarding, etc.)</li>
+                            <li>Add details and overview</li>
+                            <li>Set price according to length and duration</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Manage Schedule & Availability</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>Calendar view of slots</li>
+                            <li>Set availability for upcoming days</li>
+                            <li>Block dates/times</li>
+                            <li>Option to call the customer (through VOIP)</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Help & Support</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>List view of support requests</li>
+                            <li>Search support tickets</li>
+                            <li>Response to request</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Payments</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>View/Add/Update bank account information</li>
+                            <li>View payment history</li>
+                            <li>Monthly subscription plan management</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Roles & Permissions</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>Manage Roles (Staff)</li>
+                            <li>Role Permissions configuration</li>
+                            <li>User Roles assignment</li>
+                            <li>Add/Edit/Remove Role</li>
+                            <li>Select Role, Select Application Access to Role (checkbox)</li>
+                            <li><strong>Permission Access levels per module:</strong>
+                                <ul style="margin: 0; padding-left: 15px;">
+                                    <li>View permission</li>
+                                    <li>Add permission</li>
+                                    <li>Edit permission</li>
+                                    <li>Delete permission</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Notifications</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>New registration request (accept/reject)</li>
+                            <li>Notifications for booking requests</li>
+                            <li>Restrict customer sign-in option</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Provider Profile</strong></td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>Edit provider details</li>
+                            <li>Upload/manage documents</li>
+                            <li>View history</li>
+                            <li>To-do list</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- 6.3 Third-Party Integrations -->
+        <div class="module-card">
+            <h4>
+                6.3 Third-Party Integrations
+                <span class="module-priority priority-mvp">MVP</span>
+            </h4>
+
+            <table class="feature-table">
+                <tr>
+                    <th style="width: 15%;">Integration</th>
+                    <th style="width: 20%;">Purpose</th>
+                    <th style="width: 65%;">Line Items</th>
+                </tr>
+                <tr>
+                    <td><strong>Payment Gateway (Stripe)</strong></td>
+                    <td>Secure payment processing for customers</td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>Credit/debit card payments</li>
+                            <li>Wallet top-up</li>
+                            <li>Auto-deduction on checkout</li>
+                            <li>Payment link generation</li>
+                            <li>Transaction history</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>VoIP Integration</strong></td>
+                    <td>Direct calling from admin panel</td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>Click-to-call from customer management</li>
+                            <li>Click-to-call from schedule management</li>
+                            <li>Call logging</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>SMS Gateway</strong></td>
+                    <td>Mobile verification and notifications</td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>OTP for mobile verification</li>
+                            <li>Booking confirmation SMS</li>
+                            <li>Payment reminders</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Email API</strong></td>
+                    <td>Transactional emails</td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>Registration confirmation</li>
+                            <li>Booking notifications</li>
+                            <li>Payment receipts</li>
+                            <li>Report generation and sharing</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Push Notifications</strong></td>
+                    <td>Real-time alerts</td>
+                    <td>
+                        <ul style="margin: 0; padding-left: 15px; font-size: 9pt;">
+                            <li>Booking status updates</li>
+                            <li>Payment reminders</li>
+                            <li>Vaccination due alerts</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- 6.4 Feature Summary Matrix -->
+        <div class="module-card">
+            <h4>6.4 Feature Summary Matrix</h4>
+
+            <table class="feature-table">
+                <tr>
+                    <th>Portal</th>
+                    <th>Core Modules</th>
+                    <th>Key Features Count</th>
+                </tr>
+                <tr>
+                    <td><strong>Customer Portal</strong></td>
+                    <td>Registration, Pet Profiles, Search Services, Booking, Wallet, Schedules, Notifications</td>
+                    <td>40+ features</td>
+                </tr>
+                <tr>
+                    <td><strong>Admin Portal</strong></td>
+                    <td>Dashboard, Bookings, Customer Mgmt, Whiteboard, User Mgmt, Reporting, Services, Roles & Permissions</td>
+                    <td>65+ features</td>
+                </tr>
+                <tr>
+                    <td><strong>Integrations</strong></td>
+                    <td>Stripe, VoIP, SMS Gateway, Email API, Push Notifications</td>
+                    <td>15+ integrations</td>
+                </tr>
+            </table>
+
+            <div class="info-box" style="margin-top: 15px;">
+                <h4>Services Offered</h4>
+                <p style="margin: 0; font-size: 9pt;">
+                    <strong>1.</strong> Day care &nbsp;|&nbsp;
+                    <strong>2.</strong> Day care with bath &nbsp;|&nbsp;
+                    <strong>3.</strong> Boarding &nbsp;|&nbsp;
+                    <strong>4.</strong> Boarding with bath &nbsp;|&nbsp;
+                    <strong>5.</strong> Bath only
+                </p>
+            </div>
+
+            <div class="info-box" style="margin-top: 10px; background: #fef3c7;">
+                <h4>Slot Status Types</h4>
+                <p style="margin: 0; font-size: 9pt;">
+                    <span style="background: #22c55e; color: white; padding: 2px 8px; border-radius: 4px;">Available</span> &nbsp;
+                    <span style="background: #eab308; color: white; padding: 2px 8px; border-radius: 4px;">Reserved</span> &nbsp;
+                    <span style="background: #3b82f6; color: white; padding: 2px 8px; border-radius: 4px;">Already Selected</span> &nbsp;
+                    <span style="background: #9ca3af; color: white; padding: 2px 8px; border-radius: 4px;">Unavailable</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="page-break"></div>
+
+    <!-- ============================================== -->
+    <!-- 7. TECHNOLOGY STACK -->
+    <!-- ============================================== -->
+    <section class="section">
+        <h2 class="section-title">7. Technology Stack</h2>
+
+        <p>
+            Recommended technology choices based on scalability, maintainability, and cost-effectiveness.
+            Final stack to be confirmed during discovery phase.
+        </p>
+
+        <table>
+            <tr>
+                <th>Layer</th>
+                <th>Technology</th>
+                <th>Rationale</th>
+            </tr>
+            <tr>
+                <td><strong>Frontend</strong></td>
+                <td>React.js / Next.js</td>
+                <td>Modern, responsive UI with excellent developer ecosystem</td>
+            </tr>
+            <tr>
+                <td><strong>Backend</strong></td>
+                <td>Node.js / Express OR Python / Django</td>
+                <td>Scalable, well-documented, large talent pool</td>
+            </tr>
+            <tr>
+                <td><strong>Database</strong></td>
+                <td>PostgreSQL</td>
+                <td>Robust relational database, excellent for structured data</td>
+            </tr>
+            <tr>
+                <td><strong>Hosting</strong></td>
+                <td>AWS / Google Cloud / Vercel</td>
+                <td>Reliable cloud infrastructure with auto-scaling</td>
+            </tr>
+            <tr>
+                <td><strong>Email Service</strong></td>
+                <td>SendGrid / AWS SES</td>
+                <td>Reliable delivery, templates support, analytics</td>
+            </tr>
+            <tr>
+                <td><strong>File Storage</strong></td>
+                <td>AWS S3 / Cloudinary</td>
+                <td>Secure storage for pet photos, documents</td>
+            </tr>
+            <tr>
+                <td><strong>Authentication</strong></td>
+                <td>JWT with refresh tokens</td>
+                <td>Secure, stateless authentication</td>
+            </tr>
+        </table>
+
+        <div class="info-box">
+            <h4>Security Considerations</h4>
+            <ul>
+                <li>HTTPS encryption for all data in transit</li>
+                <li>Encrypted database with regular automated backups</li>
+                <li>Role-based access control (Admin, Staff, Customer)</li>
+                <li>Input validation and SQL injection prevention</li>
+                <li>Regular security updates and patch management</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- 8. PROJECT TIMELINE -->
+    <!-- ============================================== -->
+    <section class="section">
+        <h2 class="section-title">8. Project Timeline</h2>
+
+        <p>Estimated total duration: <strong>12-14 weeks</strong> for MVP delivery.</p>
+
+        <div class="timeline-item">
+            <div class="timeline-phase">Week 1-2</div>
+            <div class="timeline-details">
+                <strong>Discovery & Design</strong><br>
+                Requirements finalization, wireframes, UI/UX design, technical architecture
+                <div class="timeline-deliverables">
+                    <strong>Deliverables:</strong> Final requirements document, wireframes, UI designs, database schema, API specification
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-phase">Week 3-5</div>
+            <div class="timeline-details">
+                <strong>Core Development - Phase 1</strong><br>
+                Database setup, authentication system, pet profiles, customer management
+                <div class="timeline-deliverables">
+                    <strong>Deliverables:</strong> Working authentication, pet profile CRUD, customer management module
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-phase">Week 6-8</div>
+            <div class="timeline-details">
+                <strong>Core Development - Phase 2</strong><br>
+                Booking system, calendar views, check-in/check-out workflows
+                <div class="timeline-deliverables">
+                    <strong>Deliverables:</strong> Functional booking system, staff calendar, check-in/out workflows
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-phase">Week 9-10</div>
+            <div class="timeline-details">
+                <strong>Customer Portal & Notifications</strong><br>
+                Public booking portal, email notifications, customer account features
+                <div class="timeline-deliverables">
+                    <strong>Deliverables:</strong> Customer-facing portal, email notification system, customer self-service
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-phase">Week 11-12</div>
+            <div class="timeline-details">
+                <strong>Reporting & Polish</strong><br>
+                Reports dashboard, UI refinements, performance optimization
+                <div class="timeline-deliverables">
+                    <strong>Deliverables:</strong> Analytics dashboard, all reports, UI polish, performance optimization
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-phase">Week 13-14</div>
+            <div class="timeline-details">
+                <strong>Testing & Launch</strong><br>
+                QA testing, bug fixes, data migration, training, go-live support
+                <div class="timeline-deliverables">
+                    <strong>Deliverables:</strong> Tested application, production deployment, user training, documentation
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h4>Communication Cadence</h4>
+            <ul>
+                <li><strong>Weekly:</strong> Progress update email with completed items and blockers</li>
+                <li><strong>Bi-weekly:</strong> Demo call to showcase completed features</li>
+                <li><strong>Ad-hoc:</strong> Available for questions via email/Slack during business hours</li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="page-break"></div>
+
+    <!-- ============================================== -->
+    <!-- 9. INVESTMENT & PAYMENT TERMS -->
+    <!-- ============================================== -->
+    <section class="section">
+        <h2 class="section-title">9. Investment & Payment Terms</h2>
+
+        <table class="pricing-table">
+            <tr>
+                <th>Phase</th>
+                <th>Deliverables</th>
+                <th>Estimate</th>
+            </tr>
+            <tr>
+                <td>Discovery & Design</td>
+                <td>Requirements doc, wireframes, UI designs, tech spec</td>
+                <td>$X,XXX</td>
+            </tr>
+            <tr>
+                <td>Core Development (Pet & Customer)</td>
+                <td>Authentication, pet profiles, customer management</td>
+                <td>$X,XXX</td>
+            </tr>
+            <tr>
+                <td>Core Development (Booking)</td>
+                <td>Booking system, calendar, check-in/check-out</td>
+                <td>$XX,XXX</td>
+            </tr>
+            <tr>
+                <td>Customer Portal</td>
+                <td>Public booking site, customer accounts, notifications</td>
+                <td>$X,XXX</td>
+            </tr>
+            <tr>
+                <td>Reporting & Analytics</td>
+                <td>Dashboard, reports, export functionality</td>
+                <td>$X,XXX</td>
+            </tr>
+            <tr>
+                <td>QA & Launch</td>
+                <td>Testing, bug fixes, deployment, training</td>
+                <td>$X,XXX</td>
+            </tr>
+            <tr class="pricing-total">
+                <td colspan="2">Total MVP Investment</td>
+                <td>$XX,XXX - $XX,XXX</td>
+            </tr>
+        </table>
+
+        <div class="info-box">
+            <h4>Payment Schedule</h4>
+            <table style="margin: 0;">
+                <tr>
+                    <td><strong>Milestone 1:</strong> Project Kickoff</td>
+                    <td>30%</td>
+                </tr>
+                <tr>
+                    <td><strong>Milestone 2:</strong> Core Development Complete (Week 8)</td>
+                    <td>40%</td>
+                </tr>
+                <tr>
+                    <td><strong>Milestone 3:</strong> Final Delivery & Launch</td>
+                    <td>30%</td>
+                </tr>
+            </table>
+        </div>
+
+        <h3 class="subsection-title">Ongoing Costs (Post-Launch)</h3>
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Monthly Cost</th>
+                <th>Notes</th>
+            </tr>
+            <tr>
+                <td>Cloud Hosting</td>
+                <td>$XX - $XXX</td>
+                <td>Scales with usage</td>
+            </tr>
+            <tr>
+                <td>Email Service</td>
+                <td>$XX</td>
+                <td>Based on volume</td>
+            </tr>
+            <tr>
+                <td>Support & Maintenance</td>
+                <td>$XXX</td>
+                <td>Bug fixes, minor updates, monitoring</td>
+            </tr>
+            <tr>
+                <td>Feature Enhancements</td>
+                <td>Quoted per request</td>
+                <td>Hourly or fixed-price</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- 10. FUTURE ENHANCEMENTS (PHASE 2+) -->
+    <!-- ============================================== -->
+    <section class="section">
+        <h2 class="section-title">10. Future Enhancements (Phase 2+)</h2>
+
+        <p>
+            The following features are not included in MVP scope but are recommended for future phases
+            based on business value and customer demand.
+        </p>
+
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>Description</th>
+                <th>Estimated Effort</th>
+                <th>Priority</th>
+            </tr>
+            <tr>
+                <td><strong>Mobile App</strong></td>
+                <td>iOS/Android app for customers to book and receive pet updates</td>
+                <td>8-10 weeks</td>
+                <td>High</td>
+            </tr>
+            <tr>
+                <td><strong>Payment Processing</strong></td>
+                <td>Online payments via Stripe, invoicing, package purchases</td>
+                <td>2-3 weeks</td>
+                <td>High</td>
+            </tr>
+            <tr>
+                <td><strong>SMS Notifications</strong></td>
+                <td>Text message reminders and alerts</td>
+                <td>1-2 weeks</td>
+                <td>Medium</td>
+            </tr>
+            <tr>
+                <td><strong>Grooming/Training Services</strong></td>
+                <td>Additional service types with separate scheduling</td>
+                <td>3-4 weeks</td>
+                <td>Medium</td>
+            </tr>
+            <tr>
+                <td><strong>Pet Photo Updates</strong></td>
+                <td>Daily photo/video sharing with owners during stays</td>
+                <td>2-3 weeks</td>
+                <td>Medium</td>
+            </tr>
+            <tr>
+                <td><strong>Multi-Location Support</strong></td>
+                <td>Franchise/multi-facility operations</td>
+                <td>4-6 weeks</td>
+                <td>Low</td>
+            </tr>
+            <tr>
+                <td><strong>Staff Scheduling</strong></td>
+                <td>Employee shift management and time tracking</td>
+                <td>3-4 weeks</td>
+                <td>Low</td>
+            </tr>
+        </table>
+    </section>
+
+    <div class="page-break"></div>
+
+    <!-- ============================================== -->
+    <!-- 11. NEXT STEPS -->
+    <!-- ============================================== -->
+    <section class="section">
+        <h2 class="section-title">11. Next Steps</h2>
+
+        <ol>
+            <li>
+                <strong>Review & Questions</strong><br>
+                Please review this proposal and share any questions, concerns, or feedback.
+            </li>
+            <li>
+                <strong>Discovery Call</strong><br>
+                Schedule a call to discuss requirements in detail and answer open questions (Section 4).
+            </li>
+            <li>
+                <strong>Scope Confirmation</strong><br>
+                Finalize features, timeline, and budget based on discussion.
+            </li>
+            <li>
+                <strong>Agreement & Kickoff</strong><br>
+                Sign project agreement, submit initial payment, and begin discovery phase.
+            </li>
+        </ol>
+
+        <div class="info-box">
+            <h4>Ready to Proceed?</h4>
+            <p>I'm available to discuss this proposal and answer any questions.</p>
+            <p style="margin-top: 10px;">
+                <strong>Response Time:</strong> Within 24 hours on business days<br>
+                <strong>Availability:</strong> Full-time, Remote
+            </p>
+        </div>
+
+        <h3 class="subsection-title">What You Can Expect</h3>
+        <ul>
+            <li><strong>Clear Communication:</strong> Weekly updates, no surprises, accessible via email/message</li>
+            <li><strong>Structured Process:</strong> Defined phases with clear deliverables at each milestone</li>
+            <li><strong>Flexibility:</strong> Agile approach allows for scope adjustments as we learn more</li>
+            <li><strong>Quality Focus:</strong> Testing and validation built into the process, not an afterthought</li>
+            <li><strong>Knowledge Transfer:</strong> Documentation and training included for smooth handoff</li>
+        </ul>
+    </section>
+
+    <div class="doc-footer">
+        <p>This proposal is valid for 30 days from the date of issue.</p>
+        <p>Project Proposal | Pet Day-Care Management Platform | v1.0</p>
+        <p style="margin-top: 8px; font-style: italic;">Prepared by Atul Chauhan, Business Analyst</p>
+    </div>
+
+</body>
+</html>

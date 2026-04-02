@@ -878,51 +878,75 @@
             margin-top: 4px;
         }
 
-        /* Sample work cards (replacing tags) */
+        /* Sample work section */
+        .samples-category {
+            margin-bottom: 28px;
+        }
+        .samples-category-label {
+            font-size: 8pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-text-secondary);
+            border-bottom: 2px solid var(--color-border);
+            padding-bottom: 6px;
+            margin-bottom: 14px;
+        }
         .sample-cards-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
         }
         .sample-card {
             background: white;
             border: 1px solid var(--color-border);
-            border-radius: 8px;
-            padding: 16px;
+            border-left: 4px solid var(--color-border);
+            border-radius: 6px;
+            padding: 16px 18px;
             text-decoration: none;
             color: inherit;
-            display: block;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
             transition: all 0.2s;
         }
         .sample-card:hover {
-            border-color: var(--color-primary);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.09);
             transform: translateY(-2px);
         }
+        .sample-card.healthcare { border-left-color: #059669; }
+        .sample-card.fintech { border-left-color: #7C3AED; }
+        .sample-card.general { border-left-color: #2563EB; }
+        .sample-card.requirements { border-left-color: #D97706; }
+        .sample-card.presentation { border-left-color: #DB2777; }
         .sample-card-type {
-            font-size: 8pt;
-            font-weight: 600;
+            font-size: 7.5pt;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 6px;
         }
-        .sample-card-type.healthcare { color: #059669; }
-        .sample-card-type.fintech { color: #7C3AED; }
-        .sample-card-type.general { color: #2563EB; }
+        .sample-card.healthcare .sample-card-type { color: #059669; }
+        .sample-card.fintech .sample-card-type { color: #7C3AED; }
+        .sample-card.general .sample-card-type { color: #2563EB; }
+        .sample-card.requirements .sample-card-type { color: #D97706; }
+        .sample-card.presentation .sample-card-type { color: #DB2777; }
         .sample-card h5 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 10.5pt;
+            font-size: 10pt;
             color: var(--color-text);
-            margin-bottom: 6px;
+            margin: 0;
+            line-height: 1.3;
         }
         .sample-card p {
-            font-size: 9pt;
+            font-size: 8.5pt;
             color: var(--color-text-secondary);
             line-height: 1.4;
+            margin: 0;
+            flex: 1;
         }
         .sample-card-footer {
-            margin-top: 10px;
-            font-size: 8.5pt;
+            margin-top: 4px;
+            font-size: 8pt;
             color: var(--color-primary);
             font-weight: 600;
         }
@@ -2243,76 +2267,113 @@
     <div class="page" id="samples">
         <div class="section-header">
             <h2>Sample Work</h2>
-            <p>Real deliverables — click to open full documents</p>
+            <p>Real deliverables from live projects — click any card to open</p>
         </div>
 
-        <div class="sample-cards-grid">
-            <a href="../02-work-samples/healthcare-brd-sample.html" target="_blank" class="sample-card">
-                <div class="sample-card-type healthcare">Healthcare · BRD</div>
-                <h5>Healthcare BRD</h5>
-                <p>Remote Patient Monitoring platform — HIPAA compliance, BLE device integration, CPT billing codes</p>
-                <div class="sample-card-footer">Open document &#8599;</div>
-            </a>
-            <a href="../02-work-samples/healthcare-prd-sample.html" target="_blank" class="sample-card">
-                <div class="sample-card-type healthcare">Healthcare · PRD</div>
-                <h5>Healthcare PRD</h5>
-                <p>Product Requirements with personas, feature cards, success metrics, and release plan</p>
-                <div class="sample-card-footer">Open document &#8599;</div>
-            </a>
-            <a href="../02-work-samples/frd-sample.html" target="_blank" class="sample-card">
-                <div class="sample-card-type healthcare">Healthcare · FRD</div>
-                <h5>Functional Requirements (FRD)</h5>
-                <p>RPM platform — use cases, business rules, data entity schemas</p>
-                <div class="sample-card-footer">Open document &#8599;</div>
-            </a>
-            <a href="../02-work-samples/fintech-brd-payroll-sample.html" target="_blank" class="sample-card">
-                <div class="sample-card-type fintech">Fintech · BRD</div>
-                <h5>Fintech BRD</h5>
-                <p>Payroll Management System — tax compliance, multi-company support, statutory reporting</p>
-                <div class="sample-card-footer">Open document &#8599;</div>
-            </a>
-            <a href="../02-work-samples/fintech-prd-payroll-sample.html" target="_blank" class="sample-card">
-                <div class="sample-card-type fintech">Fintech · PRD</div>
-                <h5>Fintech PRD</h5>
-                <p>Payroll system product requirements with employee personas and compliance requirements</p>
-                <div class="sample-card-footer">Open document &#8599;</div>
-            </a>
-            <a href="../02-work-samples/sop-sample.html" target="_blank" class="sample-card">
-                <div class="sample-card-type fintech">Fintech · SOP</div>
-                <h5>Standard Operating Procedure</h5>
-                <p>Monthly Payroll Processing — 13 steps, timeline, exception handling, approval workflow</p>
-                <div class="sample-card-footer">Open document &#8599;</div>
-            </a>
-            <a href="../02-work-samples/uat-signoff-sample.html" target="_blank" class="sample-card">
-                <div class="sample-card-type fintech">Fintech · UAT</div>
-                <h5>UAT Sign-off Document</h5>
-                <p>Employee Onboarding Module — 42 test cases, 92.8% pass rate, defect summary</p>
-                <div class="sample-card-footer">Open document &#8599;</div>
-            </a>
-            <a href="../02-work-samples/proposal-sample.html" target="_blank" class="sample-card">
-                <div class="sample-card-type general">General · Proposal</div>
-                <h5>Project Proposal (SOW)</h5>
-                <p>Pet Day-Care Platform — MVP feature breakdown, timeline, tech stack, investment structure</p>
-                <div class="sample-card-footer">Open document &#8599;</div>
-            </a>
-            <a href="../02-work-samples/user-stories-sample.html" target="_blank" class="sample-card">
-                <div class="sample-card-type general">General · Agile</div>
-                <h5>User Stories Compilation</h5>
-                <p>16 user stories across 4 domains with Gherkin-style acceptance criteria</p>
-                <div class="sample-card-footer">Open document &#8599;</div>
-            </a>
-            <a href="../02-work-samples/process-flows-sample.html" target="_blank" class="sample-card">
-                <div class="sample-card-type general">General · Visual</div>
-                <h5>Process Flows Collection</h5>
-                <p>7 BPMN-style flows — EMR+PMS clinical workflow, telehealth, payroll processing</p>
-                <div class="sample-card-footer">Open document &#8599;</div>
-            </a>
-            <a href="../02-work-samples/user-manual-sample.html" target="_blank" class="sample-card">
-                <div class="sample-card-type fintech">Fintech · Manual</div>
-                <h5>User Manual</h5>
-                <p>Employee Portal — step-by-step guide across 8 sections including time off and pay stubs</p>
-                <div class="sample-card-footer">Open document &#8599;</div>
-            </a>
+        <!-- Requirements & Analysis -->
+        <div class="samples-category">
+            <div class="samples-category-label">Requirements &amp; Analysis</div>
+            <div class="sample-cards-grid">
+                <a href="02-work-samples/healthcare-brd-sample.html" target="_blank" class="sample-card healthcare">
+                    <div class="sample-card-type">Healthcare · BRD</div>
+                    <h5>Business Requirements Document</h5>
+                    <p>RPM platform — HIPAA compliance, BLE device integration, CPT billing codes</p>
+                    <div class="sample-card-footer">Open document &#8599;</div>
+                </a>
+                <a href="02-work-samples/frd-sample.html" target="_blank" class="sample-card healthcare">
+                    <div class="sample-card-type">Healthcare · FRD</div>
+                    <h5>Functional Requirements Document</h5>
+                    <p>RPM platform — use cases, business rules, data entity schemas</p>
+                    <div class="sample-card-footer">Open document &#8599;</div>
+                </a>
+                <a href="02-work-samples/fintech-brd-payroll-sample.html" target="_blank" class="sample-card fintech">
+                    <div class="sample-card-type">Fintech · BRD</div>
+                    <h5>Payroll BRD</h5>
+                    <p>Payroll Management System — tax compliance, multi-company support, statutory reporting</p>
+                    <div class="sample-card-footer">Open document &#8599;</div>
+                </a>
+                <a href="02-work-samples/sekou-requirements-sample.html" target="_blank" class="sample-card requirements">
+                    <div class="sample-card-type">EdTech · Requirements Gathering</div>
+                    <h5>Requirements Elicitation — School App</h5>
+                    <p>Sekou (Africa) — 800+ requirements across 8 modules, Q&amp;A by stakeholder, 6 user roles</p>
+                    <div class="sample-card-footer">Open document &#8599;</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Product Documents -->
+        <div class="samples-category">
+            <div class="samples-category-label">Product Documents</div>
+            <div class="sample-cards-grid">
+                <a href="02-work-samples/healthcare-prd-sample.html" target="_blank" class="sample-card healthcare">
+                    <div class="sample-card-type">Healthcare · PRD</div>
+                    <h5>Product Requirements Document</h5>
+                    <p>RPM — personas, feature cards, success metrics, and release plan</p>
+                    <div class="sample-card-footer">Open document &#8599;</div>
+                </a>
+                <a href="02-work-samples/fintech-prd-payroll-sample.html" target="_blank" class="sample-card fintech">
+                    <div class="sample-card-type">Fintech · PRD</div>
+                    <h5>Payroll PRD</h5>
+                    <p>Employee personas, feature requirements, compliance requirements</p>
+                    <div class="sample-card-footer">Open document &#8599;</div>
+                </a>
+                <a href="02-work-samples/proposal-sample.html" target="_blank" class="sample-card general">
+                    <div class="sample-card-type">General · Proposal / SOW</div>
+                    <h5>Project Proposal</h5>
+                    <p>Pet Day-Care Platform — MVP breakdown, timeline, tech stack, investment structure</p>
+                    <div class="sample-card-footer">Open document &#8599;</div>
+                </a>
+                <a href="02-work-samples/user-stories-sample.html" target="_blank" class="sample-card general">
+                    <div class="sample-card-type">General · Agile</div>
+                    <h5>User Stories Compilation</h5>
+                    <p>16 user stories across 4 domains with Gherkin-style acceptance criteria</p>
+                    <div class="sample-card-footer">Open document &#8599;</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Process & Operations -->
+        <div class="samples-category">
+            <div class="samples-category-label">Process &amp; Operations</div>
+            <div class="sample-cards-grid">
+                <a href="02-work-samples/sop-sample.html" target="_blank" class="sample-card fintech">
+                    <div class="sample-card-type">Fintech · SOP</div>
+                    <h5>Standard Operating Procedure</h5>
+                    <p>Monthly Payroll Processing — 13 steps, exception handling, approval workflow</p>
+                    <div class="sample-card-footer">Open document &#8599;</div>
+                </a>
+                <a href="02-work-samples/uat-signoff-sample.html" target="_blank" class="sample-card fintech">
+                    <div class="sample-card-type">Fintech · UAT</div>
+                    <h5>UAT Sign-off Document</h5>
+                    <p>Employee Onboarding Module — 42 test cases, 92.8% pass rate, defect summary</p>
+                    <div class="sample-card-footer">Open document &#8599;</div>
+                </a>
+                <a href="02-work-samples/process-flows-sample.html" target="_blank" class="sample-card general">
+                    <div class="sample-card-type">General · Visual</div>
+                    <h5>Process Flows Collection</h5>
+                    <p>7 BPMN-style flows — EMR+PMS clinical workflow, telehealth, payroll processing</p>
+                    <div class="sample-card-footer">Open document &#8599;</div>
+                </a>
+                <a href="02-work-samples/user-manual-sample.html" target="_blank" class="sample-card fintech">
+                    <div class="sample-card-type">Fintech · User Manual</div>
+                    <h5>Employee Portal User Manual</h5>
+                    <p>Step-by-step guide across 8 sections including time off and pay stubs</p>
+                    <div class="sample-card-footer">Open document &#8599;</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Presentations -->
+        <div class="samples-category">
+            <div class="samples-category-label">Presentations</div>
+            <div class="sample-cards-grid">
+                <a href="02-work-samples/blink-multi-company-dashboard.pdf" target="_blank" class="sample-card presentation">
+                    <div class="sample-card-type">Fintech · Dashboard Walkthrough</div>
+                    <h5>Blink Payroll — Multi-Company Dashboard</h5>
+                    <p>Visual walkthrough of multi-company payroll dashboard — layouts, navigation, key workflows</p>
+                    <div class="sample-card-footer">Open PDF &#8599;</div>
+                </a>
+            </div>
         </div>
 
         <div class="page-number">8</div>

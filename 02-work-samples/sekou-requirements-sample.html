@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requirements Gathering Document — Sekou School App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #334155;
+            --color-primary-dark: #1e293b;
+            --color-primary-light: #f1f5f9;
+            --color-accent: #2563EB;
+            --color-accent-light: #EFF6FF;
+            --color-text: #1F2937;
+            --color-text-secondary: #6B7280;
+            --color-bg: #F8FAFC;
+            --color-card: #FFFFFF;
+            --color-border: #E2E8F0;
+            --color-success: #10B981;
+            --color-success-light: #ECFDF5;
+            --color-warning: #F59E0B;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 10.5pt;
+            line-height: 1.7;
+            color: var(--color-text);
+            background: var(--color-bg);
+            padding: 0;
+        }
+
+        h1, h2, h3, h4, h5 { font-family: 'Montserrat', Arial, sans-serif; }
+
+        /* ── Page wrapper ── */
+        .page-wrapper {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 32px 40px 60px;
+        }
+
+        /* ── Back link ── */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 9pt;
+            font-weight: 500;
+            color: var(--color-accent);
+            text-decoration: none;
+            margin-bottom: 28px;
+            padding: 6px 12px 6px 8px;
+            border: 1px solid #BFDBFE;
+            border-radius: 6px;
+            background: var(--color-accent-light);
+            transition: background 0.2s;
+        }
+        .back-link:hover { background: #DBEAFE; }
+        .back-link svg { flex-shrink: 0; }
+
+        /* ── Document header ── */
+        .doc-header {
+            background: var(--color-primary-dark);
+            color: #fff;
+            border-radius: 12px;
+            padding: 40px 44px 36px;
+            margin-bottom: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+        .doc-header::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 240px; height: 240px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.04);
+        }
+        .doc-header::after {
+            content: '';
+            position: absolute;
+            bottom: -40px; left: -40px;
+            width: 180px; height: 180px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.03);
+        }
+        .doc-header-eyebrow {
+            font-family: 'Inter', sans-serif;
+            font-size: 9pt;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #94A3B8;
+            margin-bottom: 10px;
+        }
+        .doc-header h1 {
+            font-size: 26pt;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 8px;
+            color: #F8FAFC;
+        }
+        .doc-header .subtitle {
+            font-size: 13pt;
+            font-weight: 500;
+            color: #CBD5E1;
+            margin-bottom: 22px;
+        }
+        .header-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .tag {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #E2E8F0;
+            font-family: 'Inter', sans-serif;
+            font-size: 8.5pt;
+            font-weight: 500;
+            padding: 4px 11px;
+            border-radius: 20px;
+        }
+        .header-meta {
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .header-meta-item {
+            font-family: 'Inter', sans-serif;
+            font-size: 9pt;
+            color: #94A3B8;
+        }
+        .header-meta-item strong {
+            color: #CBD5E1;
+            font-weight: 600;
+        }
+
+        /* ── Project context box ── */
+        .context-box {
+            background: #EFF6FF;
+            border: 1px solid #BFDBFE;
+            border-left: 4px solid var(--color-accent);
+            border-radius: 10px;
+            padding: 24px 28px;
+            margin-bottom: 32px;
+        }
+        .context-box h3 {
+            font-size: 10pt;
+            font-weight: 700;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 16px;
+        }
+        .context-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px 24px;
+        }
+        .context-item {
+            font-size: 10pt;
+        }
+        .context-label {
+            font-weight: 600;
+            color: var(--color-primary);
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .context-value {
+            color: var(--color-text);
+            margin-top: 2px;
+        }
+
+        /* ── Section wrapper ── */
+        .section {
+            margin-bottom: 36px;
+        }
+
+        /* ── Section heading ── */
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .section-num {
+            background: var(--color-primary);
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 9pt;
+            font-weight: 700;
+            width: 28px; height: 28px;
+            border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .section-heading h2 {
+            font-size: 14pt;
+            font-weight: 700;
+            color: var(--color-primary-dark);
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 4px;
+        }
+
+        /* ── Card ── */
+        .card {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 24px 28px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+
+        /* ── Goals list ── */
+        .goals-list {
+            list-style: none;
+            counter-reset: goal-counter;
+        }
+        .goals-list li {
+            counter-increment: goal-counter;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .goals-list li:last-child { border-bottom: none; }
+        .goals-list li::before {
+            content: counter(goal-counter);
+            background: var(--color-accent);
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 9pt;
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* ── Role cards grid ── */
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+        }
+        .role-card {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-top: 3px solid var(--color-primary);
+            border-radius: 8px;
+            padding: 18px 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+        .role-card:nth-child(2) { border-top-color: #2563EB; }
+        .role-card:nth-child(3) { border-top-color: #7C3AED; }
+        .role-card:nth-child(4) { border-top-color: #059669; }
+        .role-card:nth-child(5) { border-top-color: #D97706; }
+        .role-card:nth-child(6) { border-top-color: #DC2626; }
+        .role-card h4 {
+            font-size: 10.5pt;
+            font-weight: 700;
+            color: var(--color-primary-dark);
+            margin-bottom: 8px;
+        }
+        .role-card p {
+            font-size: 9.5pt;
+            color: var(--color-text-secondary);
+            line-height: 1.55;
+        }
+        .role-icon {
+            width: 32px; height: 32px;
+            background: var(--color-primary-light);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        /* ── Tables ── */
+        .req-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9.5pt;
+            background: var(--color-card);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+        .req-table thead th {
+            background: var(--color-primary);
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 11px 16px;
+            text-align: left;
+        }
+        .req-table thead th:first-child { width: 42px; text-align: center; }
+        .req-table tbody tr:nth-child(even) { background: #F8FAFC; }
+        .req-table tbody tr:hover { background: #EFF6FF; }
+        .req-table tbody td {
+            padding: 10px 16px;
+            border-bottom: 1px solid #F1F5F9;
+            vertical-align: top;
+            color: var(--color-text);
+        }
+        .req-table tbody td:first-child {
+            text-align: center;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            font-size: 9pt;
+        }
+        .req-table tbody td:nth-child(2) {
+            font-weight: 600;
+            color: var(--color-primary-dark);
+        }
+
+        /* ── Collapsible Q&A groups ── */
+        .qa-group {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .qa-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 22px;
+            cursor: pointer;
+            user-select: none;
+            background: var(--color-card);
+            transition: background 0.15s;
+        }
+        .qa-toggle:hover { background: #F8FAFC; }
+        .qa-toggle h3 {
+            font-size: 11pt;
+            font-weight: 700;
+            color: var(--color-primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .qa-toggle h3 .role-badge {
+            font-family: 'Inter', sans-serif;
+            font-size: 8pt;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            padding: 3px 9px;
+            border-radius: 4px;
+            background: var(--color-primary-light);
+            color: var(--color-primary);
+        }
+        .qa-chevron {
+            width: 20px; height: 20px;
+            color: var(--color-text-secondary);
+            transition: transform 0.25s;
+            flex-shrink: 0;
+        }
+        .qa-group.open .qa-chevron {
+            transform: rotate(180deg);
+        }
+        .qa-content {
+            display: none;
+            border-top: 1px solid var(--color-border);
+        }
+        .qa-group.open .qa-content { display: block; }
+        .qa-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9.5pt;
+        }
+        .qa-table thead th {
+            background: #F8FAFC;
+            color: var(--color-text-secondary);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 8.5pt;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 10px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .qa-table thead th:first-child { width: 40%; }
+        .qa-table tbody tr:nth-child(even) { background: #FAFAFA; }
+        .qa-table tbody td {
+            padding: 11px 20px;
+            border-bottom: 1px solid #F1F5F9;
+            vertical-align: top;
+        }
+        .qa-table tbody tr:last-child td { border-bottom: none; }
+        .qa-table tbody td:first-child {
+            font-weight: 500;
+            color: var(--color-primary);
+        }
+        .qa-table tbody td:last-child {
+            color: var(--color-text);
+        }
+
+        /* ── Module cards ── */
+        .modules-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .module-card {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: box-shadow 0.2s;
+        }
+        .module-card:hover { box-shadow: 0 3px 10px rgba(0,0,0,0.09); }
+        .module-num {
+            background: var(--color-primary);
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 10pt;
+            min-width: 38px; height: 38px;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .module-card:nth-child(2) .module-num { background: #2563EB; }
+        .module-card:nth-child(3) .module-num { background: #7C3AED; }
+        .module-card:nth-child(4) .module-num { background: #0891B2; }
+        .module-card:nth-child(5) .module-num { background: #7C3AED; }
+        .module-card:nth-child(6) .module-num { background: #059669; }
+        .module-card:nth-child(7) .module-num { background: #D97706; }
+        .module-card:nth-child(8) .module-num { background: #DC2626; }
+        .module-body h4 {
+            font-size: 11pt;
+            font-weight: 700;
+            color: var(--color-primary-dark);
+            margin-bottom: 5px;
+        }
+        .module-body p {
+            font-size: 9.5pt;
+            color: var(--color-text-secondary);
+            line-height: 1.55;
+        }
+        .module-tag {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-size: 8pt;
+            font-weight: 500;
+            padding: 2px 9px;
+            border-radius: 4px;
+            margin-bottom: 6px;
+        }
+        .module-tag.public { background: #D1FAE5; color: #065F46; }
+        .module-tag.admin { background: #DBEAFE; color: #1D4ED8; }
+        .module-tag.portal { background: #EDE9FE; color: #5B21B6; }
+
+        /* ── BA callout ── */
+        .ba-callout {
+            background: var(--color-primary-light);
+            border: 1px solid #CBD5E1;
+            border-left: 4px solid var(--color-primary);
+            border-radius: 8px;
+            padding: 22px 28px;
+            margin-top: 8px;
+        }
+        .ba-callout-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 9pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .ba-callout p {
+            font-style: italic;
+            color: var(--color-text);
+            font-size: 10pt;
+            line-height: 1.7;
+        }
+
+        /* ── Divider ── */
+        .divider {
+            border: none;
+            border-top: 1px solid var(--color-border);
+            margin: 30px 0;
+        }
+
+        /* ── Footer ── */
+        .doc-footer {
+            text-align: center;
+            padding: 24px 0 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 9pt;
+            color: var(--color-text-secondary);
+            border-top: 1px solid var(--color-border);
+        }
+        .doc-footer strong { color: var(--color-primary); }
+
+        /* ── Print styles ── */
+        @media print {
+            body { background: #fff; }
+            .page-wrapper { padding: 20px; max-width: 100%; }
+            .back-link { display: none; }
+            .doc-header { border-radius: 0; }
+            .qa-content { display: block !important; }
+            .qa-chevron { display: none; }
+            .qa-toggle { cursor: default; }
+            .module-card, .role-card, .card, .qa-group { box-shadow: none; }
+            .section { page-break-inside: avoid; }
+        }
+
+        @media (max-width: 640px) {
+            .page-wrapper { padding: 20px 16px 40px; }
+            .doc-header { padding: 28px 22px; }
+            .doc-header h1 { font-size: 20pt; }
+            .roles-grid { grid-template-columns: 1fr; }
+            .context-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+    <!-- Back link -->
+    <a href="../03-portfolio-demos/master-portfolio.html" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to Portfolio
+    </a>
+
+    <!-- Document header -->
+    <div class="doc-header">
+        <div class="doc-header-eyebrow">BA Work Sample · Requirements Gathering</div>
+        <h1>Requirements Gathering Document</h1>
+        <div class="subtitle">Sekou School App &mdash; School Management Platform (SaaS)</div>
+        <div class="header-tags">
+            <span class="tag">Africa</span>
+            <span class="tag">EdTech</span>
+            <span class="tag">SaaS</span>
+            <span class="tag">Multi-Role</span>
+            <span class="tag">B2B</span>
+        </div>
+        <div class="header-meta">
+            <div class="header-meta-item"><strong>Client:</strong> Sekou (France-based)</div>
+            <div class="header-meta-item"><strong>Platform Target:</strong> Schools in Africa</div>
+            <div class="header-meta-item"><strong>BA:</strong> Atul Chauhan</div>
+            <div class="header-meta-item"><strong>Deadline:</strong> July 1, 2024</div>
+            <div class="header-meta-item"><strong>Year:</strong> 2023&ndash;24</div>
+        </div>
+    </div>
+
+    <!-- Project context -->
+    <div class="context-box">
+        <h3>Project Context</h3>
+        <div class="context-grid">
+            <div class="context-item">
+                <div class="context-label">Client</div>
+                <div class="context-value">Sekou — France-based client, platform targeting Africa</div>
+            </div>
+            <div class="context-item">
+                <div class="context-label">Scope</div>
+                <div class="context-value">Multi-role SaaS school management system</div>
+            </div>
+            <div class="context-item">
+                <div class="context-label">Target Market</div>
+                <div class="context-value">Schools in Africa &mdash; multi-language (English + French)</div>
+            </div>
+            <div class="context-item">
+                <div class="context-label">Infrastructure</div>
+                <div class="context-value">Cloud (AWS South Africa); each school gets its own isolated workspace</div>
+            </div>
+            <div class="context-item">
+                <div class="context-label">Business Model</div>
+                <div class="context-value">Freemium SaaS &mdash; 50 students free (3 months), then tiered subscription: 250&ndash;999 / 1,000&ndash;2,500 / 5,000+ students</div>
+            </div>
+            <div class="context-item">
+                <div class="context-label">Integrations</div>
+                <div class="context-value">3rd party LMS (TBD), Social login (Google/FB), 2FA via phone</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 1: Platform Goals -->
+    <div class="section">
+        <div class="section-heading">
+            <div class="section-num">1</div>
+            <h2>Platform Goals</h2>
+        </div>
+        <div class="card">
+            <ul class="goals-list">
+                <li>Partner schools with a comprehensive educational solution that covers administrative, academic, and communication needs in a single platform.</li>
+                <li>Enhance administrative efficiency by digitising processes currently managed through paper registers, cash handling, and fragmented tools.</li>
+                <li>Enable seamless communication and collaboration among students, teachers, and administrators across school management workflows.</li>
+                <li>Empower students to track academic progress, engage in online learning, manage billing, and submit courses and grades digitally.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Section 2: User Roles -->
+    <div class="section">
+        <div class="section-heading">
+            <div class="section-num">2</div>
+            <h2>User Roles</h2>
+        </div>
+        <div class="roles-grid">
+            <div class="role-card">
+                <div class="role-icon">&#9679;</div>
+                <h4>Super Admin</h4>
+                <p>Manages platform-level administration, school partner registration and verification, access permissions, and subscription management.</p>
+            </div>
+            <div class="role-card">
+                <div class="role-icon">&#9679;</div>
+                <h4>Super School Admin</h4>
+                <p>Manages day-to-day school operations: teachers, students, timetables, billing, academic data analysis, and digital resources.</p>
+            </div>
+            <div class="role-card">
+                <div class="role-icon">&#9679;</div>
+                <h4>Financial School Admin</h4>
+                <p>Manages billing workflows and academic data analysis &mdash; a focused subset of the Super School Admin role.</p>
+            </div>
+            <div class="role-card">
+                <div class="role-icon">&#9679;</div>
+                <h4>Teacher</h4>
+                <p>Creates quizzes and assignments, provides feedback, and communicates with students and other staff members.</p>
+            </div>
+            <div class="role-card">
+                <div class="role-icon">&#9679;</div>
+                <h4>Parent</h4>
+                <p>Tracks child's academic progress and billing status, and communicates directly with the school administration.</p>
+            </div>
+            <div class="role-card">
+                <div class="role-icon">&#9679;</div>
+                <h4>Student</h4>
+                <p>Submits quizzes and assignments, tracks academic progress, and communicates with teachers and fellow students.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 3: General Requirements Q&A -->
+    <div class="section">
+        <div class="section-heading">
+            <div class="section-num">3</div>
+            <h2>General Requirements Q&amp;A</h2>
+        </div>
+        <table class="req-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Parameter</th>
+                    <th>Client Response</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Country Target</td>
+                    <td>Africa</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Multi-Language Support</td>
+                    <td>English / French</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Target Audience</td>
+                    <td>Students: 10&ndash;40 years, Male &amp; Female &nbsp;&bull;&nbsp; Teachers: 25&ndash;70 years, Male &amp; Female</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>System Type</td>
+                    <td>Landing Page (visitors) + Web App for Super Admin + Partner School Landing Page + Web Apps for School Admin / Teachers / Students / Parents</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Hosting</td>
+                    <td>Cloud (AWS South Africa) &mdash; each school gets its own isolated workspace</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Business Model</td>
+                    <td>Freemium SaaS &mdash; free up to 50 students (3 months), then tiered subscription by student count (250&ndash;999 / 1,000&ndash;2,500 / 5,000+)</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Authentication</td>
+                    <td>Email, Social Login (Google / Facebook), Double authentication via phone</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Integrations</td>
+                    <td>3rd party LMS (TBD), Sage / Odoo (existing tools)</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>Data Security</td>
+                    <td>Each school gets an isolated AWS workspace to prevent data concurrence</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>References</td>
+                    <td>Blackboard Learn, Moodle &mdash; used as feature benchmarks</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Section 4: Design Q&A (collapsible) -->
+    <div class="section">
+        <div class="section-heading">
+            <div class="section-num">4</div>
+            <h2>Design Q&amp;A by Stakeholder Group</h2>
+        </div>
+
+        <!-- General Design -->
+        <div class="qa-group open" id="qa-general">
+            <div class="qa-toggle" onclick="toggleQA('qa-general')">
+                <h3>
+                    General Design Considerations
+                    <span class="role-badge">All Roles</span>
+                </h3>
+                <svg class="qa-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="qa-content">
+                <table class="qa-table">
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th>Client Response</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Are users familiar with digital platforms today?</td>
+                            <td><strong>Admins:</strong> Yes (use Sage, Odoo). &nbsp;<strong>Parents:</strong> No &mdash; primarily WhatsApp / Facebook messaging. &nbsp;<strong>Teachers:</strong> No (secondary schools not used to structured platforms; some university teachers adapted post-COVID).</td>
+                        </tr>
+                        <tr>
+                            <td>Current mechanism for managing information?</td>
+                            <td>Paper (register book), cash, and Sage for accounting.</td>
+                        </tr>
+                        <tr>
+                            <td>Key design constraints?</td>
+                            <td>Network connectivity issues; Font to be provided by client; Launch deadline July 1, 2024.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Super School Admin -->
+        <div class="qa-group" id="qa-ssa">
+            <div class="qa-toggle" onclick="toggleQA('qa-ssa')">
+                <h3>
+                    Super School Admin
+                    <span class="role-badge">Admin</span>
+                </h3>
+                <svg class="qa-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="qa-content">
+                <table class="qa-table">
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th>Client Response</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Most important info on dashboard?</td>
+                            <td>Late payment notifications, professor attendance / leave requests, school name and stats.</td>
+                        </tr>
+                        <tr>
+                            <td>Most frequent daily tasks?</td>
+                            <td>Teacher: Timetable &nbsp;&bull;&nbsp; Student: Timetable &nbsp;&bull;&nbsp; Admin: Dashboard (plus student registration in July / August).</td>
+                        </tr>
+                        <tr>
+                            <td>School registration process?</td>
+                            <td>Form with: school name, number of students (250&ndash;999 / 1,000&ndash;2,500 / 5,000+), number of classes, contact person.</td>
+                        </tr>
+                        <tr>
+                            <td>What does the dashboard consist of?</td>
+                            <td>Number of schools subscribed, number of students, number of connected users + time tracker on platform.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Financial School Admin -->
+        <div class="qa-group" id="qa-fsa">
+            <div class="qa-toggle" onclick="toggleQA('qa-fsa')">
+                <h3>
+                    Financial School Admin
+                    <span class="role-badge">Finance</span>
+                </h3>
+                <svg class="qa-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="qa-content">
+                <table class="qa-table">
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th>Client Response</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Most important info?</td>
+                            <td>Company turnover, late payments.</td>
+                        </tr>
+                        <tr>
+                            <td>Most frequent daily tasks?</td>
+                            <td>Provide invoices / bills to parents, enter cash payments, send reminders to parents in arrears.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- School Professors -->
+        <div class="qa-group" id="qa-teachers">
+            <div class="qa-toggle" onclick="toggleQA('qa-teachers')">
+                <h3>
+                    School Professors
+                    <span class="role-badge">Teacher</span>
+                </h3>
+                <svg class="qa-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="qa-content">
+                <table class="qa-table">
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th>Client Response</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Primary daily activities?</td>
+                            <td>Mark student attendance, manage assignments and quizzes, communicate with students.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Students -->
+        <div class="qa-group" id="qa-students">
+            <div class="qa-toggle" onclick="toggleQA('qa-students')">
+                <h3>
+                    Students
+                    <span class="role-badge">Student</span>
+                </h3>
+                <svg class="qa-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="qa-content">
+                <table class="qa-table">
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th>Client Response</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Primary daily activities?</td>
+                            <td>Check timetable, submit assignments and quizzes, track academic progress.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Parents -->
+        <div class="qa-group" id="qa-parents">
+            <div class="qa-toggle" onclick="toggleQA('qa-parents')">
+                <h3>
+                    Parents
+                    <span class="role-badge">Parent</span>
+                </h3>
+                <svg class="qa-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="qa-content">
+                <table class="qa-table">
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th>Client Response</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Specific challenges for parents?</td>
+                            <td>Reliable internet connectivity &mdash; design should consider offline capability.</td>
+                        </tr>
+                        <tr>
+                            <td>Most frequent tasks?</td>
+                            <td>Checking fee information, child's homework, child's disciplinary status.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Competition & Branding -->
+        <div class="qa-group" id="qa-brand">
+            <div class="qa-toggle" onclick="toggleQA('qa-brand')">
+                <h3>
+                    Competition &amp; Branding
+                    <span class="role-badge">Strategy</span>
+                </h3>
+                <svg class="qa-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="qa-content">
+                <table class="qa-table">
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th>Client Response</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Closest competitors?</td>
+                            <td>simpala.net, logesco.org (Logesco School Pro), myscol.com, fagiciel.com</td>
+                        </tr>
+                        <tr>
+                            <td>Theme preference?</td>
+                            <td>Both dark and light &mdash; default light (dark only if budget allows).</td>
+                        </tr>
+                        <tr>
+                            <td>Brand / logo?</td>
+                            <td>Visual identity to be provided separately.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 5: Module Breakdown -->
+    <div class="section">
+        <div class="section-heading">
+            <div class="section-num">5</div>
+            <h2>Module Breakdown</h2>
+        </div>
+        <div class="modules-list">
+            <div class="module-card">
+                <div class="module-num">M1</div>
+                <div class="module-body">
+                    <span class="module-tag public">Public</span>
+                    <h4>Visitor Landing Page</h4>
+                    <p>Public overview of the platform for schools considering signup. Covers platform benefits, school information, and a clear CTA for registration into the SaaS ecosystem.</p>
+                </div>
+            </div>
+            <div class="module-card">
+                <div class="module-num">M2</div>
+                <div class="module-body">
+                    <span class="module-tag admin">Admin</span>
+                    <h4>Super Admin Web App</h4>
+                    <p>Platform-level management: school registration and verification, subscription management, platform-wide stats dashboard, and notifications for new subscriptions, late payments, and verification requests.</p>
+                </div>
+            </div>
+            <div class="module-card">
+                <div class="module-num">M3</div>
+                <div class="module-body">
+                    <span class="module-tag public">Public</span>
+                    <h4>Partner School Landing Page</h4>
+                    <p>Per-school public page: school presentation and information for students and parents to access the school's dedicated portal within the platform.</p>
+                </div>
+            </div>
+            <div class="module-card">
+                <div class="module-num">M4</div>
+                <div class="module-body">
+                    <span class="module-tag admin">Admin</span>
+                    <h4>Super School Admin Web App</h4>
+                    <p>Full institution management: roster management (teachers and students), timetable builder, billing (invoices, payment tracking, arrears), academic data (reports and analytics), and digital resource management.</p>
+                </div>
+            </div>
+            <div class="module-card">
+                <div class="module-num">M5</div>
+                <div class="module-body">
+                    <span class="module-tag admin">Admin</span>
+                    <h4>Financial School Admin Web App</h4>
+                    <p>Financial subset of school administration: invoice generation, cash payment entry, payment reminders, turnover tracking, and billing reports.</p>
+                </div>
+            </div>
+            <div class="module-card">
+                <div class="module-num">M6</div>
+                <div class="module-body">
+                    <span class="module-tag portal">Portal</span>
+                    <h4>Students Web App</h4>
+                    <p>Student portal: timetable view, assignment and quiz submission, academic progress tracking, and messaging with teachers and peers.</p>
+                </div>
+            </div>
+            <div class="module-card">
+                <div class="module-num">M7</div>
+                <div class="module-body">
+                    <span class="module-tag portal">Portal</span>
+                    <h4>School Professors Web App</h4>
+                    <p>Teacher portal: timetable view, attendance marking, quiz and assignment creation, student feedback submission, and messaging functionality.</p>
+                </div>
+            </div>
+            <div class="module-card">
+                <div class="module-num">M8</div>
+                <div class="module-body">
+                    <span class="module-tag portal">Portal</span>
+                    <h4>Parents Web App</h4>
+                    <p>Parent portal: child's academic progress, fee information and payment status, homework updates, disciplinary status, and direct communication with school administration.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 6: BA Approach Note -->
+    <div class="section">
+        <div class="section-heading">
+            <div class="section-num">6</div>
+            <h2>BA Approach</h2>
+        </div>
+        <div class="ba-callout">
+            <div class="ba-callout-label">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Process Note
+            </div>
+            <p>My approach for this project: Started with general scoping questions (target country, language, user roles, business model) before moving into persona-specific elicitation. Questions were structured by stakeholder group to ensure complete coverage. The Excel document above captures 800+ requirements across 9 user-facing modules with assumptions documented alongside client responses for traceability.</p>
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Footer -->
+    <div class="doc-footer">
+        <strong>Atul Chauhan</strong> &nbsp;&middot;&nbsp; Business Analyst &nbsp;&middot;&nbsp; 2023&ndash;24
+    </div>
+
+</div>
+
+<script>
+    function toggleQA(id) {
+        const group = document.getElementById(id);
+        if (group) {
+            group.classList.toggle('open');
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BA Work Sample - Atul Chauhan</title>
+    <style>
+        @page { size: A4; margin: 15mm; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 9pt;
+            line-height: 1.45;
+            color: #333;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 15mm;
+        }
+
+        /* Page breaks */
+        .page { page-break-after: always; }
+        .page:last-child { page-break-after: avoid; }
+
+        /* Header */
+        .doc-header {
+            text-align: center;
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #334155;
+        }
+        .doc-header h1 { font-size: 18pt; color: #1e293b; margin-bottom: 2px; }
+        .doc-header .subtitle { font-size: 11pt; color: #555; }
+        .doc-header .meta { font-size: 8pt; color: #666; margin-top: 8px; }
+
+        /* Section titles */
+        h2 {
+            font-size: 11pt;
+            color: #1e293b;
+            background: #f1f5f9;
+            padding: 6px 10px;
+            margin: 15px 0 10px 0;
+            border-left: 4px solid #334155;
+        }
+
+        /* Domain tags */
+        .domain-tag {
+            display: inline-block;
+            font-size: 7pt;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .tag-healthcare { background: #dcfce7; color: #166534; }
+        .tag-telehealth { background: #dbeafe; color: #1e40af; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8px 0;
+            font-size: 8pt;
+        }
+        th {
+            background: #334155;
+            color: white;
+            padding: 6px 8px;
+            text-align: left;
+            font-weight: 600;
+        }
+        td {
+            padding: 5px 8px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        tr:nth-child(even) { background: #f8fafc; }
+
+        /* User Stories */
+        .story-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        .story-header {
+            background: #f8fafc;
+            padding: 6px 10px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .story-id { font-weight: 700; color: #334155; font-size: 9pt; }
+        .story-badges span {
+            font-size: 7pt;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-left: 5px;
+        }
+        .badge-high { background: #fee2e2; color: #991b1b; }
+        .badge-pts { background: #e5e7eb; color: #374151; }
+        .story-body { padding: 8px 10px; }
+        .story-statement {
+            font-size: 8pt;
+            color: #444;
+            margin-bottom: 8px;
+            padding: 6px 8px;
+            background: #f1f5f9;
+            border-radius: 4px;
+            line-height: 1.5;
+        }
+        .story-statement strong { color: #1e293b; }
+        .criteria-label { font-size: 7pt; font-weight: 700; color: #555; margin-bottom: 4px; text-transform: uppercase; }
+        .criteria-item {
+            font-size: 7.5pt;
+            padding: 4px 8px;
+            background: #fafafa;
+            border-left: 3px solid #10b981;
+            margin-bottom: 3px;
+        }
+        .kw { font-weight: 600; }
+        .kw-given { color: #059669; }
+        .kw-when { color: #2563eb; }
+        .kw-then { color: #7c3aed; }
+
+        /* Feature list */
+        .feature-table td:first-child { font-weight: 600; width: 18%; }
+        .feature-table ul { margin: 0; padding-left: 15px; }
+        .feature-table li { margin-bottom: 2px; }
+        .priority { font-size: 7pt; padding: 2px 6px; border-radius: 3px; }
+        .p-high { background: #fee2e2; color: #991b1b; }
+        .p-med { background: #fef3c7; color: #92400e; }
+
+        /* Scenario table */
+        .scenario-table td:first-child { font-weight: 600; width: 18%; background: #f8fafc; }
+
+        /* Footer */
+        .footer {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 2px solid #e2e8f0;
+            text-align: center;
+            font-size: 7pt;
+            color: #666;
+        }
+
+        /* Print styles */
+        @media print {
+            body { padding: 0; }
+            .page { page-break-after: always; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div class="page">
+    <div class="doc-header">
+        <h1>Business Analyst Work Sample</h1>
+        <div class="subtitle">Requirements Documentation Portfolio</div>
+        <div class="meta">Atul Chauhan | Business Analyst | February 2026</div>
+    </div>
+
+    <h2>1.1 User Roles & Permissions <span class="domain-tag tag-healthcare">Healthcare RPM</span></h2>
+    <table>
+        <tr><th>Role</th><th>Access Level</th><th>Key Permissions</th></tr>
+        <tr><td><strong>PDC Super Admin</strong></td><td>Platform Level</td><td>Full platform access, manage all providers, device inventory</td></tr>
+        <tr><td><strong>PDC Staff</strong></td><td>Platform Level</td><td>Sub-admin functions, billing support, nurse assignments</td></tr>
+        <tr><td><strong>Provider Admin</strong></td><td>Clinic Level</td><td>Manage clinic staff, patients, view billing reports</td></tr>
+        <tr><td><strong>Primary Ordering Provider (POP)</strong></td><td>Patient Level</td><td>Review vitals, add clinical notes, set thresholds, sign-off reviews</td></tr>
+        <tr><td><strong>Nurse</strong></td><td>Patient Level</td><td>Daily patient queue, review vitals, add notes, escalate alerts</td></tr>
+        <tr><td><strong>Patient</strong></td><td>Own Data</td><td>View own vitals, submit readings, view alerts (read-only)</td></tr>
+    </table>
+
+    <h2>1.2 Device Allocation Process</h2>
+    <table>
+        <tr><th>Step</th><th>Action</th><th>Actor</th><th>Output</th></tr>
+        <tr><td>1</td><td>Receive devices from vendor</td><td>PDC Admin</td><td>Devices added to inventory</td></tr>
+        <tr><td>2</td><td>Allocate device to patient</td><td>Provider Admin</td><td>Device linked to patient record</td></tr>
+        <tr><td>3</td><td>Ship device to patient</td><td>PDC Staff</td><td>Device status: Shipped</td></tr>
+        <tr><td>4</td><td>Patient sends readings</td><td>Patient</td><td>Vitals stored in system</td></tr>
+        <tr><td>5</td><td>Alert triggered (if abnormal)</td><td>System</td><td>Notification to Nurse/POP</td></tr>
+        <tr><td>6</td><td>Clinical review</td><td>Nurse/POP</td><td>Review notes, follow-up action</td></tr>
+        <tr><td>7</td><td>Monthly billing review</td><td>Biller</td><td>CPT codes generated</td></tr>
+    </table>
+
+    <h2>1.3 User Stories</h2>
+
+    <table>
+        <tr>
+            <th style="width:22%">Story</th>
+            <th style="width:40%">Description</th>
+            <th>Acceptance Criteria (Gherkin)</th>
+        </tr>
+        <tr>
+            <td><strong>RPM-101</strong><br>Record Vital Signs<br><span class="badge-high">High</span> <span class="badge-pts">8 pts</span></td>
+            <td><strong>As a</strong> patient, <strong>I want to</strong> record my daily vital signs via mobile, <strong>So that</strong> my provider can monitor remotely.</td>
+            <td>
+                <span class="kw kw-given">Given</span> patient logged in <span class="kw kw-when">When</span> navigate to "Record Vitals" <span class="kw kw-then">Then</span> see fields for BP, HR, glucose, SpO2<br>
+                <span class="kw kw-given">Given</span> readings entered <span class="kw kw-when">When</span> submit <span class="kw kw-then">Then</span> validated & stored with timestamp<br>
+                <span class="kw kw-given">Given</span> out-of-range reading <span class="kw kw-when">When</span> submitted <span class="kw kw-then">Then</span> alert sent to care team
+            </td>
+        </tr>
+        <tr>
+            <td><strong>RPM-102</strong><br>Care Dashboard<br><span class="badge-high">High</span> <span class="badge-pts">13 pts</span></td>
+            <td><strong>As a</strong> care coordinator, <strong>I want to</strong> view patient dashboard with vital trends, <strong>So that</strong> I can identify who needs attention.</td>
+            <td>
+                <span class="kw kw-given">Given</span> coordinator logged in <span class="kw kw-when">When</span> access dashboard <span class="kw kw-then">Then</span> see patient list with status (normal/warning/critical)<br>
+                <span class="kw kw-given">Given</span> critical readings <span class="kw kw-when">When</span> dashboard loads <span class="kw kw-then">Then</span> patient at top with red indicator
+            </td>
+        </tr>
+    </table>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+    <h2>2.1 Device Management Module <span class="domain-tag tag-healthcare">Healthcare RPM</span></h2>
+
+    <table class="feature-table">
+        <tr><th>Feature</th><th>Sub-Features / Business Rules</th><th style="width:8%">Priority</th></tr>
+        <tr>
+            <td>Device Inventory</td>
+            <td>
+                <ul>
+                    <li>Device registration with ICCID, IMSI, IMEI tracking</li>
+                    <li>Battery level monitoring (100%, 75%, 50%, 25%, Low)</li>
+                    <li>Signal strength indicator (25%, 50%, 75%, 100%)</li>
+                    <li>Device status: Active | Shipped | Out of Service | Returned</li>
+                    <li>Vendor integration with mio-labs.com for device data</li>
+                </ul>
+            </td>
+            <td><span class="priority p-high">High</span></td>
+        </tr>
+        <tr>
+            <td>Device Allocation</td>
+            <td>
+                <ul>
+                    <li>Allocate from PDC inventory → Provider → Patient</li>
+                    <li>Link device to patient record with allocation date</li>
+                    <li>Track shipping status and carrier information</li>
+                    <li>Device can only be allocated to one patient at a time</li>
+                    <li>Deallocation requires admin approval if active readings exist</li>
+                </ul>
+            </td>
+            <td><span class="priority p-high">High</span></td>
+        </tr>
+        <tr>
+            <td>External Care Providers</td>
+            <td>
+                <ul>
+                    <li>Directory of Specialists, PCPs, Dieticians by NPI number</li>
+                    <li>Share access: Grant temporary read access to patient data</li>
+                    <li>Revoke access: Remove shared access with audit log</li>
+                    <li>View profile: See provider credentials and contact info</li>
+                    <li>Specialty types: Dentist, Nutritionist, Dietician, Cardiologist</li>
+                </ul>
+            </td>
+            <td><span class="priority p-med">Medium</span></td>
+        </tr>
+        <tr>
+            <td>Bulk Patient Onboarding</td>
+            <td>
+                <ul>
+                    <li>Download CSV template with required fields</li>
+                    <li>Fields: Name, DOB, Phone, Email, POP ID, Insurance</li>
+                    <li>Validation: Check for duplicates, required fields, format</li>
+                    <li>Error report: Row-by-row validation errors</li>
+                    <li>Success: Create patient records, assign to POP</li>
+                </ul>
+            </td>
+            <td><span class="priority p-med">Medium</span></td>
+        </tr>
+        <tr>
+            <td>Reading Sync</td>
+            <td>
+                <ul>
+                    <li>Auto-sync readings within 5 seconds of device transmission</li>
+                    <li>Display last reading timestamp: "Today, 09:03 PM EST"</li>
+                    <li>Reading types: BP (mmHg), SpO2 (%), Glucose (mg/dL), Weight (lbs)</li>
+                    <li>Out-of-range alert triggers within 30 seconds</li>
+                </ul>
+            </td>
+            <td><span class="priority p-high">High</span></td>
+        </tr>
+    </table>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page">
+    <h2>2.2 Appointment Booking Scenarios <span class="domain-tag tag-telehealth">Telehealth UK</span></h2>
+
+    <table class="scenario-table">
+        <tr><th style="width:18%">Scenario</th><th>Steps / Rules</th></tr>
+        <tr>
+            <td>1. Patient Self-Booking</td>
+            <td>1. Login to portal/app → 2. Browse providers by specialty → 3. View available slots → 4. Select type: New Patient (45 min) or Follow-up (15 min) → 5. Complete intake form → 6. Receive confirmation + video link → 7. Reminders: 24h + 1h before</td>
+        </tr>
+        <tr>
+            <td>2. Admin Books for Patient</td>
+            <td>1. Search patient by Name/DOB/Phone → 2. If new: Create record first → 3. Select provider, view calendar → 4. Book slot, add notes (e.g., "needs translator") → 5. System sends confirmation to patient</td>
+        </tr>
+        <tr>
+            <td>3. Provider Follow-up</td>
+            <td>1. Provider marks "Follow-up in X days" → 2. System suggests available slots → 3. Provider selects OR sends 3 options to patient → 4. Patient picks preferred time via link</td>
+        </tr>
+        <tr>
+            <td>4. Recurring</td>
+            <td><strong>Series:</strong> Same slot weekly for X sessions (therapy)<br><strong>Auto:</strong> System suggests next per care plan (e.g., 3 months)</td>
+        </tr>
+        <tr>
+            <td>5. Rescheduling</td>
+            <td><strong>By Patient:</strong> Via portal if >24 hrs before<br><strong>By Clinic:</strong> Select reason, notify patient + offer alternatives<br><strong>By Provider:</strong> Mark day unavailable, batch reschedule</td>
+        </tr>
+        <tr>
+            <td>6. Cancellation</td>
+            <td><strong>>24 hrs:</strong> No fee, slot released to waitlist<br><strong>&lt;24 hrs:</strong> Late fee may apply (configurable)<br><strong>No-show:</strong> Fee charged, flagged in patient record</td>
+        </tr>
+        <tr>
+            <td>7. Waitlist</td>
+            <td>1. Patient joins waitlist with preferred times → 2. Slot opens (cancellation) → 3. System notifies waitlist in order → 4. First to confirm (within 2 hrs) gets slot</td>
+        </tr>
+        <tr>
+            <td>8. Day-of Check-in</td>
+            <td>1. Patient receives check-in link (15 min before) → 2. Update intake, confirm insurance, sign consent → 3. Enter virtual waiting room → 4. Provider admits to video call → 5. After call: Status "Completed", billing triggered</td>
+        </tr>
+    </table>
+
+    <div class="footer">
+        <strong>Atul Chauhan</strong> | Business Analyst | Tools: Notion, Miro, Figma | Methodology: Agile/Scrum<br>
+        <em>Sample document demonstrating requirements documentation across Healthcare & Telehealth domains.</em>
+    </div>
+</div>
+
+</body>
+</html>

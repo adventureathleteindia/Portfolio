@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAT Sign-off Sample - Employee Onboarding Module</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #334155;
+            --color-primary-dark: #1e293b;
+            --color-primary-light: #f1f5f9;
+            --color-text: #1F2937;
+            --color-text-secondary: #6B7280;
+            --color-bg: #FFFFFF;
+            --color-bg-secondary: #F3F4F6;
+            --color-border: #E5E7EB;
+            --color-success: #10B981;
+            --color-warning: #F59E0B;
+            --color-error: #EF4444;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: var(--color-text);
+            background: var(--color-bg);
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; color: var(--color-primary); }
+        h1 { font-size: 24pt; margin-bottom: 8px; }
+        h2 { font-size: 16pt; margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 2px solid var(--color-primary); }
+        h3 { font-size: 13pt; margin: 20px 0 10px; }
+        h4 { font-size: 11pt; margin: 15px 0 8px; color: var(--color-text); }
+
+        .doc-header {
+            border-bottom: 3px solid var(--color-primary);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .doc-meta {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 10pt;
+        }
+
+        .doc-meta-item { display: flex; gap: 8px; }
+        .doc-meta-item label { color: var(--color-text-secondary); min-width: 100px; }
+        .doc-meta-item span { font-weight: 500; }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 9pt;
+            font-weight: 600;
+        }
+        .badge-pass { background: #DCFCE7; color: #166534; }
+        .badge-fail { background: #FEE2E2; color: #991B1B; }
+        .badge-blocked { background: #FEF3C7; color: #92400E; }
+        .badge-pending { background: #E0E7FF; color: #3730A3; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 10pt;
+        }
+
+        th, td {
+            border: 1px solid var(--color-border);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: var(--color-primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) { background: var(--color-bg-secondary); }
+
+        .test-id {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: var(--color-primary);
+            white-space: nowrap;
+        }
+
+        .status-pass { color: #166534; font-weight: 600; }
+        .status-fail { color: #991B1B; font-weight: 600; }
+        .status-blocked { color: #92400E; font-weight: 600; }
+        .status-pending { color: #3730A3; font-weight: 600; }
+
+        .summary-box {
+            background: var(--color-bg-secondary);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            text-align: center;
+        }
+
+        .summary-item {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid var(--color-border);
+        }
+
+        .summary-number {
+            font-size: 24pt;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .summary-label {
+            font-size: 9pt;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        .pass-rate {
+            font-size: 36pt;
+            font-weight: 700;
+            color: var(--color-success);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .criteria-box {
+            background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+            border: 1px solid var(--color-success);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .criteria-box.not-met {
+            background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%);
+            border-color: var(--color-error);
+        }
+
+        .criteria-title {
+            font-weight: 600;
+            color: #065F46;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .criteria-box.not-met .criteria-title {
+            color: #991B1B;
+        }
+
+        .criteria-list {
+            margin: 0;
+            padding-left: 25px;
+        }
+
+        .criteria-list li {
+            margin: 5px 0;
+        }
+
+        .defect-table td:nth-child(1) { width: 12%; }
+        .defect-table td:nth-child(2) { width: 10%; }
+        .defect-table td:nth-child(3) { width: 48%; }
+        .defect-table td:nth-child(4) { width: 15%; }
+        .defect-table td:nth-child(5) { width: 15%; }
+
+        .severity-critical { color: #991B1B; font-weight: 600; }
+        .severity-high { color: #DC2626; font-weight: 600; }
+        .severity-medium { color: #D97706; font-weight: 600; }
+        .severity-low { color: #059669; font-weight: 600; }
+
+        .signature-section {
+            margin-top: 40px;
+            border-top: 2px solid var(--color-border);
+            padding-top: 20px;
+        }
+
+        .signature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .signature-box {
+            border: 1px solid var(--color-border);
+            padding: 20px;
+            border-radius: 6px;
+            background: var(--color-bg-secondary);
+        }
+
+        .signature-line {
+            border-bottom: 1px solid var(--color-text);
+            height: 40px;
+            margin: 15px 0 8px;
+        }
+
+        .signature-label {
+            font-size: 9pt;
+            color: var(--color-text-secondary);
+        }
+
+        .signature-role {
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 5px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--color-primary);
+            border-radius: 3px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .checkbox.checked {
+            background: var(--color-primary);
+            position: relative;
+        }
+
+        .checkbox.checked::after {
+            content: '✓';
+            color: white;
+            position: absolute;
+            top: -2px;
+            left: 2px;
+            font-size: 12px;
+        }
+
+        .notes-section {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+            min-height: 80px;
+        }
+
+        .decision-box {
+            background: var(--color-primary);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .decision-box h3 {
+            color: white;
+            margin: 0 0 10px 0;
+        }
+
+        .decision-options {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+        }
+
+        .decision-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio {
+            width: 20px;
+            height: 20px;
+            border: 2px solid white;
+            border-radius: 50%;
+            background: transparent;
+        }
+
+        .radio.selected {
+            background: white;
+            box-shadow: inset 0 0 0 4px var(--color-primary);
+        }
+
+        @media print {
+            body { padding: 20px; }
+            .signature-box { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="doc-header">
+        <h1>UAT Sign-off Document</h1>
+        <p style="font-size: 14pt; color: var(--color-text-secondary);">Employee Onboarding Module v2.0</p>
+        <div class="doc-meta">
+            <div class="doc-meta-item">
+                <label>Project:</label>
+                <span>Payroll Management System</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Release:</label>
+                <span>v2.0.0</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>UAT Start Date:</label>
+                <span>January 6, 2026</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>UAT End Date:</label>
+                <span>January 13, 2026</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Environment:</label>
+                <span>UAT (uat.payroll.company.com)</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Document Status:</label>
+                <span class="badge badge-pass">Ready for Sign-off</span>
+            </div>
+        </div>
+    </div>
+
+    <h2>1. Executive Summary</h2>
+    <p>This document summarizes the User Acceptance Testing (UAT) results for the Employee Onboarding Module. The testing was conducted by HR Operations and Payroll teams over a 6-day period to validate that the system meets business requirements and is ready for production deployment.</p>
+
+    <div class="summary-box">
+        <h4 style="margin: 0 0 15px 0; text-align: center;">Test Execution Summary</h4>
+        <div class="summary-grid">
+            <div class="summary-item">
+                <div class="summary-number" style="color: var(--color-primary);">42</div>
+                <div class="summary-label">Total Test Cases</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-number" style="color: var(--color-success);">39</div>
+                <div class="summary-label">Passed</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-number" style="color: var(--color-error);">2</div>
+                <div class="summary-label">Failed</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-number" style="color: var(--color-warning);">1</div>
+                <div class="summary-label">Blocked</div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <div class="summary-label">PASS RATE</div>
+            <div class="pass-rate">92.8%</div>
+        </div>
+    </div>
+
+    <h2>2. Scope of Testing</h2>
+    <h3>2.1 Features Tested</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Feature Area</th>
+                <th>Test Cases</th>
+                <th>Pass</th>
+                <th>Fail</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Employee Profile Creation</td>
+                <td>12</td>
+                <td>12</td>
+                <td>0</td>
+                <td><span class="status-pass">✓ Pass</span></td>
+            </tr>
+            <tr>
+                <td>Document Upload & Verification</td>
+                <td>8</td>
+                <td>7</td>
+                <td>1</td>
+                <td><span class="status-fail">✗ Issues Found</span></td>
+            </tr>
+            <tr>
+                <td>Tax Form (W-4) Processing</td>
+                <td>6</td>
+                <td>6</td>
+                <td>0</td>
+                <td><span class="status-pass">✓ Pass</span></td>
+            </tr>
+            <tr>
+                <td>Direct Deposit Setup</td>
+                <td>5</td>
+                <td>5</td>
+                <td>0</td>
+                <td><span class="status-pass">✓ Pass</span></td>
+            </tr>
+            <tr>
+                <td>Benefits Enrollment</td>
+                <td>7</td>
+                <td>6</td>
+                <td>1</td>
+                <td><span class="status-fail">✗ Issues Found</span></td>
+            </tr>
+            <tr>
+                <td>Email Notifications</td>
+                <td>4</td>
+                <td>3</td>
+                <td>0</td>
+                <td><span class="status-blocked">⊘ Blocked (1)</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>2.2 Out of Scope</h3>
+    <ul style="margin: 10px 0 10px 25px;">
+        <li>Performance and load testing (covered in separate testing phase)</li>
+        <li>Mobile application testing</li>
+        <li>Integration with external background check vendor (Phase 2)</li>
+    </ul>
+
+    <h2>3. Test Case Results</h2>
+    <h3>3.1 Employee Profile Creation</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 12%;">Test ID</th>
+                <th style="width: 40%;">Test Scenario</th>
+                <th style="width: 28%;">Expected Result</th>
+                <th style="width: 10%;">Status</th>
+                <th style="width: 10%;">Tester</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="test-id">TC-ONB-001</td>
+                <td>Create new employee with all required fields</td>
+                <td>Employee record created successfully with unique ID</td>
+                <td><span class="status-pass">Pass</span></td>
+                <td>JM</td>
+            </tr>
+            <tr>
+                <td class="test-id">TC-ONB-002</td>
+                <td>Validate SSN format (XXX-XX-XXXX)</td>
+                <td>System accepts valid SSN, rejects invalid format</td>
+                <td><span class="status-pass">Pass</span></td>
+                <td>JM</td>
+            </tr>
+            <tr>
+                <td class="test-id">TC-ONB-003</td>
+                <td>Prevent duplicate SSN entry</td>
+                <td>Error message displayed for duplicate SSN</td>
+                <td><span class="status-pass">Pass</span></td>
+                <td>JM</td>
+            </tr>
+            <tr>
+                <td class="test-id">TC-ONB-004</td>
+                <td>Validate email format</td>
+                <td>System accepts valid email, rejects invalid</td>
+                <td><span class="status-pass">Pass</span></td>
+                <td>SK</td>
+            </tr>
+            <tr>
+                <td class="test-id">TC-ONB-005</td>
+                <td>Auto-generate employee ID</td>
+                <td>Unique ID generated in format EMP-YYYYNNNN</td>
+                <td><span class="status-pass">Pass</span></td>
+                <td>SK</td>
+            </tr>
+            <tr>
+                <td class="test-id">TC-ONB-006</td>
+                <td>Save employee as draft</td>
+                <td>Incomplete record saved, retrievable for completion</td>
+                <td><span class="status-pass">Pass</span></td>
+                <td>SK</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>3.2 Document Upload & Verification</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 12%;">Test ID</th>
+                <th style="width: 40%;">Test Scenario</th>
+                <th style="width: 28%;">Expected Result</th>
+                <th style="width: 10%;">Status</th>
+                <th style="width: 10%;">Tester</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="test-id">TC-DOC-001</td>
+                <td>Upload I-9 supporting document (PDF)</td>
+                <td>Document uploaded, preview available</td>
+                <td><span class="status-pass">Pass</span></td>
+                <td>JM</td>
+            </tr>
+            <tr>
+                <td class="test-id">TC-DOC-002</td>
+                <td>Upload document exceeding 10MB limit</td>
+                <td>Clear error message, upload prevented</td>
+                <td><span class="status-pass">Pass</span></td>
+                <td>JM</td>
+            </tr>
+            <tr>
+                <td class="test-id">TC-DOC-003</td>
+                <td>Upload unsupported file type (.exe)</td>
+                <td>File type rejected with appropriate message</td>
+                <td><span class="status-pass">Pass</span></td>
+                <td>JM</td>
+            </tr>
+            <tr>
+                <td class="test-id">TC-DOC-004</td>
+                <td>HR verifies uploaded document</td>
+                <td>Document status changes to "Verified"</td>
+                <td><span class="status-pass">Pass</span></td>
+                <td>SK</td>
+            </tr>
+            <tr>
+                <td class="test-id">TC-DOC-005</td>
+                <td>Upload multiple documents simultaneously</td>
+                <td>All documents uploaded with progress indicator</td>
+                <td><span class="status-fail">Fail</span></td>
+                <td>SK</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>3.3 Benefits Enrollment</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 12%;">Test ID</th>
+                <th style="width: 40%;">Test Scenario</th>
+                <th style="width: 28%;">Expected Result</th>
+                <th style="width: 10%;">Status</th>
+                <th style="width: 10%;">Tester</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="test-id">TC-BEN-001</td>
+                <td>Select health insurance plan</td>
+                <td>Plan selected, premium calculated correctly</td>
+                <td><span class="status-pass">Pass</span></td>
+                <td>JM</td>
+            </tr>
+            <tr>
+                <td class="test-id">TC-BEN-002</td>
+                <td>Add dependent to coverage</td>
+                <td>Dependent added, premium recalculated</td>
+                <td><span class="status-pass">Pass</span></td>
+                <td>JM</td>
+            </tr>
+            <tr>
+                <td class="test-id">TC-BEN-003</td>
+                <td>Enroll in 401(k) with employer match</td>
+                <td>Contribution percentage set, match calculated</td>
+                <td><span class="status-pass">Pass</span></td>
+                <td>SK</td>
+            </tr>
+            <tr>
+                <td class="test-id">TC-BEN-004</td>
+                <td>Set 401(k) contribution above IRS limit</td>
+                <td>Warning displayed, contribution capped at limit</td>
+                <td><span class="status-fail">Fail</span></td>
+                <td>SK</td>
+            </tr>
+            <tr>
+                <td class="test-id">TC-BEN-005</td>
+                <td>Waive benefits with attestation</td>
+                <td>Benefits waived after confirmation checkbox</td>
+                <td><span class="status-pass">Pass</span></td>
+                <td>JM</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>4. Defects Summary</h2>
+    <table class="defect-table">
+        <thead>
+            <tr>
+                <th>Defect ID</th>
+                <th>Severity</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Resolution</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="test-id">DEF-142</td>
+                <td><span class="severity-medium">Medium</span></td>
+                <td>Multiple file upload fails when selecting more than 3 files. Progress bar freezes and files are not uploaded. Single file upload works correctly.</td>
+                <td>Fixed</td>
+                <td>Deployed to UAT on Jan 11</td>
+            </tr>
+            <tr>
+                <td class="test-id">DEF-143</td>
+                <td><span class="severity-high">High</span></td>
+                <td>401(k) contribution allows entry above 2025 IRS limit ($23,500). No validation or warning is displayed. Could result in compliance issues.</td>
+                <td>Fixed</td>
+                <td>Deployed to UAT on Jan 12</td>
+            </tr>
+            <tr>
+                <td class="test-id">DEF-144</td>
+                <td><span class="severity-low">Low</span></td>
+                <td>Welcome email does not include company logo. Email is sent successfully but branding is missing.</td>
+                <td>Deferred</td>
+                <td>Scheduled for v2.1</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>4.1 Defect Analysis</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Severity</th>
+                <th>Found</th>
+                <th>Fixed</th>
+                <th>Deferred</th>
+                <th>Open</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="severity-critical">Critical</span></td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td><span class="severity-high">High</span></td>
+                <td>1</td>
+                <td>1</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td><span class="severity-medium">Medium</span></td>
+                <td>1</td>
+                <td>1</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td><span class="severity-low">Low</span></td>
+                <td>1</td>
+                <td>0</td>
+                <td>1</td>
+                <td>0</td>
+            </tr>
+            <tr style="font-weight: 600;">
+                <td>Total</td>
+                <td>3</td>
+                <td>2</td>
+                <td>1</td>
+                <td>0</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>5. Exit Criteria Assessment</h2>
+    <div class="criteria-box">
+        <div class="criteria-title">✓ Exit Criteria Met</div>
+        <ul class="criteria-list">
+            <li><strong>Pass Rate ≥ 90%:</strong> Achieved 92.8% (39 of 42 test cases passed)</li>
+            <li><strong>No Critical Defects Open:</strong> Zero critical defects identified</li>
+            <li><strong>No High Severity Defects Open:</strong> 1 high severity defect found and fixed</li>
+            <li><strong>All Core Workflows Tested:</strong> Employee creation, document upload, tax forms, direct deposit, and benefits enrollment validated</li>
+            <li><strong>Business Sign-off Obtained:</strong> HR Operations and Payroll leads approved functionality</li>
+        </ul>
+    </div>
+
+    <h3>5.1 Deferred Items</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Reason for Deferral</th>
+                <th>Target Release</th>
+                <th>Business Impact</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Email branding (DEF-144)</td>
+                <td>Low severity, cosmetic issue only</td>
+                <td>v2.1 (Feb 2026)</td>
+                <td>Minimal - emails are functional</td>
+            </tr>
+            <tr>
+                <td>SMS notification for onboarding tasks</td>
+                <td>Third-party integration pending</td>
+                <td>v2.2 (Mar 2026)</td>
+                <td>Low - email notifications active</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>6. Recommendations</h2>
+    <h3>6.1 Go-Live Recommendation</h3>
+    <p>Based on the UAT results, <strong>the Employee Onboarding Module v2.0 is recommended for production deployment</strong> with the following conditions:</p>
+    <ul style="margin: 10px 0 10px 25px;">
+        <li>Regression testing of fixed defects (DEF-142, DEF-143) is complete</li>
+        <li>Production deployment scheduled during low-activity period (weekend)</li>
+        <li>Rollback plan documented and tested</li>
+        <li>Support team briefed on new functionality</li>
+    </ul>
+
+    <h3>6.2 Post Go-Live Monitoring</h3>
+    <ul style="margin: 10px 0 10px 25px;">
+        <li>Monitor document upload success rate for first 48 hours</li>
+        <li>Validate 401(k) contribution validation in production</li>
+        <li>Track any user-reported issues through help desk</li>
+    </ul>
+
+    <h2>7. Test Team</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Department</th>
+                <th>Test Areas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Jennifer Martinez (JM)</td>
+                <td>UAT Lead</td>
+                <td>HR Operations</td>
+                <td>Employee profiles, Benefits enrollment</td>
+            </tr>
+            <tr>
+                <td>Sarah Kim (SK)</td>
+                <td>UAT Tester</td>
+                <td>Payroll</td>
+                <td>Tax forms, Direct deposit, Notifications</td>
+            </tr>
+            <tr>
+                <td>Michael Chen</td>
+                <td>Technical Support</td>
+                <td>IT</td>
+                <td>Environment setup, Defect triage</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="decision-box">
+        <h3>UAT Decision</h3>
+        <p>Based on the testing results and exit criteria assessment:</p>
+        <div class="decision-options">
+            <div class="decision-option">
+                <div class="radio selected"></div>
+                <span><strong>APPROVED</strong> for Production</span>
+            </div>
+            <div class="decision-option">
+                <div class="radio"></div>
+                <span>APPROVED with Conditions</span>
+            </div>
+            <div class="decision-option">
+                <div class="radio"></div>
+                <span>NOT APPROVED</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="signature-section">
+        <h2>8. Sign-off Approvals</h2>
+        <p>By signing below, the approvers confirm that:</p>
+        <ul style="margin: 10px 0 20px 25px;">
+            <li>All critical business requirements have been tested and validated</li>
+            <li>The system meets the acceptance criteria defined in the requirements</li>
+            <li>All critical and high severity defects have been resolved</li>
+            <li>The module is ready for production deployment</li>
+        </ul>
+
+        <div class="signature-grid">
+            <div class="signature-box">
+                <p class="signature-role">Business Owner</p>
+                <p style="font-size: 10pt;">HR Operations Director</p>
+                <div class="signature-line"></div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span class="signature-label">Name & Signature</span>
+                    <span class="signature-label">Date</span>
+                </div>
+            </div>
+            <div class="signature-box">
+                <p class="signature-role">UAT Lead</p>
+                <p style="font-size: 10pt;">Jennifer Martinez</p>
+                <div class="signature-line"></div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span class="signature-label">Name & Signature</span>
+                    <span class="signature-label">Date</span>
+                </div>
+            </div>
+            <div class="signature-box">
+                <p class="signature-role">Project Manager</p>
+                <p style="font-size: 10pt;">Product Delivery</p>
+                <div class="signature-line"></div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span class="signature-label">Name & Signature</span>
+                    <span class="signature-label">Date</span>
+                </div>
+            </div>
+            <div class="signature-box">
+                <p class="signature-role">IT Lead</p>
+                <p style="font-size: 10pt;">Technical Operations</p>
+                <div class="signature-line"></div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span class="signature-label">Name & Signature</span>
+                    <span class="signature-label">Date</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2>9. Additional Notes</h2>
+    <div class="notes-section">
+        <p style="color: var(--color-text-secondary); font-style: italic;">[Space for additional comments or conditions from approvers]</p>
+    </div>
+
+    <div style="margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--color-border); text-align: center; color: var(--color-text-secondary); font-size: 9pt;">
+        <p><strong>Document Control</strong></p>
+        <p>UAT Sign-off Document | Employee Onboarding Module v2.0</p>
+        <p>Created: January 13, 2026 | Author: Jennifer Martinez, UAT Lead</p>
+    </div>
+
+</body>
+</html>

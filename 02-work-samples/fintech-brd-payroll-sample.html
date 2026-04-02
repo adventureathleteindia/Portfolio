@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Requirements Document - Payroll Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #334155;
+            --color-primary-dark: #1e293b;
+            --color-primary-light: #f1f5f9;
+            --color-text: #1F2937;
+            --color-text-secondary: #6B7280;
+            --color-bg: #FFFFFF;
+            --color-bg-secondary: #F9FAFB;
+            --color-border: #E5E7EB;
+            --color-success: #10B981;
+            --color-warning: #F59E0B;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: var(--color-text);
+            background: var(--color-bg);
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        @media print {
+            body { padding: 20px; max-width: 100%; }
+            .page-break { page-break-before: always; }
+        }
+
+        h1, h2, h3, h4 { font-family: 'Montserrat', Arial, sans-serif; }
+
+        /* Document Header */
+        .doc-header {
+            border: 2px solid var(--color-primary);
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .doc-header h1 {
+            font-size: 22pt;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .doc-header .subtitle {
+            font-size: 14pt;
+            color: var(--color-text);
+            margin-bottom: 20px;
+        }
+
+        .doc-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            text-align: left;
+            font-size: 10pt;
+            border-top: 1px solid var(--color-border);
+            padding-top: 20px;
+            margin-top: 10px;
+        }
+
+        .doc-meta-item label {
+            color: var(--color-text-secondary);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .doc-meta-item span {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        /* Section Styling */
+        .section { margin-bottom: 30px; }
+
+        .section-title {
+            font-size: 14pt;
+            font-weight: 600;
+            color: var(--color-primary);
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+        }
+
+        .subsection-title {
+            font-size: 12pt;
+            font-weight: 600;
+            color: var(--color-text);
+            margin: 20px 0 12px 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 10pt;
+        }
+
+        th, td {
+            border: 1px solid var(--color-border);
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        th {
+            background: var(--color-primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) { background: var(--color-bg-secondary); }
+
+        .priority-high { background: #FEE2E2; color: #991B1B; padding: 2px 8px; border-radius: 4px; font-size: 9pt; }
+        .priority-medium { background: #FEF3C7; color: #92400E; padding: 2px 8px; border-radius: 4px; font-size: 9pt; }
+        .priority-low { background: #D1FAE5; color: #065F46; padding: 2px 8px; border-radius: 4px; font-size: 9pt; }
+
+        ul, ol { margin: 10px 0; padding-left: 24px; }
+        li { margin-bottom: 6px; }
+
+        .info-box {
+            background: var(--color-primary-light);
+            border-left: 4px solid var(--color-primary);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-box.compliance {
+            background: #FEF3C7;
+            border-left-color: var(--color-warning);
+        }
+
+        .info-box h4 {
+            font-size: 11pt;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .info-box.compliance h4 { color: #92400E; }
+
+        .toc {
+            background: var(--color-bg-secondary);
+            padding: 20px 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .toc h3 {
+            font-size: 12pt;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+        }
+
+        .toc ol { padding-left: 20px; }
+        .toc li { margin-bottom: 4px; font-size: 10pt; }
+
+        .user-story {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .user-story-id {
+            font-size: 9pt;
+            color: var(--color-primary);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .user-story-text { font-size: 10.5pt; margin-bottom: 8px; }
+
+        .acceptance-criteria {
+            font-size: 10pt;
+            color: var(--color-text-secondary);
+            border-top: 1px solid var(--color-border);
+            padding-top: 8px;
+            margin-top: 8px;
+        }
+
+        .acceptance-criteria strong { color: var(--color-text); }
+
+        .doc-footer {
+            border-top: 1px solid var(--color-border);
+            padding-top: 15px;
+            margin-top: 40px;
+            font-size: 9pt;
+            color: var(--color-text-secondary);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Document Header -->
+    <div class="doc-header">
+        <h1>Business Requirements Document</h1>
+        <div class="subtitle">Payroll Management System</div>
+        <div class="doc-meta">
+            <div class="doc-meta-item">
+                <label>Document Version</label>
+                <span>1.0</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Status</label>
+                <span>Approved</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Last Updated</label>
+                <span>January 2024</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Author</label>
+                <span>Business Analyst</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Stakeholders</label>
+                <span>Product, HR, Finance, Engineering</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Compliance</label>
+                <span>Tax Regulations</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOC -->
+    <div class="toc">
+        <h3>Table of Contents</h3>
+        <ol>
+            <li>Executive Summary</li>
+            <li>Business Objectives</li>
+            <li>Scope & Boundaries</li>
+            <li>Stakeholder Analysis</li>
+            <li>Functional Requirements</li>
+            <li>Non-Functional Requirements</li>
+            <li>Compliance Requirements</li>
+            <li>User Stories</li>
+            <li>Assumptions & Dependencies</li>
+            <li>Risks & Mitigations</li>
+        </ol>
+    </div>
+
+    <!-- 1. Executive Summary -->
+    <section class="section">
+        <h2 class="section-title">1. Executive Summary</h2>
+        <p>
+            This document outlines the business requirements for a comprehensive Payroll Management System that automates
+            end-to-end payroll processing including employee management, salary calculations, tax deductions, direct deposits,
+            and compliance reporting. The system will support multi-company configurations and provide self-service capabilities
+            for employees.
+        </p>
+
+        <div class="info-box">
+            <h4>Business Problem</h4>
+            <p>Manual payroll processing is error-prone, time-consuming, and creates compliance risks. Organizations need
+            an automated solution that ensures accurate, timely payroll with proper tax handling and audit trails.</p>
+        </div>
+
+        <h3 class="subsection-title">Target Users</h3>
+        <ul>
+            <li><strong>Payroll Administrators:</strong> HR/Finance staff responsible for running payroll and managing employee compensation</li>
+            <li><strong>Company Administrators:</strong> Business owners or managers overseeing multiple companies/locations</li>
+            <li><strong>Employees:</strong> Staff accessing pay stubs, tax documents, and updating personal information</li>
+            <li><strong>Accountants:</strong> External or internal accountants generating reports for compliance</li>
+        </ul>
+    </section>
+
+    <!-- 2. Business Objectives -->
+    <section class="section">
+        <h2 class="section-title">2. Business Objectives</h2>
+        <table>
+            <tr>
+                <th>Objective</th>
+                <th>Success Metric</th>
+                <th>Target</th>
+            </tr>
+            <tr>
+                <td>Reduce payroll processing time</td>
+                <td>Hours spent per payroll cycle</td>
+                <td>75% reduction</td>
+            </tr>
+            <tr>
+                <td>Eliminate calculation errors</td>
+                <td>Payroll error rate</td>
+                <td>&lt; 0.1%</td>
+            </tr>
+            <tr>
+                <td>Ensure tax compliance</td>
+                <td>Filing accuracy rate</td>
+                <td>100%</td>
+            </tr>
+            <tr>
+                <td>Improve employee satisfaction</td>
+                <td>Self-service adoption rate</td>
+                <td>90%+ employees</td>
+            </tr>
+            <tr>
+                <td>Support business growth</td>
+                <td>Multi-company support</td>
+                <td>Unlimited companies</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- 3. Scope -->
+    <section class="section">
+        <h2 class="section-title">3. Scope & Boundaries</h2>
+
+        <h3 class="subsection-title">In Scope</h3>
+        <ul>
+            <li>Employee onboarding and profile management</li>
+            <li>Salary and compensation setup (hourly, salaried, commission)</li>
+            <li>Automated payroll calculation with tax deductions</li>
+            <li>Direct deposit and payment processing</li>
+            <li>Tax form generation (W-2, 1099, etc.)</li>
+            <li>Leave and attendance integration</li>
+            <li>Multi-company and multi-location support</li>
+            <li>Employee self-service portal</li>
+            <li>Compliance reporting and audit trails</li>
+        </ul>
+
+        <h3 class="subsection-title">Out of Scope</h3>
+        <ul>
+            <li>Time tracking hardware integration (Phase 2)</li>
+            <li>Benefits administration (separate module)</li>
+            <li>Recruitment and applicant tracking</li>
+            <li>Performance management</li>
+        </ul>
+    </section>
+
+    <!-- 4. Stakeholder Analysis -->
+    <section class="section">
+        <h2 class="section-title">4. Stakeholder Analysis</h2>
+        <table>
+            <tr>
+                <th>Stakeholder</th>
+                <th>Role</th>
+                <th>Interest</th>
+                <th>Influence</th>
+            </tr>
+            <tr>
+                <td>CFO/Finance Director</td>
+                <td>Decision Maker</td>
+                <td>Cost control, compliance, reporting accuracy</td>
+                <td>High</td>
+            </tr>
+            <tr>
+                <td>HR Manager</td>
+                <td>Primary User</td>
+                <td>Efficiency, employee satisfaction, ease of use</td>
+                <td>High</td>
+            </tr>
+            <tr>
+                <td>Payroll Administrator</td>
+                <td>Daily User</td>
+                <td>Automation, error reduction, clear workflows</td>
+                <td>Medium</td>
+            </tr>
+            <tr>
+                <td>IT Department</td>
+                <td>Technical Oversight</td>
+                <td>Security, integrations, maintenance</td>
+                <td>Medium</td>
+            </tr>
+            <tr>
+                <td>Employees</td>
+                <td>End User</td>
+                <td>Easy access to pay info, accurate payments</td>
+                <td>Low</td>
+            </tr>
+        </table>
+    </section>
+
+    <div class="page-break"></div>
+
+    <!-- 5. Functional Requirements -->
+    <section class="section">
+        <h2 class="section-title">5. Functional Requirements</h2>
+
+        <h3 class="subsection-title">5.1 Employee Management</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Requirement</th>
+                <th>Priority</th>
+            </tr>
+            <tr>
+                <td>FR-001</td>
+                <td>System shall allow adding employees with personal info, tax details, and bank information</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-002</td>
+                <td>System shall support multiple employment types: full-time, part-time, contractor</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-003</td>
+                <td>System shall track employment history, promotions, and salary changes</td>
+                <td><span class="priority-medium">Medium</span></td>
+            </tr>
+            <tr>
+                <td>FR-004</td>
+                <td>System shall handle employee termination with final pay calculation</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+        </table>
+
+        <h3 class="subsection-title">5.2 Compensation Setup</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Requirement</th>
+                <th>Priority</th>
+            </tr>
+            <tr>
+                <td>FR-005</td>
+                <td>System shall support multiple pay types: hourly, salary, commission, bonus</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-006</td>
+                <td>System shall allow configurable pay schedules: weekly, bi-weekly, semi-monthly, monthly</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-007</td>
+                <td>System shall support overtime calculations with configurable rates</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-008</td>
+                <td>System shall handle deductions: taxes, benefits, garnishments, voluntary contributions</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+        </table>
+
+        <h3 class="subsection-title">5.3 Payroll Processing</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Requirement</th>
+                <th>Priority</th>
+            </tr>
+            <tr>
+                <td>FR-009</td>
+                <td>System shall auto-calculate gross pay based on hours/salary and pay type</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-010</td>
+                <td>System shall calculate federal, state, and local tax withholdings automatically</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-011</td>
+                <td>System shall provide payroll preview before final processing</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-012</td>
+                <td>System shall support payroll approval workflow with audit trail</td>
+                <td><span class="priority-medium">Medium</span></td>
+            </tr>
+            <tr>
+                <td>FR-013</td>
+                <td>System shall process direct deposits to employee bank accounts</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-014</td>
+                <td>System shall generate pay stubs in PDF format</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+        </table>
+
+        <h3 class="subsection-title">5.4 Tax & Compliance</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Requirement</th>
+                <th>Priority</th>
+            </tr>
+            <tr>
+                <td>FR-015</td>
+                <td>System shall maintain up-to-date tax tables for all supported jurisdictions</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-016</td>
+                <td>System shall generate year-end tax forms (W-2, W-3, 1099)</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-017</td>
+                <td>System shall produce quarterly tax reports for filing</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-018</td>
+                <td>System shall maintain complete audit trail of all payroll transactions</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+        </table>
+
+        <h3 class="subsection-title">5.5 Employee Self-Service</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Requirement</th>
+                <th>Priority</th>
+            </tr>
+            <tr>
+                <td>FR-019</td>
+                <td>Employees shall access pay stubs and payment history</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-020</td>
+                <td>Employees shall download tax documents (W-2, 1099)</td>
+                <td><span class="priority-high">High</span></td>
+            </tr>
+            <tr>
+                <td>FR-021</td>
+                <td>Employees shall update personal info and direct deposit details</td>
+                <td><span class="priority-medium">Medium</span></td>
+            </tr>
+            <tr>
+                <td>FR-022</td>
+                <td>Employees shall submit W-4 withholding changes</td>
+                <td><span class="priority-medium">Medium</span></td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- 6. Non-Functional Requirements -->
+    <section class="section">
+        <h2 class="section-title">6. Non-Functional Requirements</h2>
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Requirement</th>
+                <th>Target</th>
+            </tr>
+            <tr>
+                <td>Performance</td>
+                <td>Payroll calculation time (1000 employees)</td>
+                <td>&lt; 30 seconds</td>
+            </tr>
+            <tr>
+                <td>Performance</td>
+                <td>Report generation time</td>
+                <td>&lt; 10 seconds</td>
+            </tr>
+            <tr>
+                <td>Availability</td>
+                <td>System uptime</td>
+                <td>99.9% monthly</td>
+            </tr>
+            <tr>
+                <td>Scalability</td>
+                <td>Employees per company</td>
+                <td>10,000+</td>
+            </tr>
+            <tr>
+                <td>Scalability</td>
+                <td>Concurrent users</td>
+                <td>500+</td>
+            </tr>
+            <tr>
+                <td>Security</td>
+                <td>Data encryption</td>
+                <td>AES-256 at rest, TLS 1.3 in transit</td>
+            </tr>
+            <tr>
+                <td>Security</td>
+                <td>PCI compliance for payment data</td>
+                <td>PCI-DSS Level 1</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- 7. Compliance -->
+    <section class="section">
+        <h2 class="section-title">7. Compliance Requirements</h2>
+
+        <div class="info-box compliance">
+            <h4>Tax Compliance is Critical</h4>
+            <p>Payroll systems must comply with federal (IRS), state, and local tax regulations. Failure to comply can result in significant penalties.</p>
+        </div>
+
+        <table>
+            <tr>
+                <th>Regulation</th>
+                <th>Requirement</th>
+            </tr>
+            <tr>
+                <td>Federal Tax (IRS)</td>
+                <td>Accurate calculation of federal income tax, Social Security, Medicare withholdings</td>
+            </tr>
+            <tr>
+                <td>State Tax</td>
+                <td>Support for all 50 states' income tax calculations and reporting</td>
+            </tr>
+            <tr>
+                <td>FLSA (Fair Labor Standards)</td>
+                <td>Proper overtime calculations, minimum wage compliance</td>
+            </tr>
+            <tr>
+                <td>ACA (Affordable Care Act)</td>
+                <td>Tracking for benefits eligibility based on hours worked</td>
+            </tr>
+            <tr>
+                <td>Data Privacy</td>
+                <td>Protection of SSN, bank details, and other PII</td>
+            </tr>
+            <tr>
+                <td>Record Retention</td>
+                <td>Maintain payroll records for minimum 7 years</td>
+            </tr>
+        </table>
+    </section>
+
+    <div class="page-break"></div>
+
+    <!-- 8. User Stories -->
+    <section class="section">
+        <h2 class="section-title">8. Sample User Stories</h2>
+
+        <div class="user-story">
+            <div class="user-story-id">US-001: Run Payroll</div>
+            <div class="user-story-text">
+                <strong>As a</strong> payroll administrator, <strong>I want to</strong> run payroll for a pay period,
+                <strong>so that</strong> employees are paid accurately and on time.
+            </div>
+            <div class="acceptance-criteria">
+                <strong>Acceptance Criteria:</strong><br>
+                - Can select company and pay period<br>
+                - System calculates gross pay, deductions, and net pay automatically<br>
+                - Preview shows all calculations before processing<br>
+                - Can make adjustments before final submission<br>
+                - Audit trail captures who ran payroll and when
+            </div>
+        </div>
+
+        <div class="user-story">
+            <div class="user-story-id">US-002: Add New Employee</div>
+            <div class="user-story-text">
+                <strong>As an</strong> HR manager, <strong>I want to</strong> onboard a new employee into the payroll system,
+                <strong>so that</strong> they can be paid starting from their first pay period.
+            </div>
+            <div class="acceptance-criteria">
+                <strong>Acceptance Criteria:</strong><br>
+                - Can enter personal info, SSN, employment details<br>
+                - Can set pay type, rate, and schedule<br>
+                - Can configure tax withholdings (W-4 info)<br>
+                - Can add direct deposit information<br>
+                - Employee appears in next payroll run
+            </div>
+        </div>
+
+        <div class="user-story">
+            <div class="user-story-id">US-003: View Pay Stub</div>
+            <div class="user-story-text">
+                <strong>As an</strong> employee, <strong>I want to</strong> view and download my pay stubs,
+                <strong>so that</strong> I can track my earnings and deductions.
+            </div>
+            <div class="acceptance-criteria">
+                <strong>Acceptance Criteria:</strong><br>
+                - Can see list of all pay stubs by date<br>
+                - Can view detailed breakdown: gross, taxes, deductions, net<br>
+                - Can download as PDF<br>
+                - YTD totals displayed<br>
+                - Mobile-friendly interface
+            </div>
+        </div>
+
+        <div class="user-story">
+            <div class="user-story-id">US-004: Generate W-2 Forms</div>
+            <div class="user-story-text">
+                <strong>As a</strong> payroll administrator, <strong>I want to</strong> generate year-end W-2 forms,
+                <strong>so that</strong> employees can file their taxes and the company meets IRS requirements.
+            </div>
+            <div class="acceptance-criteria">
+                <strong>Acceptance Criteria:</strong><br>
+                - System calculates annual totals for all employees<br>
+                - W-2 forms match IRS specifications<br>
+                - Can generate in bulk for all employees<br>
+                - Employees can access via self-service portal<br>
+                - W-3 summary form generated for employer filing
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. Assumptions & Dependencies -->
+    <section class="section">
+        <h2 class="section-title">9. Assumptions & Dependencies</h2>
+
+        <h3 class="subsection-title">Assumptions</h3>
+        <ul>
+            <li>Company has a registered EIN and state tax IDs</li>
+            <li>Employees have valid SSN for tax reporting</li>
+            <li>Direct deposit requires valid bank routing and account numbers</li>
+            <li>Tax tables will be updated annually before January 1</li>
+            <li>Internet connectivity available for cloud-based access</li>
+        </ul>
+
+        <h3 class="subsection-title">Dependencies</h3>
+        <ul>
+            <li>Payment processor integration (ACH/direct deposit)</li>
+            <li>Tax table provider for rate updates</li>
+            <li>Email service for notifications and pay stub delivery</li>
+            <li>PDF generation library for documents</li>
+            <li>Leave/attendance system for time data (optional integration)</li>
+        </ul>
+    </section>
+
+    <!-- 10. Risks -->
+    <section class="section">
+        <h2 class="section-title">10. Risks & Mitigations</h2>
+        <table>
+            <tr>
+                <th>Risk</th>
+                <th>Impact</th>
+                <th>Probability</th>
+                <th>Mitigation</th>
+            </tr>
+            <tr>
+                <td>Tax calculation errors</td>
+                <td>High</td>
+                <td>Medium</td>
+                <td>Use certified tax engine; extensive testing; regular audits</td>
+            </tr>
+            <tr>
+                <td>Payment processing failures</td>
+                <td>High</td>
+                <td>Low</td>
+                <td>Backup payment processor; manual check printing capability</td>
+            </tr>
+            <tr>
+                <td>Data breach (SSN, bank info)</td>
+                <td>High</td>
+                <td>Low</td>
+                <td>Encryption, access controls, security audits, SOC 2 compliance</td>
+            </tr>
+            <tr>
+                <td>Tax table updates missed</td>
+                <td>High</td>
+                <td>Low</td>
+                <td>Automated update system; calendar reminders; vendor SLA</td>
+            </tr>
+            <tr>
+                <td>System downtime during payroll</td>
+                <td>High</td>
+                <td>Low</td>
+                <td>High availability architecture; scheduled maintenance windows</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Approval -->
+    <section class="section">
+        <h2 class="section-title">Document Approval</h2>
+        <table>
+            <tr>
+                <th>Role</th>
+                <th>Name</th>
+                <th>Signature</th>
+                <th>Date</th>
+            </tr>
+            <tr>
+                <td>Product Owner</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Finance Director</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>HR Director</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Engineering Lead</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </section>
+
+    <div class="doc-footer">
+        <p>CONFIDENTIAL - For Internal Use Only</p>
+        <p>Business Requirements Document | Payroll Management System | v1.0</p>
+    </div>
+
+</body>
+</html>

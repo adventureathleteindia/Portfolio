@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Stories Compilation - BA Work Sample</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #334155;
+            --color-primary-dark: #1e293b;
+            --color-primary-light: #f1f5f9;
+            --color-text: #1F2937;
+            --color-text-secondary: #6B7280;
+            --color-bg: #FFFFFF;
+            --color-bg-secondary: #F9FAFB;
+            --color-border: #E5E7EB;
+            --color-success: #10B981;
+            --color-warning: #F59E0B;
+            --color-danger: #EF4444;
+            --color-info: #3B82F6;
+            --color-healthcare: #059669;
+            --color-fintech: #7C3AED;
+            --color-petcare: #F97316;
+            --color-auction: #0891B2;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: var(--color-text);
+            background: var(--color-bg);
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        @media print {
+            body { padding: 20px; max-width: 100%; }
+            .page-break { page-break-before: always; }
+            .no-break { page-break-inside: avoid; }
+        }
+
+        h1, h2, h3, h4 { font-family: 'Montserrat', Arial, sans-serif; }
+
+        /* Document Header */
+        .doc-header {
+            border: 2px solid var(--color-primary);
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .doc-header h1 {
+            font-size: 22pt;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .doc-header .subtitle {
+            font-size: 13pt;
+            color: var(--color-text);
+            margin-bottom: 20px;
+        }
+
+        .doc-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            text-align: left;
+            font-size: 10pt;
+            border-top: 1px solid var(--color-border);
+            padding-top: 20px;
+            margin-top: 10px;
+        }
+
+        .doc-meta-item label {
+            color: var(--color-text-secondary);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .doc-meta-item span {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        /* Section Styling */
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 14pt;
+            font-weight: 600;
+            color: var(--color-primary);
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+        }
+
+        .subsection-title {
+            font-size: 12pt;
+            font-weight: 600;
+            color: var(--color-text);
+            margin: 20px 0 12px 0;
+        }
+
+        /* Domain Badges */
+        .domain-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 9pt;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .domain-healthcare { background: #D1FAE5; color: #065F46; }
+        .domain-fintech { background: #EDE9FE; color: #5B21B6; }
+        .domain-petcare { background: #FFEDD5; color: #C2410C; }
+        .domain-auction { background: #CFFAFE; color: #0E7490; }
+
+        /* Priority Badges */
+        .priority-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 9pt;
+            font-weight: 500;
+        }
+        .priority-high { background: #FEE2E2; color: #991B1B; }
+        .priority-medium { background: #FEF3C7; color: #92400E; }
+        .priority-low { background: #D1FAE5; color: #065F46; }
+
+        /* Story Type Badges */
+        .story-type {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 9pt;
+            font-weight: 500;
+            background: var(--color-primary-light);
+            color: var(--color-primary);
+        }
+        .story-type.epic { background: #FEE2E2; color: #991B1B; }
+        .story-type.feature { background: #DBEAFE; color: #1E40AF; }
+        .story-type.task { background: #E5E7EB; color: #374151; }
+
+        /* User Story Cards */
+        .story-card {
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .story-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .story-id {
+            font-family: 'Montserrat', monospace;
+            font-weight: 600;
+            font-size: 11pt;
+            color: var(--color-primary);
+        }
+
+        .story-meta {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .story-body {
+            padding: 16px;
+        }
+
+        .story-statement {
+            background: var(--color-primary-light);
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            font-size: 10.5pt;
+        }
+
+        .story-statement strong {
+            color: var(--color-primary);
+        }
+
+        .acceptance-criteria {
+            margin-top: 12px;
+        }
+
+        .acceptance-criteria h5 {
+            font-size: 10pt;
+            color: var(--color-text-secondary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .criteria-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .criteria-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 6px;
+            font-size: 10pt;
+        }
+
+        .criteria-list li:before {
+            content: "Given";
+            position: absolute;
+            left: 0;
+            font-weight: 600;
+            color: var(--color-success);
+            font-size: 9pt;
+        }
+
+        .criteria-item {
+            background: var(--color-bg-secondary);
+            padding: 10px 12px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            font-size: 10pt;
+            border-left: 3px solid var(--color-success);
+        }
+
+        .criteria-item .given { color: var(--color-success); font-weight: 600; }
+        .criteria-item .when { color: var(--color-info); font-weight: 600; }
+        .criteria-item .then { color: var(--color-primary); font-weight: 600; }
+
+        /* Story Notes */
+        .story-notes {
+            background: #FFFBEB;
+            border: 1px solid #FCD34D;
+            border-radius: 4px;
+            padding: 10px 12px;
+            margin-top: 12px;
+            font-size: 9.5pt;
+        }
+
+        .story-notes strong {
+            color: #92400E;
+        }
+
+        /* Info Boxes */
+        .info-box {
+            background: var(--color-primary-light);
+            border-left: 4px solid var(--color-primary);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-box h4 {
+            font-size: 11pt;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .info-box ul {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+
+        .info-box li {
+            margin-bottom: 4px;
+            font-size: 10pt;
+        }
+
+        /* Domain Section Headers */
+        .domain-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        .domain-header h3 {
+            font-size: 13pt;
+            color: var(--color-text);
+        }
+
+        /* Effort Estimation */
+        .effort-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 9pt;
+            background: #E5E7EB;
+            color: #374151;
+        }
+
+        /* TOC */
+        .toc {
+            background: var(--color-bg-secondary);
+            padding: 20px 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .toc h3 {
+            font-size: 12pt;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px 20px;
+        }
+
+        .toc-item {
+            font-size: 10pt;
+            color: var(--color-text);
+        }
+
+        .toc-count {
+            color: var(--color-text-secondary);
+            font-size: 9pt;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 10pt;
+        }
+
+        th, td {
+            border: 1px solid var(--color-border);
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        th {
+            background: var(--color-primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: var(--color-bg-secondary);
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--color-border);
+            text-align: center;
+            font-size: 9pt;
+            color: var(--color-text-secondary);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Document Header -->
+    <div class="doc-header">
+        <h1>User Stories Compilation</h1>
+        <div class="subtitle">Business Analyst Work Sample - Multi-Domain Projects</div>
+        <div class="doc-meta">
+            <div class="doc-meta-item">
+                <label>Author</label>
+                <span>Atul Chauhan</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Document Type</label>
+                <span>Work Sample</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Last Updated</label>
+                <span>January 2026</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Total Stories</label>
+                <span>16 User Stories</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Domains</label>
+                <span>4 Industries</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Format</label>
+                <span>Gherkin + Standard</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="toc">
+        <h3>Contents</h3>
+        <div class="toc-grid">
+            <div class="toc-item">1. Introduction & Format <span class="toc-count">(Story writing standards)</span></div>
+            <div class="toc-item">2. Healthcare Stories <span class="toc-count">(4 stories)</span></div>
+            <div class="toc-item">3. Fintech Stories <span class="toc-count">(4 stories)</span></div>
+            <div class="toc-item">4. Pet Care Stories <span class="toc-count">(4 stories)</span></div>
+            <div class="toc-item">5. Vehicle Auction Stories <span class="toc-count">(4 stories)</span></div>
+            <div class="toc-item">6. Story Mapping Overview <span class="toc-count">(Summary table)</span></div>
+        </div>
+    </div>
+
+    <!-- Section 1: Introduction -->
+    <div class="section">
+        <h2 class="section-title">1. Introduction</h2>
+
+        <p>This document showcases user stories from multiple real-world projects across different domains. Each story follows industry best practices with clear acceptance criteria using the Gherkin (Given-When-Then) format.</p>
+
+        <div class="info-box">
+            <h4>Story Format Used</h4>
+            <p><strong>Standard Format:</strong> "As a [role], I want [feature], so that [benefit]"</p>
+            <p><strong>Acceptance Criteria:</strong> Given-When-Then (Gherkin) format for testability</p>
+            <ul>
+                <li><strong>Given</strong> - The precondition or context</li>
+                <li><strong>When</strong> - The action or trigger</li>
+                <li><strong>Then</strong> - The expected outcome</li>
+            </ul>
+        </div>
+
+        <h3 class="subsection-title">Story Types</h3>
+        <table>
+            <tr>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Scope</th>
+            </tr>
+            <tr>
+                <td><span class="story-type epic">Epic</span></td>
+                <td>Large feature that spans multiple sprints</td>
+                <td>Multiple user stories</td>
+            </tr>
+            <tr>
+                <td><span class="story-type feature">Feature</span></td>
+                <td>Deliverable functionality</td>
+                <td>1-2 sprints</td>
+            </tr>
+            <tr>
+                <td><span class="story-type task">Task</span></td>
+                <td>Specific implementation item</td>
+                <td>Within a sprint</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Section 2: Healthcare Stories -->
+    <div class="section">
+        <div class="domain-header">
+            <span class="domain-badge domain-healthcare">Healthcare</span>
+            <h3>Remote Patient Monitoring Platform</h3>
+        </div>
+
+        <!-- Story 1 -->
+        <div class="story-card no-break">
+            <div class="story-header">
+                <span class="story-id">RPM-101</span>
+                <div class="story-meta">
+                    <span class="story-type feature">Feature</span>
+                    <span class="priority-badge priority-high">High</span>
+                    <span class="effort-badge">8 pts</span>
+                </div>
+            </div>
+            <div class="story-body">
+                <div class="story-statement">
+                    <strong>As a</strong> patient with a chronic condition,<br>
+                    <strong>I want to</strong> record my daily vital signs through my mobile device,<br>
+                    <strong>So that</strong> my healthcare provider can monitor my health remotely and detect issues early.
+                </div>
+                <div class="acceptance-criteria">
+                    <h5>Acceptance Criteria</h5>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> the patient is logged into the mobile app<br>
+                        <span class="when">When</span> they navigate to "Record Vitals"<br>
+                        <span class="then">Then</span> they see input fields for blood pressure (systolic/diastolic), heart rate, blood glucose, weight, and oxygen saturation
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> the patient enters vital readings<br>
+                        <span class="when">When</span> they submit the form<br>
+                        <span class="then">Then</span> readings are validated against acceptable ranges and stored with timestamp
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> a reading falls outside normal range<br>
+                        <span class="when">When</span> the submission completes<br>
+                        <span class="then">Then</span> an alert is generated for the assigned care team
+                    </div>
+                </div>
+                <div class="story-notes">
+                    <strong>Note:</strong> HIPAA compliance required - all data must be encrypted at rest and in transit. Audit logging enabled for all vital submissions.
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 2 -->
+        <div class="story-card no-break">
+            <div class="story-header">
+                <span class="story-id">RPM-102</span>
+                <div class="story-meta">
+                    <span class="story-type feature">Feature</span>
+                    <span class="priority-badge priority-high">High</span>
+                    <span class="effort-badge">13 pts</span>
+                </div>
+            </div>
+            <div class="story-body">
+                <div class="story-statement">
+                    <strong>As a</strong> care coordinator,<br>
+                    <strong>I want to</strong> view a dashboard of all my assigned patients with their latest vital trends,<br>
+                    <strong>So that</strong> I can quickly identify patients who need immediate attention.
+                </div>
+                <div class="acceptance-criteria">
+                    <h5>Acceptance Criteria</h5>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> the care coordinator is logged in<br>
+                        <span class="when">When</span> they access the patient dashboard<br>
+                        <span class="then">Then</span> they see a list of all assigned patients with status indicators (normal/warning/critical)
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> a patient has readings in critical range<br>
+                        <span class="when">When</span> dashboard loads<br>
+                        <span class="then">Then</span> that patient appears at the top with red indicator and time since last critical reading
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> dashboard is displaying<br>
+                        <span class="when">When</span> coordinator clicks on a patient row<br>
+                        <span class="then">Then</span> detailed vital history with 7-day trend graphs is displayed
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 3 -->
+        <div class="story-card no-break">
+            <div class="story-header">
+                <span class="story-id">RPM-103</span>
+                <div class="story-meta">
+                    <span class="story-type feature">Feature</span>
+                    <span class="priority-badge priority-medium">Medium</span>
+                    <span class="effort-badge">5 pts</span>
+                </div>
+            </div>
+            <div class="story-body">
+                <div class="story-statement">
+                    <strong>As a</strong> physician,<br>
+                    <strong>I want to</strong> set custom threshold ranges for individual patients,<br>
+                    <strong>So that</strong> alerts are triggered based on each patient's specific health condition and history.
+                </div>
+                <div class="acceptance-criteria">
+                    <h5>Acceptance Criteria</h5>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> a physician has a patient assigned<br>
+                        <span class="when">When</span> they access patient settings<br>
+                        <span class="then">Then</span> they can modify alert thresholds for each vital type
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> custom thresholds are saved<br>
+                        <span class="when">When</span> patient submits new vitals<br>
+                        <span class="then">Then</span> system evaluates against custom thresholds, not default values
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> thresholds are modified<br>
+                        <span class="when">When</span> saved successfully<br>
+                        <span class="then">Then</span> change is logged with physician ID, timestamp, and previous values
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 4 -->
+        <div class="story-card no-break">
+            <div class="story-header">
+                <span class="story-id">RPM-104</span>
+                <div class="story-meta">
+                    <span class="story-type task">Task</span>
+                    <span class="priority-badge priority-medium">Medium</span>
+                    <span class="effort-badge">3 pts</span>
+                </div>
+            </div>
+            <div class="story-body">
+                <div class="story-statement">
+                    <strong>As a</strong> patient,<br>
+                    <strong>I want to</strong> receive medication reminders at scheduled times,<br>
+                    <strong>So that</strong> I maintain adherence to my prescribed treatment plan.
+                </div>
+                <div class="acceptance-criteria">
+                    <h5>Acceptance Criteria</h5>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> a medication schedule is configured<br>
+                        <span class="when">When</span> reminder time arrives<br>
+                        <span class="then">Then</span> push notification is sent with medication name and dosage
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> patient receives reminder<br>
+                        <span class="when">When</span> they tap "Mark as Taken"<br>
+                        <span class="then">Then</span> adherence record is logged with timestamp
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> patient misses a dose (no action within 30 min)<br>
+                        <span class="when">When</span> follow-up time elapses<br>
+                        <span class="then">Then</span> missed dose is recorded and care team notified if pattern detected
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Section 3: Fintech Stories -->
+    <div class="section">
+        <div class="domain-header">
+            <span class="domain-badge domain-fintech">Fintech</span>
+            <h3>Payroll Management System</h3>
+        </div>
+
+        <!-- Story 1 -->
+        <div class="story-card no-break">
+            <div class="story-header">
+                <span class="story-id">PAY-201</span>
+                <div class="story-meta">
+                    <span class="story-type epic">Epic</span>
+                    <span class="priority-badge priority-high">High</span>
+                    <span class="effort-badge">21 pts</span>
+                </div>
+            </div>
+            <div class="story-body">
+                <div class="story-statement">
+                    <strong>As a</strong> payroll administrator,<br>
+                    <strong>I want to</strong> run end-to-end payroll processing for all employees,<br>
+                    <strong>So that</strong> salaries are calculated accurately with all deductions and paid on time.
+                </div>
+                <div class="acceptance-criteria">
+                    <h5>Acceptance Criteria</h5>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> it's the payroll processing date<br>
+                        <span class="when">When</span> admin initiates payroll run<br>
+                        <span class="then">Then</span> system calculates gross pay, deductions (tax, insurance, retirement), and net pay for all active employees
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> payroll is calculated<br>
+                        <span class="when">When</span> admin reviews and approves<br>
+                        <span class="then">Then</span> payment file is generated in bank-compatible format
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> payroll is processed<br>
+                        <span class="when">When</span> processing completes<br>
+                        <span class="then">Then</span> pay stubs are generated and accessible to employees via self-service portal
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 2 -->
+        <div class="story-card no-break">
+            <div class="story-header">
+                <span class="story-id">PAY-202</span>
+                <div class="story-meta">
+                    <span class="story-type feature">Feature</span>
+                    <span class="priority-badge priority-high">High</span>
+                    <span class="effort-badge">8 pts</span>
+                </div>
+            </div>
+            <div class="story-body">
+                <div class="story-statement">
+                    <strong>As an</strong> employee,<br>
+                    <strong>I want to</strong> view my salary breakdown and download pay slips,<br>
+                    <strong>So that</strong> I can track my earnings and have records for tax filing.
+                </div>
+                <div class="acceptance-criteria">
+                    <h5>Acceptance Criteria</h5>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> employee is logged into self-service portal<br>
+                        <span class="when">When</span> they navigate to "My Pay"<br>
+                        <span class="then">Then</span> they see current month salary breakdown: basic, allowances, deductions, net pay
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> employee is viewing pay history<br>
+                        <span class="when">When</span> they click "Download" on any month<br>
+                        <span class="then">Then</span> PDF pay slip is downloaded with company letterhead
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> employee accesses portal<br>
+                        <span class="when">When</span> they select date range<br>
+                        <span class="then">Then</span> they can download consolidated salary statement for specified period
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 3 -->
+        <div class="story-card no-break">
+            <div class="story-header">
+                <span class="story-id">PAY-203</span>
+                <div class="story-meta">
+                    <span class="story-type feature">Feature</span>
+                    <span class="priority-badge priority-medium">Medium</span>
+                    <span class="effort-badge">5 pts</span>
+                </div>
+            </div>
+            <div class="story-body">
+                <div class="story-statement">
+                    <strong>As an</strong> HR manager,<br>
+                    <strong>I want to</strong> configure salary structures with multiple components,<br>
+                    <strong>So that</strong> different employee grades have appropriate pay structures.
+                </div>
+                <div class="acceptance-criteria">
+                    <h5>Acceptance Criteria</h5>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> HR manager has admin access<br>
+                        <span class="when">When</span> they create a new salary structure<br>
+                        <span class="then">Then</span> they can define components: basic, HRA, special allowance, conveyance, medical
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> salary structure is created<br>
+                        <span class="when">When</span> they assign it to employee grade<br>
+                        <span class="then">Then</span> all employees in that grade inherit the structure
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> existing structure is modified<br>
+                        <span class="when">When</span> changes are saved<br>
+                        <span class="then">Then</span> system prompts for effective date and applies to future payroll only
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 4 -->
+        <div class="story-card no-break">
+            <div class="story-header">
+                <span class="story-id">PAY-204</span>
+                <div class="story-meta">
+                    <span class="story-type task">Task</span>
+                    <span class="priority-badge priority-low">Low</span>
+                    <span class="effort-badge">3 pts</span>
+                </div>
+            </div>
+            <div class="story-body">
+                <div class="story-statement">
+                    <strong>As a</strong> finance controller,<br>
+                    <strong>I want to</strong> generate statutory compliance reports,<br>
+                    <strong>So that</strong> we can file tax returns and meet regulatory requirements.
+                </div>
+                <div class="acceptance-criteria">
+                    <h5>Acceptance Criteria</h5>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> controller selects report type (TDS, PF, ESI)<br>
+                        <span class="when">When</span> they specify reporting period<br>
+                        <span class="then">Then</span> system generates report in government-mandated format
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> report is generated<br>
+                        <span class="when">When</span> exported<br>
+                        <span class="then">Then</span> file format matches regulatory filing requirements (e.g., Form 24Q format)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Section 4: Pet Care Stories -->
+    <div class="section">
+        <div class="domain-header">
+            <span class="domain-badge domain-petcare">Pet Care</span>
+            <h3>Pet Day-Care Management Platform</h3>
+        </div>
+
+        <!-- Story 1 -->
+        <div class="story-card no-break">
+            <div class="story-header">
+                <span class="story-id">PET-301</span>
+                <div class="story-meta">
+                    <span class="story-type feature">Feature</span>
+                    <span class="priority-badge priority-high">High</span>
+                    <span class="effort-badge">8 pts</span>
+                </div>
+            </div>
+            <div class="story-body">
+                <div class="story-statement">
+                    <strong>As a</strong> pet owner,<br>
+                    <strong>I want to</strong> book day-care slots for my pet online,<br>
+                    <strong>So that</strong> I can secure a spot without calling the facility.
+                </div>
+                <div class="acceptance-criteria">
+                    <h5>Acceptance Criteria</h5>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> pet owner is registered and logged in<br>
+                        <span class="when">When</span> they navigate to booking calendar<br>
+                        <span class="then">Then</span> available slots are shown with real-time capacity status
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> owner selects date and service type<br>
+                        <span class="when">When</span> they confirm booking<br>
+                        <span class="then">Then</span> slot is reserved and confirmation email sent with booking details
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> facility is at capacity<br>
+                        <span class="when">When</span> owner tries to book<br>
+                        <span class="then">Then</span> they see "Fully Booked" and option to join waitlist
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 2 -->
+        <div class="story-card no-break">
+            <div class="story-header">
+                <span class="story-id">PET-302</span>
+                <div class="story-meta">
+                    <span class="story-type feature">Feature</span>
+                    <span class="priority-badge priority-medium">Medium</span>
+                    <span class="effort-badge">5 pts</span>
+                </div>
+            </div>
+            <div class="story-body">
+                <div class="story-statement">
+                    <strong>As a</strong> facility staff member,<br>
+                    <strong>I want to</strong> log daily activities and notes for each pet,<br>
+                    <strong>So that</strong> owners receive updates about their pet's day.
+                </div>
+                <div class="acceptance-criteria">
+                    <h5>Acceptance Criteria</h5>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> staff member has pet checked in<br>
+                        <span class="when">When</span> they access pet's daily log<br>
+                        <span class="then">Then</span> they can record: feeding times, play activities, bathroom breaks, mood/behavior
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> activity is logged<br>
+                        <span class="when">When</span> staff adds photo<br>
+                        <span class="then">Then</span> photo is attached to activity entry with timestamp
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> pet's day is complete<br>
+                        <span class="when">When</span> owner is notified<br>
+                        <span class="then">Then</span> they receive summary report card with all activities and photos
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 3 -->
+        <div class="story-card no-break">
+            <div class="story-header">
+                <span class="story-id">PET-303</span>
+                <div class="story-meta">
+                    <span class="story-type feature">Feature</span>
+                    <span class="priority-badge priority-high">High</span>
+                    <span class="effort-badge">5 pts</span>
+                </div>
+            </div>
+            <div class="story-body">
+                <div class="story-statement">
+                    <strong>As a</strong> facility manager,<br>
+                    <strong>I want to</strong> maintain vaccination records for all pets,<br>
+                    <strong>So that</strong> we ensure only vaccinated pets are admitted, protecting all animals.
+                </div>
+                <div class="acceptance-criteria">
+                    <h5>Acceptance Criteria</h5>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> new pet is being registered<br>
+                        <span class="when">When</span> owner uploads vaccination documents<br>
+                        <span class="then">Then</span> system stores documents and extracts vaccination dates
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> vaccination is nearing expiry (30 days)<br>
+                        <span class="when">When</span> system runs daily check<br>
+                        <span class="then">Then</span> automated reminder is sent to pet owner
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> pet has expired vaccinations<br>
+                        <span class="when">When</span> owner tries to book<br>
+                        <span class="then">Then</span> booking is blocked with message to update vaccination records
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 4 -->
+        <div class="story-card no-break">
+            <div class="story-header">
+                <span class="story-id">PET-304</span>
+                <div class="story-meta">
+                    <span class="story-type task">Task</span>
+                    <span class="priority-badge priority-low">Low</span>
+                    <span class="effort-badge">3 pts</span>
+                </div>
+            </div>
+            <div class="story-body">
+                <div class="story-statement">
+                    <strong>As a</strong> pet owner,<br>
+                    <strong>I want to</strong> view live camera feed of the play area,<br>
+                    <strong>So that</strong> I can check on my pet during the day.
+                </div>
+                <div class="acceptance-criteria">
+                    <h5>Acceptance Criteria</h5>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> owner has active booking for the day<br>
+                        <span class="when">When</span> they access "Live View"<br>
+                        <span class="then">Then</span> they see live stream from designated camera(s)
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> owner has no active booking<br>
+                        <span class="when">When</span> they try to access live view<br>
+                        <span class="then">Then</span> access is denied with message "Available only during your pet's stay"
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Section 5: Vehicle Auction Stories -->
+    <div class="section">
+        <div class="domain-header">
+            <span class="domain-badge domain-auction">Marketplace</span>
+            <h3>Vehicle Auction Platform</h3>
+        </div>
+
+        <!-- Story 1 -->
+        <div class="story-card no-break">
+            <div class="story-header">
+                <span class="story-id">AUC-401</span>
+                <div class="story-meta">
+                    <span class="story-type epic">Epic</span>
+                    <span class="priority-badge priority-high">High</span>
+                    <span class="effort-badge">13 pts</span>
+                </div>
+            </div>
+            <div class="story-body">
+                <div class="story-statement">
+                    <strong>As a</strong> dealer,<br>
+                    <strong>I want to</strong> list my vehicle for auction with detailed specifications,<br>
+                    <strong>So that</strong> potential buyers have complete information to make bidding decisions.
+                </div>
+                <div class="acceptance-criteria">
+                    <h5>Acceptance Criteria</h5>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> dealer is verified and logged in<br>
+                        <span class="when">When</span> they initiate new listing<br>
+                        <span class="then">Then</span> they can enter: make, model, year, mileage, condition, VIN, and upload up to 20 photos
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> dealer sets auction parameters<br>
+                        <span class="when">When</span> they configure listing<br>
+                        <span class="then">Then</span> they specify: reserve price (optional), starting bid, auction duration, and buy-now price (optional)
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> listing is submitted<br>
+                        <span class="when">When</span> approved by admin<br>
+                        <span class="then">Then</span> vehicle appears in auction catalog at scheduled start time
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 2 -->
+        <div class="story-card no-break">
+            <div class="story-header">
+                <span class="story-id">AUC-402</span>
+                <div class="story-meta">
+                    <span class="story-type feature">Feature</span>
+                    <span class="priority-badge priority-high">High</span>
+                    <span class="effort-badge">8 pts</span>
+                </div>
+            </div>
+            <div class="story-body">
+                <div class="story-statement">
+                    <strong>As a</strong> buyer,<br>
+                    <strong>I want to</strong> place bids on vehicles in real-time,<br>
+                    <strong>So that</strong> I can compete for vehicles I'm interested in purchasing.
+                </div>
+                <div class="acceptance-criteria">
+                    <h5>Acceptance Criteria</h5>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> buyer is viewing active auction<br>
+                        <span class="when">When</span> they enter bid amount above current bid + minimum increment<br>
+                        <span class="then">Then</span> bid is recorded and displayed to all participants in real-time
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> buyer places a bid<br>
+                        <span class="when">When</span> another bidder outbids them<br>
+                        <span class="then">Then</span> they receive instant notification via app and email
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> bid is placed in final 2 minutes<br>
+                        <span class="when">When</span> timer updates<br>
+                        <span class="then">Then</span> auction extends by 2 minutes to prevent sniping
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 3 -->
+        <div class="story-card no-break">
+            <div class="story-header">
+                <span class="story-id">AUC-403</span>
+                <div class="story-meta">
+                    <span class="story-type feature">Feature</span>
+                    <span class="priority-badge priority-medium">Medium</span>
+                    <span class="effort-badge">5 pts</span>
+                </div>
+            </div>
+            <div class="story-body">
+                <div class="story-statement">
+                    <strong>As a</strong> buyer,<br>
+                    <strong>I want to</strong> set up automatic bidding with a maximum limit,<br>
+                    <strong>So that</strong> the system bids on my behalf without exceeding my budget.
+                </div>
+                <div class="acceptance-criteria">
+                    <h5>Acceptance Criteria</h5>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> buyer wants to enable auto-bid<br>
+                        <span class="when">When</span> they set maximum bid amount<br>
+                        <span class="then">Then</span> system places minimum increment bids automatically when outbid
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> competing bid exceeds buyer's max limit<br>
+                        <span class="when">When</span> auto-bid cannot match<br>
+                        <span class="then">Then</span> buyer is notified their auto-bid limit was exceeded
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> two auto-bidders compete<br>
+                        <span class="when">When</span> bids are processed<br>
+                        <span class="then">Then</span> system resolves to winner's max at one increment above loser's max
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 4 -->
+        <div class="story-card no-break">
+            <div class="story-header">
+                <span class="story-id">AUC-404</span>
+                <div class="story-meta">
+                    <span class="story-type task">Task</span>
+                    <span class="priority-badge priority-medium">Medium</span>
+                    <span class="effort-badge">5 pts</span>
+                </div>
+            </div>
+            <div class="story-body">
+                <div class="story-statement">
+                    <strong>As a</strong> platform administrator,<br>
+                    <strong>I want to</strong> generate auction settlement reports,<br>
+                    <strong>So that</strong> financial transactions between buyers and sellers are properly documented.
+                </div>
+                <div class="acceptance-criteria">
+                    <h5>Acceptance Criteria</h5>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> auction has ended with winning bid<br>
+                        <span class="when">When</span> admin generates settlement<br>
+                        <span class="then">Then</span> report shows: final price, buyer fee, seller fee, platform commission
+                    </div>
+                    <div class="criteria-item">
+                        <span class="given">Given</span> settlement report is finalized<br>
+                        <span class="when">When</span> exported<br>
+                        <span class="then">Then</span> invoices are automatically generated for buyer and seller
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Section 6: Summary Table -->
+    <div class="section">
+        <h2 class="section-title">6. Story Mapping Overview</h2>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Domain</th>
+                <th>Story Summary</th>
+                <th>Type</th>
+                <th>Priority</th>
+                <th>Points</th>
+            </tr>
+            <tr>
+                <td><strong>RPM-101</strong></td>
+                <td><span class="domain-badge domain-healthcare">Healthcare</span></td>
+                <td>Patient vital signs recording</td>
+                <td><span class="story-type feature">Feature</span></td>
+                <td><span class="priority-badge priority-high">High</span></td>
+                <td>8</td>
+            </tr>
+            <tr>
+                <td><strong>RPM-102</strong></td>
+                <td><span class="domain-badge domain-healthcare">Healthcare</span></td>
+                <td>Care coordinator patient dashboard</td>
+                <td><span class="story-type feature">Feature</span></td>
+                <td><span class="priority-badge priority-high">High</span></td>
+                <td>13</td>
+            </tr>
+            <tr>
+                <td><strong>RPM-103</strong></td>
+                <td><span class="domain-badge domain-healthcare">Healthcare</span></td>
+                <td>Custom threshold configuration</td>
+                <td><span class="story-type feature">Feature</span></td>
+                <td><span class="priority-badge priority-medium">Medium</span></td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td><strong>RPM-104</strong></td>
+                <td><span class="domain-badge domain-healthcare">Healthcare</span></td>
+                <td>Medication reminders</td>
+                <td><span class="story-type task">Task</span></td>
+                <td><span class="priority-badge priority-medium">Medium</span></td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td><strong>PAY-201</strong></td>
+                <td><span class="domain-badge domain-fintech">Fintech</span></td>
+                <td>End-to-end payroll processing</td>
+                <td><span class="story-type epic">Epic</span></td>
+                <td><span class="priority-badge priority-high">High</span></td>
+                <td>21</td>
+            </tr>
+            <tr>
+                <td><strong>PAY-202</strong></td>
+                <td><span class="domain-badge domain-fintech">Fintech</span></td>
+                <td>Employee pay slip access</td>
+                <td><span class="story-type feature">Feature</span></td>
+                <td><span class="priority-badge priority-high">High</span></td>
+                <td>8</td>
+            </tr>
+            <tr>
+                <td><strong>PAY-203</strong></td>
+                <td><span class="domain-badge domain-fintech">Fintech</span></td>
+                <td>Salary structure configuration</td>
+                <td><span class="story-type feature">Feature</span></td>
+                <td><span class="priority-badge priority-medium">Medium</span></td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td><strong>PAY-204</strong></td>
+                <td><span class="domain-badge domain-fintech">Fintech</span></td>
+                <td>Statutory compliance reports</td>
+                <td><span class="story-type task">Task</span></td>
+                <td><span class="priority-badge priority-low">Low</span></td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td><strong>PET-301</strong></td>
+                <td><span class="domain-badge domain-petcare">Pet Care</span></td>
+                <td>Online day-care booking</td>
+                <td><span class="story-type feature">Feature</span></td>
+                <td><span class="priority-badge priority-high">High</span></td>
+                <td>8</td>
+            </tr>
+            <tr>
+                <td><strong>PET-302</strong></td>
+                <td><span class="domain-badge domain-petcare">Pet Care</span></td>
+                <td>Daily activity logging</td>
+                <td><span class="story-type feature">Feature</span></td>
+                <td><span class="priority-badge priority-medium">Medium</span></td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td><strong>PET-303</strong></td>
+                <td><span class="domain-badge domain-petcare">Pet Care</span></td>
+                <td>Vaccination record management</td>
+                <td><span class="story-type feature">Feature</span></td>
+                <td><span class="priority-badge priority-high">High</span></td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td><strong>PET-304</strong></td>
+                <td><span class="domain-badge domain-petcare">Pet Care</span></td>
+                <td>Live camera feed access</td>
+                <td><span class="story-type task">Task</span></td>
+                <td><span class="priority-badge priority-low">Low</span></td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td><strong>AUC-401</strong></td>
+                <td><span class="domain-badge domain-auction">Marketplace</span></td>
+                <td>Vehicle auction listing</td>
+                <td><span class="story-type epic">Epic</span></td>
+                <td><span class="priority-badge priority-high">High</span></td>
+                <td>13</td>
+            </tr>
+            <tr>
+                <td><strong>AUC-402</strong></td>
+                <td><span class="domain-badge domain-auction">Marketplace</span></td>
+                <td>Real-time bidding</td>
+                <td><span class="story-type feature">Feature</span></td>
+                <td><span class="priority-badge priority-high">High</span></td>
+                <td>8</td>
+            </tr>
+            <tr>
+                <td><strong>AUC-403</strong></td>
+                <td><span class="domain-badge domain-auction">Marketplace</span></td>
+                <td>Automatic bidding</td>
+                <td><span class="story-type feature">Feature</span></td>
+                <td><span class="priority-badge priority-medium">Medium</span></td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td><strong>AUC-404</strong></td>
+                <td><span class="domain-badge domain-auction">Marketplace</span></td>
+                <td>Auction settlement reports</td>
+                <td><span class="story-type task">Task</span></td>
+                <td><span class="priority-badge priority-medium">Medium</span></td>
+                <td>5</td>
+            </tr>
+        </table>
+
+        <div class="info-box">
+            <h4>Story Point Summary</h4>
+            <ul>
+                <li><strong>Healthcare (RPM):</strong> 29 points across 4 stories</li>
+                <li><strong>Fintech (Payroll):</strong> 37 points across 4 stories</li>
+                <li><strong>Pet Care:</strong> 21 points across 4 stories</li>
+                <li><strong>Vehicle Auction:</strong> 31 points across 4 stories</li>
+                <li><strong>Total:</strong> 118 points across 16 stories (3 Epics, 10 Features, 3 Tasks)</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="doc-footer">
+        <p><strong>Atul Chauhan</strong> | Business Analyst</p>
+        <p>This document demonstrates user story writing capabilities across multiple industry domains.</p>
+        <p>All stories follow standard Agile/Scrum practices with Gherkin acceptance criteria.</p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRD Sample - Remote Patient Monitoring</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #334155;
+            --color-primary-dark: #1e293b;
+            --color-primary-light: #f1f5f9;
+            --color-text: #1F2937;
+            --color-text-secondary: #6B7280;
+            --color-bg: #FFFFFF;
+            --color-bg-secondary: #F3F4F6;
+            --color-border: #E5E7EB;
+            --color-success: #10B981;
+            --color-warning: #F59E0B;
+            --color-error: #EF4444;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: var(--color-text);
+            background: var(--color-bg);
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; color: var(--color-primary); }
+        h1 { font-size: 24pt; margin-bottom: 8px; }
+        h2 { font-size: 16pt; margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 2px solid var(--color-primary); }
+        h3 { font-size: 13pt; margin: 20px 0 10px; }
+        h4 { font-size: 11pt; margin: 15px 0 8px; color: var(--color-text); }
+
+        .doc-header {
+            border-bottom: 3px solid var(--color-primary);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .doc-meta {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 10pt;
+        }
+
+        .doc-meta-item { display: flex; gap: 8px; }
+        .doc-meta-item label { color: var(--color-text-secondary); min-width: 80px; }
+        .doc-meta-item span { font-weight: 500; }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 9pt;
+            font-weight: 600;
+        }
+        .badge-hipaa { background: #DCFCE7; color: #166534; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 10pt;
+        }
+
+        th, td {
+            border: 1px solid var(--color-border);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: var(--color-primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) { background: var(--color-bg-secondary); }
+
+        .req-id {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: var(--color-primary);
+            white-space: nowrap;
+        }
+
+        .priority-high { color: #DC2626; font-weight: 600; }
+        .priority-medium { color: #D97706; font-weight: 600; }
+        .priority-low { color: #059669; font-weight: 600; }
+
+        .info-box {
+            background: var(--color-bg-secondary);
+            border-left: 4px solid var(--color-primary);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .use-case {
+            background: var(--color-bg-secondary);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .use-case-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .use-case-id {
+            font-family: 'Courier New', monospace;
+            background: var(--color-primary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 10pt;
+        }
+
+        .use-case h4 { margin: 0; }
+
+        .use-case-body { font-size: 10pt; }
+        .use-case-body dt { font-weight: 600; color: var(--color-primary); margin-top: 10px; }
+        .use-case-body dd { margin-left: 0; margin-top: 4px; }
+
+        .steps-list {
+            list-style: none;
+            counter-reset: step-counter;
+            padding: 0;
+        }
+
+        .steps-list li {
+            counter-increment: step-counter;
+            padding: 8px 0 8px 35px;
+            position: relative;
+            border-bottom: 1px dashed var(--color-border);
+        }
+
+        .steps-list li:last-child { border-bottom: none; }
+
+        .steps-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 24px;
+            height: 24px;
+            background: var(--color-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10pt;
+            font-weight: 600;
+        }
+
+        .business-rule {
+            background: #FEF3C7;
+            border-left: 4px solid #F59E0B;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 10pt;
+        }
+
+        .business-rule strong { color: #92400E; }
+
+        .data-entity {
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .data-entity-header {
+            background: var(--color-primary-light);
+            padding: 10px 15px;
+            font-weight: 600;
+            color: var(--color-primary);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .data-entity table { margin: 0; }
+        .data-entity th { background: var(--color-bg-secondary); color: var(--color-text); }
+
+        .doc-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid var(--color-border);
+            text-align: center;
+            font-size: 10pt;
+            color: var(--color-text-secondary);
+        }
+
+        @media print {
+            body { padding: 20px; }
+            .use-case, .info-box { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="doc-header">
+        <h1>Functional Requirements Document (FRD)</h1>
+        <p style="font-size: 14pt; color: var(--color-text-secondary);">Remote Patient Monitoring Platform</p>
+        <span class="badge badge-hipaa">HIPAA Compliant</span>
+
+        <div class="doc-meta">
+            <div class="doc-meta-item">
+                <label>Document ID:</label>
+                <span>FRD-RPM-2024-001</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Version:</label>
+                <span>1.0</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Author:</label>
+                <span>Atul Chauhan</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Status:</label>
+                <span>Approved</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Date:</label>
+                <span>January 2026</span>
+            </div>
+            <div class="doc-meta-item">
+                <label>Classification:</label>
+                <span>Work Sample</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 1: Introduction -->
+    <h2>1. Introduction</h2>
+
+    <h3>1.1 Purpose</h3>
+    <p>
+        This Functional Requirements Document (FRD) defines the detailed functional specifications for the
+        Remote Patient Monitoring (RPM) Platform. It describes the system behaviors, use cases, business rules,
+        and data requirements that the development team must implement.
+    </p>
+
+    <h3>1.2 Scope</h3>
+    <p>
+        This FRD covers the Patient Vitals Recording module, including device integration, data validation,
+        alert generation, and clinical review workflows. It complements the Business Requirements Document (BRD)
+        and Product Requirements Document (PRD) for this project.
+    </p>
+
+    <h3>1.3 References</h3>
+    <table>
+        <tr>
+            <th style="width: 30%;">Document</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>BRD-RPM-2024-001</td>
+            <td>Business Requirements Document - RPM Platform</td>
+        </tr>
+        <tr>
+            <td>PRD-RPM-2024-001</td>
+            <td>Product Requirements Document - RPM Platform</td>
+        </tr>
+        <tr>
+            <td>HIPAA Security Rule</td>
+            <td>45 CFR Part 164 - Security Standards</td>
+        </tr>
+    </table>
+
+    <!-- Section 2: Functional Requirements -->
+    <h2>2. Functional Requirements</h2>
+
+    <h3>2.1 Patient Vitals Recording (FR-VIT)</h3>
+
+    <table>
+        <tr>
+            <th style="width: 12%;">Req ID</th>
+            <th style="width: 40%;">Requirement</th>
+            <th style="width: 33%;">Acceptance Criteria</th>
+            <th style="width: 15%;">Priority</th>
+        </tr>
+        <tr>
+            <td class="req-id">FR-VIT-001</td>
+            <td>System shall receive vital readings from BLE-connected medical devices (BP monitor, pulse oximeter, glucometer)</td>
+            <td>Device data received within 5 seconds of transmission; all readings stored with timestamp</td>
+            <td class="priority-high">High</td>
+        </tr>
+        <tr>
+            <td class="req-id">FR-VIT-002</td>
+            <td>System shall validate vital readings against clinically acceptable ranges before storage</td>
+            <td>Out-of-range values flagged; validation rules configurable per vital type</td>
+            <td class="priority-high">High</td>
+        </tr>
+        <tr>
+            <td class="req-id">FR-VIT-003</td>
+            <td>System shall allow manual entry of vital readings with mandatory timestamp</td>
+            <td>Manual entries marked with "Manual" source flag; requires patient confirmation</td>
+            <td class="priority-medium">Medium</td>
+        </tr>
+        <tr>
+            <td class="req-id">FR-VIT-004</td>
+            <td>System shall display vital trends in graphical format (7-day, 30-day, 90-day views)</td>
+            <td>Charts render within 2 seconds; support zoom and pan interactions</td>
+            <td class="priority-medium">Medium</td>
+        </tr>
+        <tr>
+            <td class="req-id">FR-VIT-005</td>
+            <td>System shall generate alerts when vitals exceed patient-specific thresholds</td>
+            <td>Alerts generated within 30 seconds; notification sent to assigned clinician</td>
+            <td class="priority-high">High</td>
+        </tr>
+    </table>
+
+    <h3>2.2 Clinical Review Workflow (FR-REV)</h3>
+
+    <table>
+        <tr>
+            <th style="width: 12%;">Req ID</th>
+            <th style="width: 40%;">Requirement</th>
+            <th style="width: 33%;">Acceptance Criteria</th>
+            <th style="width: 15%;">Priority</th>
+        </tr>
+        <tr>
+            <td class="req-id">FR-REV-001</td>
+            <td>System shall present daily patient queue sorted by alert priority (Critical > High > Medium > Low)</td>
+            <td>Queue refreshes every 60 seconds; supports manual refresh</td>
+            <td class="priority-high">High</td>
+        </tr>
+        <tr>
+            <td class="req-id">FR-REV-002</td>
+            <td>System shall display patient summary card with latest vitals, trends, and alert history</td>
+            <td>Summary loads within 3 seconds; shows last 7 days of readings</td>
+            <td class="priority-high">High</td>
+        </tr>
+        <tr>
+            <td class="req-id">FR-REV-003</td>
+            <td>System shall allow clinician to document review notes with structured templates</td>
+            <td>Templates include: Assessment, Plan, Follow-up; auto-save every 30 seconds</td>
+            <td class="priority-medium">Medium</td>
+        </tr>
+        <tr>
+            <td class="req-id">FR-REV-004</td>
+            <td>System shall track time spent on each patient review for CPT billing</td>
+            <td>Timer starts on patient card open; pauses on inactivity > 2 minutes</td>
+            <td class="priority-high">High</td>
+        </tr>
+        <tr>
+            <td class="req-id">FR-REV-005</td>
+            <td>System shall require clinician sign-off to complete review</td>
+            <td>Digital signature captured; timestamp recorded; review locked after sign-off</td>
+            <td class="priority-high">High</td>
+        </tr>
+    </table>
+
+    <!-- Section 3: Use Cases -->
+    <h2>3. Use Cases</h2>
+
+    <div class="use-case">
+        <div class="use-case-header">
+            <h4>Record Patient Vitals via BLE Device</h4>
+            <span class="use-case-id">UC-VIT-001</span>
+        </div>
+        <div class="use-case-body">
+            <dl>
+                <dt>Actor</dt>
+                <dd>Patient</dd>
+
+                <dt>Preconditions</dt>
+                <dd>Patient has registered BLE device paired with mobile app; Patient is enrolled in RPM program</dd>
+
+                <dt>Main Flow</dt>
+                <dd>
+                    <ol class="steps-list">
+                        <li>Patient opens RPM mobile app and navigates to "Record Vitals"</li>
+                        <li>System displays list of paired devices with connection status</li>
+                        <li>Patient selects device (e.g., Blood Pressure Monitor) and taps "Start Reading"</li>
+                        <li>System initiates BLE connection and displays "Connecting..." status</li>
+                        <li>Patient takes measurement using the physical device</li>
+                        <li>Device transmits reading to app via BLE</li>
+                        <li>System validates reading against acceptable ranges</li>
+                        <li>System displays reading with visual indicator (Normal/Elevated/Critical)</li>
+                        <li>System stores reading and syncs to cloud server</li>
+                        <li>System confirms "Reading Saved Successfully"</li>
+                    </ol>
+                </dd>
+
+                <dt>Alternative Flow (A1 - Out of Range)</dt>
+                <dd>At step 7, if reading is outside acceptable range, system displays warning and prompts patient to retake measurement or confirm reading is accurate</dd>
+
+                <dt>Alternative Flow (A2 - Connection Failed)</dt>
+                <dd>At step 4, if BLE connection fails after 30 seconds, system displays error and offers manual entry option</dd>
+
+                <dt>Postconditions</dt>
+                <dd>Vital reading stored in patient record; Alert generated if thresholds exceeded; Reading available for clinical review</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="use-case">
+        <div class="use-case-header">
+            <h4>Complete Clinical Review</h4>
+            <span class="use-case-id">UC-REV-001</span>
+        </div>
+        <div class="use-case-body">
+            <dl>
+                <dt>Actor</dt>
+                <dd>Clinical Staff (RN/MA)</dd>
+
+                <dt>Preconditions</dt>
+                <dd>Clinician is logged into provider portal; Patient has pending vitals requiring review</dd>
+
+                <dt>Main Flow</dt>
+                <dd>
+                    <ol class="steps-list">
+                        <li>Clinician views daily patient queue on dashboard</li>
+                        <li>System displays patients sorted by alert priority with visual indicators</li>
+                        <li>Clinician selects patient from queue</li>
+                        <li>System opens patient summary card and starts review timer</li>
+                        <li>Clinician reviews vital trends, alerts, and historical data</li>
+                        <li>Clinician documents assessment using structured template</li>
+                        <li>Clinician selects follow-up action (No Action / Schedule Call / Escalate to Provider)</li>
+                        <li>Clinician clicks "Complete Review" and provides digital signature</li>
+                        <li>System stops timer and records total review time</li>
+                        <li>System moves patient to "Reviewed" status and updates queue</li>
+                    </ol>
+                </dd>
+
+                <dt>Postconditions</dt>
+                <dd>Review documented with timestamp; Review time logged for billing; Patient removed from pending queue</dd>
+            </dl>
+        </div>
+    </div>
+
+    <!-- Section 4: Business Rules -->
+    <h2>4. Business Rules</h2>
+
+    <div class="business-rule">
+        <strong>BR-001:</strong> Vital readings older than 24 hours from device timestamp shall be flagged as "Delayed" and excluded from real-time alert processing.
+    </div>
+
+    <div class="business-rule">
+        <strong>BR-002:</strong> A patient can have only ONE active device per vital type (e.g., one BP monitor, one glucometer). Registering a new device of same type deactivates the previous device.
+    </div>
+
+    <div class="business-rule">
+        <strong>BR-003:</strong> Clinical reviews must be completed within 24 hours of alert generation for Critical alerts, 48 hours for High alerts, and 72 hours for Medium/Low alerts.
+    </div>
+
+    <div class="business-rule">
+        <strong>BR-004:</strong> CPT code 99458 (RPM - each additional 20 minutes) can only be billed if cumulative monthly review time exceeds 20 minutes for a patient.
+    </div>
+
+    <div class="business-rule">
+        <strong>BR-005:</strong> Patient consent for RPM enrollment must be documented and stored before any vital data collection begins. Consent expires after 12 months and requires renewal.
+    </div>
+
+    <div class="business-rule">
+        <strong>BR-006:</strong> All vital readings must be retained for minimum 7 years per HIPAA retention requirements.
+    </div>
+
+    <!-- Section 5: Data Requirements -->
+    <h2>5. Data Requirements</h2>
+
+    <h3>5.1 Vital Reading Entity</h3>
+
+    <div class="data-entity">
+        <div class="data-entity-header">Entity: VitalReading</div>
+        <table>
+            <tr>
+                <th style="width: 20%;">Field Name</th>
+                <th style="width: 15%;">Data Type</th>
+                <th style="width: 10%;">Required</th>
+                <th style="width: 55%;">Description / Validation</th>
+            </tr>
+            <tr>
+                <td>reading_id</td>
+                <td>UUID</td>
+                <td>Yes</td>
+                <td>System-generated unique identifier</td>
+            </tr>
+            <tr>
+                <td>patient_id</td>
+                <td>UUID</td>
+                <td>Yes</td>
+                <td>Foreign key to Patient entity</td>
+            </tr>
+            <tr>
+                <td>vital_type</td>
+                <td>ENUM</td>
+                <td>Yes</td>
+                <td>Values: BLOOD_PRESSURE, HEART_RATE, SPO2, GLUCOSE, WEIGHT, TEMPERATURE</td>
+            </tr>
+            <tr>
+                <td>value_primary</td>
+                <td>DECIMAL(6,2)</td>
+                <td>Yes</td>
+                <td>Primary value (e.g., systolic BP, glucose level)</td>
+            </tr>
+            <tr>
+                <td>value_secondary</td>
+                <td>DECIMAL(6,2)</td>
+                <td>No</td>
+                <td>Secondary value if applicable (e.g., diastolic BP)</td>
+            </tr>
+            <tr>
+                <td>unit</td>
+                <td>VARCHAR(20)</td>
+                <td>Yes</td>
+                <td>Unit of measurement (mmHg, bpm, %, mg/dL, lbs, F)</td>
+            </tr>
+            <tr>
+                <td>reading_timestamp</td>
+                <td>TIMESTAMP</td>
+                <td>Yes</td>
+                <td>When reading was taken (device time)</td>
+            </tr>
+            <tr>
+                <td>received_timestamp</td>
+                <td>TIMESTAMP</td>
+                <td>Yes</td>
+                <td>When reading was received by system</td>
+            </tr>
+            <tr>
+                <td>source</td>
+                <td>ENUM</td>
+                <td>Yes</td>
+                <td>Values: DEVICE, MANUAL</td>
+            </tr>
+            <tr>
+                <td>device_id</td>
+                <td>UUID</td>
+                <td>No</td>
+                <td>Foreign key to Device entity (required if source=DEVICE)</td>
+            </tr>
+            <tr>
+                <td>alert_level</td>
+                <td>ENUM</td>
+                <td>No</td>
+                <td>Values: NORMAL, ELEVATED, HIGH, CRITICAL (system-calculated)</td>
+            </tr>
+        </table>
+    </div>
+
+    <h3>5.2 Clinical Review Entity</h3>
+
+    <div class="data-entity">
+        <div class="data-entity-header">Entity: ClinicalReview</div>
+        <table>
+            <tr>
+                <th style="width: 20%;">Field Name</th>
+                <th style="width: 15%;">Data Type</th>
+                <th style="width: 10%;">Required</th>
+                <th style="width: 55%;">Description / Validation</th>
+            </tr>
+            <tr>
+                <td>review_id</td>
+                <td>UUID</td>
+                <td>Yes</td>
+                <td>System-generated unique identifier</td>
+            </tr>
+            <tr>
+                <td>patient_id</td>
+                <td>UUID</td>
+                <td>Yes</td>
+                <td>Foreign key to Patient entity</td>
+            </tr>
+            <tr>
+                <td>clinician_id</td>
+                <td>UUID</td>
+                <td>Yes</td>
+                <td>Foreign key to User entity (role=CLINICIAN)</td>
+            </tr>
+            <tr>
+                <td>review_date</td>
+                <td>DATE</td>
+                <td>Yes</td>
+                <td>Date of review</td>
+            </tr>
+            <tr>
+                <td>duration_seconds</td>
+                <td>INTEGER</td>
+                <td>Yes</td>
+                <td>Total active review time in seconds</td>
+            </tr>
+            <tr>
+                <td>assessment_notes</td>
+                <td>TEXT</td>
+                <td>Yes</td>
+                <td>Clinician's assessment (max 5000 chars)</td>
+            </tr>
+            <tr>
+                <td>follow_up_action</td>
+                <td>ENUM</td>
+                <td>Yes</td>
+                <td>Values: NO_ACTION, SCHEDULE_CALL, ESCALATE_PROVIDER, EMERGENCY</td>
+            </tr>
+            <tr>
+                <td>signature_hash</td>
+                <td>VARCHAR(256)</td>
+                <td>Yes</td>
+                <td>Digital signature hash for audit trail</td>
+            </tr>
+            <tr>
+                <td>signed_at</td>
+                <td>TIMESTAMP</td>
+                <td>Yes</td>
+                <td>Timestamp of sign-off</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Section 6: Interface Requirements -->
+    <h2>6. Interface Requirements</h2>
+
+    <h3>6.1 External Interfaces</h3>
+
+    <table>
+        <tr>
+            <th style="width: 20%;">Interface</th>
+            <th style="width: 20%;">Type</th>
+            <th style="width: 60%;">Description</th>
+        </tr>
+        <tr>
+            <td>BLE Device SDK</td>
+            <td>Hardware API</td>
+            <td>Integration with mio-labs SDK for receiving vital readings from certified medical devices. Supports BP monitors, pulse oximeters, glucometers, and weight scales.</td>
+        </tr>
+        <tr>
+            <td>FHIR R4 API</td>
+            <td>REST API</td>
+            <td>HL7 FHIR-compliant API for exchanging patient observations with external EHR systems. Supports Observation and DiagnosticReport resources.</td>
+        </tr>
+        <tr>
+            <td>Twilio SMS</td>
+            <td>REST API</td>
+            <td>SMS notification service for sending alerts to patients and caregivers when critical readings are detected.</td>
+        </tr>
+        <tr>
+            <td>Stripe Billing</td>
+            <td>REST API</td>
+            <td>Payment processing for patient subscription fees and insurance claim processing.</td>
+        </tr>
+    </table>
+
+    <h3>6.2 Internal Interfaces</h3>
+
+    <table>
+        <tr>
+            <th style="width: 25%;">From Module</th>
+            <th style="width: 25%;">To Module</th>
+            <th style="width: 50%;">Data Exchanged</th>
+        </tr>
+        <tr>
+            <td>Vitals Module</td>
+            <td>Alerts Module</td>
+            <td>New vital reading with patient thresholds for alert evaluation</td>
+        </tr>
+        <tr>
+            <td>Alerts Module</td>
+            <td>Notification Module</td>
+            <td>Alert details for push notification and SMS delivery</td>
+        </tr>
+        <tr>
+            <td>Review Module</td>
+            <td>Billing Module</td>
+            <td>Review duration and completion status for CPT code generation</td>
+        </tr>
+        <tr>
+            <td>Patient Module</td>
+            <td>Vitals Module</td>
+            <td>Patient-specific thresholds and device registrations</td>
+        </tr>
+    </table>
+
+    <!-- Section 7: Appendix -->
+    <h2>7. Appendix</h2>
+
+    <h3>7.1 Vital Range Thresholds (Default)</h3>
+
+    <table>
+        <tr>
+            <th>Vital Type</th>
+            <th>Normal</th>
+            <th>Elevated</th>
+            <th>High</th>
+            <th>Critical</th>
+        </tr>
+        <tr>
+            <td>Blood Pressure (Systolic)</td>
+            <td>&lt; 120 mmHg</td>
+            <td>120-139 mmHg</td>
+            <td>140-179 mmHg</td>
+            <td>&ge; 180 mmHg</td>
+        </tr>
+        <tr>
+            <td>Heart Rate</td>
+            <td>60-100 bpm</td>
+            <td>50-59 or 101-110 bpm</td>
+            <td>40-49 or 111-130 bpm</td>
+            <td>&lt; 40 or &gt; 130 bpm</td>
+        </tr>
+        <tr>
+            <td>SpO2</td>
+            <td>&ge; 95%</td>
+            <td>92-94%</td>
+            <td>88-91%</td>
+            <td>&lt; 88%</td>
+        </tr>
+        <tr>
+            <td>Blood Glucose (Fasting)</td>
+            <td>70-100 mg/dL</td>
+            <td>101-125 mg/dL</td>
+            <td>126-200 mg/dL</td>
+            <td>&lt; 70 or &gt; 200 mg/dL</td>
+        </tr>
+    </table>
+
+    <div class="info-box">
+        <strong>Note:</strong> These are default thresholds. Clinicians can configure patient-specific thresholds based on individual health conditions and treatment plans.
+    </div>
+
+    <!-- Footer -->
+    <div class="doc-footer">
+        <p><strong>Atul Chauhan</strong> | Business Analyst</p>
+        <p>This document is a work sample demonstrating FRD documentation capabilities.</p>
+    </div>
+
+</body>
+</html>
