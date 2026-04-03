@@ -9472,6 +9472,369 @@ And each data point should show date, time, and value
             </div>
         </details>
 
+        <details class="collapsible" open>
+            <summary style="font-size: 13pt; font-weight: 600; color: var(--color-primary-dark); cursor: pointer; padding: 12px 0;">Live Case Studies — On-the-Spot Requirements Elicitation</summary>
+            <div class="detail-content">
+
+                <p style="margin-bottom: 16px; font-size: 10.5pt; color: #475569; background: #fef9c3; border-left: 4px solid #eab308; padding: 12px; border-radius: 6px;"><strong>How to use this section:</strong> Each case study is an interviewer scenario. Read the scenario, pause, run the 5-bucket framework in your head, then check your questions against the model answers. The goal is to stop drifting toward solution mode and stay in requirements mode.</p>
+
+                <!-- THE FRAMEWORK -->
+                <div style="background: #1e293b; color: #f1f5f9; border-radius: 10px; padding: 20px; margin-bottom: 28px;">
+                    <p style="font-size: 11pt; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px;">The 5-Bucket Framework — Use Every Time</p>
+                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;">
+                        <div style="background: #0f172a; border-radius: 6px; padding: 12px; text-align: center;">
+                            <div style="font-size: 18pt; margin-bottom: 6px;">📦</div>
+                            <div style="font-size: 8pt; font-weight: 700; color: #38bdf8; text-transform: uppercase;">Bucket 1</div>
+                            <div style="font-size: 9pt; color: #e2e8f0; margin-top: 4px;">Volume &amp; Categories</div>
+                            <div style="font-size: 8pt; color: #94a3b8; margin-top: 4px;">Break the number apart</div>
+                        </div>
+                        <div style="background: #0f172a; border-radius: 6px; padding: 12px; text-align: center;">
+                            <div style="font-size: 18pt; margin-bottom: 6px;">✅</div>
+                            <div style="font-size: 8pt; font-weight: 700; color: #34d399; text-transform: uppercase;">Bucket 2</div>
+                            <div style="font-size: 9pt; color: #e2e8f0; margin-top: 4px;">Definition of Done</div>
+                            <div style="font-size: 8pt; color: #94a3b8; margin-top: 4px;">What does success mean?</div>
+                        </div>
+                        <div style="background: #0f172a; border-radius: 6px; padding: 12px; text-align: center;">
+                            <div style="font-size: 18pt; margin-bottom: 6px;">🗄️</div>
+                            <div style="font-size: 8pt; font-weight: 700; color: #fbbf24; text-transform: uppercase;">Bucket 3</div>
+                            <div style="font-size: 9pt; color: #e2e8f0; margin-top: 4px;">Data Available</div>
+                            <div style="font-size: 8pt; color: #94a3b8; margin-top: 4px;">What exists to power this?</div>
+                        </div>
+                        <div style="background: #0f172a; border-radius: 6px; padding: 12px; text-align: center;">
+                            <div style="font-size: 18pt; margin-bottom: 6px;">🔀</div>
+                            <div style="font-size: 8pt; font-weight: 700; color: #f472b6; text-transform: uppercase;">Bucket 4</div>
+                            <div style="font-size: 9pt; color: #e2e8f0; margin-top: 4px;">Boundary &amp; Handoff</div>
+                            <div style="font-size: 8pt; color: #94a3b8; margin-top: 4px;">Where does auto stop?</div>
+                        </div>
+                        <div style="background: #0f172a; border-radius: 6px; padding: 12px; text-align: center;">
+                            <div style="font-size: 18pt; margin-bottom: 6px;">⚠️</div>
+                            <div style="font-size: 8pt; font-weight: 700; color: #f87171; text-transform: uppercase;">Bucket 5</div>
+                            <div style="font-size: 9pt; color: #e2e8f0; margin-top: 4px;">Failure &amp; Risk</div>
+                            <div style="font-size: 8pt; color: #94a3b8; margin-top: 4px;">What if it goes wrong?</div>
+                        </div>
+                    </div>
+                    <p style="font-size: 9pt; color: #94a3b8; margin-top: 14px; text-align: center;">Before answering any scenario — say: <em style="color:#e2e8f0;">"Let me ask a few clarifying questions before I suggest an approach."</em> That one line buys time and signals structured thinking.</p>
+                </div>
+
+                <!-- CASE STUDY 1: AMAZON -->
+                <div style="border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 24px; overflow: hidden;">
+                    <div style="background: #ff9900; padding: 14px 18px;">
+                        <span style="font-size: 8pt; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 1px;">Case Study 1 — E-Commerce · From Actual Interview</span>
+                        <h4 style="color: white; margin: 6px 0 0 0; font-size: 12pt;">Amazon Customer Escalation Automation</h4>
+                    </div>
+                    <div style="padding: 18px; background: #fffbf5;">
+                        <div style="background: #1e293b; color: #f1f5f9; padding: 14px; border-radius: 6px; margin-bottom: 16px; font-size: 10.5pt; font-style: italic;">
+                            "Amazon has 100K sales/day. 50K escalations/day are coming in. They want a system that handles 70% of escalations automatically — 30% will still go to human agents. What are your 5 clarifying questions?"
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;">
+                            <div style="background: #fef2f2; border-left: 3px solid #ef4444; padding: 10px; border-radius: 4px; font-size: 9pt; color: #7f1d1d;"><strong>❌ Avoid:</strong> "What competitors are doing this?" — not a requirements question, that's your own research.</div>
+                            <div style="background: #f0fdf4; border-left: 3px solid #22c55e; padding: 10px; border-radius: 4px; font-size: 9pt; color: #14532d;"><strong>✅ Mindset:</strong> 50K is just a number. Break it apart. You can't design for "escalations" — you design for specific types.</div>
+                        </div>
+                        <table style="width:100%; font-size: 9.5pt;">
+                            <tr style="background: #f8fafc;">
+                                <th style="width: 5%; padding: 8px; text-align: left;">#</th>
+                                <th style="width: 10%; padding: 8px; text-align: left;">Bucket</th>
+                                <th style="width: 40%; padding: 8px; text-align: left;">Question</th>
+                                <th style="width: 45%; padding: 8px; text-align: left;">Why it matters</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q1</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #38bdf8;">Categories</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"Of the 50K escalations, what are the top categories — wrong item, late delivery, payment failure, return not processed? What % does each make up?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">Most critical question. You can't build one system for all escalation types. Category breakdown tells you which 70% are automatable.</td>
+                            </tr>
+                            <tr style="background: #f8fafc;">
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q2</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #34d399;">Done</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"What does 'resolved' mean — customer confirms satisfaction, ticket is closed on your end, or refund is processed? Who confirms it?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">Defines your success metric. 70% resolved is meaningless without a definition of resolved.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q3</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #fbbf24;">Data</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"What data do you capture per escalation today — order ID, issue type, customer tier, past contacts, sentiment? What does the system already know when a ticket arrives?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">AI can only work with existing data. If the system doesn't capture issue type on ticket creation, you can't auto-route.</td>
+                            </tr>
+                            <tr style="background: #f8fafc;">
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q4</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #f472b6;">Handoff</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"How does the system decide which 30% go to humans — issue complexity, monetary value, customer tier, sentiment? Who owns that rule — product or operations?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">The 70/30 split isn't magic. Someone needs to define the routing logic. This is a core requirement, not a tech decision.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q5</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #f87171;">Risk</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"What happens when the system resolves something incorrectly — issues an unwarranted refund or closes a ticket the customer is still unhappy about? Is there a re-escalation path?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">Every BA must ask what the system does when it's wrong. This shapes the fallback flow requirement.</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- CASE STUDY 2: FOOD DELIVERY -->
+                <div style="border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 24px; overflow: hidden;">
+                    <div style="background: #e23744; padding: 14px 18px;">
+                        <span style="font-size: 8pt; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 1px;">Case Study 2 — Food Delivery</span>
+                        <h4 style="color: white; margin: 6px 0 0 0; font-size: 12pt;">Zomato Late Delivery Complaint System</h4>
+                    </div>
+                    <div style="padding: 18px; background: #fff5f5;">
+                        <div style="background: #1e293b; color: #f1f5f9; padding: 14px; border-radius: 6px; margin-bottom: 16px; font-size: 10.5pt; font-style: italic;">
+                            "Zomato processes 200K orders/day. 20% of customers complain about late delivery. They want a system that proactively notifies customers and resolves complaints before they raise a ticket. What are your 5 clarifying questions?"
+                        </div>
+                        <table style="width:100%; font-size: 9.5pt;">
+                            <tr style="background: #f8fafc;">
+                                <th style="width: 5%; padding: 8px; text-align: left;">#</th>
+                                <th style="width: 10%; padding: 8px; text-align: left;">Bucket</th>
+                                <th style="width: 40%; padding: 8px; text-align: left;">Question</th>
+                                <th style="width: 45%; padding: 8px; text-align: left;">Why it matters</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q1</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #38bdf8;">Categories</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"What causes the late deliveries — restaurant delay, rider unavailability, traffic, bad weather? What % of lates does each cause account for?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">A restaurant delay has a different proactive message than a rider delay. You can't write one notification for all causes.</td>
+                            </tr>
+                            <tr style="background: #f8fafc;">
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q2</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #34d399;">Done</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"What does 'resolved before ticket' mean — customer doesn't open the app to complain, or they receive a notification and don't respond negatively? How will you measure this?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">Proactive resolution is hard to measure. You need a clear definition of success before building the notification logic.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q3</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #fbbf24;">Data</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"At what point in the delivery do you know it will be late — when the rider picks up, when restaurant confirms, or only after the estimated time passes?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">Proactive notification only works if the system knows early enough. If you only know after the ETA passes, it's not proactive anymore.</td>
+                            </tr>
+                            <tr style="background: #f8fafc;">
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q4</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #f472b6;">Handoff</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"What resolution can the system offer automatically — discount coupon, free delivery next order, partial refund? What requires human approval?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">The system can't offer unlimited refunds autonomously. Need to define the compensation authority boundary.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q5</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #f87171;">Risk</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"What if the system sends a proactive apology but the order actually arrives on time? What's the customer experience impact and who handles the complaint that creates?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">False positives in proactive notifications create new complaints. The failure scenario is worse than no notification at all.</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- CASE STUDY 3: BANKING -->
+                <div style="border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 24px; overflow: hidden;">
+                    <div style="background: #1d4ed8; padding: 14px 18px;">
+                        <span style="font-size: 8pt; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 1px;">Case Study 3 — Banking / Fintech</span>
+                        <h4 style="color: white; margin: 6px 0 0 0; font-size: 12pt;">Loan Application Drop-off Reduction</h4>
+                    </div>
+                    <div style="padding: 18px; background: #eff6ff;">
+                        <div style="background: #1e293b; color: #f1f5f9; padding: 14px; border-radius: 6px; margin-bottom: 16px; font-size: 10.5pt; font-style: italic;">
+                            "A bank receives 10K loan applications/day. 40% drop off at the document upload stage and never complete. They want to build a system to reduce drop-off to 15%. What are your 5 clarifying questions?"
+                        </div>
+                        <table style="width:100%; font-size: 9.5pt;">
+                            <tr style="background: #f8fafc;">
+                                <th style="width: 5%; padding: 8px; text-align: left;">#</th>
+                                <th style="width: 10%; padding: 8px; text-align: left;">Bucket</th>
+                                <th style="width: 40%; padding: 8px; text-align: left;">Question</th>
+                                <th style="width: 45%; padding: 8px; text-align: left;">Why it matters</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q1</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #38bdf8;">Categories</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"Do you know why they drop off — is it the number of documents required, the file format restrictions, upload errors, or users simply not having the documents ready?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">Drop-off has multiple causes. A technical fix (better uploader) solves a different problem than an experience fix (save and resume). Can't design without knowing the cause.</td>
+                            </tr>
+                            <tr style="background: #f8fafc;">
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q2</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #34d399;">Done</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"What counts as a completed application — documents uploaded, or documents uploaded AND verified? If someone uploads wrong documents and gets rejected, does that count as completing the stage?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">Reducing drop-off to 15% needs a clean definition. Completing with wrong docs is not the same as successfully completing.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q3</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #fbbf24;">Data</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"Do you track where exactly in the upload stage users drop — which document field, which step, on which device (mobile vs desktop)?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">Without funnel analytics, you're guessing. If 80% drop on mobile at the PAN card step, the fix is very specific.</td>
+                            </tr>
+                            <tr style="background: #f8fafc;">
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q4</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #f472b6;">Handoff</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"Can users save progress and return later? And if they abandon, is there a follow-up mechanism — SMS, email, call — or does the application just expire?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">Save-and-resume and re-engagement are two separate features. One is a UX requirement, the other is a communication workflow.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q5</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #f87171;">Risk</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"If we reduce drop-off by making the process easier, do we risk accepting more ineligible applicants who previously self-selected out? Is there a downstream impact on approval quality?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">Lowering friction sometimes increases noise. The bank needs to know if this creates more work for the underwriting team.</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- CASE STUDY 4: EDTECH -->
+                <div style="border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 24px; overflow: hidden;">
+                    <div style="background: #059669; padding: 14px 18px;">
+                        <span style="font-size: 8pt; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 1px;">Case Study 4 — EdTech (Relevant to EDMO)</span>
+                        <h4 style="color: white; margin: 6px 0 0 0; font-size: 12pt;">University Inquiry Response Automation</h4>
+                    </div>
+                    <div style="padding: 18px; background: #f0fdf4;">
+                        <div style="background: #1e293b; color: #f1f5f9; padding: 14px; border-radius: 6px; margin-bottom: 16px; font-size: 10.5pt; font-style: italic;">
+                            "A university receives 50K student inquiries/month. 60% go unanswered for 48+ hours, causing drop-off in applications. They want an AI system to respond within 10 minutes to 80% of inquiries. What are your 5 clarifying questions?"
+                        </div>
+                        <table style="width:100%; font-size: 9.5pt;">
+                            <tr style="background: #f8fafc;">
+                                <th style="width: 5%; padding: 8px; text-align: left;">#</th>
+                                <th style="width: 10%; padding: 8px; text-align: left;">Bucket</th>
+                                <th style="width: 40%; padding: 8px; text-align: left;">Question</th>
+                                <th style="width: 45%; padding: 8px; text-align: left;">Why it matters</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q1</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #38bdf8;">Categories</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"What types of inquiries are most common — program eligibility, application deadlines, scholarship info, visa guidance, fee structure? Which ones require a human decision vs a factual answer?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">80% of FAQs can be answered by an AI from a knowledge base. 20% require a counselor. You need to know which is which before designing the system.</td>
+                            </tr>
+                            <tr style="background: #f8fafc;">
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q2</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #34d399;">Done</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"What counts as a successful response — AI sends a message within 10 minutes, or the student's question is actually answered to their satisfaction? Are you measuring speed or resolution quality?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">A fast wrong answer is worse than a slow right one. The KPI needs to capture both speed and accuracy.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q3</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #fbbf24;">Data</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"What knowledge base does the AI have access to — program brochures, FAQ documents, CRM history? Is this content updated regularly, and who owns keeping it current?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">An AI is only as good as its knowledge base. Outdated fee structures or wrong deadlines in the system create worse problems than no AI at all.</td>
+                            </tr>
+                            <tr style="background: #f8fafc;">
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q4</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #f472b6;">Handoff</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"When the AI can't answer — how does it hand off to a human counselor? Does the student know they're talking to AI? Is there a warm handoff with conversation context passed to the counselor?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">A cold handoff where the student has to repeat everything is a bad experience. Warm handoff with context is a separate requirement.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q5</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #f87171;">Risk</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"If the AI gives incorrect information — wrong deadline, wrong eligibility criteria — and a student makes a decision based on it, what is the university's liability? Is there a disclaimer requirement?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">In education, wrong information has real consequences. This shapes whether AI responses need a human review layer before sending, or a disclaimer appended to every response.</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- CASE STUDY 5: HEALTHCARE -->
+                <div style="border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 24px; overflow: hidden;">
+                    <div style="background: #7c3aed; padding: 14px 18px;">
+                        <span style="font-size: 8pt; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 1px;">Case Study 5 — Healthcare</span>
+                        <h4 style="color: white; margin: 6px 0 0 0; font-size: 12pt;">Hospital Appointment No-Show Reduction</h4>
+                    </div>
+                    <div style="padding: 18px; background: #faf5ff;">
+                        <div style="background: #1e293b; color: #f1f5f9; padding: 14px; border-radius: 6px; margin-bottom: 16px; font-size: 10.5pt; font-style: italic;">
+                            "A hospital has 500 appointments/day. 30% are no-shows, costing ₹15L/month in lost revenue. They want a system to reduce no-shows to under 10%. What are your 5 clarifying questions?"
+                        </div>
+                        <table style="width:100%; font-size: 9.5pt;">
+                            <tr style="background: #f8fafc;">
+                                <th style="width: 5%; padding: 8px; text-align: left;">#</th>
+                                <th style="width: 10%; padding: 8px; text-align: left;">Bucket</th>
+                                <th style="width: 40%; padding: 8px; text-align: left;">Question</th>
+                                <th style="width: 45%; padding: 8px; text-align: left;">Why it matters</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q1</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #38bdf8;">Categories</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"Do you know the reasons for no-shows — forgot the appointment, couldn't travel, felt better and didn't cancel, fear of diagnosis, financial reasons? Is there a pattern by department or patient demographic?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">"Forgot" is solved with reminders. "Fear" is solved with counselor outreach. "Financial" needs a different intervention entirely. One system can't solve all three.</td>
+                            </tr>
+                            <tr style="background: #f8fafc;">
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q2</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #34d399;">Done</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"Is the goal to reduce no-shows OR to fill the vacated slots with other patients? Because those are two different systems — one is a reminder system, the other is a waitlist management system."</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">This reframes the entire requirement. The hospital's real goal is revenue recovery — which might be better served by a waitlist system than just reminders.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q3</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #fbbf24;">Data</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"Do you have historical data on which patients are most likely to no-show — repeat no-showers, appointment lead time, distance from hospital? Can we identify high-risk patients before the appointment day?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">If you can predict who will no-show, you can target interventions specifically — instead of blanket reminders that get ignored.</td>
+                            </tr>
+                            <tr style="background: #f8fafc;">
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q4</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #f472b6;">Handoff</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"When a patient confirms via SMS reminder — does that confirmation flow into the hospital's scheduling system automatically, or does staff still manually update it?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">If confirmation doesn't auto-update the system, you've built a communication tool but not a workflow tool. Integration requirement.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q5</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #f87171;">Risk</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"If you introduce a cancellation penalty to discourage no-shows, have you assessed the patient sensitivity — especially for low-income patients or critical care appointments? What's the ethical boundary?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">Healthcare has ethical constraints that e-commerce doesn't. Penalties that work in a restaurant context can cause harm in a hospital context.</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- CASE STUDY 6: RIDE-SHARING -->
+                <div style="border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 24px; overflow: hidden;">
+                    <div style="background: #0f172a; padding: 14px 18px;">
+                        <span style="font-size: 8pt; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 1px;">Case Study 6 — Mobility / Marketplace</span>
+                        <h4 style="color: white; margin: 6px 0 0 0; font-size: 12pt;">Ola/Uber Driver Cancellation Reduction</h4>
+                    </div>
+                    <div style="padding: 18px; background: #f8fafc;">
+                        <div style="background: #1e293b; color: #f1f5f9; padding: 14px; border-radius: 6px; margin-bottom: 16px; font-size: 10.5pt; font-style: italic;">
+                            "A ride-sharing platform has 1M rides/day. Driver cancellation rate is at 15% — they want to reduce it to 5%. Build a system to identify and prevent driver cancellations. What are your 5 clarifying questions?"
+                        </div>
+                        <table style="width:100%; font-size: 9.5pt;">
+                            <tr style="background: #f8fafc;">
+                                <th style="width: 5%; padding: 8px; text-align: left;">#</th>
+                                <th style="width: 10%; padding: 8px; text-align: left;">Bucket</th>
+                                <th style="width: 40%; padding: 8px; text-align: left;">Question</th>
+                                <th style="width: 45%; padding: 8px; text-align: left;">Why it matters</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q1</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #38bdf8;">Categories</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"Why do drivers cancel — long pickup distance, low-fare trip, destination not preferred, passenger rating, surge expected elsewhere? Which reason accounts for most of the 15%?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">Long pickup distance needs a different fix than low fare. You're building different features for different root causes.</td>
+                            </tr>
+                            <tr style="background: #f8fafc;">
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q2</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #34d399;">Done</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"Are you measuring driver-initiated cancellations only, or also system timeouts where driver doesn't respond? Because those require entirely different interventions."</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">Non-response and active cancellation look the same in data but have different causes and different fixes.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q3</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #fbbf24;">Data</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"Do you have per-driver cancellation history and the trip attributes at the time of cancellation — pickup distance, fare, time of day, zone? Can you identify which drivers cancel most and under what conditions?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">Prediction requires pattern data. Without historical trip attributes per cancellation, you can't build a prevention model.</td>
+                            </tr>
+                            <tr style="background: #f8fafc;">
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q4</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #f472b6;">Handoff</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"What levers can the system apply automatically to prevent a cancellation — surge incentive, trip fare adjustment, cancellation penalty warning? Which require ops approval before applying?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">Real-time intervention (while driver is deciding) needs to be automated. But the rules governing what incentive to offer need business approval upfront.</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;"><strong>Q5</strong></td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #f87171;">Risk</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0;">"If you penalise drivers heavily for cancellations, do you risk drivers going offline instead — which is worse than a cancellation? What's the driver retention impact of aggressive anti-cancellation policy?"</td>
+                                <td style="padding: 8px; border-top: 1px solid #e2e8f0; color: #64748b;">Solving for riders at the expense of drivers collapses supply. Every marketplace requirement needs both sides examined.</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- PRACTICE TIP -->
+                <div style="background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; padding: 16px; margin-top: 8px;">
+                    <p style="font-size: 10.5pt; font-weight: 700; color: #14532d; margin-bottom: 8px;">How to Practise This Skill</p>
+                    <p style="font-size: 10pt; color: #166534;">Read any product news (Swiggy, Paytm, Razorpay, Practo) and mentally construct: <em>"What if they asked me to build a system to fix this problem?"</em> Then run the 5-bucket framework. You don't need real questions — any headline works. The goal is to make requirements elicitation your default reflex before solution mode kicks in.</p>
+                </div>
+
+            </div>
+        </details>
+
         <details class="collapsible">
             <summary style="font-size: 13pt; font-weight: 600; color: var(--color-primary-dark); cursor: pointer; padding: 12px 0;">Your Positioning by Opportunity Type</summary>
             <div class="detail-content">
