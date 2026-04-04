@@ -8878,32 +8878,48 @@ And each data point should show date, time, and value
             <div class="qa-item">
                 <div class="question">Q: What's the difference between BRD and FRD?</div>
                 <div class="answer">
-                    BRD (Business Requirements Document) captures WHAT the business needs at high level - business objectives, scope, stakeholders.
-                    FRD (Functional Requirements Document) specifies HOW the system should behave - detailed functionality, inputs/outputs, validations.
-                    BRD is for business stakeholders; FRD is for development team.
+                    <p style="margin-bottom:8px;"><strong>BRD (Business Requirements Document)</strong> captures <em>what</em> the business needs — business objectives, scope, stakeholders, and high-level capabilities. It's written for business stakeholders and is the basis for project sign-off.</p>
+                    <p style="margin-bottom:8px;"><strong>FRD (Functional Requirements Document)</strong> specifies <em>how</em> the system should behave — detailed functionality, inputs/outputs, validations, business rules. It's written for the development and QA team.</p>
+                    <p style="margin-bottom:8px;"><strong>Real example — RPM Platform (PDC):</strong> The BRD defined the business objective ("reduce unnecessary clinic visits for chronic patients"), user roles (8 roles — Super Admin, Provider Admin, Doctor/POP, Nurse, Patient, etc.), compliance scope (HIPAA, AWS), and what was out of V1 scope (e.g., insurance eligibility checks). The FRD then broke this down into specifics — exactly how device readings flow from mio-labs.com to the dashboard, what triggers an alert (HR &gt; 100 bpm or &lt; 50 bpm), how the billing module calculates monthly service counts per patient.</p>
+                    <p><strong>Real example — Blink Payroll:</strong> BRD covered business objectives (automate payroll for Indian SMEs), scope (regular payroll, off-cycle, contractor payments), and compliance requirements (TDS, PF, ESI). The FRD went deeper — exact TDS slab logic, PF ceiling calculations, ESI applicability thresholds, payslip generation rules, and bank disbursement file format. BRD got stakeholder sign-off; FRD guided developers.</p>
                 </div>
             </div>
 
             <div class="qa-item">
                 <div class="question">Q: How do you handle conflicting requirements from stakeholders?</div>
                 <div class="answer">
-                    1. Document both requirements clearly with business justification
-                    2. Identify the conflict and its impact
-                    3. Facilitate discussion between stakeholders
-                    4. Use prioritization framework (MoSCoW, business value vs effort)
-                    5. Escalate to product owner/sponsor if needed
-                    6. Document the decision and rationale
+                    <p style="margin-bottom:8px;">My approach: surface the conflict clearly, show the trade-off objectively, and get the right decision-maker to own the call — then lock it in writing.</p>
+                    <p style="margin-bottom:8px;">Steps I follow:
+                        <ol style="margin:6px 0 6px 18px;">
+                            <li>Document both requirements with their business justification</li>
+                            <li>Map exactly where they conflict and what the impact is</li>
+                            <li>Facilitate a focused discussion (not "who's right" but "what does the business need")</li>
+                            <li>Use MoSCoW or business value vs effort to frame the trade-off</li>
+                            <li>Escalate to product owner/sponsor if stakeholders can't decide</li>
+                            <li>Document the final decision and rationale — this becomes the reference</li>
+                        </ol>
+                    </p>
+                    <p style="margin-bottom:8px;"><strong>Real example — RPM Platform:</strong> The clinical team wanted real-time alerts for <em>every</em> vital deviation — any reading outside normal, immediate notification. The operations/tech team flagged this as unscalable and said it would cause alert fatigue. I documented both positions with their reasoning, showed the data: 60+ readings per patient per day would mean hundreds of notifications. I facilitated a joint session where we agreed on threshold-based alerting (HR &gt; 100 or &lt; 50, BP &gt; 140/90) with a severity classification. The clinical team got safety coverage; ops got a manageable system. Documented and signed off.</p>
+                    <p><strong>Real example — Blink Payroll:</strong> Finance stakeholders wanted every payroll run to require dual approval. The ops team said this would bottleneck off-cycle runs (emergency salary corrections). We agreed on a tiered model: regular payroll = dual approval, off-cycle below ₹50K = single approval, above ₹50K = dual. Documented as a business rule in the FRD — no ambiguity for devs.</p>
                 </div>
             </div>
 
             <div class="qa-item">
                 <div class="question">Q: How do you ensure requirements are testable?</div>
                 <div class="answer">
-                    Use SMART criteria: Specific, Measurable, Achievable, Relevant, Time-bound.
-                    Each requirement should have clear acceptance criteria.
-                    Use Given-When-Then (Gherkin) format for acceptance criteria.
-                    Review requirements with QA during refinement.
-                    Avoid vague terms like "fast", "user-friendly" - quantify instead.
+                    <p style="margin-bottom:8px;">A requirement is testable when a QA person can write a test case from it without asking me anything. Two checks I always run:</p>
+                    <p style="margin-bottom:8px;"><strong>1. SMART check:</strong> Is it Specific, Measurable, and free of vague words? "System should be fast" fails. "API response time ≤ 2 seconds for 95% of requests under normal load" passes.</p>
+                    <p style="margin-bottom:8px;"><strong>2. Given-When-Then (Gherkin) format:</strong> If I can't write the acceptance criteria as Given [context] / When [action] / Then [outcome] without ambiguity — the requirement isn't done yet.</p>
+                    <p style="margin-bottom:8px;"><strong>Real example — RPM Platform:</strong> Requirement came in as "alert the doctor when vitals are abnormal." Untestable. I rewrote it as:
+                        <br><em>Given</em> a patient's heart rate reading is received,
+                        <br><em>When</em> the value exceeds 100 bpm or falls below 50 bpm,
+                        <br><em>Then</em> a push notification is sent to the assigned POP within 60 seconds, and the alert is logged with timestamp and reading value.
+                        <br>Now QA can write an exact test case. The original could not be tested.</p>
+                    <p><strong>Real example — Blink Payroll:</strong> Requirement was "system should calculate TDS correctly." Vague. I rewrote it as:
+                        <br><em>Given</em> an employee's annual taxable income is ₹8,50,000,
+                        <br><em>When</em> payroll is run for the month,
+                        <br><em>Then</em> TDS deducted = ₹(calculated per slab: 0% up to ₹2.5L, 5% from ₹2.5L–5L, 20% from ₹5L–10L) divided by 12, displayed on payslip, and logged in the tax ledger.
+                        <br>I also reviewed all 40+ user stories with QA during sprint refinement to catch vague criteria before development started.</p>
                 </div>
             </div>
             </div>
@@ -8915,18 +8931,20 @@ And each data point should show date, time, and value
 
             <div class="star-card">
                 <h5>Q: Tell me about a time you dealt with scope creep.</h5>
-                <div class="star-item"><strong>S:</strong> During RPM project, client kept adding features mid-sprint - "also add medication tracking", "add family member access".</div>
-                <div class="star-item"><strong>T:</strong> As BA, needed to manage expectations while maintaining delivery timeline.</div>
-                <div class="star-item"><strong>A:</strong> Created change request log, quantified impact (hours, sprint delay), presented trade-offs to stakeholders, got agreement to move new features to Phase 2 backlog.</div>
-                <div class="star-item"><strong>R:</strong> Delivered Phase 1 on schedule. Phase 2 features were properly planned with 3-week buffer, released successfully.</div>
+                <div class="answer" style="margin-top:8px;">
+                    <p style="margin-bottom:8px;">This happened on the RPM project — a remote patient monitoring platform I worked on at Raftlabs. We were mid-sprint, already committed to delivering the device alert system and patient notes module, and the client started adding new asks: "can we also add medication tracking?", "what about family member access?"</p>
+                    <p style="margin-bottom:8px;">I didn't say yes or no immediately. What I did was create a change request log — I listed every new request, estimated the effort (hours), and calculated how many sprint days each would push delivery by. Then I sat with the stakeholder and showed them the trade-off: "If we add these two features now, Phase 1 delivery moves by 3 weeks. Or we can park them in Phase 2 and I'll draft the scope for that right now."</p>
+                    <p>They chose Phase 2. We delivered Phase 1 on schedule. Phase 2 was properly planned with a 3-week buffer and released without issues. The key was making the cost visible — once they saw it in black and white, the decision was easy for them.</p>
+                </div>
             </div>
 
             <div class="star-card">
-                <h5>Q: Describe bridging business and technical teams.</h5>
-                <div class="star-item"><strong>S:</strong> Telehealth project - doctors wanted "easy" prescription workflow, developers didn't understand clinical context.</div>
-                <div class="star-item"><strong>T:</strong> Translate clinical workflow into technical requirements developers could implement.</div>
-                <div class="star-item"><strong>A:</strong> Shadowed actual prescription workflow, created visual process flow, documented edge cases (controlled substances, allergies), wrote detailed user stories with acceptance criteria.</div>
-                <div class="star-item"><strong>R:</strong> Development team understood context, fewer clarification questions, feature delivered with only 2 minor revision requests from clinical stakeholders.</div>
+                <h5>Q: Describe a time you bridged business and technical teams.</h5>
+                <div class="answer" style="margin-top:8px;">
+                    <p style="margin-bottom:8px;">On the Telehealth UK project at Raftlabs, the clinical team kept describing what they wanted in doctor language — "we need an easy prescription workflow." The developers had no idea what that meant practically. They were asking: what fields? what triggers? what happens if the patient has a drug allergy?</p>
+                    <p style="margin-bottom:8px;">I spent time understanding the actual prescription workflow end-to-end — how a doctor currently does it, what the steps are, what could go wrong. I then created a visual process flow and documented the edge cases: what happens with controlled substances, how allergy flags should work, what the confirmation screen should show. Then I wrote detailed user stories with proper acceptance criteria so developers could build without guessing.</p>
+                    <p>The result was that developers stopped coming back with clarification questions every other day. The feature was delivered with only 2 minor revision requests from the clinical team — which, for a healthcare workflow, is pretty clean. The bridge was just: don't let either side assume the other understands them. Make it concrete for both.</p>
+                </div>
             </div>
             </div>
         </details>
