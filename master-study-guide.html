@@ -7019,6 +7019,160 @@ END
         </details>
 
         <details class="collapsible">
+            <summary style="font-size: 13pt; font-weight: 600; color: var(--color-primary-dark); cursor: pointer; padding: 12px 0;">Complete Symbol Reference — Every BPMN Element</summary>
+            <div class="detail-content">
+
+                <p style="margin-bottom:16px; font-size:10.5pt; color:#475569;">Every shape you see in draw.io, Lucidchart, Camunda Modeler, or Bizagi. Knowing the marker inside the shape is what tells tools and readers exactly what type of element it is.</p>
+
+                <!-- TASK TYPES -->
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px; margin-bottom:14px;">
+                    <h4 style="color:#334155; margin-bottom:14px;">Task Types — What the icon inside the rectangle means</h4>
+                    <div style="overflow-x:auto;">
+                        <table style="width:100%; border-collapse:collapse; font-size:10pt;">
+                            <thead><tr style="background:#334155; color:white;"><th style="padding:8px 12px; text-align:left; border:1px solid #475569;">Shape</th><th style="padding:8px 12px; text-align:left; border:1px solid #475569;">Name</th><th style="padding:8px 12px; text-align:left; border:1px solid #475569;">Marker / Icon</th><th style="padding:8px 12px; text-align:left; border:1px solid #475569;">When to use</th></tr></thead>
+                            <tbody>
+                                <tr><td style="padding:8px 12px; border:1px solid #e2e8f0;"><div style="width:70px; height:32px; border:2px solid #334155; border-radius:6px; background:white; display:flex; align-items:center; justify-content:center; font-size:12pt;">👤</div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>User Task</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Person icon (top-left)</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">A human manually performs the action (most common). e.g. "Review invoice", "Approve request"</td></tr>
+                                <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0;"><div style="width:70px; height:32px; border:2px solid #334155; border-radius:6px; background:white; display:flex; align-items:center; justify-content:center; font-size:12pt;">⚙</div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Service Task</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Gear icon (top-left)</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">System or API does the work automatically. e.g. "Send confirmation email", "Fetch credit score"</td></tr>
+                                <tr><td style="padding:8px 12px; border:1px solid #e2e8f0;"><div style="width:70px; height:32px; border:2px solid #334155; border-radius:6px; background:white; display:flex; align-items:center; justify-content:center; font-size:12pt; background:#475569; color:white;">✉</div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Send Task</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Filled dark envelope (top-left)</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Sends a message to an <em>external participant</em>. The verb "Send" belongs only here — not in User Tasks.</td></tr>
+                                <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0;"><div style="width:70px; height:32px; border:2px solid #334155; border-radius:6px; background:white; display:flex; align-items:center; justify-content:center; font-size:12pt;">✉</div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Receive Task</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Empty envelope (top-left)</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Waits passively for a message from an external participant. Process pauses until message arrives.</td></tr>
+                                <tr><td style="padding:8px 12px; border:1px solid #e2e8f0;"><div style="width:70px; height:32px; border:2px solid #334155; border-radius:6px; background:white; display:flex; align-items:center; justify-content:center; font-size:12pt;">📜</div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Script Task</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Scroll/lines icon (top-left)</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Runs an automated script/code internally. No human, no external system call.</td></tr>
+                                <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0;"><div style="width:70px; height:32px; border:2px solid #334155; border-radius:6px; background:white; display:flex; align-items:center; justify-content:center; font-size:12pt;">✋</div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Manual Task</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Hand icon (top-left)</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Human performs work completely off-system (paper, physical). Not tracked in any system.</td></tr>
+                                <tr><td style="padding:8px 12px; border:1px solid #e2e8f0;"><div style="width:70px; height:32px; border:2px solid #334155; border-radius:6px; background:white; display:flex; align-items:center; justify-content:center; font-size:9pt; font-weight:700;">📋</div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Business Rule Task</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Table/grid icon (top-left)</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Decision engine evaluates rules automatically (e.g. DMN table). e.g. "Calculate eligibility"</td></tr>
+                                <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0;"><div style="width:70px; height:32px; border:2px solid #334155; border-radius:6px; background:white; display:flex; align-items:center; justify-content:center; font-size:14pt; font-weight:700; color:#334155;">+</div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Sub-Process</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0;">+ sign at bottom-centre</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">A task with its own modelled internal process. Collapsed = shows +. Expanded = shows all internal elements.</td></tr>
+                                <tr><td style="padding:8px 12px; border:1px solid #e2e8f0;"><div style="width:70px; height:32px; border:4px solid #334155; border-radius:6px; background:white; display:flex; align-items:center; justify-content:center; font-size:9pt; font-weight:700; color:#334155;">Call</div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Call Activity</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Bold/thick border (no icon)</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Calls a reusable global process or task defined elsewhere in the model library.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="margin-top:10px; font-size:10pt; color:#6B7280; background:#fef3c7; border-left:3px solid #f59e0b; padding:8px 12px; border-radius:4px;"><strong>Wardell rule:</strong> "Send" and "Receive" verbs in task labels belong only in Send Tasks and Receive Tasks. Between internal performers (same pool), always use a User Task with a different verb — e.g. "Forward request", "Pass document to Finance Manager".</p>
+                </div>
+
+                <!-- EVENT TYPES — ALL MARKERS -->
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px; margin-bottom:14px;">
+                    <h4 style="color:#334155; margin-bottom:14px;">Event Types — All Start, Intermediate, End, and Boundary Markers</h4>
+                    <p style="font-size:10pt; color:#475569; margin-bottom:12px;">Three sizes of circle: <strong>thin border</strong> = Start · <strong>double ring</strong> = Intermediate · <strong>thick border</strong> = End. The icon inside tells you WHAT type of event it is.</p>
+
+                    <div style="overflow-x:auto;">
+                        <table style="width:100%; border-collapse:collapse; font-size:10pt;">
+                            <thead><tr style="background:#334155; color:white;">
+                                <th style="padding:8px 12px; border:1px solid #475569;">Marker Icon</th>
+                                <th style="padding:8px 12px; border:1px solid #475569;">Event Name</th>
+                                <th style="padding:8px 12px; border:1px solid #475569;">Start ✓/✗</th>
+                                <th style="padding:8px 12px; border:1px solid #475569;">Intermediate ✓/✗</th>
+                                <th style="padding:8px 12px; border:1px solid #475569;">Boundary ✓/✗</th>
+                                <th style="padding:8px 12px; border:1px solid #475569;">End ✓/✗</th>
+                                <th style="padding:8px 12px; border:1px solid #475569;">What it means / When to use</th>
+                            </tr></thead>
+                            <tbody>
+                                <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; text-align:center;"><div style="width:28px;height:28px;border-radius:50%;border:2px solid #334155;background:white;margin:auto;"></div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>None (Plain)</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">✗</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Generic trigger or outcome with no specific cause/effect specified.</td></tr>
+                                <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; text-align:center;"><div style="width:28px;height:28px;border-radius:50%;border:2px solid #334155;background:white;margin:auto;display:flex;align-items:center;justify-content:center;font-size:11pt;">✉</div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Message</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">A message is sent/received across pool boundaries. Start: process triggered by inbound message. Boundary: task interrupted/paused by incoming message. End: process sends a message as its last action (only if it triggers another process).</td></tr>
+                                <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; text-align:center;"><div style="width:28px;height:28px;border-radius:50%;border:2px solid #334155;background:white;margin:auto;display:flex;align-items:center;justify-content:center;font-size:10pt;">🕐</div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Timer</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">✗</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Time-based trigger. <strong>Boundary (most common):</strong> fires after a duration (e.g. 48h) attached to a task. Label = specific duration, never "Wait for...". Interrupting = dashed border. Non-interrupting = task continues in parallel.</td></tr>
+                                <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; text-align:center;"><div style="width:28px;height:28px;border-radius:50%;border:2px solid #334155;background:white;margin:auto;display:flex;align-items:center;justify-content:center;font-size:11pt;">⚡</div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Error</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">✗</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓ (catch only)</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓ (throw)</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Error thrown by sub-process, caught by boundary event. Error Boundary is <strong>always interrupting</strong>. Error End Event throws an error that must be caught upstream. Used in sub-processes for technical/system failure paths.</td></tr>
+                                <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; text-align:center;"><div style="width:28px;height:28px;border-radius:50%;border:2px solid #334155;background:white;margin:auto;display:flex;align-items:center;justify-content:center;font-size:10pt;">▲</div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Signal</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">A broadcast signal (unlike Message which goes to one recipient, Signal goes to everyone listening). Filled triangle = throwing. Empty triangle = catching. Used across pools and processes.</td></tr>
+                                <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; text-align:center;"><div style="width:28px;height:28px;border-radius:50%;border:2px solid #334155;background:white;margin:auto;display:flex;align-items:center;justify-content:center;font-size:9pt;">📄</div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Conditional</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">✗</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Triggered when a business condition becomes true (e.g. "when stock level drops below 10"). Shown as a lined document icon.</td></tr>
+                                <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; text-align:center;"><div style="width:28px;height:28px;border-radius:50%;border:2px solid #334155;background:white;margin:auto;display:flex;align-items:center;justify-content:center;font-size:10pt;">↗</div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Escalation</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">✗</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Escalates work to a higher level (manager, senior role) without ending the process. Boundary can be non-interrupting (sub-process keeps running while escalation fires). Upward arrow icon.</td></tr>
+                                <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; text-align:center;"><div style="width:28px;height:28px;border-radius:50%;border:5px solid #334155;background:#334155;margin:auto;"></div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Terminate</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">✗</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">✗</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">✗</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Kills <strong>all active tokens</strong> in the entire process immediately. Use when the whole process must stop (not just one path). Shown as a filled circle inside thick border.</td></tr>
+                                <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; text-align:center;"><div style="width:28px;height:28px;border-radius:50%;border:2px solid #334155;background:white;margin:auto;display:flex;align-items:center;justify-content:center;font-size:9pt;">⟳</div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Compensation</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">✗</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Triggers undo/rollback of a completed task (e.g. reverse a payment after an order is cancelled). Rewind-arrows icon.</td></tr>
+                                <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; text-align:center;"><div style="width:28px;height:28px;border-radius:50%;border:2px solid #334155;background:white;margin:auto;display:flex;align-items:center;justify-content:center;font-size:9pt;font-weight:700;">»</div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Link</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">✗</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">✓</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">✗</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">✗</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Page connector — jumps flow to a matching Link Catching event on the same page. Purely a diagram layout tool (avoids crossing arrows). Has no runtime meaning.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="margin-top:10px; font-size:10pt; color:#475569; background:#fef3c7; border-left:3px solid #f59e0b; padding:8px 12px; border-radius:4px;"><strong>Interrupting vs Non-Interrupting Boundary Events:</strong> Solid border = interrupting (task stops, exception path fires). Dashed/dotted border = non-interrupting (task keeps running AND exception path fires in parallel).</p>
+                </div>
+
+                <!-- GATEWAY TYPES — COMPLETE -->
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px; margin-bottom:14px;">
+                    <h4 style="color:#334155; margin-bottom:14px;">Gateway Types — Complete Reference</h4>
+                    <div style="overflow-x:auto;">
+                        <table style="width:100%; border-collapse:collapse; font-size:10pt;">
+                            <thead><tr style="background:#334155; color:white;"><th style="padding:8px 12px; border:1px solid #475569;">Shape</th><th style="padding:8px 12px; border:1px solid #475569;">Name</th><th style="padding:8px 12px; border:1px solid #475569;">Marker</th><th style="padding:8px 12px; border:1px solid #475569;">Splitting behaviour</th><th style="padding:8px 12px; border:1px solid #475569;">Merging behaviour</th></tr></thead>
+                            <tbody>
+                                <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; text-align:center;"><div style="width:36px;height:36px;background:white;border:2px solid #334155;transform:rotate(45deg);display:inline-flex;align-items:center;justify-content:center;"><span style="transform:rotate(-45deg);font-size:13pt;font-weight:700;color:#334155;">✕</span></div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Exclusive (XOR)</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0;">X inside diamond</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Exactly ONE outgoing path taken based on condition</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">First incoming flow that arrives passes through. Waits for no one.</td></tr>
+                                <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; text-align:center;"><div style="width:36px;height:36px;background:white;border:2px solid #334155;transform:rotate(45deg);display:inline-flex;align-items:center;justify-content:center;"><span style="transform:rotate(-45deg);font-size:15pt;font-weight:700;color:#334155;">+</span></div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Parallel (AND)</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0;">+ inside diamond</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">ALL outgoing paths fire simultaneously</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Waits for ALL incoming flows to arrive before continuing. Synchronises parallel branches.</td></tr>
+                                <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; text-align:center;"><div style="width:36px;height:36px;background:white;border:2px solid #334155;transform:rotate(45deg);display:inline-flex;align-items:center;justify-content:center;"><span style="transform:rotate(-45deg);font-size:13pt;font-weight:700;color:#334155;">○</span></div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Inclusive (OR)</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0;">O (open circle) inside diamond</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">ONE or MORE paths taken based on conditions (all matching paths fire)</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Waits for all active (fired) paths to complete. If 2 of 3 paths were taken, waits for those 2.</td></tr>
+                                <tr style="background:#f8fafc; border:2px solid #dc2626;"><td style="padding:8px 12px; border:1px solid #e2e8f0; text-align:center;"><div style="width:36px;height:36px;background:white;border:2px solid #334155;transform:rotate(45deg);display:inline-flex;align-items:center;justify-content:center;"><span style="transform:rotate(-45deg);font-size:9pt;color:#334155;">◯</span></div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Event-Based</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Circle + pentagon inside diamond</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Waits for ONE of several events to occur; whichever fires first determines the path</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;"><strong>⚠ Avoid (Wardell rule).</strong> Replace with Timer or Message Boundary Events instead.</td></tr>
+                                <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; text-align:center;"><div style="width:36px;height:36px;background:white;border:2px solid #334155;transform:rotate(45deg);display:inline-flex;align-items:center;justify-content:center;"><span style="transform:rotate(-45deg);font-size:13pt;font-weight:700;color:#334155;">✱</span></div></td><td style="padding:8px 12px; border:1px solid #e2e8f0;"><strong>Complex</strong></td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Asterisk/star inside diamond</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Custom complex routing logic defined in attached text annotation</td><td style="padding:8px 12px; border:1px solid #e2e8f0;">Rarely used. Only when XOR/AND/OR can't represent the routing logic.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- DATA ELEMENTS -->
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px; margin-bottom:14px;">
+                    <h4 style="color:#334155; margin-bottom:14px;">Data Elements — Documents and Storage</h4>
+                    <div style="display:flex; flex-direction:column; gap:12px;">
+                        <div style="display:flex; align-items:center; gap:16px;">
+                            <div style="flex-shrink:0;">
+                                <svg width="36" height="44" viewBox="0 0 36 44"><path d="M4 2 H26 L34 12 V42 H4 Z" fill="white" stroke="#334155" stroke-width="2"/><path d="M26 2 V12 H34" fill="none" stroke="#334155" stroke-width="2"/></svg>
+                            </div>
+                            <div><strong>Data Object</strong> — page with folded corner. A document or piece of data used in the process. e.g. "Invoice", "Purchase Order". Connect with a dotted association line (not a sequence arrow).</div>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:16px;">
+                            <div style="flex-shrink:0;">
+                                <svg width="36" height="44" viewBox="0 0 36 44"><path d="M4 2 H26 L34 12 V42 H4 Z" fill="white" stroke="#334155" stroke-width="2"/><path d="M26 2 V12 H34" fill="none" stroke="#334155" stroke-width="2"/><polygon points="0,2 6,8 0,14" fill="#334155" transform="translate(14,14)"/></svg>
+                            </div>
+                            <div><strong>Data Input</strong> — page with an inward arrow. Required data that must exist BEFORE the activity starts. Like a function parameter.</div>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:16px;">
+                            <div style="flex-shrink:0;">
+                                <svg width="36" height="44" viewBox="0 0 36 44"><path d="M4 2 H26 L34 12 V42 H4 Z" fill="white" stroke="#334155" stroke-width="2"/><path d="M26 2 V12 H34" fill="none" stroke="#334155" stroke-width="2"/><polygon points="6,2 0,8 6,14" fill="#334155" transform="translate(14,14)"/></svg>
+                            </div>
+                            <div><strong>Data Output</strong> — page with an outward arrow. Data PRODUCED by an activity. e.g. "Approved Invoice" output from "Approve Invoice" task.</div>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:16px;">
+                            <div style="flex-shrink:0;">
+                                <svg width="48" height="36" viewBox="0 0 48 36"><ellipse cx="24" cy="6" rx="20" ry="6" fill="white" stroke="#334155" stroke-width="2"/><path d="M4 6 V30" stroke="#334155" stroke-width="2"/><path d="M44 6 V30" stroke="#334155" stroke-width="2"/><path d="M4 30 Q24 36 44 30" fill="none" stroke="#334155" stroke-width="2"/></svg>
+                            </div>
+                            <div><strong>Data Store</strong> — cylinder/barrel shape. Represents a database, file store, or system of record that persists beyond the process instance. e.g. "ERP System", "Customer Database".</div>
+                        </div>
+                    </div>
+                    <p style="margin-top:10px; font-size:10pt; color:#6B7280;">Data elements are optional decoration in most BA-level diagrams. Use them to show key documents or system dependencies. Always connect with a dotted Association line, not a sequence flow arrow.</p>
+                </div>
+
+                <!-- ANNOTATIONS AND GROUPING -->
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px; margin-bottom:14px;">
+                    <h4 style="color:#334155; margin-bottom:14px;">Annotations, Groups, and Pools</h4>
+                    <div style="display:flex; flex-direction:column; gap:12px;">
+                        <div style="display:flex; align-items:center; gap:16px;">
+                            <div style="flex-shrink:0; width:48px; height:36px; border-left:3px solid #334155; border-top:1px solid #334155; border-bottom:1px solid #334155; background:transparent; display:flex; align-items:center; justify-content:center; padding-left:4px; font-size:8pt; color:#334155;">Note</div>
+                            <div><strong>Text Annotation</strong> — bracket shape. Attach explanatory notes to any element. Wardell rule: must connect with a dotted Association line at ~45°, never free-floating. Use for: loop conditions, iteration counts, SLA notes, rule clarifications.</div>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:16px;">
+                            <div style="flex-shrink:0; width:80px; height:2px; background:repeating-linear-gradient(to right, #94a3b8 0, #94a3b8 3px, transparent 3px, transparent 7px); position:relative;"></div>
+                            <div><strong>Association</strong> — dotted line (no arrowhead, or with arrowhead indicating direction). Connects annotations and data objects to process elements. NOT a flow — tokens don't travel along it.</div>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:16px;">
+                            <div style="flex-shrink:0; width:70px; height:36px; border:2px dashed #94a3b8; border-radius:6px; background:transparent;"></div>
+                            <div><strong>Group</strong> — dashed rectangle. Visually groups related elements without affecting the process flow. Label appears at top. Use to highlight a phase, subprocess cluster, or category for presentation purposes.</div>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:16px;">
+                            <div style="flex-shrink:0; border:3px solid #334155; border-radius:6px; overflow:hidden; width:80px;">
+                                <div style="background:#334155; color:white; font-size:7pt; padding:2px 4px; text-align:center;">Pool</div>
+                                <div style="border-top:1px solid #334155; padding:2px 4px; font-size:7pt; background:#e8f0fe;">Lane A</div>
+                                <div style="border-top:1px solid #334155; padding:2px 4px; font-size:7pt; background:#f0fdf4;">Lane B</div>
+                            </div>
+                            <div><strong>Pool with Lanes</strong> — outer rectangle = one organisation or system. Inner horizontal sections = roles/positions within that org. A <strong>Black Box Pool</strong> has only the outer rectangle with a label but no internal lanes or tasks visible — used for external participants.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BOUNDARY EVENTS HOW-TO -->
+                <div style="background:#fef3c7; border:1px solid #f59e0b; border-radius:8px; padding:16px; margin-bottom:14px;">
+                    <h4 style="color:#92400e; margin-bottom:10px;">How to Place a Boundary Event (Timer / Error / Message)</h4>
+                    <ol style="font-size:10.5pt; color:#78350f; margin:0; padding-left:20px; line-height:1.8;">
+                        <li>Draw the task it will attach to first.</li>
+                        <li>Select the Boundary Event shape from the shape panel.</li>
+                        <li><strong>Drag and drop it directly onto the border/edge of the task.</strong> It must snap onto the task's outline — not float nearby on the canvas.</li>
+                        <li>Once attached, it appears as a small circle clipped onto the task rectangle's edge.</li>
+                        <li>Draw a sequence flow from the boundary event circle to the exception/timeout path.</li>
+                        <li>For a loop-back: draw the sequence flow from the exception task back to the merging gateway (right-to-left is acceptable for rework loops).</li>
+                    </ol>
+                    <p style="margin-top:10px; font-size:10pt; color:#92400e;"><strong>Interrupting (solid border):</strong> task stops immediately when event fires. <strong>Non-interrupting (dashed border):</strong> task continues AND the exception path also starts.</p>
+                </div>
+
+            </div>
+        </details>
+
+        <details class="collapsible">
             <summary style="font-size: 13pt; font-weight: 600; color: var(--color-primary-dark); cursor: pointer; padding: 12px 0;">BPMN vs Flowchart vs Swimlane — What's the difference?</summary>
             <div class="detail-content">
                 <div style="overflow-x: auto;">
@@ -7250,6 +7404,319 @@ END
 
                 <h4>Q: How do you handle exceptions and edge cases in a process model?</h4>
                 <p style="background: #f0f9ff; border-left: 4px solid #3B82F6; padding: 12px; margin: 8px 0;">"I use exclusive gateways at decision points and branch out the alternate paths. For major exceptions I'll add a separate flow or sub-process. For minor ones I use annotations so the diagram stays readable. The key is to capture them somewhere — even if it's just a note — so they don't get missed when writing acceptance criteria."</p>
+
+            </div>
+        </details>
+
+        <!-- ============================================================ -->
+        <!-- WARDELL BPMN STANDARDS — PROFESSIONAL RULES -->
+        <!-- ============================================================ -->
+        <details class="collapsible">
+            <summary style="font-size: 13pt; font-weight: 600; color: var(--color-primary-dark); cursor: pointer; padding: 12px 0;">Wardell BPMN Standards — Professional Rules (Klarify)</summary>
+            <div class="detail-content">
+
+                <div style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 14px 18px; border-radius: 0 8px 8px 0; margin-bottom: 20px;">
+                    <strong>What makes BPMN "Good"?</strong> It must be all four: <strong>Correct</strong> (follows BPMN 2.0 rules), <strong>Clear</strong> (understandable from diagram alone), <strong>Complete</strong> (captures all activities, events, exceptions, end states), <strong>Consistent</strong> (same facts → same model regardless of who draws it).
+                </div>
+
+                <!-- ACTIVITIES -->
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 16px;">
+                    <h4 style="color: #334155; margin-bottom: 12px; font-size: 12pt;">Activities — Rules</h4>
+                    <table style="width:100%; border-collapse:collapse; font-size:10pt;">
+                        <thead><tr style="background:#334155; color:white;"><th style="padding:8px 12px; text-align:left;">Rule</th><th style="padding:8px 12px; text-align:left;">Wrong</th><th style="padding:8px 12px; text-align:left;">Correct</th></tr></thead>
+                        <tbody>
+                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Verb + Noun naming</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Manage invoice, Handle request</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">Approve invoice, Ship order</td></tr>
+                            <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Send/Receive verbs</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">"Send quote" as a User Task</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">Send Task (envelope icon) for "Send quote"; separate User Task "Evaluate quote response" after Receive Task</td></tr>
+                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Internal forwarding</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">"Send order to Warehouse Manager" as a Send Task between internal roles</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">User Task "Forward order to Warehouse Manager" — or let it be implicit in the last step</td></tr>
+                            <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">One task = one performer</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">"Obtain proposal approval" in Account Manager lane (involves two people)</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">Split: "Create proposal" → "Forward proposal to Sales Manager" → "Approve proposal" [Sales Manager lane]</td></tr>
+                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Interaction grouping</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Send RFQ [Send Task] → Receive Quote [Receive Task]</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">One User Task: "Obtain quote" — back-and-forth with supplier collapsed into one meaningful task</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- GATEWAYS -->
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 16px;">
+                    <h4 style="color: #334155; margin-bottom: 12px; font-size: 12pt;">Gateways — Rules</h4>
+                    <table style="width:100%; border-collapse:collapse; font-size:10pt;">
+                        <thead><tr style="background:#334155; color:white;"><th style="padding:8px 12px; text-align:left;">Rule</th><th style="padding:8px 12px; text-align:left;">Wrong</th><th style="padding:8px 12px; text-align:left;">Correct</th></tr></thead>
+                        <tbody>
+                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Gateway tests end state only</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Gateway "Check stock?" with no preceding Check Stock task</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">"Check stock" [task] → ◇"Order in stock?" — gateway evaluates result of the task</td></tr>
+                            <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Gateway placement</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Gateway placed far away from the activity it evaluates</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">Gateway sits visually adjacent (touching) to the activity whose end state it tests</td></tr>
+                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Merging gateway required</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Two flows entering one activity directly (no gateway)</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">All converging flows go through a merging ◇ gateway first</td></tr>
+                            <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Binary labelling (2 outcomes)</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Unlabelled gateway or flows not labelled</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">Gateway label = question toward happy outcome (e.g., "Approved?"); flows labelled "Yes" and "No"</td></tr>
+                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">3 outcomes labelling</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Gateway labelled with a question</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">Gateway left UNLABELLED; each of the three outgoing flows labelled with outcome name</td></tr>
+                            <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">4 outcomes</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Four flows from gateway</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">3 flows from gateway + rarest outcome modelled as an interrupting Error Boundary Event on the activity</td></tr>
+                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Event-based gateways</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Event-based gateway ◇ after a task</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">Interrupting Boundary Event (timer/message) attached directly to the task</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- EVENTS -->
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 16px;">
+                    <h4 style="color: #334155; margin-bottom: 12px; font-size: 12pt;">Events — Rules</h4>
+                    <table style="width:100%; border-collapse:collapse; font-size:10pt;">
+                        <thead><tr style="background:#334155; color:white;"><th style="padding:8px 12px; text-align:left;">Rule</th><th style="padding:8px 12px; text-align:left;">Wrong</th><th style="padding:8px 12px; text-align:left;">Correct</th></tr></thead>
+                        <tbody>
+                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Separate end events</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Single "END" for both "Product sold" and "Product not sold" paths</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">One end event per distinct outcome: "Product sold" and "Product not sold" as separate circles</td></tr>
+                            <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">End event label = process outcome</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">"Order shipped" (name of last task)</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">"Product sold" (state of the world after the process ends)</td></tr>
+                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">End events aligned</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">End events scattered at different x-positions</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">All end events on the same vertical line at the far right of the pool</td></tr>
+                            <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Multiple flows to end event</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Two arrows entering one end event directly</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">Merging gateway → single flow → end event (end event always has ONE incoming flow)</td></tr>
+                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Message End Event usage</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Message End Event used to "send an invoice" as final step</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">Message End Event only when it triggers another process. Otherwise: task + plain End Event</td></tr>
+                            <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Timer event labels</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">"Wait for 4 hours" or "Waiting period"</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">"4 hours" or "48 h" — specific duration only, no "wait for"</td></tr>
+                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Event-based gateway → boundary event</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Event-based gateway after task to handle timeout</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">Timer Boundary Event (clock circle) attached to the task, with label "48 h"</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- LANES, FLOW, LAYOUT -->
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 16px;">
+                    <h4 style="color: #334155; margin-bottom: 12px; font-size: 12pt;">Lanes, Flow &amp; Layout — Rules</h4>
+                    <table style="width:100%; border-collapse:collapse; font-size:10pt;">
+                        <thead><tr style="background:#334155; color:white;"><th style="padding:8px 12px; text-align:left;">Rule</th><th style="padding:8px 12px; text-align:left;">Wrong</th><th style="padding:8px 12px; text-align:left;">Correct</th></tr></thead>
+                        <tbody>
+                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Lane = role, not department</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">"Sales" lane, "Warehouse" lane</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">"Salesclerk" lane, "Warehouse Operator" lane</td></tr>
+                            <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Process direction</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Main path flows right to left</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">ALL main flows left → right. Only loop-backs (rework) may go right → left</td></tr>
+                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Happy path</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Happy path weaves through exception branches, non-linear</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">Happy path = straight horizontal line of Yes/positive outcomes. Exceptions branch off (down) from main line</td></tr>
+                            <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Vertical stacking</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">3 tasks stacked vertically at same x-position across 3 lanes</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">Maximum 2 elements at the same horizontal position (column). Third must be shifted right</td></tr>
+                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Text annotations</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Loop task with no annotation; free-floating annotation</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">Loop task MUST have annotation (e.g., "Until payment collected, max 3 times"). Always attached via association line at 45° right</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- QUICK NAMING REFERENCE -->
+                <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 16px;">
+                    <h4 style="color: #14532d; margin-bottom: 10px; font-size: 11pt;">Event Naming Convention Quick Reference</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 10pt;">
+                        <div><strong>None Start Event:</strong> Leave unlabelled</div>
+                        <div><strong>Message Events:</strong> "[Message] Received" / "[Message] Sent" — e.g., "Invoice Received"</div>
+                        <div><strong>Timer Intermediate:</strong> Specific delay — "2 hours", "48 h", "1st of the Month" (never "Wait for...")</div>
+                        <div><strong>Timer Start:</strong> Schedule — "Weekly", "Mondays 8am"</div>
+                        <div><strong>All other events:</strong> Object + Past Participle — "Payment Authorised", "Quote Obtained"</div>
+                        <div><strong>End Events:</strong> Process outcome state — "Invoice Processed", "Order Rejected"</div>
+                    </div>
+                </div>
+
+            </div>
+        </details>
+
+        <!-- ============================================================ -->
+        <!-- 22 VISUAL EXAMPLES: WRONG VS CORRECT -->
+        <!-- ============================================================ -->
+        <details class="collapsible">
+            <summary style="font-size: 13pt; font-weight: 600; color: var(--color-primary-dark); cursor: pointer; padding: 12px 0;">22 Visual Examples: Wrong vs Correct — Full Analysis</summary>
+            <div class="detail-content">
+
+                <div style="background: #fef9c3; border-left: 4px solid #eab308; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 20px; font-size: 10pt;">
+                    Each example below is drawn from a real Wardell BPMN reference diagram. They show exactly what an incorrect model looks like and why, then show the corrected version with the rule being applied.
+                </div>
+
+                <!-- Helper styles inline -->
+                <style>
+                    .ex-card { border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 18px; overflow: hidden; }
+                    .ex-header { background: #334155; color: white; padding: 10px 16px; font-size: 10.5pt; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+                    .ex-rule { background: #dbeafe; color: #1e3a5f; font-size: 9pt; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+                    .ex-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+                    .ex-wrong { padding: 14px 16px; background: #fef2f2; border-right: 1px solid #e2e8f0; }
+                    .ex-correct { padding: 14px 16px; background: #f0fdf4; }
+                    .ex-wrong h5 { color: #991b1b; font-size: 10pt; margin-bottom: 8px; }
+                    .ex-correct h5 { color: #14532d; font-size: 10pt; margin-bottom: 8px; }
+                    .ex-wrong p, .ex-correct p { font-size: 9.5pt; color: #374151; line-height: 1.5; }
+                    .ex-flow { font-family: monospace; background: rgba(0,0,0,0.05); padding: 4px 8px; border-radius: 4px; margin: 6px 0; font-size: 9pt; display: block; }
+                    .ex-rule-note { font-size: 9pt; color: #374151; background: #f1f5f9; border-left: 3px solid #64748b; padding: 8px 12px; margin-top: 8px; border-radius: 0 4px 4px 0; }
+                </style>
+
+                <!-- 1 -->
+                <div class="ex-card">
+                    <div class="ex-header">1. Send &amp; Receive Task Verbs <span class="ex-rule">Activities</span></div>
+                    <div class="ex-body">
+                        <div class="ex-wrong"><h5>✗ Wrong</h5><span class="ex-flow">[User Task] "Send quote" → [User Task] "Receive quote response" → Gateway</span><p>SEND and RECEIVE verbs used in User Tasks. The gateway also tries to evaluate a Receive Task directly — no User Task between them to do the evaluation work.</p></div>
+                        <div class="ex-correct"><h5>✓ Correct</h5><span class="ex-flow">[Send Task] "Send quote" → [Receive Task] "Receive quote response" → [User Task] "Evaluate quote response" → Gateway "Quote accepted?"</span><p>Send verb → Send Task. Receive verb → Receive Task. A separate User Task evaluates the response. The gateway tests the end state of the User Task.</p></div>
+                    </div>
+                </div>
+
+                <!-- 2 -->
+                <div class="ex-card">
+                    <div class="ex-header">2. Internal Forwarding — No Send/Receive Tasks <span class="ex-rule">Activities</span></div>
+                    <div class="ex-body">
+                        <div class="ex-wrong"><h5>✗ Wrong</h5><span class="ex-flow">Sales rep → [Send Task] "Send order to Warehouse Manager" → [Receive Task] "Receive order details" (Warehouse) → "Check stock"</span><p>Send/Receive Tasks used to pass messages between internal performers. These task types are only for external participants.</p></div>
+                        <div class="ex-correct"><h5>✓ Correct (two valid options)</h5><span class="ex-flow">Option A: "Enter order" (implicit message end) → "Check stock" [Warehouse lane]</span><span class="ex-flow">Option B: "Enter order" → [User Task] "Forward order to Warehouse Manager" → "Check stock" [Warehouse lane]</span><p>Either let the message be implicit in the last step of the sending task, or add a User Task with "Forward" verb.</p></div>
+                    </div>
+                </div>
+
+                <!-- 3 -->
+                <div class="ex-card">
+                    <div class="ex-header">3. One Task = One Performer <span class="ex-rule">Activities</span></div>
+                    <div class="ex-body">
+                        <div class="ex-wrong"><h5>✗ Wrong</h5><span class="ex-flow">[Account Manager] "Create proposal approval" → "Obtain proposal approval" → Gateway</span><p>"Obtain proposal approval" involves two performers (the requester and the approver) but is placed in one lane. One task, two people = wrong.</p></div>
+                        <div class="ex-correct"><h5>✓ Correct</h5><span class="ex-flow">[Account Manager] "Create proposal" → "Forward proposal to Sales Manager" → [Sales Manager] "Approve proposal" → Gateway "Proposal approved?"</span><p>Task split into one task per performer. Each task sits in the lane of the person performing it.</p></div>
+                    </div>
+                </div>
+
+                <!-- 5 -->
+                <div class="ex-card">
+                    <div class="ex-header">4. Interaction Grouping with External Participant <span class="ex-rule">Activities</span></div>
+                    <div class="ex-body">
+                        <div class="ex-wrong"><h5>✗ Wrong</h5><span class="ex-flow">[Send Task] "Send RFQ" → [Receive Task] "Receive Quote" → End Event</span><p>Two separate tasks for one back-and-forth interaction. Fragmented modelling adds noise without adding value.</p></div>
+                        <div class="ex-correct"><h5>✓ Correct</h5><span class="ex-flow">[User Task] "Obtain quote" → End Event</span><p>The entire interaction with the Supplier is grouped into one meaningful User Task. Message flows still shown on the Supplier pool boundary.</p></div>
+                    </div>
+                </div>
+
+                <!-- 6 -->
+                <div class="ex-card">
+                    <div class="ex-header">5. Exclusive Gateway Tests End State of Preceding Activity <span class="ex-rule">Gateways</span></div>
+                    <div class="ex-body">
+                        <div class="ex-wrong"><h5>✗ Wrong (two variants)</h5><span class="ex-flow">Wrong A: Gateway "Check stock?" directly after start (no check task)</span><span class="ex-flow">Wrong B: Gateway "Order in stock?" with no activity before it that actually checks</span><p>Gateway performing the work itself, or evaluating a condition that was never produced by any task.</p></div>
+                        <div class="ex-correct"><h5>✓ Correct</h5><span class="ex-flow">[User Task] "Check stock" → ◇ "Order in stock?" → Yes: "Fulfill order" / No: "Cancel order"</span><p>The task produces the result. The gateway reads the result. Always task → gateway, never gateway alone.</p></div>
+                    </div>
+                </div>
+
+                <!-- 7 -->
+                <div class="ex-card">
+                    <div class="ex-header">6. Multiple Incoming Flows Require Merging Gateway <span class="ex-rule">Gateways</span></div>
+                    <div class="ex-body">
+                        <div class="ex-wrong"><h5>✗ Wrong</h5><span class="ex-flow">"Create proposal" ← (start flow) AND ← (loop-back from "Approve proposal" No branch) — two arrows entering the task directly</span><p>An activity with two incoming sequence flows is incorrect. BPMN requires exactly one incoming flow per activity.</p></div>
+                        <div class="ex-correct"><h5>✓ Correct</h5><span class="ex-flow">Start flow → ◇ Merging gateway ← No loop-back → "Create proposal"</span><p>A merging exclusive gateway collects all incoming flows into a single outgoing flow before the activity. The activity now has exactly one incoming flow.</p></div>
+                    </div>
+                </div>
+
+                <!-- 8 -->
+                <div class="ex-card">
+                    <div class="ex-header">7. Gateway Placement — Must Be Adjacent to Activity <span class="ex-rule">Gateways</span></div>
+                    <div class="ex-body">
+                        <div class="ex-wrong"><h5>✗ Wrong</h5><p>Gateway placed at a significant visual distance from the activity it evaluates — separated by space or other elements. The reader cannot immediately see the cause-and-effect relationship.</p></div>
+                        <div class="ex-correct"><h5>✓ Correct</h5><p>Gateway sits visually touching or immediately adjacent to the activity it evaluates. No gap. Pattern reads instantly as: [task] → ◇ [decision].</p></div>
+                    </div>
+                </div>
+
+                <!-- 9 -->
+                <div class="ex-card">
+                    <div class="ex-header">8. Binary Gateway Labelling (2 outcomes: Yes/No) <span class="ex-rule">Gateways</span></div>
+                    <div class="ex-body">
+                        <div class="ex-wrong"><h5>✗ Wrong</h5><p>Gateway has no label, or outgoing flows are not labelled, or the question is phrased toward the negative outcome.</p></div>
+                        <div class="ex-correct"><h5>✓ Correct</h5><span class="ex-flow">◇ "Proposal approved?" → Yes: to "Send proposal" / No: loop back to "Create proposal"</span><p>Gateway label = a question phrased toward the happy/positive outcome. Two flows must be labelled "Yes" and "No" — never left blank.</p></div>
+                    </div>
+                </div>
+
+                <!-- 10 -->
+                <div class="ex-card">
+                    <div class="ex-header">9. Three Outcomes — Unlabelled Gateway, Label All Flows <span class="ex-rule">Gateways</span></div>
+                    <div class="ex-body">
+                        <div class="ex-wrong"><h5>✗ Wrong</h5><p>Gateway labelled with a question when there are three outcomes, or flows are not all labelled.</p></div>
+                        <div class="ex-correct"><h5>✓ Correct</h5><span class="ex-flow">◇ (unlabelled) → "Amendments needed" / "Proposal approved" / "Proposal cancelled"</span><p>With 3 outcomes: leave the gateway completely unlabelled. Each of the three outgoing flows carries the outcome label. The labels together serve as the "question."</p></div>
+                    </div>
+                </div>
+
+                <!-- 11 -->
+                <div class="ex-card">
+                    <div class="ex-header">10. Four Outcomes — Rarest as Boundary Event <span class="ex-rule">Gateways</span></div>
+                    <div class="ex-body">
+                        <div class="ex-wrong"><h5>✗ Wrong</h5><p>Four flows coming out of one gateway — cluttered and hard to read.</p></div>
+                        <div class="ex-correct"><h5>✓ Correct</h5><p>Three labelled flows from the gateway + the rarest/most exceptional fourth outcome modelled as an <strong>interrupting Error Boundary Event</strong> attached to the activity. This keeps the gateway clean (only 3 paths) while still capturing the rare case.</p></div>
+                    </div>
+                </div>
+
+                <!-- 12 -->
+                <div class="ex-card">
+                    <div class="ex-header">11. Event-Based Gateway → Use Boundary Event Instead <span class="ex-rule">Events</span></div>
+                    <div class="ex-body">
+                        <div class="ex-wrong"><h5>✗ Wrong</h5><span class="ex-flow">"Present proposal" → Event-Based Gateway ◇ → "Receive proposal response" / Timer (48h wait)</span><p>Event-Based Gateways are not in Wardell's Level 1 Palette. Avoid them entirely.</p></div>
+                        <div class="ex-correct"><h5>✓ Correct</h5><span class="ex-flow">"Present proposal" [task with Timer Boundary Event "48 h" attached] → "Receive proposal response"</span><p>The 48h timeout is a Timer Boundary Event (clock circle) attached to the task border. Same logical behaviour, much cleaner model.</p></div>
+                    </div>
+                </div>
+
+                <!-- 13 -->
+                <div class="ex-card">
+                    <div class="ex-header">12. Separate End Event per Distinct Outcome <span class="ex-rule">Events</span></div>
+                    <div class="ex-body">
+                        <div class="ex-wrong"><h5>✗ Wrong</h5><span class="ex-flow">"Ship order" → END ← "Cancel order"  (single end event for both)</span><p>Two completely different outcomes ("sold" vs "not sold") funnel into the same blank END. The diagram hides important business information.</p></div>
+                        <div class="ex-correct"><h5>✓ Correct</h5><span class="ex-flow">"Ship order" → ⬤ "Product sold" | "Cancel order" → ⬤ "Product not sold"</span><p>One end event per distinct process outcome. Each is labelled with what the business achieved (or didn't achieve).</p></div>
+                    </div>
+                </div>
+
+                <!-- 14 -->
+                <div class="ex-card">
+                    <div class="ex-header">13. Message End Event — Only to Trigger Another Process <span class="ex-rule">Events</span></div>
+                    <div class="ex-body">
+                        <div class="ex-wrong"><h5>✗ Wrong</h5><span class="ex-flow">"Ship order" → [Message End Event] "Invoice"</span><p>Message End Event used as a shorthand for "send an invoice." This misuses the symbol — a Message End Event specifically means the message TRIGGERS another process.</p></div>
+                        <div class="ex-correct"><h5>✓ Correct (two valid options)</h5><span class="ex-flow">Option A: "Ship order" → [User/Send Task] "Invoice order" → ⬤ "Product sold" (plain end event)</span><span class="ex-flow">Option B: "Ship order" → [Message End Event] → starts "Settle accounts receivable" process</span><p>Option A when invoicing is work inside this process. Option B only when the message itself kicks off a downstream process.</p></div>
+                    </div>
+                </div>
+
+                <!-- 15 -->
+                <div class="ex-card">
+                    <div class="ex-header">14. End Event Label = Process Outcome, Not Task Name <span class="ex-rule">Events</span></div>
+                    <div class="ex-body">
+                        <div class="ex-wrong"><h5>✗ Wrong</h5><span class="ex-flow">⬤ "Order shipped"  (= the last task's verb-noun label)</span><p>Copying the last task's name onto the end event. The end event should tell you the STATE of the world, not repeat what was just done.</p></div>
+                        <div class="ex-correct"><h5>✓ Correct</h5><span class="ex-flow">⬤ "Product sold"  (= what has been achieved by the process)</span><p>Ask: "What is true now that the process has ended?" That answer is the end event label. "Product sold", "Invoice processed", "Claim rejected" — outcomes, not actions.</p></div>
+                    </div>
+                </div>
+
+                <!-- 16 -->
+                <div class="ex-card">
+                    <div class="ex-header">15. End Events Must Be Vertically Aligned <span class="ex-rule">Events / Layout</span></div>
+                    <div class="ex-body">
+                        <div class="ex-wrong"><h5>✗ Wrong</h5><p>End events for different paths sit at different horizontal (x) positions — one further right than another. Visually implies different "levels" of completion.</p></div>
+                        <div class="ex-correct"><h5>✓ Correct</h5><p>All end events in the process sit on the same vertical axis at the far right of the pool. Regardless of which path was taken, the process "ends at the same wall." This makes alignment, review, and comparison easy.</p></div>
+                    </div>
+                </div>
+
+                <!-- 17 -->
+                <div class="ex-card">
+                    <div class="ex-header">16. Multiple Flows to End Event Require Merging Gateway <span class="ex-rule">Events / Gateways</span></div>
+                    <div class="ex-body">
+                        <div class="ex-wrong"><h5>✗ Wrong</h5><span class="ex-flow">Path A → ⬤ "Contract prepared" ← Path B  (two arrows into one end event)</span><p>Same rule as activities: any element with multiple incoming flows needs a merging gateway first. End events are no exception.</p></div>
+                        <div class="ex-correct"><h5>✓ Correct</h5><span class="ex-flow">Path A → ◇ Merging GW ← Path B → ⬤ "Contract prepared"</span><p>The merging gateway collects both paths. The end event receives exactly one incoming sequence flow.</p></div>
+                    </div>
+                </div>
+
+                <!-- 18 -->
+                <div class="ex-card">
+                    <div class="ex-header">17. Timer Events — Boundary Events, Specific Labels <span class="ex-rule">Events</span></div>
+                    <div class="ex-body">
+                        <div class="ex-wrong"><h5>✗ Wrong</h5><span class="ex-flow">"User Task" → ⏱ "wait for 4 hours" [intermediate event in sequence flow] → "User Task (2)"</span><p>Intermediate timer events floating in the sequence flow, and labelled with "wait for" phrasing. Both are incorrect.</p></div>
+                        <div class="ex-correct"><h5>✓ Correct</h5><span class="ex-flow">"User Task" [with ⏱ "4 hours" Boundary Event attached to task border] → "User Task (2)"</span><p>Timer = Boundary Event circle attached to the task. Label = specific duration only: "4 hours", "48 h", "1st of month". Never "Wait for..."</p></div>
+                    </div>
+                </div>
+
+                <!-- 19 -->
+                <div class="ex-card">
+                    <div class="ex-header">18. Text Annotations Required on Loop &amp; Parallel Tasks <span class="ex-rule">Annotations</span></div>
+                    <div class="ex-body">
+                        <div class="ex-wrong"><h5>✗ Wrong</h5><span class="ex-flow">[Collect payment ↻] [Check stock ≡] [Pick order] — no annotations</span><p>Loop marker (↻) and parallel/multi-instance marker (≡) on tasks with no explanation of the condition or iteration. The reader has no idea when the loop ends or what it iterates over.</p></div>
+                        <div class="ex-correct"><h5>✓ Correct</h5><span class="ex-flow">[Collect payment ↻] ← annotation: "Until payment collected, max 3 times"</span><span class="ex-flow">[Check stock ≡] ← annotation: "for every product"</span><p>Every task with a marker MUST have an annotation. Attach via association line at 45° to the right of the task. Never free-floating.</p></div>
+                    </div>
+                </div>
+
+                <!-- 20 -->
+                <div class="ex-card">
+                    <div class="ex-header">19. Process Flow Must Go Left to Right <span class="ex-rule">Flow / Layout</span></div>
+                    <div class="ex-body">
+                        <div class="ex-wrong"><h5>✗ Wrong</h5><p>Sequence flows on the main path travel right to left, or in multiple conflicting directions. The process has no clear reading direction — the reader doesn't know where to start or which way to follow.</p></div>
+                        <div class="ex-correct"><h5>✓ Correct</h5><p>All primary sequence flows move left → right. The only acceptable right-to-left flows are <strong>loop-backs</strong> (rework/retry paths returning to an earlier step). Everything else must flow forward.</p></div>
+                    </div>
+                </div>
+
+                <!-- 21 -->
+                <div class="ex-card">
+                    <div class="ex-header">20. Maximum 2 Elements Vertically Stacked <span class="ex-rule">Layout</span></div>
+                    <div class="ex-body">
+                        <div class="ex-wrong"><h5>✗ Wrong</h5><span class="ex-flow">Performer 1: Task 1 | Performer 2: Task 2 (below) | Performer 3: Task 3 (below) — all at same x</span><p>Three tasks in the same column across three lanes. Creates unnecessary vertical height and visual compression.</p></div>
+                        <div class="ex-correct"><h5>✓ Correct</h5><span class="ex-flow">Performer 1: Task 1 | Performer 2: Task 2 (below) | Performer 3: Task 3 (shifted right, different x)</span><p>Two elements may share the same horizontal position. The third must be offset to a different column. Keeps lanes compact and readable.</p></div>
+                    </div>
+                </div>
+
+                <!-- 22 -->
+                <div class="ex-card">
+                    <div class="ex-header">21. Happy Path Must Be Straight and Linear <span class="ex-rule">Layout / Flow</span></div>
+                    <div class="ex-body">
+                        <div class="ex-wrong"><h5>✗ Wrong</h5><span class="ex-flow">Start → Credit OK? → No→ Cancel | Yes → Stock? → No → Offer replacement → Yes → Fulfill (weaving path)</span><p>The happy path (successful outcome) zigzags through exception branches. A reader must trace Yes → No → Yes to follow the normal flow. This is a clear signal the diagram needs redesigning.</p></div>
+                        <div class="ex-correct"><h5>✓ Correct</h5><span class="ex-flow">Start → Credit OK? →Yes→ Stock? →Yes→ Fulfill order → ⬤ "Order completed" (straight line)</span><span class="ex-flow">Exceptions branch OFF: Credit? No → Cancel; Stock? No → Offer replacement → accepted? No → Cancel</span><p>Happy path = unbroken horizontal line of Yes flows. Every gateway's positive path stays on the main line. Exception paths branch downward or sideways and rejoin or end separately.</p></div>
+                    </div>
+                </div>
+
+                <div style="background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 10pt; margin-top: 8px;">
+                    <strong>Mental checklist before finalising any BPMN:</strong> Verb+Noun on every task · Send/Receive verbs only in correct task types · Every gateway tests a preceding task · Every activity/end event has max one incoming flow (or merging gateway) · End events labelled with outcomes, aligned vertically · Happy path reads left-to-right in a straight line · Loop tasks have annotations · No Event-Based Gateways · Lanes named by role not department.
+                </div>
 
             </div>
         </details>
