@@ -7474,13 +7474,86 @@ END
                     <table style="width:100%; border-collapse:collapse; font-size:10pt;">
                         <thead><tr style="background:#334155; color:white;"><th style="padding:8px 12px; text-align:left;">Rule</th><th style="padding:8px 12px; text-align:left;">Wrong</th><th style="padding:8px 12px; text-align:left;">Correct</th></tr></thead>
                         <tbody>
-                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Lane = role, not department</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">"Sales" lane, "Warehouse" lane</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">"Salesclerk" lane, "Warehouse Operator" lane</td></tr>
+                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Lane = role, not department</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">"Sales" lane, "Warehouse" lane</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">"Salesclerk" lane, "Warehouse Operator" lane — lowest accountability level, specific role/position</td></tr>
+                            <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Lane order = first appearance</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Lanes ordered alphabetically or by seniority</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">Top lane = role that appears first in the happy path. Order all lanes by when each role first performs an action</td></tr>
+                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">External participants = black box pool</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">External org (Supplier, Customer) given an internal lane with tasks visible inside your pool</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">External participant = separate black box pool (outer rectangle only, label visible, no internal elements). Connected via dashed message flow arrows</td></tr>
                             <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Process direction</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Main path flows right to left</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">ALL main flows left → right. Only loop-backs (rework) may go right → left</td></tr>
-                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Happy path</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Happy path weaves through exception branches, non-linear</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">Happy path = straight horizontal line of Yes/positive outcomes. Exceptions branch off (down) from main line</td></tr>
-                            <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Vertical stacking</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">3 tasks stacked vertically at same x-position across 3 lanes</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">Maximum 2 elements at the same horizontal position (column). Third must be shifted right</td></tr>
-                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Text annotations</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Loop task with no annotation; free-floating annotation</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">Loop task MUST have annotation (e.g., "Until payment collected, max 3 times"). Always attached via association line at 45° right</td></tr>
+                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Happy path = straight horizontal line</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Happy path weaves through exception branches, goes diagonally or changes lanes mid-flow</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">Happy path = unbroken horizontal line of Yes/positive outcomes in the primary performer's lane. Exceptions branch off downward from that line</td></tr>
+                            <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Task must be IN FRONT of its gateway — not below it</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Task placed below or above the gateway that evaluates it. The task is in a different row than its gateway, forcing an angled connection</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">Task and its gateway sit on the SAME horizontal row. Gateway immediately to the RIGHT of the task. Pattern reads: [Task] → ◇ on one flat line. Never place gateway above or below its task</td></tr>
+                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Exception branches go DOWN</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Exception path goes upward from the gateway, or branches left</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">The "No" / exception flow always exits the gateway downward. Exception tasks sit below the happy path row. Never branch upward from a happy-path gateway</td></tr>
+                            <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Vertical stacking — max 2</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">3 tasks stacked vertically at same x-position across 3 lanes</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">Maximum 2 elements at the same horizontal position (column) across all lanes. Third element must be shifted right to a new column</td></tr>
+                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Max 10 activities on happy path</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">15-step happy path with granular micro-tasks</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">If you need more than 10 activities, raise abstraction level — group related micro-steps into one outcome-focused task</td></tr>
+                            <tr style="background:#f8fafc;"><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Text annotations on loop tasks</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">Loop task with no annotation; free-floating annotation with no association line</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">Every loop/repeating task MUST have a text annotation stating the condition AND max iterations (e.g., "Until supplier responds — max 3 follow-ups"). Attach via dotted association line at ~45° angle</td></tr>
+                            <tr><td style="padding:8px 12px; border:1px solid #e2e8f0; font-weight:600;">Sentence case for all labels</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">"Review Invoice" (Title Case) or "REVIEW INVOICE" (ALL CAPS)</td><td style="padding:8px 12px; border:1px solid #e2e8f0; color:#065f46;">"Review invoice" — first letter capitalised only. Reads as a natural instruction, not a heading. Exception: proper nouns keep their own capitalisation (e.g., "Post payment to SAP")</td></tr>
                         </tbody>
                     </table>
+                </div>
+
+                <!-- DO NOT MODEL -->
+                <div style="background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px; padding: 16px; margin-bottom: 16px;">
+                    <h4 style="color: #92400e; margin-bottom: 12px; font-size: 12pt;">Internal Variations — Do NOT Model as Flows</h4>
+                    <p style="font-size:10pt; color:#78350f; margin-bottom:10px;">The test: <em>"Does this variation lead the process down a DIFFERENT path with a different outcome?"</em></p>
+                    <table style="width:100%; border-collapse:collapse; font-size:10pt;">
+                        <thead><tr style="background:#92400e; color:white;"><th style="padding:8px 12px; text-align:left;">Situation</th><th style="padding:8px 12px; text-align:left;">Do NOT model (stays inside the task)</th><th style="padding:8px 12px; text-align:left;">DO model (different path)</th></tr></thead>
+                        <tbody>
+                            <tr><td style="padding:8px 12px; border:1px solid #fed7aa; font-weight:600;">How a task is done</td><td style="padding:8px 12px; border:1px solid #fed7aa; color:#92400e;">Clerk checks mandatory fields AND matches PO — two sub-checks with same outcome (correct or not)</td><td style="padding:8px 12px; border:1px solid #fed7aa; color:#065f46;">Invoice missing fields → goes to clarification path (different outcome = model it)</td></tr>
+                            <tr style="background:#fff7ed;"><td style="padding:8px 12px; border:1px solid #fed7aa; font-weight:600;">Internal deliberation</td><td style="padding:8px 12px; border:1px solid #fed7aa; color:#92400e;">How approver reads, deliberates, consults — all stays inside "Approve invoice" task</td><td style="padding:8px 12px; border:1px solid #fed7aa; color:#065f46;">Approver rejects → different path to rejection end event (model it)</td></tr>
+                            <tr><td style="padding:8px 12px; border:1px solid #fed7aa; font-weight:600;">Communication details</td><td style="padding:8px 12px; border:1px solid #fed7aa; color:#92400e;">How the email is worded, what attachments are added — stays inside "Request clarification" task</td><td style="padding:8px 12px; border:1px solid #fed7aa; color:#065f46;">No response received in 48h → timer fires, different follow-up path (model it)</td></tr>
+                        </tbody>
+                    </table>
+                    <p style="margin-top:10px; font-size:10pt; color:#92400e; font-weight:600;">Rule of thumb: If the variation has the same end state → keep it inside the task. If it leads somewhere else → model it as a branch.</p>
+                </div>
+
+                <!-- WARDELL 3-STEP METHOD -->
+                <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 16px; margin-bottom: 16px;">
+                    <h4 style="color: #0c4a6e; margin-bottom: 12px; font-size: 12pt;">Wardell 3-Step Modelling Method — Always Follow This Order</h4>
+                    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; font-size:10pt;">
+                        <div style="background:white; border:2px solid #0284c7; border-radius:8px; padding:14px;">
+                            <div style="font-size:18pt; font-weight:700; color:#0284c7; margin-bottom:6px;">1</div>
+                            <strong style="color:#0c4a6e;">Process Discovery</strong>
+                            <p style="color:#374151; margin-top:6px; font-size:9.5pt;">Name the process (Verb + Noun). Define the start event. Define ALL end states — happy AND exception. Never draw before this is complete.</p>
+                        </div>
+                        <div style="background:white; border:2px solid #0284c7; border-radius:8px; padding:14px;">
+                            <div style="font-size:18pt; font-weight:700; color:#0284c7; margin-bottom:6px;">2</div>
+                            <strong style="color:#0c4a6e;">Define the Flow</strong>
+                            <p style="color:#374151; margin-top:6px; font-size:9.5pt;">Write the happy path (max 10 activities). Assign every task to exactly one performer. Identify gateways and what they test. This becomes your diagram backbone.</p>
+                        </div>
+                        <div style="background:white; border:2px solid #0284c7; border-radius:8px; padding:14px;">
+                            <div style="font-size:18pt; font-weight:700; color:#0284c7; margin-bottom:6px;">3</div>
+                            <strong style="color:#0c4a6e;">Identify Exception End States</strong>
+                            <p style="color:#374151; margin-top:6px; font-size:9.5pt;">For each gateway: what happens on the No path? Does it loop back or end differently? Add merging gateways, boundary events, and rejection paths. THEN draw.</p>
+                        </div>
+                    </div>
+                    <p style="margin-top:12px; font-size:10pt; color:#0c4a6e; background:#e0f2fe; padding:8px 12px; border-radius:4px;"><strong>Key insight:</strong> You cannot draw a correct diagram without knowing all your end states first. The end states drive the exception branches. Discover them in Step 1, not while drawing.</p>
+                </div>
+
+                <!-- FINAL CHECKLIST -->
+                <div style="background: #f8fafc; border: 2px solid #334155; border-radius: 8px; padding: 16px; margin-bottom: 16px;">
+                    <h4 style="color: #334155; margin-bottom: 12px; font-size: 12pt;">Final Checklist — Verify Before Submitting Any Diagram</h4>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; font-size:10pt;">
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ Every task has Verb + Noun label (sentence case)</div>
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ Send/Receive verbs only in Send/Receive Tasks</div>
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ No Send/Receive Tasks between internal performers</div>
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ Every task has exactly one performer (one lane)</div>
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ Every gateway tests end state of immediately preceding task</div>
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ Task and its gateway on same horizontal row</div>
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ Every activity and end event has max ONE incoming flow</div>
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ Merging gateways added wherever multiple flows converge</div>
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ Binary gateways: question label + Yes/No on flows</div>
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ 3-outcome gateways: gateway unlabelled, all flows labelled</div>
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ No Event-Based Gateways — use Boundary Events instead</div>
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ Timer Boundary labels = specific duration (e.g., "48 h")</div>
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ Loop tasks have annotation (condition + max iterations)</div>
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ Annotations attached via association line — never free-floating</div>
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ All end events labelled with process outcome (not task name)</div>
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ All end events aligned on same vertical axis at far right</div>
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ Happy path reads left-to-right in a straight horizontal line</div>
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ Exception branches go downward from happy path</div>
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ Max 2 elements stacked vertically at same x-position</div>
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ Lane labels = specific role/position (not department)</div>
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ Lanes ordered by first appearance in happy path</div>
+                        <div style="padding:6px 10px; background:white; border:1px solid #e2e8f0; border-radius:4px;">☐ External participants = black box pool (separate rectangle)</div>
+                    </div>
                 </div>
 
                 <!-- QUICK NAMING REFERENCE -->
