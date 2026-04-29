@@ -7155,18 +7155,183 @@ END
                     </div>
                 </div>
 
-                <!-- BOUNDARY EVENTS HOW-TO -->
+                <!-- BOUNDARY EVENTS DEEP DIVE -->
                 <div style="background:#fef3c7; border:1px solid #f59e0b; border-radius:8px; padding:16px; margin-bottom:14px;">
-                    <h4 style="color:#92400e; margin-bottom:10px;">How to Place a Boundary Event (Timer / Error / Message)</h4>
-                    <ol style="font-size:10.5pt; color:#78350f; margin:0; padding-left:20px; line-height:1.8;">
-                        <li>Draw the task it will attach to first.</li>
-                        <li>Select the Boundary Event shape from the shape panel.</li>
-                        <li><strong>Drag and drop it directly onto the border/edge of the task.</strong> It must snap onto the task's outline — not float nearby on the canvas.</li>
-                        <li>Once attached, it appears as a small circle clipped onto the task rectangle's edge.</li>
-                        <li>Draw a sequence flow from the boundary event circle to the exception/timeout path.</li>
-                        <li>For a loop-back: draw the sequence flow from the exception task back to the merging gateway (right-to-left is acceptable for rework loops).</li>
-                    </ol>
-                    <p style="margin-top:10px; font-size:10pt; color:#92400e;"><strong>Interrupting (solid border):</strong> task stops immediately when event fires. <strong>Non-interrupting (dashed border):</strong> task continues AND the exception path also starts.</p>
+                    <h4 style="color:#92400e; margin-bottom:10px;">Boundary Events — Interrupting vs Non-Interrupting</h4>
+                    <p style="font-size:10.5pt; color:#78350f; margin-bottom:10px;"><strong>The core question:</strong> when this event fires, does the task STOP or KEEP GOING?</p>
+                    <div style="overflow-x:auto;">
+                        <table style="width:100%; border-collapse:collapse; font-size:10pt;">
+                            <thead><tr style="background:#92400e; color:white;">
+                                <th style="padding:8px 12px; border:1px solid #78350f;">Visual</th>
+                                <th style="padding:8px 12px; border:1px solid #78350f;">Type</th>
+                                <th style="padding:8px 12px; border:1px solid #78350f;">What happens</th>
+                                <th style="padding:8px 12px; border:1px solid #78350f;">How to close the exception path</th>
+                                <th style="padding:8px 12px; border:1px solid #78350f;">Assignment example</th>
+                            </tr></thead>
+                            <tbody>
+                                <tr><td style="padding:8px 12px; border:1px solid #fcd34d; text-align:center;"><div style="width:28px;height:28px;border-radius:50%;border:3px solid #dc2626;background:white;margin:auto;display:flex;align-items:center;justify-content:center;font-size:9pt;">🕐</div></td><td style="padding:8px 12px; border:1px solid #fcd34d;"><strong>Interrupting</strong><br><span style="font-size:9pt;color:#dc2626;">Solid red border</span></td><td style="padding:8px 12px; border:1px solid #fcd34d;">Task STOPS immediately. Exception path fires.</td><td style="padding:8px 12px; border:1px solid #fcd34d;"><strong>A — Own end event:</strong> exception ends process<br><strong>B — Merging XOR:</strong> exception rejoins main flow<br><strong>C — Loop back:</strong> restart with different input</td><td style="padding:8px 12px; border:1px solid #fcd34d;"><strong>A04:</strong> Timer 14 days → Withdraw offer → ○ "Offer withdrawn"<br><strong>A06:</strong> Both paths → ◇ merge → continue<br><strong>A07:</strong> Timer 5 days → Escalate → loop to Obtain quote</td></tr>
+                                <tr style="background:#fffbeb;"><td style="padding:8px 12px; border:1px solid #fcd34d; text-align:center;"><div style="width:28px;height:28px;border-radius:50%;border:3px dashed #d97706;background:white;margin:auto;display:flex;align-items:center;justify-content:center;font-size:9pt;">🕐</div></td><td style="padding:8px 12px; border:1px solid #fcd34d;"><strong>Non-Interrupting</strong><br><span style="font-size:9pt;color:#d97706;">Dashed yellow border</span></td><td style="padding:8px 12px; border:1px solid #fcd34d;">Task KEEPS RUNNING. Side path fires in parallel.</td><td style="padding:8px 12px; border:1px solid #fcd34d;">Side path ends cleanly on its own. <strong>No merging gateway, no end event needed.</strong></td><td style="padding:8px 12px; border:1px solid #fcd34d;"><strong>A04:</strong> Timer 7 days → Send contract reminder → side path ends. Main task still waiting.<br><strong>A01:</strong> Timer 48h → Send follow-up → ends. Invoice task still open.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="margin-top:10px; overflow-x:auto;">
+                        <table style="width:100%; border-collapse:collapse; font-size:10pt;">
+                            <thead><tr style="background:#334155; color:white;"><th style="padding:7px 10px; border:1px solid #475569;">Assignment</th><th style="padding:7px 10px; border:1px solid #475569;">Boundary Event</th><th style="padding:7px 10px; border:1px solid #475569;">Type</th><th style="padding:7px 10px; border:1px solid #475569;">Outcome</th></tr></thead>
+                            <tbody>
+                                <tr><td style="padding:7px 10px; border:1px solid #e2e8f0;">01 Supplier Invoice</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Timer 48h</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Non-Interrupting</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Send follow-up, keep waiting</td></tr>
+                                <tr style="background:#f8fafc;"><td style="padding:7px 10px; border:1px solid #e2e8f0;">03 Order Fulfillment</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Timer 7 days</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Interrupting</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Stock not replenished → cancel order</td></tr>
+                                <tr><td style="padding:7px 10px; border:1px solid #e2e8f0;">03 Order Fulfillment</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Error ~1%</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Interrupting</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Delivery exception → 3-path handling</td></tr>
+                                <tr style="background:#f8fafc;"><td style="padding:7px 10px; border:1px solid #e2e8f0;">04 Employee Onboarding</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Timer 7 days</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Non-Interrupting</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Send reminder, keep waiting for contract</td></tr>
+                                <tr><td style="padding:7px 10px; border:1px solid #e2e8f0;">04 Employee Onboarding</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Timer 14 days</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Interrupting</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Withdraw offer → end</td></tr>
+                                <tr style="background:#f8fafc;"><td style="padding:7px 10px; border:1px solid #e2e8f0;">04 Employee Onboarding</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Error ~3%</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Interrupting</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Compliance issue → escalation path</td></tr>
+                                <tr><td style="padding:7px 10px; border:1px solid #e2e8f0;">05 Support Ticket</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Timer 72h</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Interrupting</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">No response → close ticket</td></tr>
+                                <tr style="background:#f8fafc;"><td style="padding:7px 10px; border:1px solid #e2e8f0;">07 Procurement</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Timer 5 days</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Interrupting</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">No supplier response → escalate → loop</td></tr>
+                                <tr><td style="padding:7px 10px; border:1px solid #e2e8f0;">08 New Product Dev</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Event Subprocess</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Interrupting</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Scope change at ANY point during build</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="margin-top:8px; font-size:10pt; color:#92400e;"><strong>Placement:</strong> drag boundary event circle directly onto the task border edge — it must snap to the outline, not float nearby. Label = duration only: "48 h" not "Wait 48 hours".</p>
+                </div>
+
+                <!-- PARALLEL GATEWAY -->
+                <div style="background:#f0fdf4; border:1px solid #86efac; border-radius:8px; padding:16px; margin-bottom:14px;">
+                    <h4 style="color:#14532d; margin-bottom:10px;">Parallel Gateway (+) — When to Use vs XOR</h4>
+                    <div style="display:flex; gap:12px; margin-bottom:12px; flex-wrap:wrap;">
+                        <div style="flex:1; min-width:200px; background:#dcfce7; border-radius:6px; padding:10px;">
+                            <strong style="color:#15803d;">Use (+) Parallel when:</strong>
+                            <ul style="margin:6px 0 0; padding-left:18px; font-size:10pt; color:#166534;">
+                                <li>Activities happen simultaneously</li>
+                                <li>ALL must complete before continuing</li>
+                                <li>No condition — always both/all fire</li>
+                            </ul>
+                            <p style="font-size:9pt; color:#166534; margin-top:6px;"><em>Signal phrases: "at the same time", "in parallel", "simultaneously", "both X and Y must complete"</em></p>
+                        </div>
+                        <div style="flex:1; min-width:200px; background:#f8fafc; border-radius:6px; padding:10px;">
+                            <strong style="color:#334155;">Use (◇) XOR when:</strong>
+                            <ul style="margin:6px 0 0; padding-left:18px; font-size:10pt; color:#475569;">
+                                <li>Only ONE path taken based on condition</li>
+                                <li>Paths are mutually exclusive (if/else)</li>
+                                <li>A decision drives the branching</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="overflow-x:auto;">
+                        <table style="width:100%; border-collapse:collapse; font-size:10pt;">
+                            <thead><tr style="background:#14532d; color:white;"><th style="padding:7px 10px; border:1px solid #166534;">Assignment</th><th style="padding:7px 10px; border:1px solid #166534;">Parallel Activities</th><th style="padding:7px 10px; border:1px solid #166534;">Merge on</th></tr></thead>
+                            <tbody>
+                                <tr><td style="padding:7px 10px; border:1px solid #bbf7d0;">04 Employee Onboarding</td><td style="padding:7px 10px; border:1px solid #bbf7d0;">[Prepare IT access] + [Register in payroll] — "at the same time"</td><td style="padding:7px 10px; border:1px solid #bbf7d0;">Both done → Hiring Manager conducts welcome meeting</td></tr>
+                                <tr style="background:#f0fdf4;"><td style="padding:7px 10px; border:1px solid #bbf7d0;">08 New Product Dev</td><td style="padding:7px 10px; border:1px solid #bbf7d0;">[Define requirements] + [Develop business case] — "BA and Finance work in parallel"</td><td style="padding:7px 10px; border:1px solid #bbf7d0;">Both done → PM reviews both together</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="margin-top:8px; font-size:10pt; color:#166534; background:#dcfce7; padding:8px 10px; border-radius:4px;"><strong>Matching rule:</strong> a Parallel split (+) MUST be merged by a Parallel merge (+). Never pair with XOR merge — XOR lets one path continue without waiting for the other.</p>
+                </div>
+
+                <!-- WARDELL STANCE QUICK REFERENCE -->
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px; margin-bottom:14px;">
+                    <h4 style="color:#334155; margin-bottom:10px;">Wardell Stance — Quick Reference (All Element Types)</h4>
+                    <div style="overflow-x:auto;">
+                        <table style="width:100%; border-collapse:collapse; font-size:10pt;">
+                            <thead><tr style="background:#334155; color:white;"><th style="padding:7px 10px; border:1px solid #475569;">Element</th><th style="padding:7px 10px; border:1px solid #475569;">Wardell Stance</th><th style="padding:7px 10px; border:1px solid #475569;">Key rule</th></tr></thead>
+                            <tbody>
+                                <tr><td style="padding:7px 10px; border:1px solid #e2e8f0;"><strong>User Task</strong></td><td style="padding:7px 10px; border:1px solid #e2e8f0; color:#065f46;font-weight:600;">✓ PREFERRED</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Default for all human work</td></tr>
+                                <tr style="background:#f8fafc;"><td style="padding:7px 10px; border:1px solid #e2e8f0;"><strong>Send Task</strong></td><td style="padding:7px 10px; border:1px solid #e2e8f0; color:#065f46;font-weight:600;">✓ Use</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">External only. "Send" verb ONLY here.</td></tr>
+                                <tr><td style="padding:7px 10px; border:1px solid #e2e8f0;"><strong>Receive Task</strong></td><td style="padding:7px 10px; border:1px solid #e2e8f0; color:#b45309;font-weight:600;">⚠ Use carefully</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Often better as Message Intermediate Catch Event (Rule 9a)</td></tr>
+                                <tr style="background:#f8fafc;"><td style="padding:7px 10px; border:1px solid #e2e8f0;"><strong>Service / Manual / Business Rule</strong></td><td style="padding:7px 10px; border:1px solid #e2e8f0; color:#b45309;font-weight:600;">⚠ Only when justified</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Not common in BA-level diagrams</td></tr>
+                                <tr><td style="padding:7px 10px; border:1px solid #e2e8f0;"><strong>Sub-Process (+)</strong></td><td style="padding:7px 10px; border:1px solid #e2e8f0; color:#065f46;font-weight:600;">✓ Use it</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">When main flow hits 10+ activities — collapse detail inside</td></tr>
+                                <tr style="background:#f8fafc;"><td style="padding:7px 10px; border:1px solid #e2e8f0;"><strong>Event Subprocess</strong></td><td style="padding:7px 10px; border:1px solid #e2e8f0; color:#065f46;font-weight:600;">✓ When boundary isn't enough</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Exception at ANY point in process (e.g. A08 scope change during build)</td></tr>
+                                <tr><td style="padding:7px 10px; border:1px solid #e2e8f0;"><strong>Transaction (double border)</strong></td><td style="padding:7px 10px; border:1px solid #e2e8f0; color:#991b1b;font-weight:600;">✗ Rare</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Only if all-or-nothing rollback is literally required</td></tr>
+                                <tr style="background:#f8fafc;"><td style="padding:7px 10px; border:1px solid #e2e8f0;"><strong>Call Activity (thick border)</strong></td><td style="padding:7px 10px; border:1px solid #e2e8f0; color:#b45309;font-weight:600;">⚠ Only genuine reuse</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Reusable process modelled separately and called multiple times</td></tr>
+                                <tr><td style="padding:7px 10px; border:1px solid #e2e8f0;"><strong>Global Task</strong></td><td style="padding:7px 10px; border:1px solid #e2e8f0; color:#991b1b;font-weight:600;">✗ Avoid</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Rarely used in practice</td></tr>
+                                <tr style="background:#f8fafc;"><td style="padding:7px 10px; border:1px solid #e2e8f0;"><strong>Exclusive XOR (◇)</strong></td><td style="padding:7px 10px; border:1px solid #e2e8f0; color:#065f46;font-weight:600;">✓ Default gateway</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Tests end state of preceding task. Never performs an action itself.</td></tr>
+                                <tr><td style="padding:7px 10px; border:1px solid #e2e8f0;"><strong>Parallel (+)</strong></td><td style="padding:7px 10px; border:1px solid #e2e8f0; color:#065f46;font-weight:600;">✓ For concurrent work</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Split must match merge type. Merge waits for ALL paths.</td></tr>
+                                <tr style="background:#f8fafc;"><td style="padding:7px 10px; border:1px solid #e2e8f0;"><strong>Inclusive OR (◯)</strong></td><td style="padding:7px 10px; border:1px solid #e2e8f0; color:#b45309;font-weight:600;">⚠ Sparingly</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">One or more paths. Merge waits for all active paths.</td></tr>
+                                <tr><td style="padding:7px 10px; border:1px solid #e2e8f0;"><strong>Event-Based Gateway</strong></td><td style="padding:7px 10px; border:1px solid #e2e8f0; color:#991b1b;font-weight:600;">✗ AVOID</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Rule 3.5: use Boundary Events instead</td></tr>
+                                <tr style="background:#f8fafc;"><td style="padding:7px 10px; border:1px solid #e2e8f0;"><strong>Complex (*)</strong></td><td style="padding:7px 10px; border:1px solid #e2e8f0; color:#991b1b;font-weight:600;">✗ AVOID</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Signals a broken model. Simplify instead.</td></tr>
+                                <tr><td style="padding:7px 10px; border:1px solid #e2e8f0;"><strong>Message End Event</strong></td><td style="padding:7px 10px; border:1px solid #e2e8f0; color:#b45309;font-weight:600;">⚠ Only to trigger process</td><td style="padding:7px 10px; border:1px solid #e2e8f0;">Just sending a message at end → use Send Task + None End Event</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ASSIGNMENT Q&A -->
+                <div style="background:#eff6ff; border:1px solid #93c5fd; border-radius:8px; padding:16px; margin-bottom:14px;">
+                    <h4 style="color:#1e3a8a; margin-bottom:10px;">Assignment Questions — Model Answers (05–08)</h4>
+
+                    <p style="font-size:10.5pt; font-weight:600; color:#1e40af; margin-bottom:4px;">Assignment 05 — Customer Support Ticket</p>
+                    <div style="overflow-x:auto;"><table style="width:100%; border-collapse:collapse; font-size:10pt;"><thead><tr style="background:#1e3a8a; color:white;"><th style="padding:7px 10px; border:1px solid #1e40af;">Metric</th><th style="padding:7px 10px; border:1px solid #1e40af;">Measures</th><th style="padding:7px 10px; border:1px solid #1e40af;">Why relevant</th></tr></thead><tbody>
+                        <tr><td style="padding:7px 10px; border:1px solid #bfdbfe;">First contact resolution rate</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">% tickets resolved by Agent without escalation</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">Agent effectiveness; reduces escalation cost</td></tr>
+                        <tr style="background:#f0f9ff;"><td style="padding:7px 10px; border:1px solid #bfdbfe;">Avg ticket resolution time</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">Submission → closed</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">Core efficiency; links to customer SLA</td></tr>
+                    </tbody></table></div>
+                    <p style="font-size:10pt; color:#1e40af; margin-top:6px;"><strong>Improvement:</strong> Auto-triage by issue category at submission → route directly to right specialist. Eliminates unnecessary first-level review for tickets that always escalate.</p>
+
+                    <p style="font-size:10.5pt; font-weight:600; color:#1e40af; margin:14px 0 4px;">Assignment 06 — Workplace Incident Management</p>
+                    <div style="overflow-x:auto;"><table style="width:100%; border-collapse:collapse; font-size:10pt;"><thead><tr style="background:#1e3a8a; color:white;"><th style="padding:7px 10px; border:1px solid #1e40af;">Metric</th><th style="padding:7px 10px; border:1px solid #1e40af;">Measures</th><th style="padding:7px 10px; border:1px solid #1e40af;">Why relevant</th></tr></thead><tbody>
+                        <tr><td style="padding:7px 10px; border:1px solid #bfdbfe;">Incident resolution time</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">Reported → corrective actions confirmed</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">Speed of response; safety compliance</td></tr>
+                        <tr style="background:#f0f9ff;"><td style="padding:7px 10px; border:1px solid #bfdbfe;">Recurrence rate</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">% same incident type after preventive actions</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">Most important quality metric — did preventive actions work?</td></tr>
+                    </tbody></table></div>
+                    <p style="font-size:10pt; color:#1e40af; margin-top:6px;"><strong>Improvement:</strong> Auto-triage by severity — high-severity cases bypass manual H&amp;S review and trigger immediate action automatically.</p>
+
+                    <p style="font-size:10.5pt; font-weight:600; color:#1e40af; margin:14px 0 4px;">Assignment 07 — Procurement (Request to PO)</p>
+                    <div style="overflow-x:auto;"><table style="width:100%; border-collapse:collapse; font-size:10pt;"><thead><tr style="background:#1e3a8a; color:white;"><th style="padding:7px 10px; border:1px solid #1e40af;">KPI</th><th style="padding:7px 10px; border:1px solid #1e40af;">Measures</th><th style="padding:7px 10px; border:1px solid #1e40af;">Type</th></tr></thead><tbody>
+                        <tr><td style="padding:7px 10px; border:1px solid #bfdbfe;">PO cycle time</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">Request to PO confirmed</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">Speed</td></tr>
+                        <tr style="background:#f0f9ff;"><td style="padding:7px 10px; border:1px solid #bfdbfe;">First-time quote acceptance rate</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">% quotes accepted without escalation</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">Quality / Exception rate</td></tr>
+                        <tr><td style="padding:7px 10px; border:1px solid #bfdbfe;">Goods inspection pass rate</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">% deliveries passing first inspection</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">Quality / Rework</td></tr>
+                        <tr style="background:#f0f9ff;"><td style="padding:7px 10px; border:1px solid #bfdbfe;">Supplier response time</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">Avg days to respond to RFQ</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">Exception indicator</td></tr>
+                    </tbody></table></div>
+                    <p style="font-size:10pt; color:#1e40af; margin-top:6px;"><strong>Supplier timeout:</strong> Timer Boundary Event (Interrupting) "5 business days" on [Obtain quote from supplier] — NOT an XOR gateway. → [Escalate] → [Select alternative supplier] → loop back. Annotation: "Max 1 escalation."<br><strong>Improvement:</strong> Auto-notify employee at key milestones (approved, PO raised, goods received) — eliminates employee blind spot.</p>
+
+                    <p style="font-size:10.5pt; font-weight:600; color:#1e40af; margin:14px 0 4px;">Assignment 08 — New Product Development</p>
+                    <div style="overflow-x:auto;"><table style="width:100%; border-collapse:collapse; font-size:10pt;"><thead><tr style="background:#1e3a8a; color:white;"><th style="padding:7px 10px; border:1px solid #1e40af;">KPI</th><th style="padding:7px 10px; border:1px solid #1e40af;">Measures</th><th style="padding:7px 10px; border:1px solid #1e40af;">Type</th></tr></thead><tbody>
+                        <tr><td style="padding:7px 10px; border:1px solid #bfdbfe;">Concept-to-launch cycle time</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">Idea submission → product launch</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">Speed</td></tr>
+                        <tr style="background:#f0f9ff;"><td style="padding:7px 10px; border:1px solid #bfdbfe;">Business case revision cycles</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">Avg revisions before approval</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">Rework</td></tr>
+                        <tr><td style="padding:7px 10px; border:1px solid #bfdbfe;">QA first-pass rate</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">% products passing QA on first submission</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">Quality</td></tr>
+                        <tr style="background:#f0f9ff;"><td style="padding:7px 10px; border:1px solid #bfdbfe;">Scope change rate</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">% products receiving scope change during build</td><td style="padding:7px 10px; border:1px solid #bfdbfe;">Exception indicator</td></tr>
+                    </tbody></table></div>
+                    <p style="font-size:10pt; color:#1e40af; margin-top:6px;"><strong>Scope change handling:</strong> Event Subprocess with Message Start Event (not boundary on one task) — can happen at ANY point. Inside: [Evaluate scope change] → Approved? Yes → [Update requirements] → build continues. No → notify stakeholder.<br><strong>Improvement:</strong> Share approved requirements with Finance Manager before business case development — currently Finance works blind, causing revision loops.</p>
+                </div>
+
+                <!-- COMMON STUCK POINTS -->
+                <div style="background:#fdf4ff; border:1px solid #d8b4fe; border-radius:8px; padding:16px; margin-bottom:14px;">
+                    <h4 style="color:#581c87; margin-bottom:10px;">Common "Stuck" Points — Quick Decision Guide</h4>
+                    <div style="overflow-x:auto;">
+                        <table style="width:100%; border-collapse:collapse; font-size:10pt;">
+                            <thead><tr style="background:#581c87; color:white;"><th style="padding:7px 10px; border:1px solid #6d28d9;" colspan="2">Which gateway type?</th></tr></thead>
+                            <tbody>
+                                <tr><td style="padding:7px 10px; border:1px solid #e9d5ff;">"Both X and Y must happen" / "At the same time"</td><td style="padding:7px 10px; border:1px solid #e9d5ff; color:#065f46;font-weight:600;">Parallel (+)</td></tr>
+                                <tr style="background:#f5f3ff;"><td style="padding:7px 10px; border:1px solid #e9d5ff;">"Depending on the outcome…" / "If X then…"</td><td style="padding:7px 10px; border:1px solid #e9d5ff; color:#1e40af;font-weight:600;">Exclusive XOR (◇)</td></tr>
+                                <tr><td style="padding:7px 10px; border:1px solid #e9d5ff;">"One or more may apply…"</td><td style="padding:7px 10px; border:1px solid #e9d5ff; color:#b45309;font-weight:600;">Inclusive (◯)</td></tr>
+                            </tbody>
+                        </table>
+                        <table style="width:100%; border-collapse:collapse; font-size:10pt; margin-top:10px;">
+                            <thead><tr style="background:#581c87; color:white;"><th style="padding:7px 10px; border:1px solid #6d28d9;" colspan="2">Boundary Event or XOR Gateway?</th></tr></thead>
+                            <tbody>
+                                <tr><td style="padding:7px 10px; border:1px solid #e9d5ff;">Exception on one specific task (timeout, error)</td><td style="padding:7px 10px; border:1px solid #e9d5ff;">Boundary Event ON that task</td></tr>
+                                <tr style="background:#f5f3ff;"><td style="padding:7px 10px; border:1px solid #e9d5ff;">Rare exception (~1–5%)</td><td style="padding:7px 10px; border:1px solid #e9d5ff;">Interrupting Error Boundary Event</td></tr>
+                                <tr><td style="padding:7px 10px; border:1px solid #e9d5ff;">Normal expected outcome (50/50)</td><td style="padding:7px 10px; border:1px solid #e9d5ff;">XOR Gateway AFTER the task</td></tr>
+                                <tr style="background:#f5f3ff;"><td style="padding:7px 10px; border:1px solid #e9d5ff;">Exception at ANY point in process</td><td style="padding:7px 10px; border:1px solid #e9d5ff;">Event Subprocess</td></tr>
+                            </tbody>
+                        </table>
+                        <table style="width:100%; border-collapse:collapse; font-size:10pt; margin-top:10px;">
+                            <thead><tr style="background:#581c87; color:white;"><th style="padding:7px 10px; border:1px solid #6d28d9;" colspan="2">Timer on flow vs Timer Boundary?</th></tr></thead>
+                            <tbody>
+                                <tr><td style="padding:7px 10px; border:1px solid #e9d5ff;">Timer Intermediate Catch Event (on sequence flow)</td><td style="padding:7px 10px; border:1px solid #e9d5ff;">Process WAITS here until time elapses. <em>Coerco Campaign: Day -28 — waits until that date.</em></td></tr>
+                                <tr style="background:#f5f3ff;"><td style="padding:7px 10px; border:1px solid #e9d5ff;">Timer Boundary Event (on task border)</td><td style="padding:7px 10px; border:1px solid #e9d5ff;">If task hasn't finished in time, exception fires. <em>A04: 7-day and 14-day on [Wait for signed contract].</em></td></tr>
+                            </tbody>
+                        </table>
+                        <table style="width:100%; border-collapse:collapse; font-size:10pt; margin-top:10px;">
+                            <thead><tr style="background:#581c87; color:white;"><th style="padding:7px 10px; border:1px solid #6d28d9;" colspan="2">Send Task vs User Task for messages?</th></tr></thead>
+                            <tbody>
+                                <tr><td style="padding:7px 10px; border:1px solid #e9d5ff;">To external participant (black box pool)</td><td style="padding:7px 10px; border:1px solid #e9d5ff;">Send Task + "Send" verb</td></tr>
+                                <tr style="background:#f5f3ff;"><td style="padding:7px 10px; border:1px solid #e9d5ff;">To internal colleague in another lane</td><td style="padding:7px 10px; border:1px solid #e9d5ff;">User Task + "Forward" verb</td></tr>
+                                <tr><td style="padding:7px 10px; border:1px solid #e9d5ff;">Back-and-forth with external (quote, approval)</td><td style="padding:7px 10px; border:1px solid #e9d5ff;">User Task + "Obtain"/"Conduct" — group the interaction</td></tr>
+                                <tr style="background:#f5f3ff;"><td style="padding:7px 10px; border:1px solid #e9d5ff;">What label goes on a message flow arrow?</td><td style="padding:7px 10px; border:1px solid #e9d5ff;">The actual document name: "Purchase order", "RFQ", "Material shortage request" — NOT an action verb</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="background:#f3e8ff; border-left:3px solid #a855f7; padding:8px 12px; margin-top:10px; font-size:10pt; color:#581c87;">
+                        <strong>More than 10 activities?</strong> 1. Raise abstraction level — group related activities into one. 2. Use Subprocess — collapse detail inside a + box. 3. Ask "Does this produce a different end state?" If not → stays inside another task.
+                    </div>
                 </div>
 
             </div>
@@ -7799,238 +7964,6 @@ END
             </div>
         </details>
 
-    
-        <!-- ============================================== -->
-        <!-- FULL KLARIFY PALETTE + DEEP DIVES             -->
-        <!-- ============================================== -->
-
-        <details class="collapsible" open>
-            <summary style="font-size: 13pt; font-weight: 600; color: var(--color-primary-dark); cursor: pointer; padding: 12px 0;">Full Klarify Palette — Every Element & When to Use It</summary>
-            <div class="detail-content">
-                <h4 style="margin: 16px 0 8px; color: var(--color-primary);">Task Types</h4>
-                <table>
-                    <tr><th>Task Type</th><th>Icon</th><th>When to Use</th><th>Wardell Stance</th></tr>
-                    <tr><td><strong>User Task</strong></td><td>Person icon</td><td>Default for all human work — reviews, approvals, data entry, assessments</td><td style="color:#10B981;font-weight:600;">✓ PREFERRED</td></tr>
-                    <tr><td><strong>Send Task</strong></td><td>Filled envelope</td><td>Sending one message to EXTERNAL participant (black box pool) only. "Send" verb only here.</td><td style="color:#10B981;font-weight:600;">✓ Use</td></tr>
-                    <tr><td><strong>Receive Task</strong></td><td>Empty envelope</td><td>Waiting for external message. Often better replaced by Message Intermediate Catch Event (Rule 9a.2)</td><td style="color:#F59E0B;font-weight:600;">⚠ Use carefully</td></tr>
-                    <tr><td><strong>Service Task</strong></td><td>Gear</td><td>Fully automated — no human at all</td><td style="color:#F59E0B;font-weight:600;">⚠ Only when justified</td></tr>
-                    <tr><td><strong>Manual Task</strong></td><td>Hand</td><td>Physical work, zero system involvement</td><td style="color:#F59E0B;font-weight:600;">⚠ Rare</td></tr>
-                    <tr><td><strong>Business Rule Task</strong></td><td>Grid</td><td>Rules engine decision (credit scoring, eligibility)</td><td style="color:#F59E0B;font-weight:600;">⚠ IT only</td></tr>
-                    <tr><td><strong>Subprocess</strong></td><td>+ in rounded box</td><td>Group of activities too detailed for main flow. Triggered by the 10-activity rule. <em>e.g., "Conduct phone outreach" containing Jared/Blake/Zembr</em></td><td style="color:#10B981;font-weight:600;">✓ USE IT</td></tr>
-                    <tr><td><strong>Event Subprocess</strong></td><td>Dashed border box</td><td>Exception that can happen AT ANY POINT in parent process. <em>e.g., Assignment 08: scope change during build at any step</em></td><td style="color:#10B981;font-weight:600;">✓ When boundary event isn't enough</td></tr>
-                    <tr><td><strong>Transaction</strong></td><td>Double border</td><td>All-or-nothing: all steps succeed or all roll back</td><td style="color:#EF4444;font-weight:600;">✗ Rare — confirm rollback literally required</td></tr>
-                    <tr><td><strong>Call Activity</strong></td><td>Thick border + box</td><td>Reuses separately modelled process across multiple parents</td><td style="color:#F59E0B;font-weight:600;">⚠ Only genuine reuse</td></tr>
-                    <tr><td><strong>Global Task</strong></td><td>Thick plain box</td><td>Reusable task defined globally</td><td style="color:#EF4444;font-weight:600;">✗ AVOID</td></tr>
-                </table>
-                <div style="background:#fef9c3; border-left:4px solid #f59e0b; padding:10px 14px; margin:10px 0; font-size:10pt;">
-                    <strong>Event Subprocess vs Boundary Event:</strong> Boundary Event = exception on ONE specific task. Event Subprocess = exception that can happen ANYWHERE in the process at any time. Assignment 08: scope change during build → Event Subprocess (not boundary on one task).
-                </div>
-
-                <h4 style="margin: 16px 0 8px; color: var(--color-primary);">Gateway Types</h4>
-                <table>
-                    <tr><th>Gateway</th><th>Symbol</th><th>How it works</th><th>Wardell Stance</th></tr>
-                    <tr><td><strong>Exclusive (XOR)</strong></td><td>X diamond</td><td>ONE path only. Tests end state of preceding task.</td><td style="color:#10B981;font-weight:600;">✓ Default</td></tr>
-                    <tr><td><strong>Parallel (+)</strong></td><td>+ diamond</td><td>ALL paths simultaneously. Must pair with (+) merge.</td><td style="color:#10B981;font-weight:600;">✓ For concurrent work</td></tr>
-                    <tr><td><strong>Inclusive (O)</strong></td><td>Circle diamond</td><td>ONE OR MORE paths. Conditions can overlap. Merge waits for all active paths.</td><td style="color:#F59E0B;font-weight:600;">⚠ Sparingly</td></tr>
-                    <tr><td><strong>Complex (*)</strong></td><td>Star diamond</td><td>Custom logic — can't be expressed by others</td><td style="color:#EF4444;font-weight:600;">✗ AVOID — signals broken model</td></tr>
-                    <tr><td><strong>Event Based (all variants)</strong></td><td>Pentagon in diamond</td><td>Branches on which event fires first</td><td style="color:#EF4444;font-weight:600;">✗ AVOID — Rule 3.5. Use Boundary Events instead</td></tr>
-                </table>
-
-                <h4 style="margin: 16px 0 8px; color: var(--color-primary);">Event Types</h4>
-                <p style="font-size:10pt; margin-bottom:6px;"><strong>Border weight:</strong> Thin = Start · Double = Intermediate · Bold/filled = End. Icon inside = what triggers or is produced.</p>
-                <table>
-                    <tr><th>Type</th><th>Start</th><th>Intermediate (on flow)</th><th>End</th><th>Label rule</th></tr>
-                    <tr><td><strong>None</strong></td><td>Manual/unknown. <em>Unlabelled.</em></td><td>Marks intermediate state (rare)</td><td>Normal completion</td><td>Start: unlabelled. End: business outcome</td></tr>
-                    <tr><td><strong>Message</strong></td><td>External message triggers process</td><td>Catch: wait for delivery. Throw: send mid-process</td><td>Sends message AND ends — only to trigger another process</td><td>"(Message) received" / "(Message) sent"</td></tr>
-                    <tr><td><strong>Timer</strong></td><td>Schedule-triggered</td><td>Wait on flow until date/duration elapses</td><td>N/A</td><td>Specific delay only: "48 h", "Day -21". Never "Wait for"</td></tr>
-                    <tr><td><strong>Error</strong></td><td>N/A</td><td>Boundary only (interrupting) — catches errors</td><td>Throws error to parent</td><td>Error name</td></tr>
-                    <tr><td><strong>Escalation</strong></td><td>Inside Event Subprocess only</td><td>Boundary: catches escalation. Throw: sends up</td><td>Sends escalation to parent</td><td>Escalation name</td></tr>
-                    <tr><td><strong>Signal</strong></td><td>Broadcast from another process</td><td>Catch or throw broadcast signal</td><td>Broadcasts signal</td><td>Signal name</td></tr>
-                    <tr><td><strong>Terminate</strong></td><td>N/A</td><td>N/A</td><td>Kills ALL active tokens immediately — all parallel paths stop</td><td>Use only when all parallel work must stop. None End is usually enough.</td></tr>
-                </table>
-
-                <h4 style="margin: 16px 0 8px; color: var(--color-primary);">Boundary Events — Interrupting (red solid) vs Non-Interrupting (yellow dashed)</h4>
-                <table>
-                    <tr><th>Type</th><th>Interrupting</th><th>Non-Interrupting</th><th>Best use</th></tr>
-                    <tr><td>Timer</td><td>✓</td><td>✓</td><td>Int: cancel task after timeout. Non-int: send reminder, task keeps running</td></tr>
-                    <tr><td>Message</td><td>✓</td><td>✓</td><td>Int: incoming message cancels task. Non-int: noted, task continues</td></tr>
-                    <tr><td>Error</td><td>✓</td><td>✗</td><td>Technical/business error from inside task</td></tr>
-                    <tr><td>Escalation</td><td>✓</td><td>✓</td><td>Escalation signal received during task</td></tr>
-                    <tr><td>Conditional</td><td>✓</td><td>✓</td><td>Data condition becomes true during task</td></tr>
-                    <tr><td>Signal</td><td>✓</td><td>✓</td><td>Broadcast signal received during task</td></tr>
-                    <tr><td>Cancel</td><td>✓</td><td>✗</td><td>Transaction subprocess cancel only</td></tr>
-                </table>
-
-                <h4 style="margin: 12px 0 8px; color: var(--color-primary);">Pool Types</h4>
-                <table>
-                    <tr><th>Pool</th><th>When to Use</th></tr>
-                    <tr><td><strong>Black Box Pool</strong></td><td>External participant — internal unknown/out of scope. Message flows only. <em>e.g., Supplier, Farmers, Key Account Managers, Resellers</em></td></tr>
-                    <tr><td><strong>Linked Pool</strong></td><td>Internal process modelled elsewhere in Klarify. Shows cross-process connection — unlike Black Box, internal process can be navigated to.</td></tr>
-                </table>
-            </div>
-        </details>
-
-        <details class="collapsible">
-            <summary style="font-size: 13pt; font-weight: 600; color: var(--color-primary-dark); cursor: pointer; padding: 12px 0;">Boundary Events — Deep Dive & Assignment Examples</summary>
-            <div class="detail-content">
-                <div style="background:#f0f9ff; border-left:4px solid #3b82f6; padding:10px 14px; margin-bottom:12px; font-size:10pt;">
-                    <strong>The core question:</strong> "When this event fires, should the task STOP or KEEP GOING?"<br>
-                    STOP → <strong>Interrupting</strong> (solid red) — task cancelled, exception path fires<br>
-                    KEEP GOING → <strong>Non-Interrupting</strong> (dashed yellow) — task continues, side path fires and ends cleanly
-                </div>
-
-                <h4 style="color: var(--color-primary); margin: 12px 0 8px;">Interrupting — How to close the path (3 options)</h4>
-                <table>
-                    <tr><th>Option</th><th>When</th><th>Assignment Example</th></tr>
-                    <tr><td><strong>A — Own end event</strong></td><td>Exception ends the process</td><td>Assignment 04: Timer 14 days → [Withdraw offer] → ○ "Offer withdrawn"</td></tr>
-                    <tr><td><strong>B — Merging XOR gateway</strong></td><td>Exception path rejoins main flow</td><td>Assignment 06: Both paths (immediate / no-immediate action) → ◇ merge → [Assess incident severity]</td></tr>
-                    <tr><td><strong>C — Loop back</strong></td><td>Restart with different input</td><td>Assignment 07: Timer 5 days → [Escalate] → [Select alternative supplier] → loops to [Obtain quote]. Annotation: "Max 1 escalation"</td></tr>
-                </table>
-
-                <h4 style="color: var(--color-primary); margin: 12px 0 8px;">Non-Interrupting — How to close the path</h4>
-                <div style="background:#fef9c3; border-left:4px solid #f59e0b; padding:10px 14px; font-size:10pt;">
-                    Side path ends cleanly on its own. <strong>No merging gateway. No end event needed.</strong> Main task is still running.<br>
-                    <em>Assignment 04:</em> Timer 7 days (non-interrupting) → [Send contract reminder] → path ends. [Send contract to employee] task keeps waiting.
-                </div>
-
-                <h4 style="color: var(--color-primary); margin: 12px 0 8px;">All Boundary Events Across Assignments</h4>
-                <table>
-                    <tr><th>Assignment</th><th>Boundary Event</th><th>Type</th><th>Outcome</th></tr>
-                    <tr><td>01 Supplier Invoice</td><td>Timer 48h</td><td>Non-Interrupting</td><td>Send follow-up, keep waiting for payment</td></tr>
-                    <tr><td>03 Order Fulfillment</td><td>Timer 7 days</td><td>Interrupting</td><td>Stock not replenished → cancel order</td></tr>
-                    <tr><td>03 Order Fulfillment</td><td>Error ~1%</td><td>Interrupting</td><td>Delivery exception → 3-path exception handling</td></tr>
-                    <tr><td>04 Employee Onboarding</td><td>Timer 7 days</td><td>Non-Interrupting</td><td>Send reminder, keep waiting for contract</td></tr>
-                    <tr><td>04 Employee Onboarding</td><td>Timer 14 days</td><td>Interrupting</td><td>Cancel → withdraw offer → end</td></tr>
-                    <tr><td>04 Employee Onboarding</td><td>Error ~3%</td><td>Interrupting</td><td>Compliance issue → escalation path</td></tr>
-                    <tr><td>05 Support Ticket</td><td>Timer 72h</td><td>Interrupting</td><td>No customer response → close ticket</td></tr>
-                    <tr><td>07 Procurement</td><td>Timer 5 days</td><td>Interrupting</td><td>No supplier response → escalate → loop</td></tr>
-                    <tr><td>08 New Product Dev</td><td>Event Subprocess</td><td>Interrupting</td><td>Scope change at ANY point during build</td></tr>
-                </table>
-
-                <div style="background:#fef2f2; border-left:4px solid #ef4444; padding:10px 14px; margin-top:10px; font-size:10pt;">
-                    <strong>Rare exceptions (~1-5%):</strong> Use Error Boundary Event — NOT an XOR gateway. XOR = normal expected decision. Error Boundary = rare exceptional situation. Rule: four-outcome gateway → model rarest outcome with Error Boundary Event.
-                </div>
-            </div>
-        </details>
-
-        <details class="collapsible">
-            <summary style="font-size: 13pt; font-weight: 600; color: var(--color-primary-dark); cursor: pointer; padding: 12px 0;">Parallel Gateway (+) — When to Use & Assignment Examples</summary>
-            <div class="detail-content">
-                <table>
-                    <tr><th>Use Parallel (+) when</th><th>Use XOR (◇) when</th></tr>
-                    <tr><td>Activities happen simultaneously</td><td>Only ONE path taken based on condition</td></tr>
-                    <tr><td>ALL paths must complete before continuing</td><td>Paths are mutually exclusive</td></tr>
-                    <tr><td>No condition — always both/all</td><td>Condition exists (if/else)</td></tr>
-                </table>
-                <div style="background:#f0fdf4; border-left:4px solid #10b981; padding:10px 14px; margin:10px 0; font-size:10pt;">
-                    <strong>Signal phrases:</strong> "At the same time..." · "Simultaneously..." · "Both X and Y must complete before..." · "In parallel..." · "While X, Y also..."
-                </div>
-
-                <h4 style="color: var(--color-primary); margin: 12px 0 8px;">Real Examples from Assignments</h4>
-                <div class="ex-correct" style="font-size:10pt; margin-bottom:10px;">
-                    <strong>Assignment 04 — Employee Onboarding:</strong> "At the same time, HR sends employee info to Payroll Officer."<br>
-                    → (+) split: IT setup [IT Admin] runs in parallel with Payroll registration [Payroll Officer] → (+) merge → Hiring Manager conducts welcome meeting
-                </div>
-                <div class="ex-correct" style="font-size:10pt; margin-bottom:10px;">
-                    <strong>Assignment 08 — New Product Dev:</strong> "BA defines requirements while Finance Manager develops business case. Both must complete before continuing."<br>
-                    → (+) split: [Define requirements] + [Develop business case] run simultaneously → (+) merge → PM reviews both together
-                </div>
-                <div class="ex-correct" style="font-size:10pt; margin-bottom:10px;">
-                    <strong>Coerco Phone Outreach sub-process:</strong> (+) split → [Jared: Call HO contacts] + [Blake: Call Ag resellers] + [Zembr: Call farmers] → (+) merge → ○ Outreach completed. All wrapped in collapsed subprocess "Conduct phone outreach."
-                </div>
-
-                <h4 style="color: var(--color-primary); margin: 12px 0 8px;">The Matching Rule</h4>
-                <table>
-                    <tr><th>Split type</th><th>Required merge</th><th>Why</th></tr>
-                    <tr><td>Parallel (+)</td><td>Parallel merge (+)</td><td>Waits for ALL paths</td></tr>
-                    <tr><td>XOR (◇)</td><td>XOR merge (◇)</td><td>First path to arrive continues</td></tr>
-                    <tr><td>Inclusive (◯)</td><td>Inclusive merge (◯)</td><td>Waits for all ACTIVE paths</td></tr>
-                </table>
-                <div class="ex-wrong" style="font-size:10pt;">Parallel split (+) → XOR merge (◇) — WRONG: XOR merge lets one path continue without waiting for the other</div>
-            </div>
-        </details>
-
-        <details class="collapsible">
-            <summary style="font-size: 13pt; font-weight: 600; color: var(--color-primary-dark); cursor: pointer; padding: 12px 0;">Assignment Questions — Model Answers (Assignments 05–08)</summary>
-            <div class="detail-content">
-
-                <h4 style="color: var(--color-primary); margin-bottom:8px;">Assignment 05 — Customer Support Ticket Resolution</h4>
-                <table>
-                    <tr><th>Metric</th><th>Measures</th><th>Why relevant</th></tr>
-                    <tr><td>First contact resolution rate</td><td>% tickets resolved by Agent without escalation</td><td>Measures agent effectiveness; reduces escalation cost</td></tr>
-                    <tr><td>Average ticket resolution time</td><td>Submission to closed</td><td>Core efficiency; links to customer SLA</td></tr>
-                </table>
-                <div style="background:#f0f9ff; border-left:4px solid #3b82f6; padding:8px 12px; margin-top:8px; font-size:10pt;"><strong>Improvement:</strong> Automated triage by issue category at submission → route directly to right specialist. Eliminates unnecessary first-level review for tickets that always escalate.</div>
-
-                <h4 style="color: var(--color-primary); margin: 14px 0 8px;">Assignment 06 — Workplace Incident Management</h4>
-                <table>
-                    <tr><th>Metric</th><th>Measures</th><th>Why relevant</th></tr>
-                    <tr><td>Incident resolution time</td><td>Reported to corrective actions confirmed</td><td>Speed of response; safety compliance</td></tr>
-                    <tr><td>Recurrence rate</td><td>% same incident type reoccurring after preventive actions</td><td>Most important quality metric — did preventive actions actually work?</td></tr>
-                </table>
-                <div style="background:#f0f9ff; border-left:4px solid #3b82f6; padding:8px 12px; margin-top:8px; font-size:10pt;"><strong>Improvement:</strong> Auto-triage by incident severity — high-severity cases bypass manual H&amp;S Officer review and trigger immediate action automatically. Direct impact on employee safety.</div>
-
-                <h4 style="color: var(--color-primary); margin: 14px 0 8px;">Assignment 07 — Procurement Process</h4>
-                <table>
-                    <tr><th>KPI</th><th>Measures</th><th>Type</th></tr>
-                    <tr><td>PO cycle time</td><td>Request to PO confirmed</td><td>Speed</td></tr>
-                    <tr><td>First-time quote acceptance rate</td><td>% quotes accepted without escalation</td><td>Quality / Exception rate</td></tr>
-                    <tr><td>Goods inspection pass rate</td><td>% deliveries passing first inspection</td><td>Quality / Rework</td></tr>
-                    <tr><td>Supplier response time</td><td>Avg days to respond to RFQ</td><td>Exception indicator</td></tr>
-                </table>
-                <div style="background:#f0f9ff; border-left:4px solid #3b82f6; padding:8px 12px; margin-top:8px; font-size:10pt;">
-                    <strong>Supplier timeout:</strong> Timer Boundary Event (Interrupting) "5 business days" on [Obtain quote from supplier] — NOT an XOR gateway. → [Escalate] → [Select alternative supplier] → loop back. Annotation: "Max 1 escalation." Never use Event-Based Gateway (Rule 3.5).<br>
-                    <strong>Improvement:</strong> Automated status notifications to employee at milestones (approved, PO raised, goods received). Eliminates employee blind spot.
-                </div>
-
-                <h4 style="color: var(--color-primary); margin: 14px 0 8px;">Assignment 08 — New Product Development</h4>
-                <table>
-                    <tr><th>KPI</th><th>Measures</th><th>Type</th></tr>
-                    <tr><td>Concept-to-launch cycle time</td><td>Idea submission to product launch</td><td>Speed</td></tr>
-                    <tr><td>Business case revision cycles</td><td>Avg revisions before approval</td><td>Rework</td></tr>
-                    <tr><td>QA first-pass rate</td><td>% products passing QA first submission</td><td>Quality</td></tr>
-                    <tr><td>Scope change rate</td><td>% products receiving scope change during build</td><td>Exception indicator</td></tr>
-                </table>
-                <div style="background:#f0f9ff; border-left:4px solid #3b82f6; padding:8px 12px; margin-top:8px; font-size:10pt;">
-                    <strong>Scope change:</strong> Event Subprocess with Message Start Event (not boundary on one task) — can happen at ANY point. Inside: [Evaluate scope change] → Approved? Yes → [Update requirements] → build continues. No → notify stakeholder.<br>
-                    <strong>Improvement:</strong> Share approved requirements with Finance Manager before business case development. Currently Finance Manager works blind → causes revision loops.
-                </div>
-
-            </div>
-        </details>
-
-        <details class="collapsible">
-            <summary style="font-size: 13pt; font-weight: 600; color: var(--color-primary-dark); cursor: pointer; padding: 12px 0;">Common "Stuck" Points — Quick Decision Guide</summary>
-            <div class="detail-content">
-                <table>
-                    <tr><th colspan="2">Should this be + gateway or ◇ gateway?</th></tr>
-                    <tr><td>"Both X and Y must happen" / "At the same time"</td><td style="color:#10B981;font-weight:600;">Parallel (+)</td></tr>
-                    <tr><td>"Depending on the outcome..." / "If X then..."</td><td style="color:#3b82f6;font-weight:600;">Exclusive XOR (◇)</td></tr>
-                    <tr><td>"One or more may apply..."</td><td style="color:#f59e0b;font-weight:600;">Inclusive (◯)</td></tr>
-                </table>
-                <table style="margin-top:10px;">
-                    <tr><th colspan="2">Boundary Event or Gateway?</th></tr>
-                    <tr><td>Exception on one specific task (timeout, error)</td><td>Boundary Event ON that task</td></tr>
-                    <tr><td>Rare exception (~1-5%)</td><td>Interrupting Error Boundary Event</td></tr>
-                    <tr><td>Normal expected outcome (50/50)</td><td>XOR Gateway AFTER the task</td></tr>
-                    <tr><td>Exception can happen at ANY point in process</td><td>Event Subprocess</td></tr>
-                </table>
-                <table style="margin-top:10px;">
-                    <tr><th colspan="2">Timer on sequence flow vs Timer Boundary?</th></tr>
-                    <tr><td>Timer Intermediate Catch Event (on flow)</td><td>Process WAITS here until time elapses. <em>Coerco Campaign: Day -28, Day -21 — waits until scheduled date</em></td></tr>
-                    <tr><td>Timer Boundary Event (on task border)</td><td>If task hasn't finished in time, exception fires. <em>Assignment 04: 7-day and 14-day on [Wait for signed contract]</em></td></tr>
-                </table>
-                <table style="margin-top:10px;">
-                    <tr><th colspan="2">Send Task vs User Task for messages?</th></tr>
-                    <tr><td>To external participant (black box pool)</td><td>Send Task + "Send" verb</td></tr>
-                    <tr><td>To internal colleague in another lane</td><td>User Task + "Forward" verb</td></tr>
-                    <tr><td>Back-and-forth with external (quote, approval)</td><td>User Task + "Obtain"/"Conduct" — group the interaction</td></tr>
-                </table>
-                <div style="background:#fef9c3; border-left:4px solid #f59e0b; padding:10px 14px; margin-top:10px; font-size:10pt;">
-                    <strong>More than 10 activities?</strong> 1. Raise abstraction level — group related activities. 2. Use Subprocess — collapse into named + box. 3. Ask "Does this produce a different end state?" If not → stays inside another task.
-                </div>
-            </div>
-        </details>
 
 </div>
 
