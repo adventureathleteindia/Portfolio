@@ -2084,169 +2084,162 @@
   })();
 
   /* ============================================
-     PRINT PREPARATION — inline styles win over
-     all CSS specificity conflicts
+     PRINT PREPARATION
+     Uses setProperty('prop','val','important')
+     which is the only approach that beats !important CSS rules.
+     Switches two-column slides to flex-row (not absolute,
+     which is unreliable in print).
   ============================================ */
-  function preparePrint() {
-    var MM_TO_PX = 3.7795;
-    var PAGE_W = '297mm';
-    var PAGE_H = '210mm';
+  function sp(el, prop, val) {
+    el.style.setProperty(prop, val, 'important');
+  }
+  function applyStyles(el, map) {
+    Object.keys(map).forEach(function(p) { sp(el, p, map[p]); });
+  }
 
-    // Reset all slides to basic print state
+  function preparePrint() {
+    var W = '297mm', H = '210mm';
+
+    // Reset ALL slides to single-column print state
     document.querySelectorAll('.slide').forEach(function(slide) {
-      slide.style.cssText = [
-        'position: relative !important',
-        'opacity: 1 !important',
-        'transform: none !important',
-        'width: ' + PAGE_W,
-        'height: ' + PAGE_H,
-        'overflow: hidden',
-        'padding: 26px 46px',
-        'display: flex',
-        'flex-direction: column',
-        'justify-content: center',
-        'align-items: flex-start',
-        'box-sizing: border-box',
-        'page-break-after: always',
-        'break-after: page'
-      ].join(';');
+      applyStyles(slide, {
+        'position': 'relative',
+        'opacity': '1',
+        'transform': 'none',
+        'pointer-events': 'all',
+        'display': 'flex',
+        'flex-direction': 'column',
+        'justify-content': 'center',
+        'align-items': 'flex-start',
+        'width': W,
+        'height': H,
+        'overflow': 'hidden',
+        'padding': '26px 46px',
+        'box-sizing': 'border-box',
+        'page-break-after': 'always',
+        'break-after': 'page'
+      });
     });
 
-    // Slide 3 — two-column: absolute positioning
+    // Slide 3 — flex-row two-column
     var s3 = document.getElementById('slide-3');
     if (s3) {
-      s3.style.cssText = [
-        'position: relative',
-        'display: block',
-        'width: ' + PAGE_W,
-        'height: ' + PAGE_H,
-        'overflow: hidden',
-        'padding: 0',
-        'box-sizing: border-box',
-        'page-break-after: always',
-        'break-after: page',
-        '-webkit-print-color-adjust: exact',
-        'print-color-adjust: exact'
-      ].join(';');
-
+      applyStyles(s3, {
+        'display': 'flex',
+        'flex-direction': 'row',
+        'align-items': 'stretch',
+        'width': W, 'height': H,
+        'overflow': 'hidden',
+        'padding': '0',
+        'box-sizing': 'border-box'
+      });
       var lp = s3.querySelector('.left-panel');
       if (lp) {
-        lp.style.cssText = [
-          'position: absolute',
-          'top: 0', 'left: 0',
-          'width: 88mm', 'height: ' + PAGE_H,
-          'overflow: hidden',
-          'padding: 20px 16px',
-          'display: flex',
-          'flex-direction: column',
-          'justify-content: flex-start',
-          'box-sizing: border-box',
-          'background: #1e293b',
-          '-webkit-print-color-adjust: exact',
-          'print-color-adjust: exact'
-        ].join(';');
+        applyStyles(lp, {
+          'display': 'flex',
+          'flex-direction': 'column',
+          'justify-content': 'flex-start',
+          'width': '88mm',
+          'min-width': '88mm',
+          'max-width': '88mm',
+          'height': H,
+          'flex-shrink': '0',
+          'overflow': 'hidden',
+          'padding': '22px 16px',
+          'box-sizing': 'border-box',
+          'background': '#1e293b',
+          '-webkit-print-color-adjust': 'exact',
+          'print-color-adjust': 'exact'
+        });
       }
       var rp = s3.querySelector('.right-panel');
       if (rp) {
-        rp.style.cssText = [
-          'position: absolute',
-          'top: 0', 'left: 88mm',
-          'width: 209mm', 'height: ' + PAGE_H,
-          'overflow: hidden',
-          'padding: 18px 22px',
-          'display: flex',
-          'flex-direction: column',
-          'justify-content: flex-start',
-          'box-sizing: border-box'
-        ].join(';');
+        applyStyles(rp, {
+          'display': 'flex',
+          'flex-direction': 'column',
+          'justify-content': 'flex-start',
+          'flex': '1 1 0',
+          'height': H,
+          'overflow': 'hidden',
+          'padding': '18px 20px',
+          'box-sizing': 'border-box'
+        });
       }
-      // Tighten reform list items
       s3.querySelectorAll('.reform-list li').forEach(function(li) {
-        li.style.cssText = 'padding: 4px 0; gap: 6px; display: flex; align-items: flex-start;';
+        applyStyles(li, {'padding': '4px 0', 'gap': '6px', 'display': 'flex', 'align-items': 'flex-start'});
       });
       s3.querySelectorAll('.reform-list li .text').forEach(function(t) {
-        t.style.cssText = 'font-size: 7.5pt; line-height: 1.3;';
+        applyStyles(t, {'font-size': '7.5pt', 'line-height': '1.3'});
       });
       s3.querySelectorAll('.reform-list li .num').forEach(function(n) {
-        n.style.cssText = 'width: 18px; height: 18px; min-width: 18px; font-size: 7pt; flex-shrink: 0; display: flex; align-items: center; justify-content: center;';
+        applyStyles(n, {'width': '18px', 'height': '18px', 'min-width': '18px', 'font-size': '7pt', 'flex-shrink': '0'});
       });
       var bq = s3.querySelector('.bottom-quote');
-      if (bq) bq.style.cssText = 'font-size: 7.5pt; margin-top: 8px; padding: 7px 10px;';
+      if (bq) applyStyles(bq, {'font-size': '7.5pt', 'margin-top': '8px', 'padding': '7px 10px'});
     }
 
-    // Slide 6 — two-column: absolute positioning
+    // Slide 6 — flex-row two-column
     var s6 = document.getElementById('slide-6');
     if (s6) {
-      s6.style.cssText = [
-        'position: relative',
-        'display: block',
-        'width: ' + PAGE_W,
-        'height: ' + PAGE_H,
-        'overflow: hidden',
-        'padding: 0',
-        'box-sizing: border-box',
-        'page-break-after: always',
-        'break-after: page',
-        'background: #f8fafc',
-        '-webkit-print-color-adjust: exact',
-        'print-color-adjust: exact'
-      ].join(';');
-
+      applyStyles(s6, {
+        'display': 'flex',
+        'flex-direction': 'row',
+        'align-items': 'stretch',
+        'width': W, 'height': H,
+        'overflow': 'hidden',
+        'padding': '0',
+        'box-sizing': 'border-box',
+        'background': '#f8fafc',
+        '-webkit-print-color-adjust': 'exact',
+        'print-color-adjust': 'exact'
+      });
       var lc = s6.querySelector('.left-col');
       if (lc) {
-        lc.style.cssText = [
-          'position: absolute',
-          'top: 0', 'left: 0',
-          'width: 128mm', 'height: ' + PAGE_H,
-          'overflow: hidden',
-          'padding: 22px 18px 22px 26px',
-          'display: flex',
-          'flex-direction: column',
-          'justify-content: flex-start',
-          'box-sizing: border-box'
-        ].join(';');
+        applyStyles(lc, {
+          'display': 'flex',
+          'flex-direction': 'column',
+          'justify-content': 'flex-start',
+          'width': '128mm',
+          'min-width': '128mm',
+          'max-width': '128mm',
+          'height': H,
+          'flex-shrink': '0',
+          'overflow': 'hidden',
+          'padding': '22px 18px 22px 26px',
+          'box-sizing': 'border-box'
+        });
       }
       var rc = s6.querySelector('.right-col');
       if (rc) {
-        rc.style.cssText = [
-          'position: absolute',
-          'top: 0', 'left: 128mm',
-          'width: 169mm', 'height: ' + PAGE_H,
-          'overflow: hidden',
-          'padding: 22px 20px',
-          'border-left: 1px solid #e2e8f0',
-          'display: flex',
-          'flex-direction: column',
-          'justify-content: flex-start',
-          'box-sizing: border-box'
-        ].join(';');
-      }
-      // Tighten right-col content
-      s6.querySelectorAll('.why-card').forEach(function(card) {
-        card.style.cssText = 'padding: 6px 10px; gap: 7px; display: flex; align-items: flex-start; border: 1px solid #e2e8f0; border-radius: 7px; background: #fff;';
-      });
-      s6.querySelectorAll('.why-card .why-title').forEach(function(t) {
-        t.style.cssText = 'font-size: 8pt; font-weight: 700; margin-bottom: 1px;';
-      });
-      s6.querySelectorAll('.why-card .why-desc').forEach(function(t) {
-        t.style.cssText = 'font-size: 7.5pt; line-height: 1.3; color: #64748b;';
-      });
-      s6.querySelectorAll('.why-cards').forEach(function(wc) {
-        wc.style.cssText = 'display: flex; flex-direction: column; gap: 5px; margin-bottom: 6px;';
-      });
-      var ab = s6.querySelector('.amber-box');
-      if (ab) ab.style.cssText = 'padding: 7px 10px; font-size: 7.5pt; line-height: 1.35; border-radius: 7px; margin-bottom: 5px; background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); color: #92400e;';
-      // Green "why different" box
-      var greenBox = s6.querySelector('.right-col > div[style]');
-      if (greenBox) {
-        greenBox.style.marginTop = '5px';
-        greenBox.style.padding = '7px 10px';
-        greenBox.querySelectorAll('p').forEach(function(p) {
-          p.style.fontSize = '7.5pt';
-          p.style.lineHeight = '1.3';
-          p.style.marginBottom = '2px';
+        applyStyles(rc, {
+          'display': 'flex',
+          'flex-direction': 'column',
+          'justify-content': 'flex-start',
+          'flex': '1 1 0',
+          'height': H,
+          'overflow': 'hidden',
+          'padding': '22px 20px',
+          'border-left': '1px solid #e2e8f0',
+          'box-sizing': 'border-box'
         });
       }
+      s6.querySelectorAll('.why-card').forEach(function(card) {
+        applyStyles(card, {'padding': '6px 10px', 'gap': '7px', 'display': 'flex', 'align-items': 'flex-start', 'border': '1px solid #e2e8f0', 'border-radius': '7px', 'background': '#fff'});
+      });
+      s6.querySelectorAll('.why-card .why-title').forEach(function(t) {
+        applyStyles(t, {'font-size': '8pt', 'font-weight': '700', 'margin-bottom': '1px'});
+      });
+      s6.querySelectorAll('.why-card .why-desc').forEach(function(t) {
+        applyStyles(t, {'font-size': '7.5pt', 'line-height': '1.3', 'color': '#64748b'});
+      });
+      s6.querySelectorAll('.why-cards').forEach(function(wc) {
+        applyStyles(wc, {'display': 'flex', 'flex-direction': 'column', 'gap': '5px', 'margin-bottom': '6px'});
+      });
+      var ab = s6.querySelector('.amber-box');
+      if (ab) applyStyles(ab, {'padding': '7px 10px', 'font-size': '7.5pt', 'line-height': '1.35', 'border-radius': '7px', 'margin-bottom': '5px'});
+      s6.querySelectorAll('.right-col p').forEach(function(p) {
+        applyStyles(p, {'font-size': '7.5pt', 'line-height': '1.3', 'margin-bottom': '2px'});
+      });
     }
   }
 
