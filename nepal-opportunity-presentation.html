@@ -1337,54 +1337,45 @@
         break-after: auto;
       }
 
-      /* Tighten slide 3 spacing so content fits on one page */
-      #slide-3,
-      #slide-6 {
-        flex-direction: row !important;
-      }
-
-      #slide-3 .reform-list li {
-        padding: 6px 0 !important;
-        font-size: 9.5pt !important;
-      }
-
-      #slide-3 .reform-list li .text {
-        font-size: 9.5pt !important;
-        line-height: 1.4 !important;
-      }
-
+      /* Slide 3 — table layout for reliable two-column print rendering */
       #slide-3 {
-        display: flex !important;
-        flex-direction: row !important;
-        align-items: stretch !important;
+        display: table !important;
         width: 297mm !important;
+        table-layout: fixed !important;
+        min-height: 210mm !important;
       }
 
       #slide-3 .left-panel {
-        width: 90mm !important;
-        min-width: 90mm !important;
-        max-width: 90mm !important;
-        flex-shrink: 0 !important;
+        display: table-cell !important;
+        width: 95mm !important;
+        vertical-align: top !important;
         padding: 28px 24px !important;
-        justify-content: flex-start !important;
         overflow: visible !important;
+        position: relative !important;
       }
 
       #slide-3 .right-panel {
-        width: 207mm !important;
-        flex: 1 !important;
-        padding: 24px 28px !important;
-        justify-content: flex-start !important;
+        display: table-cell !important;
+        vertical-align: top !important;
+        padding: 24px 32px !important;
         overflow: visible !important;
+      }
+
+      #slide-3 .left-panel h2 {
+        font-size: 20pt !important;
+        margin-bottom: 16px !important;
       }
 
       #slide-3 .reform-list {
         padding-left: 0 !important;
+        margin: 0 !important;
       }
 
       #slide-3 .reform-list li {
         padding: 5px 0 !important;
         gap: 8px !important;
+        display: flex !important;
+        align-items: flex-start !important;
       }
 
       #slide-3 .reform-list li .text {
@@ -1395,19 +1386,8 @@
       #slide-3 .reform-list li .num {
         width: 22px !important;
         height: 22px !important;
+        min-width: 22px !important;
         font-size: 9pt !important;
-        flex-shrink: 0 !important;
-      }
-
-      #slide-3 .left-panel h2 {
-        font-size: 18pt !important;
-        margin-bottom: 16px !important;
-      }
-
-      #slide-3 .bottom-quote {
-        font-size: 8.5pt !important;
-        margin-top: 8px !important;
-        padding: 8px 12px !important;
       }
 
       #slide-3 .section-label {
@@ -1415,8 +1395,9 @@
       }
 
       #slide-3 .bottom-quote {
-        font-size: 10pt !important;
+        font-size: 9pt !important;
         margin-top: 10px !important;
+        padding: 8px 12px !important;
       }
     }
 
