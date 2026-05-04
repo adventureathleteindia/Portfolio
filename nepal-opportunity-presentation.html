@@ -1293,7 +1293,7 @@
 
       html, body {
         width: 297mm;
-        height: 210mm;
+        height: auto;
         overflow: visible;
         background: white;
         -webkit-print-color-adjust: exact;
@@ -1321,8 +1321,9 @@
         pointer-events: all !important;
         display: flex !important;
         width: 297mm;
-        height: 210mm;
-        overflow: hidden;
+        min-height: 210mm;
+        height: auto;
+        overflow: visible;
         page-break-after: always;
         break-after: page;
         page-break-inside: avoid;
@@ -1336,9 +1337,33 @@
         break-after: auto;
       }
 
+      /* Tighten slide 3 spacing so content fits on one page */
       #slide-3,
       #slide-6 {
         flex-direction: row !important;
+      }
+
+      #slide-3 .reform-list li {
+        padding: 6px 0 !important;
+        font-size: 9.5pt !important;
+      }
+
+      #slide-3 .reform-list li .text {
+        font-size: 9.5pt !important;
+        line-height: 1.4 !important;
+      }
+
+      #slide-3 .left-panel {
+        padding: 32px 28px !important;
+      }
+
+      #slide-3 .right-panel {
+        padding: 32px 36px !important;
+      }
+
+      #slide-3 .bottom-quote {
+        font-size: 10pt !important;
+        margin-top: 10px !important;
       }
     }
 
