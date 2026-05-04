@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nepal Government Restructuring — A BPM Partnership Opportunity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* =========================================
+       RESET & BASE
+    ========================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --dark: #1e293b;
+      --dark-mid: #2d3f55;
+      --dark-light: #374e68;
+      --blue: #3b82f6;
+      --blue-light: #60a5fa;
+      --blue-dark: #2563eb;
+      --green: #10b981;
+      --green-light: #34d399;
+      --light-bg: #f8fafc;
+      --light-mid: #e2e8f0;
+      --white: #ffffff;
+      --red: #ef4444;
+      --amber: #f59e0b;
+      --text-dark: #0f172a;
+      --text-mid: #334155;
+      --text-muted: #64748b;
+      --font-heading: 'Montserrat', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --transition-speed: 0.45s;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--dark);
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text-dark);
+    }
+
+    /* =========================================
+       PROGRESS BAR
+    ========================================= */
+    #progress-bar-track {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.15);
+      z-index: 1000;
+    }
+
+    #progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue), var(--green));
+      transition: width var(--transition-speed) ease;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* =========================================
+       SLIDE CONTAINER
+    ========================================= */
+    #deck {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 64px 72px 90px 72px;
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity var(--transition-speed) ease, transform var(--transition-speed) ease;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: all;
+    }
+
+    .slide.exit-left {
+      opacity: 0;
+      transform: translateX(-60px);
+    }
+
+    /* =========================================
+       SLIDE NUMBER TAG
+    ========================================= */
+    .slide-tag {
+      position: absolute;
+      top: 28px;
+      right: 72px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .slide-tag.dark-tag {
+      color: rgba(30,41,59,0.5);
+      background: rgba(30,41,59,0.06);
+      border-color: rgba(30,41,59,0.12);
+    }
+
+    /* =========================================
+       NAVIGATION
+    ========================================= */
+    #nav-container {
+      position: fixed;
+      bottom: 28px;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 72px;
+      z-index: 900;
+      pointer-events: none;
+    }
+
+    .nav-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.9);
+      background: rgba(30,41,59,0.85);
+      backdrop-filter: blur(12px);
+      color: #ffffff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      pointer-events: all;
+      flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+    }
+
+    .nav-btn:hover {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: var(--white);
+      transform: scale(1.08);
+      box-shadow: 0 6px 20px rgba(59,130,246,0.45);
+    }
+
+    .nav-btn:active {
+      transform: scale(0.96);
+    }
+
+    .nav-btn svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .nav-btn.disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .nav-btn.disabled:hover {
+      background: rgba(30,41,59,0.85);
+      border-color: rgba(255,255,255,0.9);
+      color: #ffffff;
+      transform: none;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+    }
+
+    /* =========================================
+       SLIDE COUNTER
+    ========================================= */
+    #slide-counter {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: #ffffff;
+      background: rgba(30,41,59,0.85);
+      border: 1px solid rgba(255,255,255,0.5);
+      padding: 6px 18px;
+      border-radius: 20px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+    }
+
+    /* =========================================
+       SLIDE 1 — TITLE SLIDE
+    ========================================= */
+    #slide-1 {
+      background: var(--dark);
+      justify-content: center;
+      align-items: flex-start;
+      padding: 64px 72px 100px 72px;
+    }
+
+    #slide-1 .geo-bg {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(59,130,246,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 15% 80%, rgba(16,185,129,0.08) 0%, transparent 60%),
+        linear-gradient(135deg, #1e293b 0%, #162032 50%, #0f1a28 100%);
+      z-index: 0;
+    }
+
+    #slide-1 .geo-grid {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: 0;
+    }
+
+    #slide-1 .slide-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+
+    #slide-1 .top-tag {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--blue-light);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #slide-1 .top-tag::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 2px;
+      background: var(--blue-light);
+      border-radius: 2px;
+    }
+
+    #slide-1 h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(38px, 5.5vw, 68px);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    #slide-1 h1 span {
+      color: var(--blue-light);
+    }
+
+    #slide-1 .sub {
+      font-family: var(--font-body);
+      font-size: clamp(16px, 1.8vw, 22px);
+      font-weight: 400;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 40px;
+      letter-spacing: 0.01em;
+    }
+
+    #slide-1 .pills {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 64px;
+    }
+
+    #slide-1 .pill {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 7px 16px;
+      border-radius: 100px;
+      backdrop-filter: blur(4px);
+    }
+
+    #slide-1 .presenter {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.04em;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px;
+      width: 100%;
+    }
+
+    #slide-1 .presenter strong {
+      color: rgba(255,255,255,0.6);
+      font-weight: 600;
+    }
+
+    /* =========================================
+       SLIDE 2 — ONE-LINE OPPORTUNITY
+    ========================================= */
+    #slide-2 {
+      background: var(--light-bg);
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    #slide-2 .slide-inner {
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 36px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 2px;
+      background: var(--blue);
+      border-radius: 2px;
+    }
+
+    #slide-2 .big-quote {
+      font-family: var(--font-heading);
+      font-size: clamp(20px, 2.6vw, 34px);
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+      max-width: 900px;
+      margin-bottom: 28px;
+      position: relative;
+      padding-left: 28px;
+    }
+
+    #slide-2 .big-quote::before {
+      content: '"';
+      position: absolute;
+      left: -8px;
+      top: -16px;
+      font-size: 120px;
+      font-family: var(--font-heading);
+      font-weight: 900;
+      color: var(--blue);
+      opacity: 0.12;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    #slide-2 .big-quote span {
+      color: var(--blue);
+    }
+
+    #slide-2 .stat-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .stat-card {
+      flex: 1;
+      min-width: 200px;
+      background: var(--white);
+      border: 1px solid var(--light-mid);
+      border-radius: 16px;
+      padding: 28px 28px 24px 28px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+    }
+
+    .stat-card .stat-number {
+      font-family: var(--font-heading);
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 900;
+      color: var(--blue);
+      line-height: 1;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .stat-card .stat-label {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-mid);
+      line-height: 1.4;
+    }
+
+    .stat-card .stat-accent {
+      display: inline-block;
+      background: var(--blue);
+      color: var(--white);
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    /* =========================================
+       SLIDE 3 — WHAT'S HAPPENING
+    ========================================= */
+    #slide-3 {
+      background: var(--light-bg);
+      padding: 64px 0 100px 0;
+      flex-direction: row;
+      align-items: stretch;
+      justify-content: flex-start;
+    }
+
+    #slide-3 .left-panel {
+      width: 34%;
+      min-width: 280px;
+      background: var(--dark);
+      padding: 64px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    #slide-3 .left-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse 120% 80% at 80% 50%, rgba(59,130,246,0.14) 0%, transparent 70%);
+    }
+
+    #slide-3 .left-panel .slide-tag {
+      position: relative;
+      top: auto;
+      right: auto;
+      display: inline-block;
+      margin-bottom: 28px;
+    }
+
+    #slide-3 .left-panel h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(22px, 2.8vw, 36px);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 24px;
+    }
+
+    #slide-3 .left-panel .date-badge {
+      background: rgba(59,130,246,0.2);
+      border: 1px solid rgba(59,130,246,0.35);
+      border-radius: 12px;
+      padding: 16px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    #slide-3 .left-panel .date-badge .month {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue-light);
+      margin-bottom: 4px;
+    }
+
+    #slide-3 .left-panel .date-badge .event {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.3;
+    }
+
+    #slide-3 .right-panel {
+      flex: 1;
+      padding: 64px 72px 64px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    #slide-3 .right-panel .section-label {
+      margin-bottom: 28px;
+    }
+
+    #slide-3 .reform-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+
+    #slide-3 .reform-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: var(--white);
+      border: 1px solid var(--light-mid);
+      border-radius: 12px;
+      padding: 16px 20px;
+      transition: border-color 0.2s ease;
+    }
+
+    #slide-3 .reform-list li:hover {
+      border-color: var(--blue);
+    }
+
+    #slide-3 .reform-list li .num {
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--blue);
+      background: rgba(59,130,246,0.1);
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    #slide-3 .reform-list li .text {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-mid);
+      line-height: 1.5;
+    }
+
+    #slide-3 .reform-list li .text strong {
+      color: var(--text-dark);
+      font-weight: 600;
+    }
+
+    #slide-3 .bottom-quote {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-style: italic;
+      color: var(--text-muted);
+      border-left: 3px solid var(--blue);
+      padding-left: 16px;
+      line-height: 1.6;
+    }
+
+    /* =========================================
+       SLIDE 4 — CURRENT VS FUTURE STATE
+    ========================================= */
+    #slide-4 {
+      background: var(--light-bg);
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    #slide-4 .slide-inner {
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    #slide-4 h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(24px, 3vw, 40px);
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -0.02em;
+      margin-bottom: 36px;
+    }
+
+    #slide-4 .comparison-table {
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--light-mid);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+      margin-bottom: 32px;
+    }
+
+    #slide-4 .table-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    #slide-4 .col-head {
+      padding: 18px 28px;
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    #slide-4 .col-head.current {
+      background: rgba(239,68,68,0.1);
+      color: var(--red);
+      border-bottom: 2px solid var(--red);
+    }
+
+    #slide-4 .col-head.future {
+      background: rgba(16,185,129,0.1);
+      color: var(--green);
+      border-bottom: 2px solid var(--green);
+      border-left: 1px solid var(--light-mid);
+    }
+
+    #slide-4 .table-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--white);
+      transition: background 0.15s ease;
+    }
+
+    #slide-4 .table-row:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    #slide-4 .table-row:hover {
+      background: rgba(59,130,246,0.04);
+    }
+
+    #slide-4 .cell {
+      padding: 14px 28px;
+      font-family: var(--font-body);
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--text-mid);
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #slide-4 .cell.current-cell {
+      border-bottom: 1px solid var(--light-mid);
+    }
+
+    #slide-4 .cell.future-cell {
+      border-bottom: 1px solid var(--light-mid);
+      border-left: 1px solid var(--light-mid);
+      color: var(--text-dark);
+      font-weight: 600;
+    }
+
+    #slide-4 .cell .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    #slide-4 .cell.current-cell .dot { background: var(--red); }
+    #slide-4 .cell.future-cell .dot { background: var(--green); }
+
+    #slide-4 .cta-bar {
+      background: var(--dark);
+      border-radius: 14px;
+      padding: 22px 32px;
+      text-align: center;
+    }
+
+    #slide-4 .cta-bar p {
+      font-family: var(--font-heading);
+      font-size: clamp(16px, 2vw, 22px);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.01em;
+    }
+
+    #slide-4 .cta-bar p span {
+      color: var(--blue-light);
+    }
+
+    /* =========================================
+       SLIDE 5 — WHY WARDELL / KLARIFY
+    ========================================= */
+    #slide-5 {
+      background: var(--light-bg);
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    #slide-5 .slide-inner {
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    #slide-5 h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(24px, 3vw, 40px);
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -0.02em;
+      margin-bottom: 36px;
+    }
+
+    #slide-5 .strength-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .strength-card {
+      background: var(--white);
+      border: 1px solid var(--light-mid);
+      border-radius: 16px;
+      padding: 28px 28px 24px 28px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .strength-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+      border-color: var(--blue);
+    }
+
+    .strength-card .icon {
+      font-size: 28px;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .strength-card .card-title {
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .strength-card .card-desc {
+      font-family: var(--font-body);
+      font-size: 13.5px;
+      font-weight: 400;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .strength-card .card-desc strong {
+      color: var(--text-mid);
+      font-weight: 600;
+    }
+
+    #slide-5 .green-highlight {
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.3);
+      border-radius: 12px;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    #slide-5 .green-highlight .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+    }
+
+    #slide-5 .green-highlight p {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: -0.01em;
+    }
+
+    /* =========================================
+       SLIDE 6 — THE REAL OPPORTUNITY
+    ========================================= */
+    #slide-6 {
+      background: var(--light-bg);
+      padding: 64px 0 100px 0;
+      flex-direction: row;
+      align-items: stretch;
+      justify-content: flex-start;
+    }
+
+    #slide-6 .left-col {
+      width: 48%;
+      padding: 64px 56px 64px 72px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    #slide-6 .right-col {
+      flex: 1;
+      padding: 64px 72px 64px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-left: 1px solid var(--light-mid);
+    }
+
+    #slide-6 h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(22px, 2.8vw, 36px);
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    #slide-6 .col-tag {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    #slide-6 .deliver-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #slide-6 .deliver-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-mid);
+      line-height: 1.5;
+    }
+
+    #slide-6 .deliver-list li .num {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--white);
+      background: var(--blue);
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    #slide-6 .why-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .why-card {
+      background: var(--white);
+      border: 1px solid var(--light-mid);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      transition: border-color 0.2s ease;
+    }
+
+    .why-card:hover {
+      border-color: var(--blue);
+    }
+
+    .why-card .icon {
+      font-size: 22px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .why-card .content .why-title {
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+
+    .why-card .content .why-desc {
+      font-family: var(--font-body);
+      font-size: 12.5px;
+      font-weight: 400;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    #slide-6 .amber-box {
+      background: rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      color: #92400e;
+      line-height: 1.55;
+    }
+
+    #slide-6 .amber-box strong {
+      font-weight: 700;
+    }
+
+    /* =========================================
+       SLIDE 7 — PROPOSED NEXT STEP
+    ========================================= */
+    #slide-7 {
+      background: var(--dark);
+      justify-content: center;
+      align-items: flex-start;
+      overflow: hidden;
+    }
+
+    #slide-7 .geo-bg {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse 70% 70% at 85% 20%, rgba(16,185,129,0.1) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 10% 80%, rgba(59,130,246,0.1) 0%, transparent 60%),
+        linear-gradient(135deg, #1e293b 0%, #0f1a28 100%);
+      z-index: 0;
+    }
+
+    #slide-7 .geo-grid {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: 0;
+    }
+
+    #slide-7 .slide-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    #slide-7 .section-label {
+      color: var(--green-light);
+    }
+
+    #slide-7 .section-label::before {
+      background: var(--green-light);
+    }
+
+    #slide-7 h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(24px, 3vw, 40px);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    #slide-7 .big-ask {
+      font-family: var(--font-heading);
+      font-size: clamp(20px, 2.8vw, 36px);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 48px;
+      line-height: 1.3;
+    }
+
+    #slide-7 .big-ask span {
+      color: var(--green-light);
+    }
+
+    #slide-7 .timeline {
+      display: flex;
+      gap: 0;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    #slide-7 .timeline::before {
+      content: '';
+      position: absolute;
+      top: 22px;
+      left: 22px;
+      right: 22px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--green));
+      z-index: 0;
+    }
+
+    #slide-7 .timeline-step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    #slide-7 .step-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--dark);
+      border: 2px solid var(--blue);
+      color: var(--white);
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    #slide-7 .timeline-step:last-child .step-num {
+      border-color: var(--green);
+    }
+
+    #slide-7 .timeline-step:nth-child(3) .step-num {
+      border-color: rgba(59,130,246,0.7);
+    }
+
+    #slide-7 .step-text {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.5;
+      max-width: 160px;
+    }
+
+    #slide-7 .bottom-note {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.35);
+      font-style: italic;
+      line-height: 1.7;
+      margin-bottom: 12px;
+      max-width: 700px;
+    }
+
+    #slide-7 .presenter-line {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.04em;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 20px;
+      margin-top: 8px;
+    }
+
+    /* Slide 7 — simple steps (replaces old timeline) */
+    #slide-7 .simple-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin: 28px 0 24px 0;
+      max-width: 860px;
+    }
+
+    #slide-7 .simple-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 12px;
+      padding: 18px 22px;
+    }
+
+    #slide-7 .simple-step .step-num {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    #slide-7 .step-body {
+      flex: 1;
+    }
+
+    #slide-7 .step-title {
+      font-family: var(--font-heading);
+      font-size: clamp(13px, 1.3vw, 16px);
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 5px;
+      letter-spacing: -0.01em;
+    }
+
+    #slide-7 .step-detail {
+      font-family: var(--font-body);
+      font-size: clamp(11px, 1.1vw, 13px);
+      font-weight: 400;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.65;
+    }
+
+    /* =========================================
+       SLIDE 8 — SOURCES
+    ========================================= */
+    #slide-8 {
+      background: var(--light-bg);
+      justify-content: center;
+      align-items: flex-start;
+      padding: 48px 72px 90px 72px;
+    }
+
+    #slide-8 .slide-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    #slide-8 .section-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #slide-8 .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 2px;
+      background: var(--blue);
+      border-radius: 2px;
+    }
+
+    .sources-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 8px;
+    }
+
+    .source-card {
+      display: block;
+      text-decoration: none;
+      background: #ffffff;
+      border: 1px solid var(--light-mid);
+      border-radius: 12px;
+      padding: 16px 18px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.18s ease;
+    }
+
+    .source-card:hover {
+      border-color: var(--blue);
+      box-shadow: 0 4px 20px rgba(59,130,246,0.12);
+      transform: translateY(-2px);
+    }
+
+    .source-tag {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--blue-dark);
+      background: rgba(59,130,246,0.08);
+      border-radius: 6px;
+      padding: 3px 8px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .source-title {
+      font-family: var(--font-heading);
+      font-size: clamp(12px, 1.1vw, 14px);
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.35;
+      margin-bottom: 4px;
+    }
+
+    .source-pub {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .source-desc {
+      font-family: var(--font-body);
+      font-size: clamp(10px, 0.9vw, 12px);
+      font-weight: 400;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    /* =========================================
+       PRINT STYLES
+    ========================================= */
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 0;
+      }
+
+      html, body {
+        width: 297mm;
+        height: 210mm;
+        overflow: visible;
+        background: white;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      #progress-bar-track,
+      #nav-container,
+      #slide-counter {
+        display: none !important;
+      }
+
+      #deck {
+        position: static;
+        width: 297mm;
+        height: auto;
+        overflow: visible;
+        display: block;
+      }
+
+      .slide {
+        position: relative !important;
+        opacity: 1 !important;
+        transform: none !important;
+        pointer-events: all !important;
+        display: flex !important;
+        width: 297mm;
+        height: 210mm;
+        overflow: hidden;
+        page-break-after: always;
+        break-after: page;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .slide:last-of-type {
+        page-break-after: auto;
+        break-after: auto;
+      }
+
+      #slide-3,
+      #slide-6 {
+        flex-direction: row !important;
+      }
+    }
+
+    /* =========================================
+       RESPONSIVE
+    ========================================= */
+    @media (max-width: 768px) {
+      .slide {
+        padding: 48px 28px 80px 28px;
+      }
+
+      #nav-container {
+        padding: 0 24px;
+      }
+
+      .slide-tag {
+        right: 28px;
+      }
+
+      #slide-3 {
+        flex-direction: column;
+        padding: 0 0 80px 0;
+      }
+
+      #slide-3 .left-panel {
+        width: 100%;
+        padding: 40px 28px;
+        min-height: 180px;
+        justify-content: flex-end;
+      }
+
+      #slide-3 .right-panel {
+        padding: 32px 28px;
+      }
+
+      #slide-6 {
+        flex-direction: column;
+        padding: 0 0 80px 0;
+        overflow-y: auto;
+      }
+
+      #slide-6 .left-col,
+      #slide-6 .right-col {
+        width: 100%;
+        padding: 32px 28px;
+      }
+
+      #slide-6 .right-col {
+        border-left: none;
+        border-top: 1px solid var(--light-mid);
+      }
+
+      #slide-5 .strength-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #slide-7 .timeline {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      #slide-7 .timeline::before {
+        display: none;
+      }
+
+      #slide-7 .timeline-step {
+        flex-direction: row;
+        align-items: flex-start;
+        text-align: left;
+      }
+
+      #slide-7 .step-text {
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div id="progress-bar-track">
+  <div id="progress-bar-fill"></div>
+</div>
+
+<!-- DECK -->
+<div id="deck">
+
+  <!-- ==================== SLIDE 1 ==================== -->
+  <div class="slide active" id="slide-1" data-slide="1">
+    <div class="geo-bg"></div>
+    <div class="geo-grid"></div>
+    <div class="slide-tag">01 / 08</div>
+    <div class="slide-inner">
+      <p class="top-tag">Strategic Opportunity — May 2026</p>
+      <h1>Nepal Government<br /><span>Restructuring</span></h1>
+      <p class="sub">A BPM Partnership Opportunity</p>
+      <div class="pills">
+        <span class="pill">🇳🇵 Nepal</span>
+        <span class="pill">🌐 Public Sector BPM</span>
+      </div>
+      <p class="presenter"><strong>Presented by Atul Chauhan</strong> &nbsp;·&nbsp; Wardell / Klarify</p>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 2 ==================== -->
+  <div class="slide" id="slide-2" data-slide="2">
+    <div class="slide-tag dark-tag">02 / 08</div>
+    <div class="slide-inner">
+      <p class="section-label">The Opportunity</p>
+
+      <!-- Political context strip -->
+      <div style="background:#f1f5f9; border-left:4px solid var(--blue); border-radius:0 6px 6px 0; padding:10px 16px; margin-bottom:24px; max-width:900px;">
+        <p style="font-size:12.5px; color:#334155; line-height:1.6; margin:0;"><strong style="color:#1e293b;">What triggered this:</strong> Nepal's coalition government collapsed in late 2025. The incoming Prime Minister's first act was a 100-point governance roadmap — built around one core idea: fix how government works, assign clear ownership to every process, and eliminate the approval layers that have paralysed public services for decades. That is Business Process Re-engineering by another name.</p>
+      </div>
+
+      <p class="big-quote">
+        "Nepal has formally adopted <span>Business Process Re-engineering</span> to simplify and restructure public administration. Every ministry must now define its processes, name responsible officials, and report on performance indicators. The mandate is real — but no specialist BPM partner is guiding the implementation."
+      </p>
+      <p style="font-size:11px; color:var(--text-muted); margin-top:-20px; margin-bottom:20px; padding-left:28px;">Source: Nepal Government 100-Point Governance Roadmap — Kathmandu Post, March 2026</p>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-number">100-Point</div>
+          <div class="stat-label">Governance Roadmap — the new PM's first policy act.<br /><span style="font-size:10px; opacity:0.75;">Kathmandu Post, March 2026</span></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">17</div>
+          <div class="stat-label">Ministries restructured within 30 days.<br /><span style="font-size:10px; opacity:0.75;">Down from 22 — mandated in the roadmap</span></div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-accent">BPR</span>
+          <div class="stat-label">Named as the official reform method.<br /><span style="font-size:10px; opacity:0.75;">"Process re-engineering" — Federal Civil Service Act 2026</span></div>
+        </div>
+      </div>
+
+      <!-- Urgency bar — fixed for light background -->
+      <div style="margin-top:20px; background:#fef2f2; border:1px solid #fca5a5; border-radius:10px; padding:14px 20px; display:flex; align-items:center; gap:14px;">
+        <span style="font-size:22px;">⏱️</span>
+        <div>
+          <p style="font-family:var(--font-heading); font-size:13px; font-weight:700; color:#dc2626; letter-spacing:0.04em; margin-bottom:3px;">THE WINDOW IS 12–18 MONTHS</p>
+          <p style="font-size:13px; color:#1e293b; line-height:1.5;">Another firm fills this gap, or Nepal's reform momentum stalls — it has before. <strong style="color:#991b1b;">The BPR work has to happen.</strong> It is constitutionally mandated and funding is already allocated. The only question is who guides it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 3 ==================== -->
+  <div class="slide" id="slide-3" data-slide="3">
+    <div class="slide-tag">03 / 08</div>
+    <div class="left-panel">
+      <h2>What's Happening<br />in Nepal<br />Right Now</h2>
+      <div class="date-badge">
+        <div class="month">March 2026</div>
+        <div class="event">100-Point Governance<br />Roadmap Released</div>
+      </div>
+    </div>
+    <div class="right-panel">
+      <p class="section-label">Key Reforms Underway</p>
+      <ul class="reform-list">
+        <li>
+          <span class="num">1</span>
+          <span class="text"><strong>Ministries reduced to 17 within 30 days</strong> — to tackle administrative inefficiency from an "excessively large number of ministries." A Transition Roadmap will be prepared covering personnel, budget, and operational continuity. <a href="https://kathmandupost.com/national/2026/03/29/government-unveils-ambitious-100-point-roadmap-for-effective-governance" target="_blank" style="font-size:10px; color:var(--blue-light); display:block; margin-top:2px;">↗ Kathmandu Post, March 2026</a></span>
+        </li>
+        <li>
+          <span class="num">2</span>
+          <span class="text"><strong>Multi-level approvals capped at 3 layers</strong> — unnecessary processes scrapped, delays eliminated. Standards and monitoring mechanisms to be prepared or revised within 30 days. <a href="https://kathmandupost.com/national/2026/03/29/government-unveils-ambitious-100-point-roadmap-for-effective-governance" target="_blank" style="font-size:10px; color:var(--blue-light); display:block; margin-top:2px;">↗ Kathmandu Post, March 2026</a></span>
+        </li>
+        <li>
+          <span class="num">3</span>
+          <span class="text"><strong>BPR formally named as the implementation method</strong> — "Through Business Process Re-engineering (BPR), the overall service delivery mechanism will be simplified, made faster and more results-oriented." Each ministry must produce work plans specifying <strong>key tasks, timelines, responsible officials, and performance indicators.</strong> <a href="https://kathmandupost.com/national/2026/03/29/government-unveils-ambitious-100-point-roadmap-for-effective-governance" target="_blank" style="font-size:10px; color:var(--blue-light); display:block; margin-top:2px;">↗ Kathmandu Post, March 2026</a></span>
+        </li>
+        <li>
+          <span class="num">4</span>
+          <span class="text"><strong>"Restructuring and Management Secretariat" established</strong> directly under the Prime Minister's Office to oversee and coordinate the entire restructuring process across all ministries. <a href="https://kathmandupost.com/national/2026/03/29/government-unveils-ambitious-100-point-roadmap-for-effective-governance" target="_blank" style="font-size:10px; color:var(--blue-light); display:block; margin-top:2px;">↗ Kathmandu Post, March 2026</a></span>
+        </li>
+      </ul>
+      <p class="bottom-quote"><a href="https://kathmandupost.com/columns/2026/04/20/new-leaders-alone-cannot-change-nepal-a-new-system-can" target="_blank" style="color:inherit; text-decoration:none;">"New leaders alone cannot change Nepal. A new system can." — Kathmandu Post, April 2026 ↗</a></p>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 4 ==================== -->
+  <div class="slide" id="slide-4" data-slide="4">
+    <div class="slide-tag dark-tag">04 / 08</div>
+    <div class="slide-inner">
+      <h2>The Gap = Our Expertise</h2>
+      <div class="comparison-table">
+        <div class="table-header">
+          <div class="col-head current">Current State 🔴</div>
+          <div class="col-head future">Future State 🟢</div>
+        </div>
+        <div class="table-row">
+          <div class="cell current-cell"><span class="dot"></span>Redundant multi-layer approvals at every level</div>
+          <div class="cell future-cell"><span class="dot"></span>Max 3-layer approval process by law</div>
+        </div>
+        <div class="table-row">
+          <div class="cell current-cell"><span class="dot"></span>Unclear roles and responsibilities across ministries</div>
+          <div class="cell future-cell"><span class="dot"></span>Roles defined by legislation + measurable KPIs</div>
+        </div>
+        <div class="table-row">
+          <div class="cell current-cell"><span class="dot"></span>Siloed ministries with significant duplication</div>
+          <div class="cell future-cell"><span class="dot"></span>17 streamlined, purpose-built ministries</div>
+        </div>
+        <div class="table-row">
+          <div class="cell current-cell"><span class="dot"></span>Paper-based, manual service delivery</div>
+          <div class="cell future-cell"><span class="dot"></span>Fully digital "faceless" public services</div>
+        </div>
+        <div class="table-row">
+          <div class="cell current-cell"><span class="dot"></span>No standard process documentation</div>
+          <div class="cell future-cell"><span class="dot"></span>BPR-based process standards across departments</div>
+        </div>
+        <div class="table-row">
+          <div class="cell current-cell" style="border-bottom:none;"><span class="dot"></span>No performance culture in civil service</div>
+          <div class="cell future-cell" style="border-bottom:none;"><span class="dot"></span>Merit-based civil service evaluation framework</div>
+        </div>
+      </div>
+      <div class="cta-bar">
+        <p>This gap is exactly what <span>Wardell</span> does.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 5 ==================== -->
+  <div class="slide" id="slide-5" data-slide="5">
+    <div class="slide-tag dark-tag">05 / 08</div>
+    <div class="slide-inner">
+      <p class="section-label" style="margin-bottom:16px;">Our Strengths</p>
+      <h2>Why Us?</h2>
+      <div class="strength-grid">
+        <div class="strength-card">
+          <span class="icon">🗺️</span>
+          <div class="card-title">BPM Methodology</div>
+          <div class="card-desc">We speak BPR. Nepal named it. <strong>We already have the language</strong> — and the tools to back it up.</div>
+        </div>
+        <div class="strength-card">
+          <span class="icon">📋</span>
+          <div class="card-title">Process Documentation</div>
+          <div class="card-desc">Mapping 17 ministries' as-is and to-be processes is <strong>our core work</strong>. This is not a stretch.</div>
+        </div>
+        <div class="strength-card">
+          <span class="icon">🏭</span>
+          <div class="card-title">SME + Operational Experience</div>
+          <div class="card-desc">Government departments run like 50–200 person operations. <strong>We know this space</strong> deeply.</div>
+        </div>
+        <div class="strength-card">
+          <span class="icon">🌍</span>
+          <div class="card-title">Neutral International Perspective</div>
+          <div class="card-desc">No local political bias. <strong>International credibility</strong> adds trust in sensitive public-sector reform.</div>
+        </div>
+      </div>
+      <div class="green-highlight">
+        <div class="dot"></div>
+        <p>This is not a stretch — it's a natural extension of what we already do.</p>
+      </div>
+      <div style="margin-top:16px; background:#eff6ff; border:1px solid #93c5fd; border-radius:8px; padding:12px 16px; display:flex; gap:12px; align-items:flex-start;">
+        <span style="font-size:18px; flex-shrink:0;">🛤️</span>
+        <div>
+          <p style="font-family:var(--font-heading); font-size:11px; font-weight:700; color:#1d4ed8; letter-spacing:0.05em; margin-bottom:4px;">PROVEN PATH — NOT A SPECULATIVE IDEA</p>
+          <p style="font-size:12.5px; color:#1e293b; line-height:1.55;">International consulting firms regularly enter government BPR engagements through World Bank and ADB development programmes. This is a well-established route — Wardell would not be the first, and that's a strength, not a weakness.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 6 ==================== -->
+  <div class="slide" id="slide-6" data-slide="6">
+    <div class="slide-tag dark-tag">06 / 08</div>
+    <div class="left-col">
+      <p class="col-tag">What We Could Deliver</p>
+      <h2>Beyond the Diagram</h2>
+      <ul class="deliver-list">
+        <li>
+          <span class="num">1</span>
+          Process mapping for 2–3 pilot ministries
+        </li>
+        <li>
+          <span class="num">2</span>
+          As-Is / To-Be analysis workshops with ministry teams
+        </li>
+        <li>
+          <span class="num">3</span>
+          BPR facilitation and design sprints
+        </li>
+        <li>
+          <span class="num">4</span>
+          Standard operating procedures and documentation
+        </li>
+        <li>
+          <span class="num">5</span>
+          Civil servant process training programmes
+        </li>
+      </ul>
+    </div>
+    <div class="right-col">
+      <p class="col-tag">Why This Matters Beyond Revenue</p>
+      <div class="why-cards">
+        <div class="why-card">
+          <span class="icon">💼</span>
+          <div class="content">
+            <div class="why-title">Brand</div>
+            <div class="why-desc">Wardell as BPM partner for a national government reform programme</div>
+          </div>
+        </div>
+        <div class="why-card">
+          <span class="icon">📖</span>
+          <div class="content">
+            <div class="why-title">Case Study</div>
+            <div class="why-desc">Public sector transformation adds depth to our portfolio and credentials</div>
+          </div>
+        </div>
+        <div class="why-card">
+          <span class="icon">🤝</span>
+          <div class="content">
+            <div class="why-title">Long-term</div>
+            <div class="why-desc">Government projects typically become multi-year engagements</div>
+          </div>
+        </div>
+      </div>
+      <div class="amber-box">
+        💰 <strong>Funding already exists</strong> — World Bank, ADB, and UNDP are actively funding Nepal governance reform right now.
+      </div>
+      <div style="margin-top:12px; background:#f0fdf4; border:1px solid #86efac; border-radius:8px; padding:12px 16px;">
+        <p style="font-family:var(--font-heading); font-size:11px; font-weight:700; color:#15803d; letter-spacing:0.05em; margin-bottom:5px;">WHY THIS TIME IS DIFFERENT</p>
+        <p style="font-size:12.5px; color:#1e293b; line-height:1.6;">Nepal's reform history is full of good intentions that stalled. Three things make 2026 different: <strong style="color:#14532d;">federal restructuring is constitutionally mandated</strong> (not optional), <strong style="color:#14532d;">digital infrastructure investment is live</strong> (Nagarik App has created public expectation of change), and <strong style="color:#14532d;">development funding is allocated and sitting</strong> — World Bank's Nepal portfolio is active. The reform has to happen. Politically, it cannot be reversed.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 7 ==================== -->
+  <div class="slide" id="slide-7" data-slide="7">
+    <div class="geo-bg"></div>
+    <div class="geo-grid"></div>
+    <div class="slide-tag">07 / 08</div>
+    <div class="slide-inner">
+      <p class="section-label">Action Plan</p>
+      <h2>How We Move Forward</h2>
+      <p class="big-ask">A <span>phased approach</span> — research first, then reach out</p>
+
+      <div class="simple-steps">
+
+        <div class="simple-step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Research the opportunity and define the strategy</div>
+            <div class="step-detail">Before any outreach, we need to understand the landscape properly. This means: identifying active World Bank, ADB, and UNDP programmes in Nepal's governance space, understanding current tender cycles and procurement windows, mapping the key decision-makers inside Nepal's Restructuring Secretariat, and pinpointing exactly where Wardell can credibly step in. This research shapes everything else and avoids wasted outreach.</div>
+          </div>
+        </div>
+
+        <div class="simple-step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Approach through international development organisations — not Nepal's government directly</div>
+            <div class="step-detail">Direct cold outreach to a foreign government might not work — it is relationship-driven and slow. The more reliable entry point is through World Bank, ADB, or UNDP, who are already funding Nepal's reform and actively seeking delivery partners. <strong>How it works:</strong> the funding body runs a tender → Wardell responds as an implementing organisation → the funding body manages the government relationship. We never need a cold government introduction.</div>
+          </div>
+        </div>
+
+        <div class="simple-step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Request a meeting or presentation opportunity</div>
+            <div class="step-detail">Once we have identified the right contact — through a development organisation or an alternate route — the goal is a meeting or short presentation: who Wardell is, what we can deliver, and why now. Not a formal proposal yet. Just an initial conversation to gauge interest, understand the procurement path, and position ourselves before a tender opens.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="bottom-note">No contracts, no travel, no commitment at this stage — just a green light to research and identify the right door to knock on.</p>
+      <p class="presenter-line">Atul Chauhan &nbsp;·&nbsp; May 2026</p>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 8 ==================== -->
+  <div class="slide" id="slide-8" data-slide="8">
+    <div class="slide-tag dark-tag">08 / 08</div>
+    <div class="slide-inner" style="width:100%;max-width:1100px;">
+      <p class="section-label" style="color:var(--blue);">Further Reading</p>
+      <h2 style="font-family:var(--font-heading);font-size:clamp(22px,2.8vw,38px);font-weight:800;color:var(--dark);margin-bottom:8px;letter-spacing:-0.02em;">Read the Source Material</h2>
+      <p style="color:var(--text-muted);font-size:14px;margin-bottom:32px;">All links below are public, authentic sources. Click to open in browser.</p>
+
+      <div class="sources-grid">
+
+        <a href="https://kathmandupost.com/national/2026/03/29/government-unveils-ambitious-100-point-roadmap-for-effective-governance" target="_blank" class="source-card">
+          <div class="source-tag">⭐ Most Important</div>
+          <div class="source-title">Nepal's 100-Point Governance Roadmap</div>
+          <div class="source-pub">The Kathmandu Post · March 2026</div>
+          <div class="source-desc">The official announcement of Nepal's reform agenda. This is where BPR is explicitly mentioned. Start here.</div>
+        </a>
+
+        <a href="https://kathmandupost.com/columns/2026/04/20/new-leaders-alone-cannot-change-nepal-a-new-system-can" target="_blank" class="source-card">
+          <div class="source-tag">💡 Key Insight</div>
+          <div class="source-title">"New Leaders Alone Cannot Change Nepal. A New System Can."</div>
+          <div class="source-pub">The Kathmandu Post · April 2026</div>
+          <div class="source-desc">Opinion piece that perfectly frames why process reform — not just political change — is the real need. Great context for the pitch.</div>
+        </a>
+
+        <a href="https://english.nepalnews.com/s/politics/nepals-push-for-reform-explaining-the-national-commitment/" target="_blank" class="source-card">
+          <div class="source-tag">📋 Background</div>
+          <div class="source-title">Nepal's Push for Reform — The National Commitment Explained</div>
+          <div class="source-pub">Nepal News</div>
+          <div class="source-desc">Explains the political momentum behind the reform. Good background reading on who is driving it and why it's happening now.</div>
+        </a>
+
+        <a href="https://govinsider.asia/intl-en/article/nepals-public-service-needs-a-significant-digital-transformation" target="_blank" class="source-card">
+          <div class="source-tag">💻 Digital Angle</div>
+          <div class="source-title">Nepal's Public Service Needs a Significant Digital Transformation</div>
+          <div class="source-pub">GovInsider Asia</div>
+          <div class="source-desc">International perspective on Nepal's digital gaps. Useful for framing the scale of the opportunity and the current state of service delivery.</div>
+        </a>
+
+        <a href="https://www.undp.org/nepal/stories/one-stop-service-reform-must-walk-talk" target="_blank" class="source-card">
+          <div class="source-tag">🌐 UNDP</div>
+          <div class="source-title">One-Stop Service Reform: Must Walk the Talk</div>
+          <div class="source-pub">UNDP Nepal</div>
+          <div class="source-desc">UNDP is already active in Nepal's service delivery reform. This confirms there is international development funding and interest — our most realistic entry point.</div>
+        </a>
+
+        <a href="https://english.nepalnews.com/s/business/government-unveils-policies-and-programs-for-fiscal-year-2025-26-with-full-text/" target="_blank" class="source-card">
+          <div class="source-tag">📄 Full Text</div>
+          <div class="source-title">Nepal Government FY 2025–26 Policies and Programs (Full Text)</div>
+          <div class="source-pub">Nepal News</div>
+          <div class="source-desc">The government's full published policy document for this fiscal year. Includes digitalization priorities, civil service reform, and the Nagarik App push.</div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+</div><!-- end #deck -->
+
+<!-- NAVIGATION -->
+<div id="nav-container">
+  <button class="nav-btn disabled" id="btn-prev" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+  </button>
+  <div id="slide-counter">1 / 8</div>
+  <button class="nav-btn" id="btn-next" aria-label="Next slide">
+    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+  </button>
+</div>
+
+<script>
+  (function () {
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const totalSlides = slides.length;
+    const btnPrev = document.getElementById('btn-prev');
+    const btnNext = document.getElementById('btn-next');
+    const counter = document.getElementById('slide-counter');
+    const progressFill = document.getElementById('progress-bar-fill');
+
+    let current = 0;
+    let isAnimating = false;
+
+    function goTo(index) {
+      if (isAnimating) return;
+      if (index < 0 || index >= totalSlides) return;
+      if (index === current) return;
+
+      isAnimating = true;
+
+      const direction = index > current ? 'forward' : 'backward';
+      const currentSlide = slides[current];
+      const nextSlide = slides[index];
+
+      // Prepare next slide offscreen
+      if (direction === 'forward') {
+        nextSlide.style.transform = 'translateX(60px)';
+      } else {
+        nextSlide.style.transform = 'translateX(-60px)';
+        currentSlide.classList.add('exit-left');
+      }
+
+      nextSlide.style.opacity = '0';
+
+      // Force reflow
+      void nextSlide.offsetHeight;
+
+      // Animate out current
+      if (direction === 'forward') {
+        currentSlide.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+        currentSlide.style.opacity = '0';
+        currentSlide.style.transform = 'translateX(-60px)';
+      } else {
+        currentSlide.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+        currentSlide.style.opacity = '0';
+        currentSlide.style.transform = 'translateX(60px)';
+      }
+
+      // Animate in next
+      nextSlide.style.transition = 'opacity 0.35s ease 0.06s, transform 0.35s ease 0.06s';
+      nextSlide.style.opacity = '1';
+      nextSlide.style.transform = 'translateX(0)';
+
+      current = index;
+      updateUI();
+
+      setTimeout(function () {
+        // Clean up old slide
+        slides.forEach(function (s, i) {
+          if (i !== current) {
+            s.style.transition = '';
+            s.style.opacity = '0';
+            s.style.transform = '';
+            s.classList.remove('active', 'exit-left');
+          }
+        });
+        slides[current].classList.add('active');
+        slides[current].style.transition = '';
+        slides[current].style.opacity = '';
+        slides[current].style.transform = '';
+        isAnimating = false;
+      }, 420);
+    }
+
+    function updateUI() {
+      counter.textContent = (current + 1) + ' / ' + totalSlides;
+      progressFill.style.width = ((current + 1) / totalSlides * 100) + '%';
+
+      if (current === 0) {
+        btnPrev.classList.add('disabled');
+      } else {
+        btnPrev.classList.remove('disabled');
+      }
+
+      if (current === totalSlides - 1) {
+        btnNext.classList.add('disabled');
+      } else {
+        btnNext.classList.remove('disabled');
+      }
+
+      // Buttons always use same dark-background style — visible on any slide
+    }
+
+    btnPrev.addEventListener('click', function () {
+      goTo(current - 1);
+    });
+
+    btnNext.addEventListener('click', function () {
+      goTo(current + 1);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        goTo(current + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        goTo(current - 1);
+      }
+    });
+
+    // Touch/swipe support
+    var touchStartX = 0;
+    var touchStartY = 0;
+
+    document.addEventListener('touchstart', function (e) {
+      touchStartX = e.changedTouches[0].clientX;
+      touchStartY = e.changedTouches[0].clientY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function (e) {
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      var dy = e.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+        if (dx < 0) {
+          goTo(current + 1);
+        } else {
+          goTo(current - 1);
+        }
+      }
+    }, { passive: true });
+
+    // Init
+    updateUI();
+    progressFill.style.width = (1 / totalSlides * 100) + '%';
+  })();
+</script>
+</body>
+</html>
