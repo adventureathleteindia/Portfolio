@@ -1283,7 +1283,7 @@
     }
 
     /* =========================================
-       PRINT STYLES
+       PRINT STYLES — COMPREHENSIVE
     ========================================= */
     @media print {
       @page {
@@ -1314,16 +1314,21 @@
         display: block;
       }
 
+      /* === BASE SLIDE RESET === */
       .slide {
         position: relative !important;
         opacity: 1 !important;
         transform: none !important;
         pointer-events: all !important;
         display: flex !important;
-        width: 297mm;
-        min-height: 210mm;
-        height: auto;
-        overflow: visible;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: flex-start !important;
+        width: 297mm !important;
+        height: 210mm !important;
+        overflow: hidden !important;
+        padding: 28px 48px !important;
+        box-sizing: border-box !important;
         page-break-after: always;
         break-after: page;
         page-break-inside: avoid;
@@ -1337,169 +1342,173 @@
         break-after: auto;
       }
 
-      /* Slide 3 — table layout for reliable two-column print rendering */
+      .slide-tag {
+        top: 12px !important;
+        right: 28px !important;
+        font-size: 9px !important;
+      }
+
+      /* === SLIDE 1 — TITLE === */
+      #slide-1 {
+        padding: 28px 56px !important;
+      }
+      #slide-1 .top-tag { margin-bottom: 14px !important; }
+      #slide-1 h1 { font-size: 36pt !important; margin-bottom: 10px !important; }
+      #slide-1 .sub { font-size: 13pt !important; margin-bottom: 16px !important; }
+      #slide-1 .pills { gap: 8px !important; margin-bottom: 20px !important; }
+      #slide-1 .pill { font-size: 10pt !important; padding: 5px 12px !important; }
+      #slide-1 .presenter { padding-top: 14px !important; font-size: 9pt !important; }
+
+      /* === SLIDE 2 — ONE-LINE OPPORTUNITY === */
+      #slide-2 {
+        padding: 28px 48px !important;
+      }
+      #slide-2 h2 { font-size: 20pt !important; margin-bottom: 10px !important; }
+      #slide-2 .big-quote { padding: 14px 18px !important; margin-bottom: 14px !important; }
+      #slide-2 .urgency-bar { padding: 10px 14px !important; }
+
+      /* === SLIDE 3 — TWO-COLUMN: WHAT'S HAPPENING === */
       #slide-3 {
         display: table !important;
         width: 297mm !important;
+        height: 210mm !important;
         table-layout: fixed !important;
-        min-height: 210mm !important;
+        padding: 0 !important;
+        overflow: hidden !important;
       }
-
       #slide-3 .left-panel {
         display: table-cell !important;
-        width: 95mm !important;
+        width: 92mm !important;
         vertical-align: top !important;
-        padding: 28px 24px !important;
-        overflow: visible !important;
+        padding: 22px 18px !important;
+        overflow: hidden !important;
         position: relative !important;
       }
-
       #slide-3 .right-panel {
         display: table-cell !important;
         vertical-align: top !important;
-        padding: 24px 32px !important;
-        overflow: visible !important;
+        padding: 18px 24px !important;
+        overflow: hidden !important;
       }
-
-      #slide-3 .left-panel h2 {
-        font-size: 20pt !important;
-        margin-bottom: 16px !important;
-      }
-
-      #slide-3 .reform-list {
-        padding-left: 0 !important;
-        margin: 0 !important;
-      }
-
+      #slide-3 .left-panel h2 { font-size: 16pt !important; margin-bottom: 10px !important; }
+      #slide-3 .left-panel .slide-tag { margin-bottom: 12px !important; }
+      #slide-3 .left-panel .date-badge { padding: 10px 14px !important; }
+      #slide-3 .section-label { margin-bottom: 8px !important; font-size: 8.5px !important; }
+      #slide-3 .reform-list { padding-left: 0 !important; margin: 0 !important; }
       #slide-3 .reform-list li {
-        padding: 5px 0 !important;
-        gap: 8px !important;
+        padding: 4px 0 !important;
+        gap: 7px !important;
         display: flex !important;
         align-items: flex-start !important;
       }
-
-      #slide-3 .reform-list li .text {
-        font-size: 8.5pt !important;
-        line-height: 1.35 !important;
-      }
-
+      #slide-3 .reform-list li .text { font-size: 7.5pt !important; line-height: 1.3 !important; }
       #slide-3 .reform-list li .num {
-        width: 22px !important;
-        height: 22px !important;
-        min-width: 22px !important;
-        font-size: 9pt !important;
+        width: 19px !important; height: 19px !important;
+        min-width: 19px !important; font-size: 7.5pt !important;
       }
-
-      #slide-3 .section-label {
-        margin-bottom: 12px !important;
-      }
-
       #slide-3 .bottom-quote {
-        font-size: 9pt !important;
-        margin-top: 10px !important;
-        padding: 8px 12px !important;
+        font-size: 7.5pt !important;
+        margin-top: 8px !important;
+        padding: 7px 10px !important;
       }
 
-      /* Slide 6 — table layout for reliable two-column print rendering */
+      /* === SLIDE 4 — CURRENT VS FUTURE === */
+      #slide-4 { padding: 22px 40px !important; }
+      #slide-4 h2 { font-size: 18pt !important; margin-bottom: 12px !important; }
+      #slide-4 .comparison-table { margin-bottom: 12px !important; }
+      #slide-4 .col-head { padding: 9px 16px !important; font-size: 9pt !important; }
+      #slide-4 .cell { padding: 7px 16px !important; font-size: 8pt !important; gap: 7px !important; }
+      #slide-4 .cta-bar { padding: 10px 22px !important; }
+      #slide-4 .cta-bar p { font-size: 12pt !important; }
+
+      /* === SLIDE 5 — WHY WARDELL === */
+      #slide-5 { padding: 22px 40px !important; }
+      #slide-5 h2 { font-size: 18pt !important; margin-bottom: 14px !important; }
+      #slide-5 .strength-grid { gap: 10px !important; margin-bottom: 12px !important; }
+      .strength-card { padding: 14px 16px !important; border-radius: 10px !important; }
+      .strength-card .icon { font-size: 18px !important; margin-bottom: 8px !important; }
+      .strength-card .card-title { font-size: 9.5pt !important; margin-bottom: 4px !important; }
+      .strength-card .card-desc { font-size: 8pt !important; line-height: 1.4 !important; }
+      #slide-5 .green-highlight { padding: 10px 16px !important; }
+
+      /* === SLIDE 6 — THE OPPORTUNITY (TWO-COLUMN) === */
       #slide-6 {
         display: table !important;
         width: 297mm !important;
+        height: 210mm !important;
         table-layout: fixed !important;
-        min-height: 210mm !important;
         padding: 0 !important;
+        overflow: hidden !important;
       }
-
       #slide-6 .left-col {
         display: table-cell !important;
-        width: 130mm !important;
+        width: 128mm !important;
         vertical-align: top !important;
-        padding: 24px 28px 24px 32px !important;
-        justify-content: flex-start !important;
+        padding: 22px 20px 22px 28px !important;
       }
-
       #slide-6 .right-col {
         display: table-cell !important;
         vertical-align: top !important;
-        padding: 24px 28px !important;
+        padding: 22px 24px !important;
         border-left: 1px solid #e2e8f0 !important;
-        justify-content: flex-start !important;
       }
-
-      #slide-6 h2 {
-        font-size: 20pt !important;
-        margin-bottom: 8px !important;
-      }
-
-      #slide-6 .col-tag {
-        margin-bottom: 12px !important;
-        font-size: 8pt !important;
-      }
-
-      #slide-6 .deliver-list {
-        gap: 6px !important;
-      }
-
-      #slide-6 .deliver-list li {
-        font-size: 9pt !important;
-        gap: 8px !important;
-      }
-
+      #slide-6 h2 { font-size: 18pt !important; margin-bottom: 6px !important; }
+      #slide-6 .col-tag { margin-bottom: 10px !important; font-size: 8pt !important; }
+      #slide-6 .deliver-list { gap: 5px !important; }
+      #slide-6 .deliver-list li { font-size: 8.5pt !important; gap: 7px !important; }
       #slide-6 .deliver-list li .num {
-        width: 20px !important;
-        height: 20px !important;
-        min-width: 20px !important;
-        font-size: 8pt !important;
+        width: 19px !important; height: 19px !important;
+        min-width: 19px !important; font-size: 8pt !important;
       }
-
-      #slide-6 .why-cards {
-        gap: 6px !important;
-        margin-bottom: 8px !important;
+      #slide-6 .why-cards { gap: 5px !important; margin-bottom: 6px !important; }
+      .why-card { padding: 7px 10px !important; gap: 7px !important; border-radius: 7px !important; }
+      .why-card .icon { font-size: 13px !important; }
+      .why-card .content .why-title { font-size: 8.5pt !important; margin-bottom: 1px !important; }
+      .why-card .content .why-desc { font-size: 7.5pt !important; line-height: 1.3 !important; }
+      #slide-6 .amber-box {
+        padding: 7px 10px !important;
+        font-size: 7.5pt !important;
+        line-height: 1.35 !important;
+        border-radius: 7px !important;
+        margin-bottom: 5px !important;
       }
-
-      .why-card {
-        padding: 8px 12px !important;
-        gap: 8px !important;
-        border-radius: 8px !important;
+      #slide-6 .right-col > div[style] {
+        margin-top: 5px !important;
+        padding: 7px 10px !important;
+        border-radius: 6px !important;
       }
-
-      .why-card .icon {
-        font-size: 14px !important;
-      }
-
-      .why-card .content .why-title {
-        font-size: 9pt !important;
+      #slide-6 .right-col > div[style] p {
+        font-size: 7.5pt !important;
+        line-height: 1.3 !important;
         margin-bottom: 2px !important;
       }
 
-      .why-card .content .why-desc {
-        font-size: 8pt !important;
-        line-height: 1.3 !important;
+      /* === SLIDE 7 — HOW WE MOVE FORWARD === */
+      #slide-7 { padding: 22px 40px !important; }
+      #slide-7 .slide-inner { max-width: 100% !important; }
+      #slide-7 h2 { font-size: 18pt !important; margin-bottom: 8px !important; }
+      #slide-7 .big-ask { font-size: 11pt !important; margin-bottom: 12px !important; }
+      #slide-7 .simple-steps {
+        gap: 8px !important;
+        margin: 0 0 12px 0 !important;
+        max-width: 100% !important;
       }
-
-      #slide-6 .amber-box {
-        padding: 8px 12px !important;
-        font-size: 8pt !important;
-        line-height: 1.4 !important;
+      #slide-7 .simple-step {
+        padding: 10px 14px !important;
+        gap: 10px !important;
         border-radius: 8px !important;
-        margin-bottom: 6px !important;
       }
+      #slide-7 .simple-step .step-num {
+        width: 26px !important; height: 26px !important;
+        font-size: 10pt !important;
+      }
+      #slide-7 .step-title { font-size: 9.5pt !important; margin-bottom: 3px !important; }
+      #slide-7 .step-detail { font-size: 7.5pt !important; line-height: 1.4 !important; }
 
-      #slide-6 .right-col > div[style] {
-        margin-top: 6px !important;
-        padding: 8px 12px !important;
-        border-radius: 6px !important;
-      }
-
-      #slide-6 .right-col > div[style] p {
-        font-size: 8pt !important;
-        line-height: 1.35 !important;
-        margin-bottom: 3px !important;
-      }
-
-      /* Slide 6 slide-tag */
-      #slide-6 .slide-tag {
-        display: none !important;
-      }
+      /* === SLIDE 8 — SOURCES === */
+      #slide-8 { padding: 22px 40px !important; }
+      #slide-8 h2 { font-size: 18pt !important; margin-bottom: 10px !important; }
+      .sources-grid { gap: 10px !important; margin-top: 6px !important; }
     }
 
     /* =========================================
